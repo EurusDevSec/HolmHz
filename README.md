@@ -28,4 +28,4 @@ While traditional models focus on the visual domain (RGB), HolmHz investigates t
 - **Interface:** FastAPI, React (Planned)
 
 ---
-*Created by [Your Name] - K22 TDMU*
+*Created by [EurusDevSec] - D22CNTT02 TDMU*
