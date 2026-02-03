@@ -1,155 +1,119 @@
-# 🐍 Python OOP Best Practices cho AI Engineer
+# 🐍 Python OOP: Từ Con Số 0 (Dễ hiểu nhất)
 
-Tài liệu này tổng hợp các kiến thức cốt lõi về Object-Oriented Programming (OOP) trong Python, tập trung vào các pattern thường dùng trong Deep Learning (PyTorch).
-
----
-
-## 1. Class & Type Hinting (Best Practice)
-
-Trong các dự án AI lớn như HolmHz, việc viết code rõ ràng quan trọng hơn viết code ngắn. Luôn sử dụng **Type Hints**.
-
-### ❌ Bad Code
-
-```python
-class ImageLoader:
-    def __init__(self, path):
-        self.path = path
-
-    def load(self):
-        # Không biết trả về gì, path là string hay Path object?
-        pass
-```
-
-### ✅ Good Code (HolmHz Style)
-
-```python
-from pathlib import Path
-from typing import List, Optional, Tuple
-from PIL import Image
-import numpy as np
-
-class ImageLoader:
-    """Quản lý việc load ảnh từ thư mục."""
-
-    def __init__(self, root_dir: str):
-        self.root_dir: Path = Path(root_dir)
-        if not self.root_dir.exists():
-            raise FileNotFoundError(f"Directory not found: {root_dir}")
-
-    def load_image(self, filename: str) -> np.ndarray:
-        """Load ảnh và convert sang numpy array."""
-        file_path = self.root_dir / filename
-        with Image.open(file_path) as img:
-            return np.array(img.convert('RGB'))
-```
+> **Dành cho người mới**: Nếu bạn biết biến (`x = 5`) và hàm (`def func():`), bạn đã sẵn sàng để học cái này.
 
 ---
 
-## 2. Magic Methods (Dunder Methods)
+## 1. Lý thuyết: Class và Object là cái quái gì?
 
-Trong PyTorch, các "Magic Methods" (bắt đầu và kết thúc bằng `__`) cực kỳ quan trọng để custom **Dataset** và **Transforms**.
+Hãy tưởng tượng bạn là một **Kiến trúc sư** thiết kế nhà.
 
-### 2.1. `__len__` và `__getitem__` (Cốt lõi của Dataset)
+1.  **Class (Lớp)**: Chính là **Bản vẽ thiết kế** (Blueprint).
+    - Trên bản vẽ, bạn quy định: Nhà có mấy tầng? Màu sơn là gì? Có bấm chuông được không?
+    - _Lưu ý_: Bản vẽ chỉ là giấy, chưa ở được.
 
-Để Pytorch `DataLoader` hoạt động, object của bạn phải cư xử như một list.
+2.  **Object (Đối tượng)**: Là **Ngôi nhà thật** được xây từ bản vẽ đó.
+    - Từ 1 bản vẽ (Class), bạn có thể xây 100 ngôi nhà (Objects) khác nhau (nhà A màu xanh, nhà B màu đỏ).
+
+### Tại sao AI cần cái này?
+
+Trong AI, chúng ta thiết kế một "bộ não" (Model).
+
+- **Class**: Là thiết kế của bộ não (có bao nhiêu nơ-ron, nối với nhau thế nào).
+- **Object**: Là bộ não cụ thể đang chạy trong máy tính của bạn.
+
+---
+
+## 2. Cú pháp cơ bản (Vừa đọc vừa gõ)
+
+### Bước 1: Tạo bản vẽ (Class)
+
+Chúng ta dùng từ khóa `class` để bắt đầu vẽ. Hàm `__init__` là hàm quan trọng nhất - nó chạy ngay khi "động thổ" xây nhà.
 
 ```python
-class MyDataset:
-    def __init__(self, data: List[str]):
-        self.data = data
+class Robot:
+    # __init__ giống như phiếu điền thông tin khi xuất xưởng
+    # self chính lá "cái robot này" (để phân biệt với robot khác)
+    def __init__(self, ten, mau_sac):
+        self.ten = ten          # Lưu tên vào bộ nhớ robot
+        self.mau_sac = mau_sac  # Lưu màu vào bộ nhớ robot
+        self.pin = 100          # Mặc định pin đầy
 
-    def __len__(self) -> int:
-        """Trả về tổng số sample."""
-        return len(self.data)
+    # Hành động robot có thể làm (Method)
+    def chao(self):
+        print(f"Xin chào, ta là {self.ten}, màu {self.mau_sac}")
 
-    def __getitem__(self, idx: int) -> str:
-        """Lấy 1 sample tại index cụ thể."""
-        return self.data[idx]
-
-# Sử dụng
-ds = MyDataset(["img1.jpg", "img2.jpg", "img3.jpg"])
-print(len(ds))      # Gọi __len__: 3
-print(ds[1])        # Gọi __getitem__: img2.jpg
+    def chay(self):
+        self.pin = self.pin - 10 # Chạy thì tốn pin
+        print(f"{self.ten} đang chạy... Pin còn {self.pin}%")
 ```
 
-### 2.2. `__call__` (Biến object thành function)
-
-Rất phổ biến trong các class **Data Preprocessing/Data Augmentation**.
+### Bước 2: Xây robot (Tạo Object)
 
 ```python
-class AddGaussianNoise:
-    def __init__(self, mean: float = 0., std: float = 1.):
-        self.mean = mean
-        self.std = std
+# Tạo ra 2 robot từ 1 bản vẽ
+robot_1 = Robot("Wall-E", "Vàng")
+robot_2 = Robot("Baymax", "Trắng")
 
-    def __call__(self, img_array: np.ndarray) -> np.ndarray:
-        """Logic chạy khi gọi object()"""
-        noise = np.random.normal(self.mean, self.std, img_array.shape)
-        return img_array + noise
+# Bắt chúng hoạt động
+robot_1.chao()  # In: Xin chào, ta là Wall-E...
+robot_2.chao()  # In: Xin chào, ta là Baymax...
 
-# Sử dụng
-augmentor = AddGaussianNoise(std=0.1)
-# Gọi object như một hàm:
-noisy_img = augmentor(original_img)
-```
-
-### 2.3. `__repr__` (Debug dễ hơn)
-
-Giúp in ra thông tin class dễ đọc khi print.
-
-```python
-class ModelConfig:
-    def __init__(self, lr: float, batch_size: int):
-        self.lr = lr
-        self.batch_size = batch_size
-
-    def __repr__(self) -> str:
-        return f"Config(lr={self.lr}, bs={self.batch_size})"
-
-conf = ModelConfig(0.001, 32)
-print(conf) # Config(lr=0.001, bs=32) thay vì <__main__.ModelConfig object at 0x...>
+robot_1.chay()  # Wall-E chạy, pin giảm còn 90
+print(robot_2.pin) # Baymax chưa chạy, pin vẫn 100
 ```
 
 ---
 
-## 3. Inheritance (Kế thừa)
+## 3. Ứng dụng vào AI (Đơn giản hóa)
 
-Trong Deep Learning, bạn chủ yếu kế thừa từ `torch.nn.Module` (để build model) hoặc `torch.utils.data.Dataset`.
+Trong dự án HolmHz, chúng ta sẽ quản lý dữ liệu ảnh. Thay vì lưu lung tung, ta tạo một Class để quản lý nó.
 
-### Ví dụ: Build một Block trong Model
+### Bước 3: Class quản lý Dataset
 
 ```python
-import torch.nn as nn
+class KhoAnh:
+    def __init__(self, duong_dan_thu_muc):
+        self.thu_muc = duong_dan_thu_muc
+        self.danh_sach_anh = ["anh1.jpg", "anh2.jpg", "anh3.jpg"] # Giả vờ có 3 ảnh
 
-# Base class là nn.Module
-class ConvBlock(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int):
-        # Quan trọng: Luôn gọi super().__init__() đầu tiên
-        super().__init__()
+    # Hàm đặc biệt __len__: Để khi hỏi len(kho_anh) nó trả lời được
+    def __len__(self):
+        return len(self.danh_sach_anh)
 
-        # Composition: Class này chứa các class khác
-        self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1)
-        self.relu = nn.ReLU()
-        self.bn = nn.BatchNorm2d(out_channels)
+    # Hàm đặc biệt __getitem__: Để lấy ảnh theo số thứ tự
+    def __getitem__(self, vi_tri):
+        ten_anh = self.danh_sach_anh[vi_tri]
+        return f"Đang lấy ảnh ở {self.thu_muc}/{ten_anh}"
+```
 
-    def forward(self, x):
-        return self.bn(self.relu(self.conv(x)))
+### Chạy thử đoạn code này:
+
+```python
+# Tạo kho ảnh
+kho_cua_toi = KhoAnh("R:/Data/HolmHz")
+
+# Kiểm tra số lượng
+print(f"Tổng số ảnh: {len(kho_cua_toi)}")
+# Máy hiểu lệnh len() nhờ hàm __len__ ta viết ở trên
+
+# Lấy ảnh thứ 0
+print(kho_cua_toi[0])
+# Máy hiểu ngoặc vuông [] nhờ hàm __getitem__ ta viết ở trên
 ```
 
 ---
 
-## 📝 Hands-on Challenge cho bạn
+## 🎯 Bài tập Hands-on 1 (Làm ngay)
 
-Hãy thử viết một class `HolmHzDataset` trong file script tạm để thực hành:
+Bạn hãy tạo một file `bai_tap_1.py` và viết code sau:
 
-1.  Kế thừa (giả lập) từ `object`.
-2.  Nhận vào list các đường dẫn ảnh.
-3.  Implement `__len__` trả về số lượng ảnh.
-4.  Implement `__getitem__` trả về dict `{"image_path": ..., "label": 0}` (giả sử label luôn là 0).
-5.  Implement `__call__` để khi gọi `dataset()` thì nó in ra "Dataset for Deepfake Detection".
+1.  Tạo một class tên là `ChoNghiepVu` (Chó nghiệp vụ).
+2.  Hàm `__init__` nhận vào `ten` và `khu_vuc_truc` (ví dụ: Cổng A, Nhà kho).
+3.  Thêm thuộc tính `so_lan_sua` mặc định bằng 0.
+4.  Viết hàm `phat_hien_trom()`. Khi gọi hàm này:
+    - In ra "Gâu gâu! Có trộm ở [khu vực trực]!"
+    - Tăng `so_lan_sua` lên 1.
+5.  Tạo ra 1 chú chó tên "Micky", trực ở "Cổng chính". Gọi hàm `phat_hien_trom()` 2 lần rồi in `so_lan_sua` ra xem đúng bằng 2 không.
 
-```python
-# CODE CỦA BẠN Ở ĐÂY:
-class HolmHzDataset:
-    pass
-```
+👉 **Mục tiêu**: Hiểu được `self` dùng để lưu trữ thông tin riêng của từng đối tượng.

@@ -1,25 +1,26 @@
-from pathlib import Path
-from typing import List, Optional, Tuple
-from    PIL import Image
-import numpy as np
+class Robot:
+
+    def __init__(self, ten ,mau_sac):
+
+        self.ten = ten
+        self.mau_sac = mau_sac
+        self.pin = 100
+
+
+    def chao(self):
+        print(f"xin chao, ta la {self.ten}, mau {self.mau_sac}")
+    
+    def chay (self):
+        self.pin = self.pin -10
+        print(f"{self.ten} dang chay... Pin con {self.pin}%")
 
 
 
-class ImageLoader:
-    """Quan Ly load anh tu thu muc"""
+robot1 = Robot("Wall-E", "Vang")
+robot2= Robot("Baymax", "Trang")
 
-    def __init__(self, root_dir: str):
-        self.root_dir: Path = Path(root_dir)
-        if not self.root_dir.exists():
-            raise FileNotFoundError(f"Directory not found: {root_dir}")
-        
+robot1.chao()
+robot2.chao()
 
-    def load_image(self, filename: str) -> np.ndarray:
-        "Load anh va  convert sang numpy array"
-        file_path = self.root_dir /filename
-        with Image.open(file_path) as img:
-            return np.array(img.convert('RGB'))
-        
-
-        
-        
+robot1.chay()
+print(robot2.pin)

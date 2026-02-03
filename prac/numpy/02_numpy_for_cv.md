@@ -1,126 +1,124 @@
-# 🔢 NumPy Best Practices cho Computer Vision
+# 🔢 Hiểu Ảnh Là Các Con Số (NumPy Cơ Bản)
 
-NumPy là nền tảng của xử lý ảnh. Ảnh trong máy tính thực chất chỉ là các ma trận số 3 chiều (Height, Width, Channels).
+> **Tư duy cốt lõi**: Máy tính không có "Mắt", nó không nhìn thấy hình ảnh cô gái hay con mèo. Nó chỉ nhìn thấy một bảng tính Excel khổng lồ chứa đầy các con số.
 
 ---
 
-## 1. Anatomy of an Image (Cấu trúc ảnh)
+## 1. Lý thuyết: Pixel là gì?
 
-Ghi nhớ quy ước shape (kích thước) cực kỳ quan trọng:
+- Một bức ảnh kỹ thuật số là một lưới các ô vuông (Pixel).
+- Mỗi ô vuông chứa một con số thể hiện độ sáng.
+  - **0**: Đen thui (Tắt đèn).
+  - **255**: Trắng tinh (Bật đèn hết cỡ).
+  - Các số ở giữa (ví dụ 100): Xám xám.
 
-- **NumPy / OpenCV / PIL**: `(H, W, C)` -> Height, Width, Channel.
-- **PyTorch**: `(C, H, W)` -> Channel, Height, Width.
-- **PyTorch Batch**: `(B, C, H, W)` -> Batch, Channel, Height, Width.
+### Ảnh màu (RGB) thì sao?
+
+Nó là 3 tấm lưới chồng lên nhau:
+
+- Tấm 1: Chỉ chứa màu **Red** (Đỏ).
+- Tấm 2: Chỉ chứa màu **Green** (Xanh lá).
+- Tấm 3: Chỉ chứa màu **Blue** (Xanh dương).
+
+--> Vì thế trong code bạn sẽ thấy kích thước ảnh là `(Cao, Rộng, 3)`. Số 3 chính là 3 tấm lưới màu này.
+
+---
+
+## 2. Thực hành: Phẫu thuật một bức ảnh
+
+Chúng ta dùng thư viện `numpy` để làm việc với các bảng số này.
+
+### Bước 1: Tạo một bức ảnh giả (Vuông Đen)
 
 ```python
 import numpy as np
+import matplotlib.pyplot as plt # Thư viện để vẽ hình
 
-# Giả lập một ảnh màu 224x224 (RGB)
-# Shape: (Height=224, Width=224, Channels=3)
-img = np.zeros((224, 224, 3), dtype=np.uint8)
+# Tạo một "bức ảnh" đen thui kích thước 10x10
+# zeros nghĩa là toàn số 0 -> Đen
+anh_den = np.zeros((10, 10))
 
-print(f"Chiều cao: {img.shape[0]}")
-print(f"Chiều rộng: {img.shape[1]}")
-print(f"Số kênh màu: {img.shape[2]}")
+print("Dữ liệu ảnh đen:")
+print(anh_den)
+```
+
+### Bước 2: Vẽ hình lên ảnh (Thay đổi số)
+
+Hãy nhớ: **Sửa ảnh = Sửa số**.
+
+```python
+# Copy ra ảnh mới để vẽ
+anh_chu_thap = anh_den.copy()
+
+# Vẽ một đường dọc màu trắng (số 255) ở giữa
+# [:, 4] nghĩa là: Lấy tất cả các hàng tại cột số 4
+anh_chu_thap[:, 4] = 255
+
+# Vẽ một đường ngang màu trắng ở giữa
+# [4, :] nghĩa là: Lấy hàng số 4, tất cả các cột
+anh_chu_thap[4, :] = 255
+
+print("\nDữ liệu sau khi vẽ:")
+print(anh_chu_thap)
+
+# Code để hiển thị ra màn hình (bạn chạy trong Jupyter Notebook mới thấy hình)
+# plt.imshow(anh_chu_thap, cmap='gray')
+# plt.show()
 ```
 
 ---
 
-## 2. Array Operations (Thao tác mảng)
+## 3. Các thao tác "Sửa ảnh" cơ bản
 
-### 2.1. Vectorization (Tránh vòng lặp for!)
+Trong dự án Deepfake, ta sẽ phải xử lý ảnh rất nhiều.
 
-Nhanh gấp trăm lần so với vòng lặp. Luôn thao tác trên toàn bộ array.
+### 3.1. Cắt ảnh (Cropping)
 
-**❌ Bad (Chậm): Làm sáng ảnh bằng Loop**
+Cắt ảnh thực chất là chọn một vùng trong bảng số.
 
 ```python
-def brighten_loop(img, value=10):
-    h, w, c = img.shape
-    new_img = np.zeros_like(img)
-    for i in range(h):
-        for j in range(w):
-            for k in range(c):
-                new_img[i,j,k] = min(img[i,j,k] + value, 255)
-    return new_img
+# Cắt lấy vùng trung tâm từ dòng 3 đến 7, cột 3 đến 7
+vung_trung_tam = anh_chu_thap[3:7, 3:7]
 ```
 
-**✅ Good (Nhanh): Vectorization**
+### 3.2. Làm sáng ảnh (Brightness)
+
+Làm sáng nghĩa là cộng thêm giá trị vào tất cả các pixel.
 
 ```python
-def brighten_vector(img, value=10):
-    # Cộng value vào TẤT CẢ pixel cùng lúc
-    # np.clip để đảm bảo giá trị không vượt quá 255
-    return np.clip(img + value, 0, 255).astype(np.uint8)
+# Cộng thêm 50 đơn vị độ sáng vào toàn bộ ảnh
+anh_sang_hon = anh_chu_thap + 50
+print("Ảnh đã sáng hơn!")
+
+# Lưu ý: Nếu cộng quá 255 nó sẽ bị lỗi hoặc reset về 0.
+# Nhưng ở mức cơ bản ta khoan hãy lo việc đó.
 ```
 
-### 2.2. Broadcasting (Cơ chế lan truyền)
+### 3.3. Lọc ảnh (Thresholding) - Quan trọng!
 
-NumPy tự động "kéo dãn" các mảng nhỏ để khớp với mảng lớn khi tính toán.
-
-**Ví dụ: Normalization (Chuẩn hóa ảnh)**
-Muốn trừ giá trị trung bình (Mean) cho từng kênh màu R, G, B.
-
-- Ảnh: `(224, 224, 3)`
-- Mean: `(3,)` -> `[0.485, 0.456, 0.406]`
+Tìm tất cả điểm ảnh sáng hơn một mức nào đó.
 
 ```python
-# Giả sử ảnh đã được đưa về dạng float 0-1
-img_float = np.random.rand(224, 224, 3).astype(np.float32)
-mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
+# Tìm xem những chỗ nào đang là màu trắng (255)
+mask = (anh_chu_thap > 200)
 
-# NumPy tự hiểu: trừ kênh 0 cho 0.485, kênh 1 cho 0.456...
-# Nó "broadcast" vector (3,) thành (224, 224, 3) để tính toán
-normalized_img = img_float - mean
+# mask sẽ là một bảng chứa True/False (Đúng/Sai)
+# Nơi nào trắng -> True, nơi nào đen -> False
+print(mask)
 ```
 
 ---
 
-## 3. Reshaping & Axes Manipulation
+## 🎯 Bài tập Hands-on 2
 
-Đây là phần hay gây lỗi nhất khi chuyển từ NumPy sang PyTorch.
+Bạn tạo file `bai_tap_2.py` hoặc dùng Jupyter Notebook:
 
-### 3.1. Transpose / Permute (Đổi trục)
+1.  Tạo một mảng numpy toàn số 0 kích thước `(20, 20)` (Ảnh đen 20x20).
+2.  Tô một hình vuông màu trắng kích thước 5x5 ở góc trên cùng bên trái.
+    - _Gợi ý_: Dùng slice `[0:5, 0:5] = 255`.
+3.  Tô một hình vuông màu xám (giá trị 100) ở góc dưới cùng bên phải.
+    - _Gợi ý_: Góc dưới cùng là từ 15 đến 20.
+4.  Tính giá trị trung bình (`mean`) của toàn bộ bức ảnh xem độ sáng trung bình là bao nhiêu.
+    - _Gợi ý_: Search Google "numpy calculate mean of array".
 
-Chuyển từ `(H, W, C)` sang `(C, H, W)`.
-
-```python
-img_hwc = np.random.rand(224, 224, 3) # Chuẩn ảnh thường
-
-# Cách 1: np.moveaxis
-img_chw = np.moveaxis(img_hwc, -1, 0) # Đưa axis cuối (-1) lên đầu (0)
-
-# Cách 2: transpose (thường dùng hơn)
-# Trục cũ: 0(H), 1(W), 2(C)
-# Trật tự mới mong muốn: 2(C), 0(H), 1(W)
-img_chw_2 = img_hwc.transpose(2, 0, 1)
-
-print(img_chw_2.shape) # (3, 224, 224)
-```
-
-### 3.2. Add/Remove Dimension (Batch dimension)
-
-Deep Learning models luôn cần batch dimension: `(1, C, H, W)`.
-
-```python
-# Thêm dimension ở vị trí đầu tiên
-input_tensor = np.expand_dims(img_chw_2, axis=0)
-print(input_tensor.shape) # (1, 3, 224, 224) -> Sẵn sàng đưa vào model!
-```
-
----
-
-## 📝 Hands-on Challenge cho bạn
-
-Mở `prac/numpy/numpyLearn.ipynb` và thực hiện bài tập sau:
-
-1.  Tạo một mảng random kích thước `(100, 100, 3)` giá trị int từ 0-255 (giả lập ảnh nhiễu).
-2.  Tính giá trị trung bình độ sáng của toàn bộ ảnh (mean của tất cả pixels).
-3.  Tạo mask: Tìm tất cả các pixel có giá trị > 128 và gán chúng về 255 (trắng), còn lại về 0 (đen). -> Đây là thao tác **Thresholding**.
-4.  Chuyển đổi mảng đó sang format PyTorch `(3, 100, 100)`.
-
-```python
-# Gợi ý
-mask = arr > 128
-arr[mask] = 255
-```
+👉 **Mục tiêu**: Hiểu rằng thao tác với ảnh thực chất chỉ là gán giá trị và cắt gọt các mảng số.

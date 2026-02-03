@@ -1,145 +1,108 @@
-# 🧠 Neural Networks Foundations "In a Nutshell"
+# 🧠 Machine Learning: Dạy Máy Học (Bản Vỡ Lòng)
 
-Tài liệu này giải thích cơ chế hoạt động của Neural Network theo cách "Data Flow" thay vì toán học phức tạp, giúp bạn hiểu code PyTorch đang làm gì.
-
----
-
-## 1. The "Black Box" Model (Forward Pass)
-
-Tưởng tượng Neural Network (NN) là một hàm số phức tạp $f(x)$ nhận đầu vào là Ảnh và trả ra đầu ra là Xác suất (Real/Fake).
-
-### Code thuần túy (không dùng thư viện)
-
-Một nơ-ron đơn giản (Perceptron) thực hiện phép tính:
-$$y = \text{activation}(x \cdot w + b)$$
-
-```python
-import numpy as np
-
-# Giả sử đầu vào là vector đặc trưng của ảnh (đã flatten)
-x = np.array([0.5, 0.2, 0.9])  # 3 features
-
-# Trọng số (Weights) - Nơi lưu trữ "trí thông minh"
-w = np.array([0.8, -0.5, 1.0]) # 3 weights tương ứng
-b = 0.1                       # Bias (độ lệch)
-
-# 1. Linear combination (Phép nhân và cộng)
-z = np.dot(x, w) + b
-# z = (0.5*0.8) + (0.2*-0.5) + (0.9*1.0) + 0.1
-
-# 2. Activation Function (Phi tuyến tính hóa)
-# Sigmoid: Ép giá trị về khoảng (0, 1) -> Xác suất
-def sigmoid(val):
-    return 1 / (1 + np.exp(-val))
-
-y_pred = sigmoid(z)
-print(f"Dự đoán: {y_pred:.4f}")
-```
+> **Tư duy cốt lõi**: Đừng nghĩ về não người. Hãy nghĩ về việc **Dạy Trẻ Con**.
 
 ---
 
-## 2. Loss Function (Đo lường sai số)
+## 1. Lý thuyết: Máy học là gì?
 
-Làm sao biết model ngu hay khôn? Chúng ta cần một thước đo sai số (Loss/Cost).
-Trong bài toán phân loại nhị phân (Deepfake), ta dùng **Binary Cross Entropy (BCE)**.
+Tưởng tượng bạn dạy một đứa trẻ (Model) phân biệt **Tiền thật** và **Tiền giả**.
 
-- Nếu Label thật = 1 (Fake), Dự đoán = 0.9 (Fake) -> Loss thấp (Tốt).
-- Nếu Label thật = 1 (Fake), Dự đoán = 0.1 (Real) -> Loss cao (Tệ).
+1.  **Bước 1 (Đoán bừa):** Bạn đưa tờ tiền cho bé. Bé chưa biết gì cả, đoán đại: "Tiền giả ạ!".
+2.  **Bước 2 (So sánh):** Thực tế đó là tờ **Tiền thật**. => Bé đoán **SAI**.
+3.  **Bước 3 (Rút kinh nghiệm):** Bạn cốc đầu bé một cái (nhẹ thôi!). Bé nhận ra: "À, tờ này màu xanh lá là tiền thật". Bé điều chỉnh suy nghĩ.
+4.  **Lặp lại:** Làm đi làm lại 1000 lần với các tờ tiền khác nhau. Dần dần bé sẽ đoán chuẩn 99%.
 
-```python
-def binary_loss(y_true, y_pred):
-    # Công thức đơn giản hóa để hiểu
-    return - (y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+### Trong ngôn ngữ máy tính:
 
-# Ví dụ
-label = 1 # Fake
-pred_good = 0.9
-pred_bad = 0.1
-
-print(f"Loss khi đoán đúng: {binary_loss(label, pred_good):.4f}") # Gần 0
-print(f"Loss khi đoán sai:  {binary_loss(label, pred_bad):.4f}")  # Rất lớn
-```
+- **Đứa trẻ** = **Model** (Mạng nơ-ron).
+- **Cú cốc đầu (Độ sai sót)** = **Loss** (Hàm mất mát).
+  - Đoán sai nhiều -> Loss cao -> Cốc đầu đau.
+  - Đoán đúng -> Loss thấp -> Được khen.
+- **Rút kinh nghiệm** = **Optimizer** (Bộ tối ưu hóa).
+  - Là cơ chế giúp model tự sửa lại các dây thần kinh (trọng số) để lần sau đoán đúng hơn.
 
 ---
 
-## 3. Backward & Gradient (Học hỏi)
+## 2. Code ngây ngô: Dạy máy làm phép nhân đôi
 
-Đây là phép màu của AI. Sau khi biết mình sai bao nhiêu (Loss), model cần biết: **"Cần chỉnh sửa w và b tăng hay giảm bao nhiêu để Loss nhỏ lại?"**.
+Chúng ta sẽ dạy máy tính học quy luật: `Đầu Ra = Đầu Vào x 2`.
+(Ví dụ: Vào 3 -> Ra 6. Vào 5 -> Ra 10).
 
-Đây chính là **Gradient (Đạo hàm)**.
+Chúng ta **không lập trình** công thức `y = x * 2`. Chúng ta bắt máy **tự tìm ra** số 2 đó.
 
-- Gradient dương (+): Giảm weight đi thì Loss sẽ giảm.
-- Gradient âm (-): Tăng weight lên thì Loss sẽ giảm.
-
-### PyTorch Autograd (Tự động hóa việc này)
-
-PyTorch sinh ra để bạn không phải tính đạo hàm bằng tay.
+### Bước 1: Chuẩn bị dữ liệu học (Data)
 
 ```python
 import torch
 
-# require_grad=True báo cho PyTorch biết cần theo dõi biến này để học
-w = torch.tensor([0.8, -0.5, 1.0], requires_grad=True)
-x = torch.tensor([0.5, 0.2, 0.9])
-b = torch.tensor(0.1, requires_grad=True)
-label = torch.tensor(1.0) # Nhãn thật
+# Dữ liệu đầu vào (X)
+X = torch.tensor([1.0, 2.0, 3.0, 4.0])
 
-# 1. Forward
-z = torch.dot(x, w) + b
-y_pred = torch.sigmoid(z)
+# Kết quả đúng tương ứng (Y) - Đây là đáp án để máy so sánh
+Y = torch.tensor([2.0, 4.0, 6.0, 8.0])
 
-# 2. Compute Loss
-loss = - (label * torch.log(y_pred) + (1 - label) * torch.log(1 - y_pred))
-print(f"Loss: {loss.item()}")
-
-# 3. Backward (Magic happens here)
-# PyTorch tự động tính đạo hàm ngược từ Loss về w và b
-loss.backward()
-
-# Xem kết quả: Cần điều chỉnh w như thế nào?
-print(f"Gradient của w: {w.grad}")
-# Nếu w.grad[0] là số âm -> Cần tăng w[0] lên để Loss giảm
+# Quy luật ngầm là nhân 2, nhưng máy chưa biết.
 ```
 
----
+### Bước 2: Tạo đứa trẻ ngây thơ (Model)
 
-## 4. Training Loop Architecture
-
-Mọi training loop trong HolmHz sẽ tuân theo quy trình 5 bước bất di bất dịch này:
-
-1.  **Forward**: Đưa ảnh vào, lấy dự đoán.
-2.  **Loss**: Tính sai số so với nhãn thật.
-3.  **Zero Grad**: Xóa sạch đạo hàm cũ (bước dọn dẹp quan trọng).
-4.  **Backward**: Tính đạo hàm mới (Gradient).
-5.  **Step (Optimizer)**: Cập nhật trọng số `w = w - learning_rate * gradient`.
-
----
-
-## 📝 Hands-on Challenge cho bạn
-
-Trong file notebook `prac/dl/nn_practice.ipynb` (hãy tạo nó), thử dùng **PyTorch** để:
-
-1.  Khởi tạo `w`, `b` ngẫu nhiên.
-2.  Chạy 1 vòng lặp 100 lần (epochs).
-3.  Trong mỗi vòng lặp:
-    - Tính forward.
-    - Tính loss (giả sử `label=1`).
-    - Gọi `loss.backward()`.
-    - Cập nhật thủ công: `with torch.no_grad(): w -= 0.1 * w.grad`.
-    - `w.grad.zero_()`.
-4.  In ra Loss xem nó có giảm dần về 0 không?
+Ta giả sử quy luật là `y = x * w`. `w` (Weight - Trọng số) là cái máy cần tìm.
+Ban đầu ta cho `w` một số ngẫu nhiên.
 
 ```python
-# Khung code luyện tập
-import torch
+# Khởi tạo w là 0.5 (Đoán bừa)
+# requires_grad=True nghĩa là: "Cho phép sửa số này trong quá trình học"
+w = torch.tensor(0.5, requires_grad=True)
 
-w = torch.randn(1, requires_grad=True)
-b = torch.randn(1, requires_grad=True)
-x = torch.tensor([1.5])
-y = torch.tensor([1.0])
-
-lr = 0.01
-
-for i in range(100):
-   # Code here...
+print(f"Khởi đầu, máy đoán số cần tìm là: {w.item()}")
 ```
+
+### Bước 3: Quá trình Training (Dạy học)
+
+Ta sẽ dạy máy 100 lần (epochs).
+
+```python
+# Lặp lại bài học 20 lần
+for buoi_hoc in range(20):
+
+    # 1. Forward (Máy đoán)
+    # Máy lấy X nhân với w hiện tại (0.5)
+    du_doan = X * w
+
+    # 2. Tính Loss (Máy xem sai bao nhiêu)
+    # Lấy (Dự đoán - Đáp án thật) bình phương lên cho mất dấu âm
+    sai_so = (du_doan - Y).pow(2).mean()
+
+    # 3. Backward (Máy tự suy ngẫm)
+    # Lệnh này tính toán xem cần tăng hay giảm w để sai số bé đi
+    sai_so.backward()
+
+    # 4. Update (Sửa sai)
+    # Tắt chế độ tính toán để sửa w
+    with torch.no_grad():
+        # Học với tốc độ 0.1 (Learning Rate)
+        # Nếu w đang thấp, nó sẽ cộng thêm. Nếu w đang cao, nó sẽ trừ đi.
+        w -= 0.1 * w.grad
+
+        # Reset suy nghĩ cũ để chuẩn bị cho buổi học mới
+        w.grad.zero_()
+
+    print(f"Buổi {buoi_hoc+1}: Máy đoán w = {w.item():.4f}, Sai số = {sai_so.item():.4f}")
+
+# Kết quả cuối cùng
+print(f"\nSau khi học, máy chốt số cần tìm là: {w.item()}")
+# Bạn sẽ thấy nó cực kỳ gần số 2.0 (ví dụ 1.999...)
+```
+
+---
+
+## 🎯 Bài tập Hands-on 3
+
+Hãy copy đoạn code trên vào file `bai_tap_3.py` và chạy thử. Sau đó hãy thử sửa:
+
+1.  Sửa bộ dữ liệu `Y` sao cho quy luật là **Nhân 3** (ví dụ: X=1 -> Y=3, X=2 -> Y=6).
+2.  Chạy lại xem cuối cùng máy có tìm ra số `w` gần bằng 3.0 không?
+3.  Thử sửa `Learning Rate` (chỗ `0.1`) thành `0.001` (Học quá chậm). Quan sát xem sau 20 buổi học máy đã tìm ra kết quả chưa hay vẫn còn sai nhiều?
+
+👉 **Mục tiêu**: Hiểu rằng "Learning" thực chất chỉ là quá trình điều chỉnh một con số `w` dần dần cho đến khi kết quả tính toán khớp với đáp án thật.
