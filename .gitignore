@@ -205,3 +205,24 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+# Experimental & Demo Projects (Cloned from GitHub)
+#  Ignore cloned deepfake detection projects but keep the practice directory
+prac/ai-experiments/deepfake-detection/CNNDetection/
+prac/ai-experiments/deepfake-detection/UniversalFakeDetect/
+prac/ai-experiments/deepfake-detection/DeepfakeBench/
+prac/ai-experiments/deepfake-detection/*/
+
+# Test images (can be large)
+prac/ai-experiments/deepfake-detection/test_images/
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.mov
+
+# Downloaded model weights (usually large, should be downloaded on demand)
+prac/ai-experiments/deepfake-detection/weights/
+prac/ai-experiments/deepfake-detection/pretrained/
+prac/ai-experiments/deepfake-detection/*/weights/
+prac/ai-experiments/deepfake-detection/*/pretrained/
+prac/ai-experiments/deepfake-detection/**/checkpoints/
