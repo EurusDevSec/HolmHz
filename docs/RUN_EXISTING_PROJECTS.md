@@ -236,9 +236,13 @@ model.eval()
 # CLIP đi kèm hàm preprocess riêng (resize, crop, normalize chuẩn CLIP)
 transform = model.preprocess
 
-# Dùng ảnh ví dụ có sẵn từ CNNDetection folder bên cạnh (nếu chưa có ảnh riêng)
-img_path = '../CNNDetection/examples/fake.png'
-# Hoặc: img_path = 'test_images/fake/fake1.jpg'
+import sys
+# Cho phép truyền path ảnh từ command line
+if len(sys.argv) > 1:
+    img_path = sys.argv[1]
+else:
+    # Mặc định nếu không truyền tham số
+    img_path = '../CNNDetection/examples/fake.png'
 
 if not os.path.exists(img_path):
     print(f"Không tìm thấy ảnh tại {img_path}")
@@ -265,26 +269,69 @@ Loading model...
 Testing on: ../CNNDetection/examples/fake.png
 Prediction: FAKE
 Fake Probability: 100.00%
+
+Testing on: ../CNNDetection/examples/real.png
+Prediction: REAL
+Fake Probability: 0.06%
 ```
 
-### 4.4. Điểm đặc biệt của dự án này
+### 4.4. Cách chạy với ảnh bất kỳ
 
+Bạn có thể test với bất kỳ ảnh nào bằng cách truyền đường dẫn vào script:
+
+```bash
+# Chạy với ảnh mặc định (code tự tìm)
+python test_universal.py
+
+# Chạy với ảnh của bạn (đường dẫn tuyệt đối hoặc tương đối)
+python test_universal.py C:/Users/YourName/Downloads/my_selfie.jpg
+python test_universal.py ../test_images/fake/fake1.jpg
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  TẠI SAO UNIVERSALFAKEDETECT ĐÁNG HỌC?                         │
+
+### 4.5. Điểm đặc biệt của dự án này
+
 ├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  1. Dùng CLIP (model của OpenAI) làm backbone                  │
-│     → Generalize tốt hơn EfficientNet thông thường             │
-│                                                                 │
-│  2. Không cần train lại nhiều                                  │
-│     → Chỉ fine-tune phần classifier                            │
-│                                                                 │
-│  3. AUC cao trên cross-dataset (OOD)                           │
-│     → Đây là điểm HolmHz cần học hỏi                           │
-│                                                                 │
+│ │
+│ 1. Dùng CLIP (model của OpenAI) làm backbone │
+│ → Generalize tốt hơn EfficientNet thông thường │
+│ │
+│ 2. Không cần train lại nhiều │
+│ → Chỉ fine-tune phần classifier │
+│ │
+│ 3. AUC cao trên cross-dataset (OOD) │
+│ → Đây là điểm HolmHz cần học hỏi │
+│ │
 └─────────────────────────────────────────────────────────────────┘
-```
+
+`````
+
+### 4.6. Ghi chú cho HolmHz
+
+````markdown
+## Học được gì từ UniversalFakeDetect (Đã chạy thành công):
+
+- [x] **CLIP Backbone hiệu quả kinh khủng**:
+  - Code sử dụng `CLIP:ViT-L/14` làm feature extractor.
+  - Kết quả phân tách cực gắt: Fake (100%) vs Real (0.06%).
+  - CNNDetection (ResNet50) cũ hơn, dù cũng tốt (95% vs 0.05%) nhưng UniversalFakeDetect cho thấy sự vượt trội trong confidence score.
+
+- [x] **Cấu trúc Model đơn giản bất ngờ**:
+  - Thay vì train cả mạng to như ResNet, họ freeze CLIP backbone.
+  - Chỉ train lại **1 Lớp Linear duy nhất**: `self.fc = nn.Linear(768, 1)`.
+  - Điều này giải thích tại sao file weight `fc_weights.pth` lại rất nhẹ (chỉ chứa weight của lớp Linear).
+
+- [x] **Preprocessing khác biệt**:
+  - Không dùng ImageNet standard normalization như CNNDetection.
+  - Dùng chuẩn riêng của CLIP:
+    ```python
+    mean=[0.48145466, 0.4578275, 0.40821073]
+    std=[0.26862954, 0.26130258, 0.27577711]
+    ```
+
+- [x] **Bài học cho HolmHz**:
+  - Nếu Sprint 1 (EfficientNet) không đạt target OOD (Out-of-Distribution), phương án B+ sẽ là tích hợp CLIP backbone như cách UniversalFakeDetect làm.
+  - Việc tận dụng Pretrained Vision-Language Model (như CLIP) giúp model "hiểu" ảnh tốt hơn là chỉ nhìn vào pixel artifacts đơn thuần.
+`````
 
 ---
 
