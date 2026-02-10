@@ -131,7 +131,10 @@ mkdir weights
 **Cách 1: Chạy trên 1 ảnh**
 
 ```bash
-python demo.py --img_path test_images/fake/fake1.jpg
+# Lưu ý:
+# - Dùng flag -f thay vì --img_path
+# - Thêm --use_cpu nếu không có GPU CUDA
+python demo.py -f examples/fake.png -m weights/blur_jpg_prob0.5.pth --use_cpu
 ```
 
 **Cách 2: Chạy Gradio demo (có giao diện)**
@@ -152,14 +155,24 @@ Output:
 
 ### 3.5. Ghi chú cho HolmHz
 
-```markdown
-## Học được gì từ CNNDetection:
+````markdown
+## Học được gì từ CNNDetection (Đã chạy thành công):
 
-- [x] Cấu trúc folder: models/, utils/, demo.py
-- [x] Cách load pretrained model
-- [x] Cách preprocess ảnh trước khi đưa vào model
-- [x] Cách hiển thị kết quả
-```
+- [x] **Cấu trúc folder**: Đơn giản, gồm `networks/` (chứa ResNet50), `weights/` (chứa .pth), và `demo.py` để chạy chính.
+- [x] **Cách load pretrained model**:
+  ```python
+  model = resnet50(num_classes=1)
+  state_dict = torch.load(path, map_location='cpu') # Quan trọng: map_location='cpu'
+  model.load_state_dict(state_dict['model'])
+  ```
+- [x] **Cách preprocess ảnh**: Sử dụng ImageNet normalization:
+  ```python
+  transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+  ```
+- [x] **Inference**: Output của model đi qua hàm Sigmoid để ra xác suất (0-1).
+
+Kết quả chạy với các ảnh GAN, STYLE GAN cho kết quả chính xác khoảng 94.62% và dự đoán ảnh real cũng chính xác 0.05 % nhưng thất bại hoàn toàn trước ảnh diffusion với ảnh do gemini (nano banana tạo ra) lại cho kết quả 0.06%
+````
 
 ---
 
@@ -178,40 +191,80 @@ cd ~/ai-experiments/deepfake-detection
 git clone https://github.com/Yuheng-Li/UniversalFakeDetect.git
 cd UniversalFakeDetect
 
-# Cài đặt dependencies
-pip install -r requirements.txt
-pip install clip  # Thư viện CLIP của OpenAI
+# Cài đặt dependencies (Lưu ý: repo không có requirements.txt)
+# Cần cài CLIP từ source và các thư viện hỗ trợ
+pip install setuptools wheel
+pip install torch torchvision ftfy regex tqdm
+pip install git+https://github.com/openai/CLIP.git
 ```
 
 ### 4.2. Tải model
 
-```bash
-# Tải pretrained model từ link trong README
-# Thường là file .pth hoặc .ckpt
-mkdir pretrained
-# Đặt file vào pretrained/
-```
+Repo này đã **có sẵn** weight cho classifier trong folder `pretrained_weights/`, bạn không cần tải thêm gì cả.
+
+- Path: `pretrained_weights/fc_weights.pth` (Linear layer weights)
+- CLIP Backbone: Tự động tải từ OpenAI khi chạy code lần đầu (khoảng 900MB).
 
 ### 4.3. Chạy inference
+
+Tạo file script để test trên 1 ảnh đơn lẻ (vì code gốc `validate.py` thiết kế để chạy cả folder dataset).
 
 ```python
 # Tạo file test_universal.py
 import torch
 from PIL import Image
-from model import UniversalFakeDetector
+from models import get_model
+import os
 
-# Load model
-model = UniversalFakeDetector()
-model.load_state_dict(torch.load('pretrained/model.pth'))
+# 1. Config
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"Using device: {device}")
+
+# 2. Load Model (CLIP Backbone + Custom FC Layer)
+print("Loading model...")
+# Model name phải đúng format "CLIP:..." để kích hoạt CLIP backbone
+model = get_model("CLIP:ViT-L/14")
+ckpt_path = 'pretrained_weights/fc_weights.pth'
+
+# Load trained weights cho lớp FC
+state_dict = torch.load(ckpt_path, map_location='cpu')
+model.fc.load_state_dict(state_dict)
+model.to(device)
 model.eval()
 
-# Load ảnh
-img = Image.open('test_images/fake/fake1.jpg')
+# 3. Load & Preprocess Image
+# CLIP đi kèm hàm preprocess riêng (resize, crop, normalize chuẩn CLIP)
+transform = model.preprocess
 
-# Predict
+# Dùng ảnh ví dụ có sẵn từ CNNDetection folder bên cạnh (nếu chưa có ảnh riêng)
+img_path = '../CNNDetection/examples/fake.png'
+# Hoặc: img_path = 'test_images/fake/fake1.jpg'
+
+if not os.path.exists(img_path):
+    print(f"Không tìm thấy ảnh tại {img_path}")
+    exit()
+
+img = Image.open(img_path).convert('RGB')
+input_tensor = transform(img).unsqueeze(0).to(device)
+
+# 4. Predict
 with torch.no_grad():
-    result = model(img)
-    print(f"Fake probability: {result:.2%}")
+    output = model(input_tensor)
+    prob = output.sigmoid().item()
+
+print(f"Testing on: {img_path}")
+print(f"Prediction: {'FAKE' if prob > 0.5 else 'REAL'}")
+print(f"Fake Probability: {prob*100:.2f}%")
+```
+
+**Kết quả chạy thực tế (Log)**:
+
+```text
+Using device: cuda
+Loading model...
+Testing on: ../CNNDetection/examples/fake.png
+Prediction: FAKE
+Fake Probability: 100.00%
 ```
 
 ### 4.4. Điểm đặc biệt của dự án này
