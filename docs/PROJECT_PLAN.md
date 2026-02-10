@@ -5,6 +5,8 @@
 > Thực hiện: Lê Văn Hoàng (Chính) | Ngô Huỳnh Bảo Luân (Hỗ trợ)  
 > Loại hình: Nghiên cứu ứng dụng (Applied Research)
 >
+> 📌 **Cập nhật 10/02/2026**: Kế hoạch đã được điều chỉnh dựa trên kết quả chạy thử thực tế 3 dự án benchmark (CNNDetection, UniversalFakeDetect, DeepfakeBench). Xem chi tiết tại [RUN_EXISTING_PROJECTS.md](RUN_EXISTING_PROJECTS.md) và [docs/research/](research/).
+>
 > 📌 **Phân công vai trò**:
 >
 > - **Hoàng**: Toàn bộ kỹ thuật (model, training, code, API)
@@ -40,16 +42,16 @@ Phát hiện ảnh tổng hợp (Synthetic Image Detection) là bài toán đã 
 
 ### 1.2. Mục tiêu dự án
 
-**Mục tiêu chính**: Triển khai, đánh giá và so sánh các phương pháp CNN hiện đại cho bài toán phát hiện ảnh chân dung tổng hợp.
+**Mục tiêu chính**: Triển khai, đánh giá và so sánh các phương pháp CNN hiện đại cho bài toán phát hiện ảnh chân dung tổng hợp, **đặc biệt tập trung vào ảnh sinh bởi Diffusion Models (Stable Diffusion, Flux, Gemini)**.
 
 **Mục tiêu cụ thể**:
-| # | Mục tiêu | Đo lường |
-|---|----------|----------|
-| 1 | Reproduce baseline CNN (EfficientNet-B0) | AUC ≥ 0.90 in-domain |
-| 2 | Đánh giá cross-dataset generalization | AUC ≥ 0.75 OOD |
-| 3 | So sánh với 3-5 SOTA methods | Bảng comparison |
-| 4 | Tích hợp XAI (Grad-CAM) | Heatmap visualization |
-| 5 | Web demo proof-of-concept | Latency ≤ 2s/ảnh |
+| # | Mục tiêu | Đo lường | Ghi chú (Cập nhật 02/2026) |
+|---|----------|----------|----------------------------|
+| 1 | Train EfficientNet-B0 trên dataset đa nguồn (GAN + Diffusion) | AUC ≥ 0.90 in-domain | Dataset PHẢI có Diffusion, không chỉ GAN |
+| 2 | Đánh giá cross-dataset generalization | AUC ≥ 0.75 OOD | OOD bao gồm Flux/Gemini - thách thức lớn nhất |
+| 3 | So sánh với 3 SOTA methods (đã chạy thực tế) | Bảng comparison | CNNDetection, UniversalFakeDetect, DeepfakeBench ✅ |
+| 4 | Tích hợp XAI (Grad-CAM) | Heatmap visualization | Giữ nguyên |
+| 5 | Web demo proof-of-concept | Latency ≤ 2s/ảnh | Giữ nguyên |
 
 ### 1.3. Phạm vi (Scope)
 
@@ -89,14 +91,16 @@ Phát hiện ảnh tổng hợp (Synthetic Image Detection) là bài toán đã 
 
 ### 2.1. Prior Art - Các công trình liên quan
 
-| Paper/Project              | Năm  | Phương pháp                  | AUC In-domain | AUC OOD      |
-| -------------------------- | ---- | ---------------------------- | ------------- | ------------ |
-| Wang et al. (CNNDetection) | 2020 | ResNet50 + blur augmentation | 0.99          | 0.78         |
-| Frank et al. (Frequency)   | 2020 | DCT analysis                 | 0.95          | 0.72         |
-| UniversalFakeDetect        | 2023 | CLIP features                | 0.95          | 0.82         |
-| NPR-DeepfakeDetection      | 2024 | CNN + NPR preprocessing      | 0.97          | 0.84         |
-| DeepfakeBench              | 2023 | Benchmark 15+ methods        | -             | -            |
-| **HolmHz (Ours)**          | 2026 | EfficientNet-B0 + Grad-CAM   | Target: 0.90  | Target: 0.75 |
+| Paper/Project              | Năm  | Phương pháp                  | AUC In-domain | AUC OOD (Paper) | Kết quả test thực tế (02/2026)                     |
+| -------------------------- | ---- | ---------------------------- | ------------- | --------------- | -------------------------------------------------- |
+| Wang et al. (CNNDetection) | 2020 | ResNet50 + blur augmentation | 0.99          | 0.78            | ✅ GAN: 94.6% / ❌ Gemini: 6% (thất bại hoàn toàn) |
+| UniversalFakeDetect        | 2023 | CLIP ViT-L/14 + Linear       | 0.95          | 0.82            | ✅ GAN: 100% / ❌ Flux/Gemini: <10% (thất bại)     |
+| DeepfakeBench (EffNetB4)   | 2023 | EfficientNet-B4 (FF++ train) | 0.95          | -               | ⚠️ Gemini: 50.7% (đoán mò) / Real: 18.8% (đúng)    |
+| Frank et al. (Frequency)   | 2020 | DCT analysis                 | 0.95          | 0.72            | Chưa test                                          |
+| NPR-DeepfakeDetection      | 2024 | CNN + NPR preprocessing      | 0.97          | 0.84            | Chưa test                                          |
+| **HolmHz (Ours)**          | 2026 | EfficientNet-B0 + Grad-CAM   | Target: 0.90  | Target: 0.75    | **Phải train trên Diffusion data**                 |
+
+> ⚠️ **Phát hiện quan trọng (02/2026)**: Tất cả 3 project đã test đều **thất bại** trước ảnh Diffusion hiện đại (Gemini, Flux). Nguyên nhân: training data chỉ chứa GAN cũ (ProGAN, StyleGAN). **HolmHz bắt buộc phải đưa GenImage/Diffusion data vào training** để tránh lặp lại thất bại này.
 
 ### 2.2. Vị trí của dự án
 
@@ -121,28 +125,33 @@ Phát hiện ảnh tổng hợp (Synthetic Image Detection) là bài toán đã 
     - Publication            - Education             - UX/UI
 ```
 
-### 2.3. Baseline Methods để so sánh
+### 2.3. Baseline Methods để so sánh (Đã xác nhận chạy được)
 
-| Method                     | Source                                                                  | Lý do chọn                   |
-| -------------------------- | ----------------------------------------------------------------------- | ---------------------------- |
-| **ResNet50 (Wang et al.)** | [GitHub](https://github.com/PeterWang512/CNNDetection)                  | Baseline chuẩn, dễ reproduce |
-| **EfficientNet-B0**        | timm library                                                            | Nhẹ, hiệu quả                |
-| **CLIP-based**             | [UniversalFakeDetect](https://github.com/Yuheng-Li/UniversalFakeDetect) | SOTA generalization          |
-| **Frequency (DCT)**        | [GANDCTAnalysis](https://github.com/RUB-SysSec/GANDCTAnalysis)          | Interpretable                |
+| Method                     | Source                                                                  | Lý do chọn                              | Trạng thái             |
+| -------------------------- | ----------------------------------------------------------------------- | --------------------------------------- | ---------------------- |
+| **ResNet50 (Wang et al.)** | [CNNDetection](https://github.com/PeterWang512/CNNDetection)            | Baseline chuẩn, đã reproduce thành công | ✅ Đã chạy, có kết quả |
+| **CLIP ViT-L/14**          | [UniversalFakeDetect](https://github.com/Yuheng-Li/UniversalFakeDetect) | SOTA generalization, kiến trúc đơn giản | ✅ Đã chạy, có kết quả |
+| **EfficientNet-B4**        | [DeepfakeBench](https://github.com/SCLBD/DeepfakeBench)                 | Benchmark framework, modular            | ✅ Đã chạy, có kết quả |
+| **EfficientNet-B0 (Ours)** | timm library                                                            | Nhẹ, phù hợp web demo                   | 🔄 Sẽ train            |
+
+> 📝 **Ghi chú**: Đã bỏ **Frequency (DCT)** khỏi danh sách so sánh chính. Thay vào đó tập trung vào 3 methods đã chạy thực tế + model HolmHz. Frequency branch vẫn là optional nếu còn thời gian.
 
 ---
 
-## 3. Dataset Sources
+## 3. Dataset Sources (Cập nhật 02/2026)
+
+> ⚠️ **Bài học #1 từ benchmark**: Training data quan trọng hơn kiến trúc model.
+> Cả 3 SOTA đều fail trên Diffusion vì chỉ train trên GAN → HolmHz **PHẢI** có Diffusion data trong training.
 
 ### 3.1. Nguồn dữ liệu công khai
 
 #### A. Ảnh thật (Real Images)
 
-| Dataset         | Số ảnh | Link                                                     | Sử dụng     |
-| --------------- | ------ | -------------------------------------------------------- | ----------- |
-| **FFHQ**        | 70,000 | [GitHub](https://github.com/NVlabs/ffhq-dataset)         | Train + Val |
-| **CelebA-HQ**   | 30,000 | [Link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) | Train       |
-| **DFFD (Real)** | 58,703 | [MSU](http://cvlab.cse.msu.edu/dffd-dataset.html)        | Test        |
+| Dataset         | Số ảnh | Link                                                     | Sử dụng     | Ưu tiên    |
+| --------------- | ------ | -------------------------------------------------------- | ----------- | ---------- |
+| **FFHQ**        | 70,000 | [GitHub](https://github.com/NVlabs/ffhq-dataset)         | Train + Val | ⭐ Cao     |
+| **CelebA-HQ**   | 30,000 | [Link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) | Train       | Trung bình |
+| **DFFD (Real)** | 58,703 | [MSU](http://cvlab.cse.msu.edu/dffd-dataset.html)        | Test        | Trung bình |
 
 #### B. Ảnh GAN (Fake)
 
@@ -152,13 +161,28 @@ Phát hiện ảnh tổng hợp (Synthetic Image Detection) là bài toán đã 
 | **StyleGAN2 Faces** | [NVlabs](https://github.com/NVlabs/stylegan2)                     | Generate 10k | Train   |
 | **ProGAN Faces**    | [tkarras](https://github.com/tkarras/progressive_growing_of_gans) | Generate 5k  | Val     |
 
-#### C. Ảnh Diffusion (Fake)
+#### C. Ảnh Diffusion (Fake) ⭐ QUAN TRỌNG NHẤT
 
-| Dataset                   | Nguồn                                                  | Số ảnh     | Sử dụng          |
-| ------------------------- | ------------------------------------------------------ | ---------- | ---------------- |
-| **GenImage**              | [GitHub](https://github.com/GenImage-Dataset/GenImage) | Subset 20k | Train + Test OOD |
-| **Stable Diffusion v1.5** | Self-generate                                          | 10k        | Train            |
-| **SDXL**                  | Self-generate                                          | 5k         | Test OOD         |
+> Đây là phần training data **quyết định** thành bại của HolmHz.
+> Từ kết quả benchmark: model nào train trên GAN cũ → fail hoàn toàn trên Diffusion.
+
+| Dataset                   | Nguồn                                                  | Số ảnh     | Sử dụng          | Ưu tiên    |
+| ------------------------- | ------------------------------------------------------ | ---------- | ---------------- | ---------- |
+| **GenImage**              | [GitHub](https://github.com/GenImage-Dataset/GenImage) | Subset 20k | **Train** + Test | ⭐ Rất cao |
+| **Stable Diffusion v1.5** | Self-generate                                          | 10k        | **Train**        | ⭐ Cao     |
+| **SDXL**                  | Self-generate                                          | 5k         | Test OOD         | Cao        |
+
+#### D. Ảnh OOD Hiện đại (Test only) 🆕
+
+> Bộ test này để đo khả năng generalize sang nguồn **chưa hề thấy khi train**.
+> Đây là thước đo quan trọng nhất cho application thực tế.
+
+| Dataset                | Nguồn                | Số ảnh  | Ghi chú                      |
+| ---------------------- | -------------------- | ------- | ---------------------------- |
+| **Gemini-generated**   | Gemini API / Manual  | 200-500 | Đã có mẫu trong imgs/ folder |
+| **Flux-generated**     | Flux.1 API           | 200-500 | SOTA diffusion model 2024    |
+| **DALL-E 3**           | OpenAI API           | 200-500 | Nice-to-have                 |
+| **Real camera photos** | Chụp thật / Internet | 500     | Đối chứng                    |
 
 ### 3.2. Chiến lược chia tập dữ liệu
 
@@ -184,6 +208,13 @@ Phát hiện ảnh tổng hợp (Synthetic Image Detection) là bài toán đã 
 │  Total: ~45k                Total: ~7k          Total: ~8k      │
 │                                                                 │
 │  ⚠️ OOD = Out-of-Distribution (nguồn chưa thấy khi train)      │
+│                                                                 │
+│  OOD TEST (riêng):                                              │
+│  • Gemini-generated (200-500)                                   │
+│  • Flux-generated (200-500)                                     │
+│  • DALL-E 3 (200-500, nice-to-have)                             │
+│  • Real camera (500)                                            │
+│  ➜ Đây là thước đo QUAN TRỌNG NHẤT cho hội đồng                │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -218,13 +249,16 @@ val_transform = A.Compose([
 
 ### 4.1. Core ML/DL
 
-| Thành phần   | Công nghệ            | Phiên bản | Lý do chọn                 |
-| ------------ | -------------------- | --------- | -------------------------- |
-| Framework    | **PyTorch**          | 2.1+      | Linh hoạt, ecosystem mạnh  |
-| Vision       | **timm**             | 0.9+      | Pre-trained models đa dạng |
-| Backbone     | **EfficientNet-B0**  | -         | Balance accuracy/speed     |
-| XAI          | **pytorch-grad-cam** | 1.4+      | Grad-CAM, Grad-CAM++       |
-| Optimization | **ONNX Runtime**     | 1.16+     | Inference optimization     |
+| Thành phần        | Công nghệ            | Phiên bản | Lý do chọn                          | Ghi chú (02/2026)             |
+| ----------------- | -------------------- | --------- | ----------------------------------- | ----------------------------- |
+| Framework         | **PyTorch**          | 2.1+      | Linh hoạt, ecosystem mạnh           | Giữ nguyên                    |
+| Vision            | **timm**             | 1.0+      | Pre-trained models đa dạng          | Đã cài, dùng cho EfficientNet |
+| Backbone chính    | **EfficientNet-B0**  | -         | Balance accuracy/speed              | Train trên Diffusion data     |
+| Backbone fallback | **CLIP ViT-L/14**    | -         | SOTA generalization (đã kiểm chứng) | Dùng nếu EffNet OOD < 0.70    |
+| XAI               | **pytorch-grad-cam** | 1.4+      | Grad-CAM, Grad-CAM++                | Giữ nguyên                    |
+| Optimization      | **ONNX Runtime**     | 1.16+     | Inference optimization              | Giữ nguyên                    |
+
+> ⚠️ **Bài học từ benchmark**: Không nên chỉ dựa vào 1 backbone. Kết quả thực tế cho thấy CLIP generalize tốt hơn CNN thuần túy trên GAN, nhưng cả hai đều fail trên Diffusion mới. **Chìa khóa là TRAINING DATA, không phải kiến trúc.**
 
 ### 4.2. Data Processing
 
@@ -382,180 +416,193 @@ val_transform = A.Compose([
 
 ## 6. Roadmap theo Phase
 
-### 6.1. Tổng quan Timeline
+### 6.1. Tổng quan Timeline (Cập nhật 10/02/2026)
 
 ```
 2025                                              2026
 Nov          Dec          Jan          Feb          Mar          Apr          May
  |────────────|────────────|────────────|────────────|────────────|────────────|
- │◄────── PHASE 1 ───────►│◄────── PHASE 2 ────────►│◄─────── PHASE 3 ───────►│
- │   Foundation & Data    │  Model Dev & Optimize  │   Application & Report  │
- │                        │                        │                         │
- │ Sprint 1   │ Sprint 2  │ Sprint 3   │ Sprint 4  │ Sprint 5    │ Sprint 6  │
- │ Setup/Data │ Baseline  │ Fusion     │ XAI/Opt   │ Web Demo    │ Report    │
+ │◄─ PHASE 0 ─►│          │◄────── PHASE 1 (REVISED) ─────────►│            │
+ │  Research   │          │  Data + Baseline + Benchmark       │            │
+ │  3 Projects │          │                                    │            │
+ │  ✅ DONE    │          │◄─ Sprint 1 ─►│◄── Sprint 2 ──────►│            │
+ │             │          │ Data+Train   │ Eval+XAI+Benchmark │            │
+ │             │          │              │                    │            │
+ │             │          │              │     │◄──── PHASE 2 (Revised) ───►│
+ │             │          │              │     │  Web Demo + Report        │
+ │             │          │              │     │◄ Sprint 3 ►│◄ Sprint 4 ──►│
+ │             │          │              │     │ Web Demo   │ Defense Prep │
 ```
+
+> **Thay đổi lớn so với kế hoạch ban đầu:**
+>
+> - Phase 0 (Research) đã hoàn thành ✅ (11/2025 - 02/2026): Chạy 3 dự án benchmark, thu thập insights.
+> - Phase 1 gộp Foundation + Model Dev vì đã có kiến thức nền từ Phase 0.
+> - Phase 2 gộp Web Demo + Report vì timeline đã dùng hết cho Research.
+> - Bỏ Frequency Branch (Phase 1.5 cũ) để tập trung vào core.
 
 ### 6.2. Chi tiết các Phase
 
 ---
 
-## 📦 PHASE 1: Foundation & Data (T11-T12/2025)
+## 📦 PHASE 0: Research & Benchmarking (T11/2025 - T02/2026) ✅ HOÀN THÀNH
 
-> **Mục tiêu Phase**: Thiết lập nền tảng dự án và xây dựng bộ dữ liệu chuẩn
-> **Thời gian**: 2 tháng
-> **Hoàng**: Environment, Model, Training | **Luân**: Download data theo hướng dẫn
+> **Mục tiêu Phase**: Chạy thử 3 dự án benchmark để hiểu landscape và thu thập insights
+> **Thời gian**: 4 tháng (thực tế, bao gồm học nền tảng)
+> **Trạng thái**: ✅ **ĐÃ HOÀN THÀNH** (10/02/2026)
 
-### Sprint 1.1: Project Setup & Data Collection (T11/2025)
+### Kết quả Phase 0
 
-**Mục tiêu Sprint**: Thiết lập môi trường và thu thập dữ liệu thô
+| Dự án                      | Trạng thái    | Kết quả chính                                | Tài liệu                                   |
+| -------------------------- | ------------- | -------------------------------------------- | ------------------------------------------ |
+| CNNDetection (Wang 2020)   | ✅ Hoàn thành | GAN: 94.6% đúng / Diffusion: 6% (thất bại)   | `research/CNNDetection_DeepDive.md`        |
+| UniversalFakeDetect (2023) | ✅ Hoàn thành | GAN: 100% / Flux/Gemini: <10% (thất bại)     | `research/UniversalFakeDetect_DeepDive.md` |
+| DeepfakeBench (2023)       | ✅ Hoàn thành | Gemini: 50.7% (đoán mò) / Real: 18.8% (đúng) | `research/DeepfakeBench_DeepDive.md`       |
 
-| Task ID | Task                                    | Subtasks                                       | Assignee | Status |
-| ------- | --------------------------------------- | ---------------------------------------------- | -------- | ------ |
-| 1.1.1   | **Environment Setup**                   |                                                | Hoàng    | ⬜     |
-|         |                                         | 1.1.1.1 Khởi tạo Git repository                |          | ⬜     |
-|         |                                         | 1.1.1.2 Setup cấu trúc thư mục theo chuẩn      |          | ⬜     |
-|         |                                         | 1.1.1.3 Cấu hình pyproject.toml + requirements |          | ⬜     |
-|         |                                         | 1.1.1.4 Setup Weights & Biases project         |          | ⬜     |
-|         |                                         | 1.1.1.5 Tạo Colab notebook template            |          | ⬜     |
-| 1.1.2   | **Data Download - Real** ✨             |                                                | Luân     | ⬜     |
-|         | _(Việc nhẹ - theo hướng dẫn của Hoàng)_ | 1.1.2.1 Download FFHQ dataset (theo script)    |          | ⬜     |
-|         |                                         | 1.1.2.2 Download CelebA-HQ (theo link)         |          | ⬜     |
-|         |                                         | 1.1.2.3 Sắp xếp vào đúng folder                |          | ⬜     |
-| 1.1.3   | **Data Collection - Fake (GAN)**        |                                                | Hoàng    | ⬜     |
-|         |                                         | 1.1.3.1 Download DFFD fake subset              |          | ⬜     |
-|         |                                         | 1.1.3.2 Generate StyleGAN2 faces (10k)         |          | ⬜     |
-|         |                                         | 1.1.3.3 Generate ProGAN faces (5k)             |          | ⬜     |
-| 1.1.4   | **Data Collection - Fake (Diffusion)**  |                                                | Hoàng    | ⬜     |
-|         |                                         | 1.1.4.1 Download GenImage subset (20k)         |          | ⬜     |
-|         |                                         | 1.1.4.2 Generate SD v1.5 faces (10k)           |          | ⬜     |
-|         |                                         | 1.1.4.3 Prepare OOD test set (SDXL, MJ proxy)  |          | ⬜     |
+### Insights quan trọng rút ra
 
-**✅ Milestone 1.1**: Raw dataset collected (≥40,000 ảnh)
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    BÀI HỌC TỪ 3 DỰ ÁN BENCHMARK                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  1. TRAINING DATA > ARCHITECTURE                                        │
+│     Model mạnh (EfficientNet-B4, CLIP) vẫn thất bại nếu train trên     │
+│     GAN cũ mà test trên Diffusion mới (Gemini, Flux).                   │
+│     → HolmHz PHẢI train trên GenImage/Diffusion data.                   │
+│                                                                         │
+│  2. PREPROCESSING LÀ CRITICAL                                           │
+│     Mỗi backbone có normalization riêng (ImageNet vs CLIP).             │
+│     Face alignment (dlib) là bắt buộc cho DeepfakeBench.                │
+│     → HolmHz cần pipeline preprocessing linh hoạt.                      │
+│                                                                         │
+│  3. BINARY CLASSIFICATION (num_classes=1) + SIGMOID                     │
+│     Cả CNNDetection và UniversalFakeDetect đều dùng pattern này.        │
+│     Output: P(Fake) ∈ [0,1]. Đơn giản và hiệu quả hơn 2-class.        │
+│     → HolmHz sẽ dùng pattern này.                                       │
+│                                                                         │
+│  4. TRANSFER LEARNING LÀ CHÌA KHÓA                                     │
+│     UniversalFakeDetect chỉ train 1 layer Linear trên CLIP features     │
+│     mà đạt OOD 0.82. Không cần train from scratch.                      │
+│     → HolmHz sẽ freeze backbone + fine-tune head.                       │
+│                                                                         │
+│  5. ĐỘ TIN CẬY KẾT QUẢ                                                │
+│     Cần chạy trên DATASET CHUẨN (không chỉ 1-2 ảnh đơn lẻ)            │
+│     để có AUC/Accuracy có ý nghĩa thống kê cho hội đồng.               │
+│     → Sprint 2 sẽ thiết lập evaluation protocol chuẩn.                  │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**📊 Phase 0 Deliverables**: ✅
+
+- [x] Chạy thành công 3 dự án benchmark
+- [x] 3 bài Deep Dive phân tích chi tiết (docs/research/)
+- [x] File RUN_EXISTING_PROJECTS.md cập nhật kết quả thực tế
+- [x] Xác định rõ hướng đi cho HolmHz
 
 ---
 
-### Sprint 1.2: Data Pipeline & Baseline Model (T12/2025)
+## 📦 PHASE 1: Data + Model Development (T02-T03/2026)
 
-**Mục tiêu Sprint**: Xử lý dữ liệu và train mô hình baseline
+> **Mục tiêu Phase**: Thu thập dữ liệu, train baseline, benchmark với 3 SOTA đã chạy
+> **Thời gian**: 2 tháng (02/2026 - 03/2026)
+> **Hoàng**: Environment, Model, Training | **Luân**: Download data theo hướng dẫn
+>
+> ⚠️ **Thay đổi quan trọng so với kế hoạch cũ:**
+>
+> - Gộp Sprint cũ 1.1 + 1.2 + 2.1 thành Phase 1 mới (vì Phase 0 research đã chiếm timeline).
+> - Bỏ Frequency/Fusion branch (Phase 1.5 cũ) để tập trung vào core.
+> - Thêm bước benchmark chuẩn trên dataset chung (không chỉ test 1-2 ảnh).
 
-| Task ID | Task                    | Subtasks                                     | Assignee | Status |
-| ------- | ----------------------- | -------------------------------------------- | -------- | ------ |
-| 1.2.1   | **Data Pipeline**       |                                              | Hoàng    | ⬜     |
-|         |                         | 1.2.1.1 Implement Dataset class (PyTorch)    |          | ⬜     |
-|         |                         | 1.2.1.2 Implement augmentation pipeline      |          | ⬜     |
-|         |                         | 1.2.1.3 Train/Val/Test-OOD split             |          | ⬜     |
-|         |                         | 1.2.1.4 Create data manifest files           |          | ⬜     |
-| 1.2.2   | **Model Architecture**  |                                              | Hoàng    | ⬜     |
-|         |                         | 1.2.2.1 Implement EfficientNet-B0 classifier |          | ⬜     |
-|         |                         | 1.2.2.2 Create model factory                 |          | ⬜     |
-|         |                         | 1.2.2.3 Unit test model forward pass         |          | ⬜     |
-| 1.2.3   | **Training Pipeline**   |                                              | Hoàng    | ⬜     |
-|         |                         | 1.2.3.1 Implement Trainer class              |          | ⬜     |
-|         |                         | 1.2.3.2 Setup BCE/Focal Loss                 |          | ⬜     |
-|         |                         | 1.2.3.3 LR scheduler (CosineAnnealing)       |          | ⬜     |
-|         |                         | 1.2.3.4 Early stopping callback              |          | ⬜     |
-|         |                         | 1.2.3.5 Wandb logging integration            |          | ⬜     |
-| 1.2.4   | **Baseline Training**   |                                              | Hoàng    | ⬜     |
-|         |                         | 1.2.4.1 Train EfficientNet-B0 (RGB only)     |          | ⬜     |
-|         |                         | 1.2.4.2 Hyperparameter tuning (LR, batch)    |          | ⬜     |
-|         |                         | 1.2.4.3 Save best checkpoint                 |          | ⬜     |
-| 1.2.5   | **Baseline Evaluation** |                                              | Hoàng    | ⬜     |
-|         |                         | 1.2.5.1 Compute metrics (AUC, Acc, F1)       |          | ⬜     |
-|         |                         | 1.2.5.2 Generate confusion matrix            |          | ⬜     |
-|         |                         | 1.2.5.3 Plot ROC curve                       |          | ⬜     |
-|         |                         | 1.2.5.4 Per-source accuracy breakdown        |          | ⬜     |
+### Sprint 1: Data + Baseline Training (T02-T03/2026)
 
-**✅ Milestone 1.2**: Dataset v1 (≥20,000 processed) + Baseline AUC ≥ 0.88 (in-domain)
+**Mục tiêu Sprint**: Setup environment, thu thập data, train EfficientNet-B0
+
+| Task ID | Task                   | Subtasks                                                          | Assignee     | Status |
+| ------- | ---------------------- | ----------------------------------------------------------------- | ------------ | ------ |
+| 1.1     | **Environment Setup**  |                                                                   | Hoàng        | ⬜     |
+|         |                        | 1.1.1 Setup cấu trúc thư mục src/ chuẩn                           |              | ⬜     |
+|         |                        | 1.1.2 Cấu hình pyproject.toml + requirements                      |              | ⬜     |
+|         |                        | 1.1.3 Setup Weights & Biases project                              |              | ⬜     |
+|         |                        | 1.1.4 Tạo Colab notebook template                                 |              | ⬜     |
+| 1.2     | **Data Collection** ✨ |                                                                   | Hoàng + Luân | ⬜     |
+|         |                        | 1.2.1 Download FFHQ subset (10k real)                             | Luân         | ⬜     |
+|         |                        | 1.2.2 Download GenImage subset (Diffusion fake, 10k)              | Hoàng        | ⬜     |
+|         |                        | 1.2.3 Download/Generate StyleGAN2 faces (5k)                      | Hoàng        | ⬜     |
+|         |                        | 1.2.4 Chuẩn bị OOD test set: Flux/Gemini/SDXL (1k)                | Hoàng        | ⬜     |
+|         |                        | 1.2.5 Ảnh Gemini/Flux thực tế từ folder imgs/                     | Hoàng        | ⬜     |
+| 1.3     | **Data Pipeline**      |                                                                   | Hoàng        | ⬜     |
+|         |                        | 1.3.1 Implement Dataset class (PyTorch)                           |              | ⬜     |
+|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)            |              | ⬜     |
+|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                   |              | ⬜     |
+| 1.4     | **Model Architecture** |                                                                   | Hoàng        | ⬜     |
+|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)   |              | ⬜     |
+|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench) |              | ⬜     |
+|         |                        | 1.4.3 Unit test model forward pass                                |              | ⬜     |
+| 1.5     | **Training Pipeline**  |                                                                   | Hoàng        | ⬜     |
+|         |                        | 1.5.1 Implement Trainer class                                     |              | ⬜     |
+|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)             |              | ⬜     |
+|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                              |              | ⬜     |
+|         |                        | 1.5.4 Early stopping + Wandb logging                              |              | ⬜     |
+| 1.6     | **Baseline Training**  |                                                                   | Hoàng        | ⬜     |
+|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)        |              | ⬜     |
+|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                          |              | ⬜     |
+|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                           |              | ⬜     |
+|         |                        | 1.6.4 Save best checkpoint                                        |              | ⬜     |
+
+**✅ Milestone 1**: Dataset v1 (≥25k ảnh, bao gồm Diffusion) + Baseline AUC ≥ 0.88 (in-domain)
+
+---
+
+### Sprint 2: Evaluation + XAI + Benchmark Chuẩn (T03/2026)
+
+**Mục tiêu Sprint**: Đánh giá model, tích hợp XAI, so sánh chuẩn với 3 SOTA
+
+| Task ID | Task                       | Subtasks                                                            | Assignee | Status |
+| ------- | -------------------------- | ------------------------------------------------------------------- | -------- | ------ |
+| 2.1     | **Evaluation Pipeline**    |                                                                     | Hoàng    | ⬜     |
+|         |                            | 2.1.1 Compute metrics (AUC, Acc, F1) trên test set                  |          | ⬜     |
+|         |                            | 2.1.2 Per-source accuracy breakdown (GAN vs Diffusion vs Real)      |          | ⬜     |
+|         |                            | 2.1.3 OOD evaluation (Flux, Gemini, SDXL)                           |          | ⬜     |
+|         |                            | 2.1.4 Generate confusion matrix + ROC curve                         |          | ⬜     |
+| 2.2     | **Benchmark chuẩn 3 SOTA** |                                                                     | Hoàng    | ⬜     |
+|         |                            | 2.2.1 Chạy CNNDetection trên test set chung (Docker/chuẩn pipeline) |          | ⬜     |
+|         |                            | 2.2.2 Chạy UniversalFakeDetect trên test set chung                  |          | ⬜     |
+|         |                            | 2.2.3 Chạy DeepfakeBench (EffNetB4) trên test set chung             |          | ⬜     |
+|         |                            | 2.2.4 Tạo bảng so sánh AUC/Acc chính thức cho báo cáo               |          | ⬜     |
+| 2.3     | **Grad-CAM Integration**   |                                                                     | Hoàng    | ⬜     |
+|         |                            | 2.3.1 Integrate pytorch-grad-cam                                    |          | ⬜     |
+|         |                            | 2.3.2 Implement heatmap overlay function                            |          | ⬜     |
+|         |                            | 2.3.3 Generate XAI gallery (50 samples)                             |          | ⬜     |
+| 2.4     | **Model Export**           |                                                                     | Hoàng    | ⬜     |
+|         |                            | 2.4.1 Export to ONNX format                                         |          | ⬜     |
+|         |                            | 2.4.2 Validate ONNX output matches PyTorch                          |          | ⬜     |
+
+**✅ Milestone 2**: Final model (AUC ≥ 0.90 ID, ≥ 0.75 OOD) + Bảng so sánh chính thức + XAI gallery
 
 **📊 Phase 1 Deliverables**:
 
-- [ ] Dataset v1 với manifest files
-- [ ] Baseline model checkpoint (.pt)
+- [ ] Dataset v1 với manifest files (bao gồm Diffusion data)
+- [ ] Baseline model checkpoint (.pt + .onnx)
 - [ ] Training logs trên W&B
+- [ ] Bảng so sánh정식 với 3 SOTA (chạy trên cùng test set)
+- [ ] XAI gallery (50 heatmap samples)
 - [ ] Báo cáo kết quả Phase 1
 
 ---
 
-## 📦 PHASE 2: Model Development & Optimization (T01-T02/2026)
+## 📦 PHASE 2: Web Application & Report (T04-T05/2026)
 
-> **Mục tiêu Phase**: Phát triển mô hình Fusion và tích hợp XAI
-> **Thời gian**: 2 tháng
-> **Hoàng**: Toàn bộ model dev, XAI, optimization | **Luân**: Chạy test theo script
-
-### Sprint 2.1: Fusion Model & Benchmark (T01/2026)
-
-**Mục tiêu Sprint**: Xây dựng dual-branch architecture và benchmark với SOTA
-
-| Task ID | Task                       | Subtasks                                       | Assignee | Status |
-| ------- | -------------------------- | ---------------------------------------------- | -------- | ------ |
-| 2.1.1   | **Frequency Branch**       |                                                | Hoàng    | ⬜     |
-|         |                            | 2.1.1.1 Implement SRM filter module            |          | ⬜     |
-|         |                            | 2.1.1.2 Implement DCT transform                |          | ⬜     |
-|         |                            | 2.1.1.3 Build frequency feature extractor      |          | ⬜     |
-|         |                            | 2.1.1.4 Unit test frequency module             |          | ⬜     |
-| 2.1.2   | **Fusion Architecture**    |                                                | Hoàng    | ⬜     |
-|         |                            | 2.1.2.1 Implement Attention-based Fusion       |          | ⬜     |
-|         |                            | 2.1.2.2 Integrate spatial + frequency branches |          | ⬜     |
-|         |                            | 2.1.2.3 Train fusion model                     |          | ⬜     |
-|         |                            | 2.1.2.4 Compare with baseline (ablation)       |          | ⬜     |
-| 2.1.3   | **Reproduce SOTA Methods** |                                                | Hoàng    | ⬜     |
-|         |                            | 2.1.3.1 Setup CNNDetection (Wang et al.)       |          | ⬜     |
-|         |                            | 2.1.3.2 Run pretrained on our test set         |          | ⬜     |
-|         |                            | 2.1.3.3 Setup UniversalFakeDetect              |          | ⬜     |
-|         |                            | 2.1.3.4 Run CLIP-based on our test set         |          | ⬜     |
-| 2.1.4   | **OOD Evaluation**         |                                                | Hoàng    | ⬜     |
-|         |                            | 2.1.4.1 Evaluate on SDXL (unseen)              |          | ⬜     |
-|         |                            | 2.1.4.2 Evaluate on MJ proxy (unseen)          |          | ⬜     |
-|         |                            | 2.1.4.3 Per-source breakdown analysis          |          | ⬜     |
-|         |                            | 2.1.4.4 Create comparison table                |          | ⬜     |
-
-**✅ Milestone 2.1**: Fusion model + Comparison report (≥3 methods)
+> **Mục tiêu Phase**: Xây dựng Web Demo và hoàn thiện báo cáo khoa học
+> **Thời gian**: 2 tháng (04/2026 - 05/2026)
+> **Hoàng**: Backend, API, Integration, Báo cáo kỹ thuật | **Luân**: Test UI, Viết Chương 1-2
+>
+> ⚠️ **Thay đổi**: Gộp Phase 3 cũ vào đây. Bỏ Robustness Testing chi tiết (nice-to-have).
 
 ---
 
-### Sprint 2.2: XAI & Model Optimization (T02/2026)
-
-**Mục tiêu Sprint**: Tích hợp Grad-CAM và tối ưu hóa model
-
-| Task ID | Task                      | Subtasks                                         | Assignee | Status |
-| ------- | ------------------------- | ------------------------------------------------ | -------- | ------ |
-| 2.2.1   | **Grad-CAM Integration**  |                                                  | Hoàng    | ⬜     |
-|         |                           | 2.2.1.1 Integrate pytorch-grad-cam               |          | ⬜     |
-|         |                           | 2.2.1.2 Implement heatmap overlay function       |          | ⬜     |
-|         |                           | 2.2.1.3 Generate XAI gallery (50 samples)        |          | ⬜     |
-|         |                           | 2.2.1.4 Validate heatmap highlights face regions |          | ⬜     |
-| 2.2.2   | **Robustness Testing**    |                                                  | Hoàng    | ⬜     |
-|         |                           | 2.2.2.1 Test JPEG compression (q=60, 80)         |          | ⬜     |
-|         |                           | 2.2.2.2 Test resize (0.5x, 0.75x, 1.5x)          |          | ⬜     |
-|         |                           | 2.2.2.3 Test crop (center, random)               |          | ⬜     |
-|         |                           | 2.2.2.4 Create robustness report                 |          | ⬜     |
-| 2.2.3   | **Model Export**          |                                                  | Hoàng    | ⬜     |
-|         |                           | 2.2.3.1 Export to ONNX format                    |          | ⬜     |
-|         |                           | 2.2.3.2 Apply INT8 quantization                  |          | ⬜     |
-|         |                           | 2.2.3.3 Validate ONNX output matches PyTorch     |          | ⬜     |
-| 2.2.4   | **Speed Benchmark** ✨    |                                                  | Luân     | ⬜     |
-|         | _(Chạy script của Hoàng)_ | 2.2.4.1 Chạy benchmark script                    |          | ⬜     |
-|         |                           | 2.2.4.2 Ghi lại kết quả vào bảng                 |          | ⬜     |
-
-**✅ Milestone 2.2**: Final model (AUC ≥ 0.92 in-domain, ≥ 0.85 OOD) + XAI + ONNX
-
-**📊 Phase 2 Deliverables**:
-
-- [ ] Fusion model checkpoint (.pt + .onnx)
-- [ ] Comparison report với 3+ SOTA methods
-- [ ] XAI gallery (50 heatmap samples)
-- [ ] Robustness report
-- [ ] Speed benchmark report
-
----
-
-## 📦 PHASE 3: Application & Report (T03-T05/2026)
-
-> **Mục tiêu Phase**: Xây dựng Web Demo và hoàn thiện báo cáo
-> **Thời gian**: 3 tháng
-> **Hoàng**: Backend, API, Integration | **Luân**: Test UI, Viết Chương 1-2 báo cáo
-
-### Sprint 3.1: Web Demo Development (T03/2026)
+### Sprint 3: Web Demo Development (T04/2026)
 
 **Mục tiêu Sprint**: Xây dựng ứng dụng web hoàn chỉnh
 
@@ -592,7 +639,7 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ---
 
-### Sprint 3.2: Documentation & Defense Prep (T04-T05/2026)
+### Sprint 4: Documentation & Defense Prep (T04-T05/2026)
 
 **Mục tiêu Sprint**: Hoàn thiện tài liệu và chuẩn bị bảo vệ
 
@@ -626,7 +673,7 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 **✅ Milestone 3.2**: Hồ sơ nghiệm thu đầy đủ
 
-**📊 Phase 3 Deliverables**:
+**📊 Phase 2 Deliverables**:
 
 - [ ] Web application hoạt động
 - [ ] Báo cáo tổng kết (Docx + PDF)
@@ -641,12 +688,11 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ### 7.1. Task Summary by Phase
 
-| Phase                | Sprints | Total Tasks | Total Subtasks |
-| -------------------- | ------- | ----------- | -------------- |
-| Phase 1: Foundation  | 2       | 10          | 28             |
-| Phase 2: Model Dev   | 2       | 8           | 24             |
-| Phase 3: Application | 2       | 9           | 27             |
-| **Total**            | **6**   | **27**      | **79**         |
+| Phase                 | Sprints | Trạng thái                     |
+| --------------------- | ------- | ------------------------------ |
+| Phase 0: Research     | -       | ✅ Đã xong (11/2025 - 02/2026) |
+| Phase 1: Data + Model | 2       | ⬜ Sắp bắt đầu                 |
+| Phase 2: Web + Report | 2       | ⬜ Chưa bắt đầu                |
 
 ### 7.2. Task Status Legend
 
@@ -660,14 +706,13 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ### 7.3. Milestone Summary
 
-| Milestone                | Phase   | Target Date | KPI                           | Status |
-| ------------------------ | ------- | ----------- | ----------------------------- | ------ |
-| M1.1: Raw Dataset        | Phase 1 | 30/11/2025  | ≥40k ảnh                      | ⬜     |
-| M1.2: Baseline Model     | Phase 1 | 31/12/2025  | AUC ≥ 0.88                    | ⬜     |
-| M2.1: Fusion + Benchmark | Phase 2 | 31/01/2026  | 3+ methods compared           | ⬜     |
-| M2.2: Final Model + XAI  | Phase 2 | 28/02/2026  | AUC ≥ 0.92 (ID), ≥ 0.85 (OOD) | ⬜     |
-| M3.1: Web Demo           | Phase 3 | 31/03/2026  | Latency ≤ 2s                  | ⬜     |
-| M3.2: Defense Ready      | Phase 3 | 15/05/2026  | Full package                  | ⬜     |
+| Milestone              | Phase   | Target Date | KPI                              | Status |
+| ---------------------- | ------- | ----------- | -------------------------------- | ------ |
+| M0: Research Complete  | Phase 0 | 10/02/2026  | 3 projects chạy + documented     | ✅     |
+| M1: Dataset + Baseline | Phase 1 | 15/03/2026  | ≥25k ảnh + AUC ≥ 0.88 (ID)       | ⬜     |
+| M2: Benchmark + XAI    | Phase 1 | 31/03/2026  | Bảng so sánh chuẩn + XAI gallery | ⬜     |
+| M3: Web Demo           | Phase 2 | 30/04/2026  | Latency ≤ 2s                     | ⬜     |
+| M4: Defense Ready      | Phase 2 | 15/05/2026  | Full package                     | ⬜     |
 
 ### 7.4. Weekly Progress Template
 
@@ -696,13 +741,15 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ## 8. KPIs & Metrics
 
-### 8.1. Model Performance KPIs (Thực tế)
+### 8.1. Model Performance KPIs (Cập nhật dựa trên benchmark)
 
-| Metric       | In-Domain | OOD    | Priority    |
-| ------------ | --------- | ------ | ----------- |
-| **AUC-ROC**  | ≥ 0.90    | ≥ 0.75 | 🔴 Critical |
-| **Accuracy** | ≥ 88%     | ≥ 75%  | 🔴 Critical |
-| **F1-Score** | ≥ 0.88    | ≥ 0.75 | 🟡 High     |
+| Metric       | In-Domain | OOD (GAN khác) | OOD (Diffusion mới) | Priority    | Ghi chú                  |
+| ------------ | --------- | -------------- | ------------------- | ----------- | ------------------------ |
+| **AUC-ROC**  | ≥ 0.90    | ≥ 0.75         | ≥ 0.70              | 🔴 Critical | Target mới cho Diffusion |
+| **Accuracy** | ≥ 88%     | ≥ 75%          | ≥ 65%               | 🔴 Critical | Gemini/Flux là rất khó   |
+| **F1-Score** | ≥ 0.88    | ≥ 0.75         | ≥ 0.65              | 🟡 High     |                          |
+
+> ⚠️ **Thực tế**: Cả 3 SOTA đều AUC < 0.50 trên Gemini/Flux. Nếu HolmHz đạt **≥ 0.70** trên Diffusion OOD, đó đã là đóng góp có giá trị.
 
 ### 8.2. Robustness KPIs
 
@@ -730,49 +777,183 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ## 9. Evaluation Protocol
 
-### 9.1. Comparison Table Template
+### 9.1. Comparison Table Template (Cập nhật với dữ liệu thực tế)
 
-| Method              | Year | In-domain AUC | OOD AUC | Params |
-| ------------------- | ---- | ------------- | ------- | ------ |
-| Wang et al.         | 2020 | 0.99          | 0.78    | 25M    |
-| UniversalFakeDetect | 2023 | 0.95          | 0.82    | 300M   |
-| **Ours (Baseline)** | 2026 | ?             | ?       | 5M     |
+| Method                     | Year | In-domain AUC (Paper) | OOD AUC (Paper) | Test trên Gemini/Flux (02/2026) | Params |
+| -------------------------- | ---- | --------------------- | --------------- | ------------------------------- | ------ |
+| Wang et al. (CNNDetection) | 2020 | 0.99                  | 0.78            | ❌ ~6% (thất bại)               | 25M    |
+| UniversalFakeDetect (CLIP) | 2023 | 0.95                  | 0.82            | ❌ <10% (thất bại)              | 300M   |
+| DeepfakeBench (EffNetB4)   | 2023 | 0.95                  | -               | ⚠️ ~50% (đoán mò)               | 19M    |
+| **HolmHz (Ours)**          | 2026 | Target: 0.90          | Target: 0.75    | **Target: >70%**                | ~5M    |
+
+> 📝 **Ghi chú cho hội đồng**: Cột "Test trên Gemini/Flux" là kết quả test sơ bộ trên ảnh đơn lẻ (02/2026). Kết quả chính thức sẽ được tính trên test set chuẩn (≥500 ảnh) với AUC metric ở Sprint 2.
 
 ### 9.2. Per-Source Breakdown
 
-| Source    | Type          | AUC | Notes     |
-| --------- | ------------- | --- | --------- |
-| StyleGAN2 | GAN (seen)    | ?   | In-domain |
-| SDXL      | Diff (unseen) | ?   | OOD       |
+| Source        | Type          | AUC (HolmHz) | AUC (CNNDetection) | AUC (UniversalFakeDetect) | Notes                     |
+| ------------- | ------------- | ------------ | ------------------ | ------------------------- | ------------------------- |
+| StyleGAN2     | GAN (seen)    | ?            | ~0.95 (paper)      | ~0.99 (paper)             | In-domain                 |
+| ProGAN        | GAN (seen)    | ?            | ~0.94 (đã test)    | ~1.00 (đã test)           | In-domain                 |
+| GenImage (SD) | Diff (seen)   | ?            | Fail               | Fail                      | Train data mới cho HolmHz |
+| SDXL          | Diff (unseen) | ?            | Fail               | Fail                      | OOD                       |
+| Gemini        | Diff (unseen) | ?            | ~0.06              | <0.10                     | OOD - Thách thức chính    |
+| Flux          | Diff (unseen) | ?            | N/A                | <0.10                     | OOD                       |
 
 ---
 
-## 10. Cấu trúc thư mục
+## 10. Cấu trúc thư mục (Revised - Best Practice từ 3 SOTA projects)
+
+> Thiết kế dựa trên phân tích cấu trúc CNNDetection, UniversalFakeDetect, DeepfakeBench.
+> Lấy separation of concerns của DeepfakeBench, sự đơn giản của CNNDetection,
+> và two-tier model pattern của UniversalFakeDetect.
 
 ```
 HolmHz/
-├── data/                    # Dataset (gitignored)
-│   ├── processed/
+├── README.md
+├── LICENSE
+├── pyproject.toml                  # Single source of truth (deps + metadata + entry points)
+├── Makefile                        # Shortcuts: make train, make test, make serve, make export
+├── Dockerfile                      # Reproducible environment (bài học từ DeepfakeBench)
+├── .env.example                    # Dataset paths, API keys, wandb key
+│
+├── configs/                        # ★ YAML-driven config (pattern từ DeepfakeBench)
+│   ├── train.yaml                  #   Default training hyperparams
+│   ├── test.yaml                   #   Default eval settings
+│   ├── export.yaml                 #   ONNX export settings
+│   └── detectors/                  #   Per-detector overrides
+│       └── efficientnet_b0.yaml    #   LR, batch, augmentation riêng cho EffNet
+│
+├── src/                            # ★ Installable Python package
+│   └── holmhz/                     #   `pip install -e .` → import holmhz
+│       ├── __init__.py
+│       │
+│       ├── backbones/              # ★ Pure architectures (từ UniversalFakeDetect models/)
+│       │   ├── __init__.py         #   Registry + factory function
+│       │   ├── base.py             #   Abstract backbone class
+│       │   └── efficientnet.py     #   EfficientNet-B0 wrapper (timm)
+│       │
+│       ├── detectors/              # ★ Full detector = backbone + head + pre/post
+│       │   ├── __init__.py         #   (pattern từ DeepfakeBench detectors/)
+│       │   ├── base.py             #   Abstract detector (base_detector.py)
+│       │   └── efficientnet_detector.py  # EffNet-B0 + Linear(1280→1) + Sigmoid
+│       │
+│       ├── data/                   # ★ Data pipeline (common pattern cả 3 project)
+│       │   ├── __init__.py
+│       │   ├── base_dataset.py     #   Abstract dataset (từ DeepfakeBench abstract_dataset.py)
+│       │   ├── image_dataset.py    #   Image-level dataset cho train/val/test
+│       │   ├── transforms.py       #   Albumentations augmentation (bài học: cần hỗ trợ
+│       │   │                       #   nhiều normalization: ImageNet, CLIP, [0.5,0.5,0.5])
+│       │   └── utils.py            #   Face crop, alignment helpers
+│       │
+│       ├── losses/                 # ★ Pluggable loss functions (từ DeepfakeBench loss/)
+│       │   ├── __init__.py
+│       │   └── bce.py              #   BCEWithLogitsLoss (pattern chung CNNDetection + UFD)
+│       │
+│       ├── metrics/                # ★ Pluggable metrics (từ DeepfakeBench metrics/)
+│       │   ├── __init__.py
+│       │   ├── auc.py              #   AUC-ROC computation
+│       │   └── accuracy.py         #   Accuracy, F1, confusion matrix
+│       │
+│       ├── training/               # ★ Training engine
+│       │   ├── __init__.py
+│       │   ├── trainer.py          #   Main loop (từ DeepfakeBench trainer/trainer.py)
+│       │   ├── early_stopping.py   #   (từ CNNDetection earlystop.py)
+│       │   └── lr_schedulers.py    #   CosineAnnealing, etc.
+│       │
+│       ├── evaluation/             # ★ Evaluation engine
+│       │   ├── __init__.py
+│       │   ├── evaluator.py        #   Unified eval: ID + OOD + per-source breakdown
+│       │   └── benchmark.py        #   So sánh cross-model trên cùng test set
+│       │
+│       ├── xai/                    # ★ Explainability (HolmHz core feature)
+│       │   ├── __init__.py
+│       │   ├── gradcam.py          #   pytorch-grad-cam wrapper
+│       │   └── utils.py            #   Heatmap overlay, gallery generation
+│       │
+│       ├── export/                 # ★ Model export pipeline
+│       │   ├── __init__.py
+│       │   ├── onnx_export.py      #   PyTorch → ONNX
+│       │   └── validate.py         #   Verify ONNX output matches PyTorch
+│       │
+│       └── utils/                  # ★ Shared utilities
+│           ├── __init__.py
+│           ├── logger.py           #   (từ DeepfakeBench logger.py)
+│           ├── registry.py         #   Component registry pattern (detector, backbone, loss)
+│           ├── io.py               #   Checkpoint save/load
+│           └── visualization.py    #   ROC curve, confusion matrix plotting
+│
+├── scripts/                        # ★ CLI entry points (pattern từ CNNDetection root scripts)
+│   ├── train.py                    #   python scripts/train.py --config configs/train.yaml
+│   ├── test.py                     #   python scripts/test.py --config configs/test.yaml
+│   ├── predict.py                  #   Single image / batch prediction (demo.py + demo_dir.py)
+│   ├── explain.py                  #   Generate Grad-CAM heatmaps
+│   ├── export_onnx.py              #   Export model to ONNX
+│   └── download_weights.sh         #   (pattern từ CNNDetection weights/)
+│
+├── app/                            # ★ Web demo (tách serving khỏi ML logic)
+│   ├── __init__.py
+│   ├── api.py                      #   FastAPI endpoints (POST /predict, /explain)
+│   ├── gradio_ui.py                #   Gradio frontend
+│   └── schemas.py                  #   Pydantic request/response models
+│
+├── preprocessing/                  # ★ Data prep (top-level, từ DeepfakeBench preprocessing/)
+│   ├── preprocess.py               #   Face extraction, alignment, resize
+│   ├── build_splits.py             #   Tạo train/val/test JSON manifests
+│   └── config.yaml                 #   Preprocessing settings
+│
+├── analysis/                       # ★ Research analysis tools (từ DeepfakeBench analysis/)
+│   ├── compute_auc.py              #   Tính AUC từ predictions
+│   ├── plot_roc.py                 #   Vẽ ROC curve so sánh
+│   ├── tsne.py                     #   t-SNE feature visualization
+│   └── frequency_analysis.py       #   DCT/frequency inspection
+│
+├── tests/                          # ★ Unit + integration tests
+│   ├── conftest.py
+│   ├── test_backbones.py
+│   ├── test_detectors.py
+│   ├── test_data.py
+│   └── test_api.py
+│
+├── notebooks/                      # Jupyter exploration / demos
+│   ├── 01_data_exploration.ipynb
+│   └── 02_gradcam_demo.ipynb
+│
+├── weights/                        # Pretrained checkpoints (.gitignored)
+│   └── .gitkeep
+│
+├── outputs/                        # Training outputs (.gitignored)
+│   ├── checkpoints/                #   Model .pt files
+│   ├── logs/                       #   W&B / tensorboard logs
+│   └── exports/                    #   ONNX files
+│
+├── data/                           # Dataset (.gitignored)
+│   ├── raw/                        #   Original downloaded data
+│   ├── processed/                  #   Cropped, aligned, resized
 │   │   ├── train/
 │   │   ├── val/
 │   │   └── test_ood/
-│   └── manifests/
-├── src/                     # Source code
-│   ├── data/
-│   ├── models/
-│   ├── training/
-│   ├── evaluation/
-│   ├── xai/
-│   └── inference/
-├── app/                     # Web application
-├── configs/
-├── notebooks/
-├── scripts/
-├── docs/
-├── outputs/                 # Checkpoints (gitignored)
-├── pyproject.toml
-└── README.md
+│   └── manifests/                  #   JSON split files (tracked in git)
+│
+└── docs/
+    ├── PROJECT_PLAN.md
+    ├── CHANGELOG.md
+    └── research/                   #   Deep dive analyses
 ```
+
+### Thiết kế dựa trên bài học từ 3 project:
+
+| Quyết định                                 | Lý do                                                                   | Nguồn                                 |
+| ------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------- |
+| `backbones/` tách khỏi `detectors/`        | Backbone tái sử dụng được; detector là task-specific. Dễ swap backbone. | DeepfakeBench + UniversalFakeDetect   |
+| YAML configs per-detector                  | Scale tốt khi thêm model mới, không cần sửa argparse. Dễ reproduce.     | DeepfakeBench (`config/detector/`)    |
+| `src/holmhz/` installable package          | `pip install -e .` → import sạch, không cần `sys.path` hack.            | Python best practice                  |
+| `scripts/` cho CLI, `src/` cho library     | Entry points không lẫn với importable code.                             | CNNDetection (root scripts)           |
+| `losses/` + `metrics/` riêng               | Thêm loss/metric mới không cần sửa code cũ (Open/Closed).               | DeepfakeBench                         |
+| `preprocessing/` top-level                 | Data prep independent, chạy trước training, có config riêng.            | DeepfakeBench (`preprocessing/`)      |
+| `analysis/` top-level                      | Research tools (t-SNE, ROC) tách khỏi production code.                  | DeepfakeBench (`analysis/`)           |
+| `transforms.py` hỗ trợ nhiều normalization | Mỗi backbone cần normalization khác nhau (ImageNet vs CLIP vs [0.5]).   | Bài học từ cả 3 project               |
+| Registry pattern trong `__init__.py`       | Config chỉ cần ghi tên detector → factory tự tạo object.                | DeepfakeBench `detectors/__init__.py` |
+| `base.py` abstract class ở mỗi package     | Đảm bảo interface thống nhất, dễ thêm implementation mới.               | Pattern chung cả 3 project            |
 
 ---
 
@@ -830,6 +1011,6 @@ Phase 1: Image    Phase 2: Video     Phase 3: Multi-modal
 
 ---
 
-**Last Updated:** 02/02/2026  
+**Last Updated:** 10/02/2026  
 **Author:** Lê Văn Hoàng  
-**Version:** 2.0 (Revised based on critical analysis)
+**Version:** 3.0 (Revised based on实际 benchmark results from 3 SOTA projects)

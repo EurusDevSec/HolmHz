@@ -358,41 +358,41 @@ pip install -r requirements.txt
 
 ```bash
 # Chạy với config có sẵn
-python demo.py \
-    --detector efficientnet \
-    --image_path test_images/fake/fake1.jpg
+python training/test_deepfakebench.py ../CNNDetection/examples/fake.png
 ```
 
-### 5.3. So sánh nhiều methods
+### 5.3. Thực tế triển khai
 
-```bash
-# Chạy benchmark với nhiều detector
-python benchmark.py \
-    --detectors efficientnet,resnet50,xception \
-    --test_dir test_images/
-```
+Do dự án gốc (DeepfakeBench) rất nặng và yêu cầu nhiều thư viện cũ/xung đột (imgaug, tensorboard v.v.), chúng ta đã tạo một script rút gọn `training/test_deepfakebench.py` để chạy Inference với model **EfficientNet-B4**.
 
-### 5.4. Kết quả mong đợi
+**Các tháo tác đã làm:**
 
-```
-┌────────────────┬──────────┬──────────┬──────────┐
-│ Detector       │ Accuracy │ AUC      │ Time(ms) │
-├────────────────┼──────────┼──────────┼──────────┤
-│ EfficientNet   │ 92.3%    │ 0.95     │ 45       │
-│ ResNet50       │ 89.1%    │ 0.92     │ 38       │
-│ Xception       │ 91.5%    │ 0.94     │ 52       │
-└────────────────┴──────────┴──────────┴──────────┘
-```
+1. **Dependency Hell**: Cần cài đặt `timm`, `efficientnet_pytorch` và mock `dlib`, `tensorboard` để chạy trên Windows + Python 3.12.
+2. **Pretrained Weights**: Download thủ công `effnb4_best.pth`.
+3. **Inference Script**: Viết script riêng dùng class `EfficientDetector` nhưng bypass cơ chế load config phức tạp của hệ thống train.
+
+### 5.4. Kết quả thực tế trên dữ liệu người dùng
+
+| Ảnh Input                 | Nguồn           | Kết quả  | Độ tự tin (Fake Prob) | Nhận xét                                      |
+| :------------------------ | :-------------- | :------- | :-------------------- | :-------------------------------------------- |
+| `Gemini_Generated_...png` | Gemini (AI mới) | **FAKE** | `0.5076`              | **Kém**: Chỉ nhỉnh hơn may rủi (50/50).       |
+| `generation-9f6...png`    | AI Generated    | **REAL** | `0.4339`              | **Sai (False Negative)**: Coi ảnh AI là thật. |
+| `IMG_2344.jpg`            | Camera thật     | **REAL** | `0.1883`              | **Đúng**: Nhận diện tốt ảnh thật.             |
+
+**Kết luận quan trọng**:
+Model `EfficientNet-B4` (được train trên dataset cũ FaceForensics++) hoạt động **rất kém** trên các ảnh AI hiện đại (GenAI/Diffusion). Nó không nhận ra các đặc trưng nhiễu của Gemini/Flux.
+
+> **Bài học cho HolmHz**: Nếu chỉ dùng EfficientNet thuần túy, HolmHz sẽ thất bại với các deepfake mới. Cần kết hợp kiến trúc **UniversalFakeDetect (CLIP)** hoặc train lại với dataset mới (GenImage).
 
 ### 5.5. Ghi chú cho HolmHz
 
 ```markdown
 ## Học được gì từ DeepfakeBench:
 
-- [x] Cách tổ chức benchmark nhiều models
-- [x] Cách tính metrics (AUC, Accuracy, F1)
-- [x] Config system (YAML files)
-- [x] Cấu trúc code chuyên nghiệp
+- [x] **Architecture**: Pattern `Registry` rất hay để quản lý nhiều model module.
+- [x] **Config**: Hệ thống YAML config linh hoạt nhưng phức tạp.
+- [x] **Warning**: Tránh phụ thuộc quá nhiều library nặng (bloatware) như dlib/imgaug.
+- [x] **Insight**: Training data quyết định tất cả. Model mạnh (EfficientNet) cũng vô dụng nếu train sai domain.
 ```
 
 ---
