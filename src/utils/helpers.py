@@ -3,7 +3,7 @@
 from typing import List, Tuple, Optional
 from pathlib import Path
 
-
+# ImagePathManager Quan ly duong dan anh
 
 class ImagePathManager:
     """Quan ly duong dan anh trong dataset"""
