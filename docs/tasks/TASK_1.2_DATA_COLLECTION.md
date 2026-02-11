@@ -1,5 +1,7 @@
 ## 💡 Context
 
+# new task 1.2
+
 > **Task ID**: S1-002  
 > **Phase**: Phase 1 - Data + Model Development  
 > **Sprint**: Sprint 1 - Data + Baseline Training  
