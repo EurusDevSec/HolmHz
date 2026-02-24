@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2025-07-14
+> Cập nhật lần cuối: 2026-02-23
 
 ---
 
@@ -82,6 +82,27 @@
 - **Nguyên nhân**: `pyproject.toml` có `packages = ["src"]` → import phải là `src.holmhz`
 - **Fix**: Đổi thành `packages = ["src/holmhz"]` → import đúng: `import holmhz`
 
+### 4.4 Typos trong config & **init**.py (fix 2026-02-23)
+
+- `__init__.py`: "Detectioin" → "Detection", "dectectors" → "detectors", "trainning" → "training"
+- `train.yaml`: "freeze_backbond" → "freeze_backbone", "augmetation" → "augmentation"
+
+### 4.5 `.env.example` chứa API key thật (fix 2026-02-23)
+
+- **Vấn đề**: WANDB_API_KEY thật bị ghi vào `.env.example` → rủi ro lộ key khi commit
+- **Fix**: Thay bằng placeholder `your_wandb_key_here`
+- **Bài học**: `.env.example` chỉ chứa template, `.env` chứa giá trị thật (đã có trong .gitignore)
+
+### 4.6 `.gitignore` block `.env.example` (fix 2026-02-23)
+
+- **Vấn đề**: `.env.example` bị ignore → không commit được template lên Git
+- **Fix**: Xóa `.env.example` khỏi .gitignore, thêm `data/raw/`, `data/processed/`, `weights/`, `outputs/`
+
+### 4.7 ruff config deprecated warnings (fix 2026-02-23)
+
+- **Vấn đề**: `select`/`ignore`/`isort` ở top-level `[tool.ruff]` → deprecated
+- **Fix**: Move sang `[tool.ruff.lint]` và `[tool.ruff.lint.isort]`
+
 ## 5. Key Research Findings
 
 > Từ file `docs/research/` — kết quả chạy 3 mô hình SOTA trên dataset mới
@@ -108,89 +129,99 @@
 
 ```
 src/holmhz/
-├── __init__.py          # Package root (empty)
-├── backbones/           # CNN backbones (EfficientNet-B0)
+├── __init__.py              # Package root (__version__ = "0.1.0")
+├── backbones/               # CNN backbones (EfficientNet-B0)
 │   ├── __init__.py
 │   ├── base.py
 │   └── efficientnet.py
-├── data/                # Dataset, transforms, dataloader
+├── data/                    # Dataset, transforms, dataloader
 │   ├── __init__.py
-│   ├── dataset.py
-│   ├── loader.py
-│   └── transforms.py
-├── detectors/           # Detector models
+│   ├── base_dataset.py
+│   ├── image_dataset.py
+│   ├── transforms.py
+│   └── utils.py
+├── detectors/               # Detector models
 │   ├── __init__.py
 │   ├── base.py
-│   └── binary_detector.py
-├── evaluation/          # Eval pipeline
+│   └── efficientnet_detector.py
+├── evaluation/              # Eval pipeline
 │   ├── __init__.py
-│   ├── evaluator.py
-│   └── report.py
-├── exports/             # ONNX export
+│   ├── benchmark.py
+│   └── evaluator.py
+├── exports/                 # ONNX export
 │   ├── __init__.py
-│   └── onnx_export.py
-├── losses/              # Loss functions
+│   ├── onnx_export.py
+│   └── validate.py
+├── losses/                  # Loss functions
 │   ├── __init__.py
-│   └── cross_entropy.py
-├── metrics/             # AUC, accuracy, etc.
+│   └── bce.py
+├── metrics/                 # AUC, accuracy, etc.
 │   ├── __init__.py
-│   └── classification.py
-├── training/            # Training loop
+│   ├── accuracy.py
+│   └── auc.py
+├── training/                # Training loop
 │   ├── __init__.py
+│   ├── early_stopping.py
+│   ├── lr_schedulers.py
 │   └── trainer.py
-├── utils/               # Helpers
+├── utils/                   # Helpers
 │   ├── __init__.py
-│   ├── config.py
-│   ├── logging.py
-│   └── registry.py
-└── xai/                 # Grad-CAM
+│   ├── io.py
+│   ├── logger.py
+│   ├── registry.py
+│   └── visualization.py
+└── xai/                     # Grad-CAM
     ├── __init__.py
-    └── gradcam.py
+    ├── gradcam.py
+    └── utils.py
 ```
 
-**Trạng thái**: Tất cả 38+ files đều EMPTY — chưa có implementation code nào.
+**Trạng thái**: 35 files, tất cả EMPTY trừ `__init__.py` (có version). Chưa có implementation code.
 
 ## 7. Config files
 
-| File                                     | Trạng thái |
-| ---------------------------------------- | ---------- |
-| `configs/train.yaml`                     | Empty      |
-| `configs/test.yaml`                      | Empty      |
-| `configs/export.yaml`                    | Empty      |
-| `configs/detectors/efficientnet_b0.yaml` | Empty      |
+| File                                     | Trạng thái                                      |
+| ---------------------------------------- | ----------------------------------------------- |
+| `configs/train.yaml`                     | ✅ Có nội dung (model, training, data, wandb)   |
+| `configs/test.yaml`                      | ✅ Có nội dung (model, data, evaluation, wandb) |
+| `configs/export.yaml`                    | ✅ Có nội dung (model, export ONNX, validation) |
+| `configs/detectors/efficientnet_b0.yaml` | ✅ Có nội dung (detector, backbone, head, loss) |
 
-## 8. Tài liệu đã tạo
+## 8. Tài liệu & files đã tạo
 
 | File                                 | Mô tả                                                                       |
 | ------------------------------------ | --------------------------------------------------------------------------- |
 | `docs/guides/GUIDE_SPRINT1_TASKS.md` | Hướng dẫn chi tiết Tasks 1.1→1.6 (~1500 dòng), giải thích WHY cho từng bước |
 | `docs/CONTEXT.md`                    | File này — lưu context session                                              |
+| `.env.example`                       | Template biến môi trường (WANDB_API_KEY, DATA_ROOT, DEVICE)                 |
+| `Makefile`                           | Build targets: train, test, serve, lint, format, check, clean               |
 
 ## 9. Task Progress
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Ghi chú                                          |
-| -------------------------- | -------------- | ------------------------------------------------ |
-| **1.1** Environment Setup  | 🟡 In Progress | Dependencies ✅, configs empty, wandb chưa login |
-| **1.2** Data Collection    | ⬜ Not Started | Cần thu thập ảnh Real + AI-generated             |
-| **1.3** Data Pipeline      | ⬜ Not Started | Dataset class, transforms, dataloader            |
-| **1.4** Model Architecture | ⬜ Not Started | EfficientNet-B0 backbone + binary head           |
-| **1.5** Training Pipeline  | ⬜ Not Started | Trainer, loss, metrics, WandB logging            |
-| **1.6** Baseline Training  | ⬜ Not Started | Train + evaluate first model                     |
+| Task                       | Trạng thái     | Ghi chú                                             |
+| -------------------------- | -------------- | --------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed   | Mọi acceptance criteria đã pass (xem chi tiết dưới) |
+| **1.2** Data Collection    | ⬜ Not Started | Cần thu thập ảnh Real + AI-generated                |
+| **1.3** Data Pipeline      | ⬜ Not Started | Dataset class, transforms, dataloader               |
+| **1.4** Model Architecture | ⬜ Not Started | EfficientNet-B0 backbone + binary head              |
+| **1.5** Training Pipeline  | ⬜ Not Started | Trainer, loss, metrics, WandB logging               |
+| **1.6** Baseline Training  | ⬜ Not Started | Train + evaluate first model                        |
 
-### Task 1.1 — Chi tiết remaining items
+### Task 1.1 — Acceptance Criteria
 
-- [x] Tạo virtual environment
-- [x] Cài PyTorch + CUDA
-- [x] Cài tất cả runtime + dev dependencies
-- [x] Install `holmhz` editable package
-- [x] Fix `pyproject.toml` package path
-- [ ] Viết nội dung config YAML files (train.yaml, efficientnet_b0.yaml)
-- [ ] Viết `src/holmhz/__init__.py` (version, metadata)
-- [ ] Tạo `.env.example` (WANDB_API_KEY, DATA_DIR, etc.)
-- [ ] `wandb login`
-- [ ] `ruff check src/` — verify linting works
+- [x] Cấu trúc `src/holmhz/` theo best practice (10 submodules)
+- [x] `pyproject.toml` configured, `pip install -e .` hoạt động
+- [x] `.env.example` có placeholder cho dataset paths, wandb key
+- [x] YAML config skeleton: train.yaml, test.yaml, export.yaml, efficientnet_b0.yaml
+- [x] `wandb login` thành công (verified: `logged_in: True`)
+- [x] `Makefile` có target: train, test, serve, lint, format, check, clean
+- [x] `ruff check src/` chạy clean — All checks passed! (0 warnings)
+- [x] `.gitignore` bao gồm data/, weights/, outputs/
+- [x] `import torch; import timm; import holmhz` — all OK
+- [ ] Colab notebook template (optional — sẽ làm khi cần train trên Colab)
+- [ ] Branch `feat/s1/environment-setup` + PR (optional — hiện đang trên main)
 
 ## 10. Conventions & Lưu ý
 

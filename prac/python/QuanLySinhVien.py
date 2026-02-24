@@ -13,7 +13,7 @@ class SinhVien:
             return "trung_binh"
 
         return "yeu"
-    
+
     def Gioi_thieu(self):
         return f"Toi ten la {self.ho_ten}, {self.tuoi} tuoi, xep loai {self.xep_loai()}"
 

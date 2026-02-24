@@ -136,8 +136,8 @@ celerybeat.pid
 
 # Environments
 .env
-.env.example
 .envrc
+# NOTE: .env.example is a template and SHOULD be committed (not ignored)
 .venv
 env/
 venv/
@@ -191,6 +191,13 @@ cython_debug/
 
 # Ruff stuff:
 .ruff_cache/
+
+# === HolmHz Project-Specific ===
+# Large data files (download on demand)
+data/raw/
+data/processed/
+weights/
+outputs/
 
 # PyPI configuration file
 .pypirc

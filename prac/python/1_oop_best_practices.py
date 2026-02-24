@@ -9,7 +9,7 @@ class Robot:
 
     def chao(self):
         print(f"xin chao, ta la {self.ten}, mau {self.mau_sac}")
-    
+
     def chay (self):
         self.pin = self.pin -10
         print(f"{self.ten} dang chay... Pin con {self.pin}%")
