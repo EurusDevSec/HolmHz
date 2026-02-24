@@ -189,27 +189,28 @@ src/holmhz/
 
 ## 8. Tài liệu & files đã tạo
 
-| File                                 | Mô tả                                                                       |
-| ------------------------------------ | --------------------------------------------------------------------------- |
-| `docs/guides/GUIDE_SPRINT1_TASKS.md` | Hướng dẫn chi tiết Tasks 1.1→1.6 (~1500 dòng), giải thích WHY cho từng bước |
-| `docs/CONTEXT.md`                    | File này — lưu context session                                              |
-| `.env.example`                       | Template biến môi trường (WANDB_API_KEY, DATA_ROOT, DEVICE)                 |
-| `docs/DAILY_COMMANDS.md`             | Các lệnh kiểm tra hàng ngày (lint, test, import, git)                       |
-| `notebooks/00_colab_template.ipynb`  | Colab/Kaggle notebook template (7 steps)                                    |
-| `Makefile`                           | Build targets: train, test, serve, lint, format, check, clean               |
+| File                                            | Mô tả                                                                       |
+| ----------------------------------------------- | --------------------------------------------------------------------------- |
+| `docs/guides/GUIDE_SPRINT1_TASKS.md`            | Hướng dẫn chi tiết Tasks 1.1→1.6 (~2500 dòng), giải thích WHY cho từng bước |
+| `docs/guides/GUIDE_TASK_1.2_DATA_COLLECTION.md` | Hướng dẫn chi tiết Task 1.2 (riêng), aligned với plan revised 24/02         |
+| `docs/CONTEXT.md`                               | File này — lưu context session                                              |
+| `.env.example`                                  | Template biến môi trường (WANDB_API_KEY, DATA_ROOT, DEVICE)                 |
+| `docs/DAILY_COMMANDS.md`                        | Các lệnh kiểm tra hàng ngày (lint, test, import, git)                       |
+| `notebooks/00_colab_template.ipynb`             | Colab/Kaggle notebook template (7 steps)                                    |
+| `Makefile`                                      | Build targets: train, test, serve, lint, format, check, clean               |
 
 ## 9. Task Progress
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Target (revised) | Ghi chú                                           |
-| -------------------------- | -------------- | ---------------- | ------------------------------------------------- |
-| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE   | Mọi acceptance criteria đã pass                   |
-| **1.2** Data Collection    | ⬜ Not Started | **02/03**        | CIFAKE + FFHQ + StyleGAN + SD v1.5 self-gen       |
-| **1.3** Data Pipeline      | ⬜ Not Started | **07/03**        | Dataset class, transforms, dataloader             |
-| **1.4** Model Architecture | ⬜ Not Started | **07/03**        | EfficientNet-B0 backbone + binary head            |
-| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**        | Trainer, loss, metrics, WandB + checkpoint resume |
-| **1.6** Baseline Training  | ⬜ Not Started | **21/03**        | Train + eval, ưu tiên Kaggle GPU                  |
+| Task                       | Trạng thái     | Target (revised) | Ghi chú                                                                                                    |
+| -------------------------- | -------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE   | Mọi acceptance criteria đã pass                                                                            |
+| **1.2** Data Collection    | ⬜ Not Started | **02/03**        | CIFAKE + FFHQ + StyleGAN + SD v1.5 self-gen. Guide đã tạo: `docs/guides/GUIDE_TASK_1.2_DATA_COLLECTION.md` |
+| **1.3** Data Pipeline      | ⬜ Not Started | **07/03**        | Dataset class, transforms, dataloader                                                                      |
+| **1.4** Model Architecture | ⬜ Not Started | **07/03**        | EfficientNet-B0 backbone + binary head                                                                     |
+| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**        | Trainer, loss, metrics, WandB + checkpoint resume                                                          |
+| **1.6** Baseline Training  | ⬜ Not Started | **21/03**        | Train + eval, ưu tiên Kaggle GPU                                                                           |
 
 ### Sprint 2: Evaluation
 
