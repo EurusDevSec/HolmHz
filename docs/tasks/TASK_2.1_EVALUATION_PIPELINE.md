@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 2 - Evaluation + XAI + Benchmark  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 21/03/2026  
+> **Target**: ~~21/03/2026~~ → **28/03/2026**  
 > **Assignee**: Hoàng  
 > **Blocked by**: S1-006 (trained baseline model)  
 > **Blocks**: S2-002 (Benchmark cần eval pipeline)

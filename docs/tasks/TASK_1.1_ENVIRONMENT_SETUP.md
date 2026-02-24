@@ -3,9 +3,9 @@
 > **Task ID**: S1-001  
 > **Phase**: Phase 1 - Data + Model Development  
 > **Sprint**: Sprint 1 - Data + Baseline Training  
-> **Status**: ⬜ NOT STARTED  
+> **Status**: ✅ COMPLETED (24/02/2026)  
 > **Created**: 10/02/2026  
-> **Target**: 17/02/2026 (1 tuần)  
+> **Target**: ~~17/02/2026~~ → Xong 24/02/2026  
 > **Assignee**: Hoàng  
 > **Blocked by**: Không  
 > **Blocks**: S1-002, S1-003, S1-004, S1-005 (tất cả task sprint 1 phụ thuộc vào env)

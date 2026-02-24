@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 1 - Data + Baseline Training  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 28/02/2026 (song song với S1-003)  
+> **Target**: ~~28/02/2026~~ → **07/03/2026** (song song với S1-003)  
 > **Assignee**: Hoàng  
 > **Blocked by**: S1-001 (env)  
 > **Blocks**: S1-005 (Training cần model)

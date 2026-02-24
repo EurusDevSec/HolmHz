@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 1 - Data + Baseline Training  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 28/02/2026  
+> **Target**: ~~28/02/2026~~ → **07/03/2026**  
 > **Assignee**: Hoàng  
 > **Blocked by**: S1-001 (env), S1-002 (data)  
 > **Blocks**: S1-005 (Training cần data pipeline)

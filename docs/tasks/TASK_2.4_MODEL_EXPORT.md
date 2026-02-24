@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 2 - Evaluation + XAI + Benchmark  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 31/03/2026  
+> **Target**: ~~31/03/2026~~ → **07/04/2026**  
 > **Assignee**: Hoàng  
 > **Blocked by**: S1-006 (trained model)  
 > **Blocks**: S3-002 (Web demo cần ONNX model)

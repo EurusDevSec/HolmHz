@@ -5,11 +5,11 @@
 > **Sprint**: Sprint 1 - Data + Baseline Training  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 15/03/2026  
+> **Target**: ~~15/03/2026~~ → **21/03/2026**  
 > **Assignee**: Hoàng  
 > **Blocked by**: S1-005 (training pipeline)  
 > **Blocks**: S2-001 (Evaluation cần trained model)  
-> **Milestone**: ✅ M1 — Dataset v1 (≥25k) + Baseline AUC ≥ 0.88 (in-domain)
+> **Milestone**: ✅ M1 — Dataset v1 (≥15k) + Baseline AUC ≥ 0.85 (in-domain)
 
 > Train EfficientNet-B0 baseline trên dataset GAN + Diffusion.
 > Transfer learning: freeze backbone → train head → unfreeze → fine-tune.
@@ -25,12 +25,12 @@
 **Acceptance Criteria:**
 
 - [ ] Phase 1: Freeze backbone, train head only → AUC ≥ 0.80 on val set
-- [ ] Phase 2: Unfreeze, fine-tune full model → AUC ≥ 0.88 on val set
+- [ ] Phase 2: Unfreeze, fine-tune full model → AUC ≥ 0.85 on val set
 - [ ] Hyperparameter search: ≥3 LR values, ≥2 batch sizes tested
-- [ ] Best checkpoint saved (`.pt` file)
+- [ ] Best checkpoint saved (`.pt` file) + **resume tested** (disconnect simulation)
 - [ ] Training curve (loss, AUC) logged on W&B — no overfitting (val loss ≤ 1.2x train loss)
 - [ ] Quick smoke test on 5 ảnh từ `imgs/` folder (Gemini, Flux, Real)
-- [ ] Training time documented (epochs, wall clock on Colab T4)
+- [ ] Training time documented (epochs, wall clock on Kaggle T4)
 
 ---
 
@@ -69,15 +69,23 @@
 > Optimizer:  AdamW (weight_decay=1e-4)
 > ```
 
-> **Ước tính thời gian Colab T4:**
+> **Ước tính thời gian Kaggle T4 (Cập nhật 24/02/2026):**
 >
-> - 25k images, batch=32 → ~780 steps/epoch
-> - Freeze: ~3 min/epoch × 10 = 30 min
-> - Fine-tune: ~15 min/epoch × 20 = 5 hours
-> - Tổng: ~6 hours (1 Colab session)
+> - ~18k images, batch=32 → ~560 steps/epoch
+> - Freeze: ~2 min/epoch × 10 = 20 min
+> - Fine-tune: ~10 min/epoch × 20 = 3.3 hours
+> - HP search (3 runs): ~10 hours
+> - Tổng: ~14 hours ≈ nửa tuần Kaggle quota (30h/tuần)
+>
+> **⚠️ Nếu dùng Colab Free thay Kaggle:**
+>
+> - Mỗi session ~4h → cần 3-4 sessions
+> - LUÔN mount Drive + save checkpoint mỗi epoch
+> - Resume: `--resume outputs/checkpoints/last.pt`
 
-> **Exit criteria cho Milestone 1:**
+> **Exit criteria cho Milestone 1 (ĐIỀU CHỈNH 24/02):**
 >
-> - AUC ≥ 0.88 in-domain → ✅ Proceed to Sprint 2
-> - AUC 0.80-0.88 → Thêm data hoặc augmentation, retry
-> - AUC < 0.80 → Xem lại pipeline, có thể bug
+> - AUC ≥ 0.85 in-domain → ✅ Proceed to Sprint 2
+> - AUC 0.75-0.85 → Thêm data (FFHQ full, thêm SD generation) + retry
+> - AUC < 0.75 → Xem lại pipeline, augmentation, có thể bug
+> - Giảm target từ 0.88→0.85 do dataset nhỏ hơn (18k vs 45k)

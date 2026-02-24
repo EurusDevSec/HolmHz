@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 3 - Web Demo Development  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 14/04/2026  
+> **Target**: ~~14/04/2026~~ → **14/04/2026** (giữ nguyên, bắt đầu overlap từ 07/04)  
 > **Assignee**: Hoàng  
 > **Blocked by**: S2-004 (ONNX model)  
 > **Blocks**: S3-002 (Frontend cần API)
