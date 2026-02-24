@@ -1,0 +1,17 @@
+# ============================================
+# EfficientNet-B0 Detector Configuration
+# ============================================
+# Pattern học từ DeepfakeBench: mỗi detector 1 file config riêng.
+# Khi muốn thử CLIP, chỉ cần tạo file clip_vit.yaml.
+
+detector:
+  name: efficientnet_b0
+  backbone:
+    name: efficientnet_b0
+    pretrained: true
+    features_dim: 1280
+  head:
+    dropout: 0.3
+    num_classes: 1
+  loss:
+    name: bce_with_logits

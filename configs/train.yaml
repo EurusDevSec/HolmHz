@@ -3,7 +3,7 @@ model:
   pretrained: true
   num_classes: 1
   dropout: 0.3
-  freeze_backbond: true
+  freeze_backbone: true
 
 training:
   epochs: 30
@@ -21,7 +21,7 @@ data:
   val_manifest: data/manifests/val.json
   image_size: 224
   num_workers: 4
-  augmetation: true
+  augmentation: true
 
 wandb:
   project: holmhz

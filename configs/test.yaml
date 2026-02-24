@@ -1,0 +1,24 @@
+# ============================================
+# HolmHz Test / Evaluation Configuration
+# ============================================
+
+model:
+  name: efficientnet_b0
+  checkpoint: outputs/checkpoints/best_model.pt
+
+data:
+  test_manifest: data/manifests/test_id.json
+  ood_manifest: data/manifests/test_ood.json
+  image_size: 224
+  batch_size: 64
+  num_workers: 4
+
+evaluation:
+  metrics: [auc, accuracy, f1, precision, recall]
+  threshold: 0.5
+  save_predictions: true
+  output_dir: outputs/evaluation
+
+wandb:
+  project: holmhz
+  log_results: true

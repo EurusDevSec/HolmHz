@@ -20,8 +20,7 @@ class TaiKhoan:
 
     def Xem_so_du(self):
         return self.__so_du
-    
+
 if __name__ == "__main__":
     tk = TaiKhoan("Hoang")
     tk.nap_tien(1000)
-    tk.nap_tien

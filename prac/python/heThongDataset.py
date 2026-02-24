@@ -4,7 +4,7 @@ class Dataset:
 
     def bao_cao(self):
         return f"Day la dataset {self.ten_dataset}"
-    
+
 
 class ImageDataset(Dataset):
     def __init__(self, ten_dataset: str, so_luong_anh: int):
@@ -12,8 +12,8 @@ class ImageDataset(Dataset):
         self.so_luong_anh = so_luong_anh
 
     def bao_cao(self):
-        return f"Dataset hinh anh {self.ten_dataset} co {self.so_luong_anh} anh." 
-    
+        return f"Dataset hinh anh {self.ten_dataset} co {self.so_luong_anh} anh."
+
 class AudioDataset(Dataset):
     def __init__(self, ten_dataset: str, so_gio_thu_am: int):
         super().__init__(ten_dataset)
@@ -21,7 +21,7 @@ class AudioDataset(Dataset):
 
     def bao_cao(self):
         return f"Dataset am thanh {self.ten_dataset} co {self.so_gio_thu_am} Gio"
-    
+
 
 if __name__ == "__main__":
     ds1 = ImageDataset("Iris", 1000)
