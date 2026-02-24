@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 2 - Evaluation + XAI + Benchmark  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 28/03/2026 (song song với S2-002)  
+> **Target**: ~~28/03/2026~~ → **07/04/2026** (song song với S2-002)  
 > **Assignee**: Hoàng  
 > **Blocked by**: S1-006 (trained model)  
 > **Blocks**: Không

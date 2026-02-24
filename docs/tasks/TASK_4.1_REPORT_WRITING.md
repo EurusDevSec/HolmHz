@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 4 - Documentation & Defense Prep  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 30/04/2026  
+> **Target**: 30/04/2026 (giữ nguyên — Luân bắt đầu viết Ch1-2 từ 29/03)  
 > **Assignee**: Hoàng (Chương 3-5) + Luân (Chương 1-2)  
 > **Blocked by**: S2-002 (benchmark results), S3-002 (web demo)  
 > **Blocks**: S4-002 (Defense cần báo cáo)

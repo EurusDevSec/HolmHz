@@ -5,7 +5,7 @@
 > **Sprint**: Sprint 3 - Web Demo Development  
 > **Status**: ⬜ NOT STARTED  
 > **Created**: 10/02/2026  
-> **Target**: 21/04/2026  
+> **Target**: ~~21/04/2026~~ → **28/04/2026**  
 > **Assignee**: Hoàng + Luân (test)  
 > **Blocked by**: S3-001 (Backend API)  
 > **Blocks**: Không  

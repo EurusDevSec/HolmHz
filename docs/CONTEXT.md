@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2026-02-23
+> Cập nhật lần cuối: 2026-02-24
 
 ---
 
@@ -194,20 +194,50 @@ src/holmhz/
 | `docs/guides/GUIDE_SPRINT1_TASKS.md` | Hướng dẫn chi tiết Tasks 1.1→1.6 (~1500 dòng), giải thích WHY cho từng bước |
 | `docs/CONTEXT.md`                    | File này — lưu context session                                              |
 | `.env.example`                       | Template biến môi trường (WANDB_API_KEY, DATA_ROOT, DEVICE)                 |
+| `docs/DAILY_COMMANDS.md`             | Các lệnh kiểm tra hàng ngày (lint, test, import, git)                       |
+| `notebooks/00_colab_template.ipynb`  | Colab/Kaggle notebook template (7 steps)                                    |
 | `Makefile`                           | Build targets: train, test, serve, lint, format, check, clean               |
 
 ## 9. Task Progress
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Ghi chú                                             |
-| -------------------------- | -------------- | --------------------------------------------------- |
-| **1.1** Environment Setup  | ✅ Completed   | Mọi acceptance criteria đã pass (xem chi tiết dưới) |
-| **1.2** Data Collection    | ⬜ Not Started | Cần thu thập ảnh Real + AI-generated                |
-| **1.3** Data Pipeline      | ⬜ Not Started | Dataset class, transforms, dataloader               |
-| **1.4** Model Architecture | ⬜ Not Started | EfficientNet-B0 backbone + binary head              |
-| **1.5** Training Pipeline  | ⬜ Not Started | Trainer, loss, metrics, WandB logging               |
-| **1.6** Baseline Training  | ⬜ Not Started | Train + evaluate first model                        |
+| Task                       | Trạng thái     | Target (revised) | Ghi chú                                           |
+| -------------------------- | -------------- | ---------------- | ------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE   | Mọi acceptance criteria đã pass                   |
+| **1.2** Data Collection    | ⬜ Not Started | **02/03**        | CIFAKE + FFHQ + StyleGAN + SD v1.5 self-gen       |
+| **1.3** Data Pipeline      | ⬜ Not Started | **07/03**        | Dataset class, transforms, dataloader             |
+| **1.4** Model Architecture | ⬜ Not Started | **07/03**        | EfficientNet-B0 backbone + binary head            |
+| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**        | Trainer, loss, metrics, WandB + checkpoint resume |
+| **1.6** Baseline Training  | ⬜ Not Started | **21/03**        | Train + eval, ưu tiên Kaggle GPU                  |
+
+### Sprint 2: Evaluation
+
+| Task                        | Trạng thái     | Target (revised) | Ghi chú |
+| --------------------------- | -------------- | ---------------- | ------- |
+| **2.1** Evaluation Pipeline | ⬜ Not Started | **28/03**        |         |
+| **2.2** Benchmark SOTA      | ⬜ Not Started | **07/04**        |         |
+| **2.3** Grad-CAM XAI        | ⬜ Not Started | **07/04**        |         |
+| **2.4** Model Export        | ⬜ Not Started | **07/04**        |         |
+
+### Sprint 3-4: Web + Report
+
+| Task                   | Trạng thái     | Target (revised) | Ghi chú                     |
+| ---------------------- | -------------- | ---------------- | --------------------------- |
+| **3.1** Backend API    | ⬜ Not Started | **14/04**        | Overlap với Sprint 2        |
+| **3.2** Frontend       | ⬜ Not Started | **28/04**        |                             |
+| **4.1** Report Writing | ⬜ Not Started | **30/04**        | Luân bắt đầu Ch1-2 từ 29/03 |
+| **4.2** Defense Prep   | ⬜ Not Started | **15/05**        | Task cuối cùng              |
+
+### Timeline Revision Note (24/02/2026)
+
+> **3 rủi ro chính đã xử lý:**
+>
+> 1. **Dataset**: Bỏ GenImage (50GB) → dùng CIFAKE (500MB, Kaggle 1-click) + FFHQ subset + SD v1.5 self-gen
+> 2. **GPU**: Ưu tiên Kaggle (30h/tuần, không disconnect) > Colab Free (backup) > Local RTX 3050 (dev only)
+> 3. **Timeline**: Dồn 2 tuần, overlap tasks, Luân viết báo cáo song song từ tháng 3
+>
+> Xem chi tiết: `docs/PROJECT_PLAN.md` Section 12 (Rủi ro & Giải pháp)
 
 ### Task 1.1 — Acceptance Criteria
 
@@ -220,8 +250,8 @@ src/holmhz/
 - [x] `ruff check src/` chạy clean — All checks passed! (0 warnings)
 - [x] `.gitignore` bao gồm data/, weights/, outputs/
 - [x] `import torch; import timm; import holmhz` — all OK
-- [ ] Colab notebook template (optional — sẽ làm khi cần train trên Colab)
-- [ ] Branch `feat/s1/environment-setup` + PR (optional — hiện đang trên main)
+- [x] Colab/Kaggle notebook template (✅ đã tạo `notebooks/00_colab_template.ipynb`)
+- [x] Branch `feat/s1/environment-setup` + PR (✅ pushed, PR tạo trên GitHub)
 
 ## 10. Conventions & Lưu ý
 

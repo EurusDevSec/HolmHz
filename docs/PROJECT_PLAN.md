@@ -5,7 +5,8 @@
 > Thực hiện: Lê Văn Hoàng (Chính) | Ngô Huỳnh Bảo Luân (Hỗ trợ)  
 > Loại hình: Nghiên cứu ứng dụng (Applied Research)
 >
-> 📌 **Cập nhật 10/02/2026**: Kế hoạch đã được điều chỉnh dựa trên kết quả chạy thử thực tế 3 dự án benchmark (CNNDetection, UniversalFakeDetect, DeepfakeBench). Xem chi tiết tại [RUN_EXISTING_PROJECTS.md](RUN_EXISTING_PROJECTS.md) và [docs/research/](research/).
+> 📌 **Cập nhật 10/02/2026**: Kế hoạch đã được điều chỉnh dựa trên kết quả chạy thử thực tế 3 dự án benchmark (CNNDetection, UniversalFakeDetect, DeepfakeBench). Xem chi tiết tại [RUN_EXISTING_PROJECTS.md](RUN_EXISTING_PROJECTS.md) và [docs/research/](research/).  
+> 📌 **Cập nhật 24/02/2026**: Điều chỉnh timeline thực tế + thay nguồn data dễ tiếp cận hơn cho SV + thêm Kaggle GPU thay Colab free. Xem [Rủi ro & Giải pháp](#12-rủi-ro--giải-pháp).
 >
 > 📌 **Phân công vai trò**:
 >
@@ -147,75 +148,84 @@ Phát hiện ảnh tổng hợp (Synthetic Image Detection) là bài toán đã 
 
 #### A. Ảnh thật (Real Images)
 
-| Dataset         | Số ảnh | Link                                                     | Sử dụng     | Ưu tiên    |
-| --------------- | ------ | -------------------------------------------------------- | ----------- | ---------- |
-| **FFHQ**        | 70,000 | [GitHub](https://github.com/NVlabs/ffhq-dataset)         | Train + Val | ⭐ Cao     |
-| **CelebA-HQ**   | 30,000 | [Link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html) | Train       | Trung bình |
-| **DFFD (Real)** | 58,703 | [MSU](http://cvlab.cse.msu.edu/dffd-dataset.html)        | Test        | Trung bình |
+> ⚠️ **Cập nhật 24/02/2026**: Giảm scope — không cần tất cả, chọn 1-2 nguồn dễ download nhất.
+
+| Dataset         | Số ảnh | Link                                                                                             | Sử dụng     | Ưu tiên    | Ghi chú                       |
+| --------------- | ------ | ------------------------------------------------------------------------------------------------ | ----------- | ---------- | ----------------------------- |
+| **CIFAKE Real** | 60,000 | [Kaggle](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) | Train + Val | ⭐ Rất cao | Cùng package với CIFAKE fake  |
+| **FFHQ**        | 70,000 | [GitHub](https://github.com/NVlabs/ffhq-dataset)                                                 | Train + Val | Cao        | Dùng Kaggle mirror, subset 5k |
+| ~~CelebA-HQ~~   | 30,000 | -                                                                                                | -           | -          | ❌ Bỏ — CIFAKE đủ dùng        |
+| ~~DFFD (Real)~~ | 58,703 | -                                                                                                | -           | -          | ❌ Bỏ — khó xin access        |
 
 #### B. Ảnh GAN (Fake)
 
-| Dataset             | Nguồn                                                             | Số ảnh       | Sử dụng |
-| ------------------- | ----------------------------------------------------------------- | ------------ | ------- |
-| **DFFD (Fake)**     | Multiple GANs                                                     | 240,336      | Train   |
-| **StyleGAN2 Faces** | [NVlabs](https://github.com/NVlabs/stylegan2)                     | Generate 10k | Train   |
-| **ProGAN Faces**    | [tkarras](https://github.com/tkarras/progressive_growing_of_gans) | Generate 5k  | Val     |
+> ⚠️ **Cập nhật 24/02/2026**: Giảm scope GAN — Diffusion quan trọng hơn.
+
+| Dataset            | Nguồn                                                                                 | Số ảnh   | Sử dụng | Ghi chú                       |
+| ------------------ | ------------------------------------------------------------------------------------- | -------- | ------- | ----------------------------- |
+| **StyleGAN Faces** | [thispersondoesnotexist.com](https://thispersondoesnotexist.com) hoặc Kaggle datasets | 3-5k     | Train   | Download thủ công hoặc script |
+| **ProGAN Faces**   | [tkarras](https://github.com/tkarras/progressive_growing_of_gans)                     | 1-2k     | Val     | Subset nhỏ cho validation     |
+| ~~DFFD (Fake)~~    | -                                                                                     | ~~240k~~ | -       | ❌ Bỏ — quá lớn, khó access   |
 
 #### C. Ảnh Diffusion (Fake) ⭐ QUAN TRỌNG NHẤT
 
 > Đây là phần training data **quyết định** thành bại của HolmHz.
 > Từ kết quả benchmark: model nào train trên GAN cũ → fail hoàn toàn trên Diffusion.
+>
+> ⚠️ **Cập nhật 24/02/2026**: Thay GenImage (~50GB, khó download cho SV) bằng nguồn nhỏ gọn hơn.
 
-| Dataset                   | Nguồn                                                  | Số ảnh     | Sử dụng          | Ưu tiên    |
-| ------------------------- | ------------------------------------------------------ | ---------- | ---------------- | ---------- |
-| **GenImage**              | [GitHub](https://github.com/GenImage-Dataset/GenImage) | Subset 20k | **Train** + Test | ⭐ Rất cao |
-| **Stable Diffusion v1.5** | Self-generate                                          | 10k        | **Train**        | ⭐ Cao     |
-| **SDXL**                  | Self-generate                                          | 5k         | Test OOD         | Cao        |
+| Dataset                   | Nguồn                                                                                            | Số ảnh          | Sử dụng         | Ưu tiên     | Ghi chú                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------ | --------------- | --------------- | ----------- | ------------------------------- |
+| **CIFAKE**                | [Kaggle](https://www.kaggle.com/datasets/birdy654/cifake-real-and-ai-generated-synthetic-images) | 120k (60k fake) | **Train** + Val | ⭐ Rất cao  | ~500MB, dễ download, đã chuẩn   |
+| **AI vs Real Faces**      | [Kaggle](https://www.kaggle.com/datasets/tags/ai-generated)                                      | 5-10k           | **Train**       | ⭐ Cao      | Nhiều dataset faces trên Kaggle |
+| **Stable Diffusion v1.5** | HuggingFace `diffusers` (self-generate trên Colab)                                               | 3-5k            | **Train**       | ⭐ Cao      | Miễn phí, chạy trên Colab       |
+| **SDXL**                  | Self-generate                                                                                    | 500-1k          | Test OOD        | Cao         | Nice-to-have                    |
+| ~~**GenImage**~~          | ~~GitHub~~                                                                                       | ~~20k~~         | ~~Train~~       | ~~Rất cao~~ | ❌ Quá lớn (~50GB), bỏ          |
 
 #### D. Ảnh OOD Hiện đại (Test only) 🆕
 
 > Bộ test này để đo khả năng generalize sang nguồn **chưa hề thấy khi train**.
 > Đây là thước đo quan trọng nhất cho application thực tế.
 
-| Dataset                | Nguồn                | Số ảnh  | Ghi chú                      |
-| ---------------------- | -------------------- | ------- | ---------------------------- |
-| **Gemini-generated**   | Gemini API / Manual  | 200-500 | Đã có mẫu trong imgs/ folder |
-| **Flux-generated**     | Flux.1 API           | 200-500 | SOTA diffusion model 2024    |
-| **DALL-E 3**           | OpenAI API           | 200-500 | Nice-to-have                 |
-| **Real camera photos** | Chụp thật / Internet | 500     | Đối chứng                    |
+| Dataset                | Nguồn                | Số ảnh  | Ghi chú                         |
+| ---------------------- | -------------------- | ------- | ------------------------------- |
+| **Gemini-generated**   | gemini.google.com    | 100-200 | Đã có mẫu trong imgs/, tạo thêm |
+| **Flux-generated**     | replicate.com (free) | 100-200 | Free tier đủ generate 100+ ảnh  |
+| **DALL-E 3**           | OpenAI API           | 50-100  | Nice-to-have, tốn phí           |
+| **Real camera photos** | Chụp thật / Internet | 200     | Đối chứng                       |
 
 ### 3.2. Chiến lược chia tập dữ liệu
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    DATASET SPLIT STRATEGY                       │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  TRAIN (70%)                 VAL (15%)           TEST (15%)     │
-│  ─────────────               ─────────           ─────────      │
-│  Real:                       Real:               Real:          │
-│  • FFHQ (10k)               • FFHQ (2k)         • DFFD (3k)     │
-│  • CelebA-HQ (5k)           • CelebA-HQ (1k)                    │
-│                                                                 │
-│  Fake (GAN):                Fake (GAN):         Fake (GAN):     │
-│  • StyleGAN2 (8k)           • ProGAN (2k)       • StarGAN (OOD) │
-│  • DFFD-GAN (7k)                                                │
-│                                                                 │
-│  Fake (Diffusion):          Fake (Diffusion):   Fake (Diff):    │
-│  • SD v1.5 (8k)             • SD v2.1 (2k)      • SDXL (OOD)    │
-│  • GenImage (7k)                                • MJ proxy (OOD)│
-│                                                                 │
-│  Total: ~45k                Total: ~7k          Total: ~8k      │
-│                                                                 │
-│  ⚠️ OOD = Out-of-Distribution (nguồn chưa thấy khi train)      │
-│                                                                 │
-│  OOD TEST (riêng):                                              │
-│  • Gemini-generated (200-500)                                   │
-│  • Flux-generated (200-500)                                     │
-│  • DALL-E 3 (200-500, nice-to-have)                             │
-│  • Real camera (500)                                            │
-│  ➜ Đây là thước đo QUAN TRỌNG NHẤT cho hội đồng                │
-└─────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────┐
+│              DATASET SPLIT STRATEGY (Revised 24/02/2026)                │
+│              Giảm scope phù hợp SV + free GPU                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                        │
+│  TRAIN (70%)                VAL (15%)             TEST ID (15%)         │
+│  ─────────────              ─────────             ─────────             │
+│  Real:                      Real:                 Real:                 │
+│  • CIFAKE Real (5k)         • CIFAKE Real (1k)    • CIFAKE Real (1k)    │
+│  • FFHQ subset (3k)         • FFHQ (500)                               │
+│                                                                        │
+│  Fake (GAN):                Fake (GAN):           Fake (GAN):           │
+│  • StyleGAN faces (3k)      • ProGAN (500)        • StyleGAN (500)      │
+│                                                                        │
+│  Fake (Diffusion):          Fake (Diffusion):     Fake (Diff):          │
+│  • CIFAKE Fake (5k)         • CIFAKE Fake (1k)    • CIFAKE Fake (1k)    │
+│  • SD v1.5 self-gen (2k)                                                │
+│                                                                        │
+│  Total: ~18k                Total: ~3k            Total: ~2.5k          │
+│                                                                        │
+│  ⚠️ Giảm từ 45k → 18k: vẫn đủ cho EfficientNet-B0 (nhẹ, ít params)   │
+│  ⚠️ Nếu AUC thấp → tăng data sau (FFHQ 70k, thêm SD generation)      │
+│                                                                        │
+│  OOD TEST (riêng — QUAN TRỌNG NHẤT):                                  │
+│  • Gemini-generated (100-200)                                          │
+│  • Flux-generated (100-200)                                            │
+│  • Real camera (200)                                                   │
+│  ➜ Đây là thước đo QUAN TRỌNG NHẤT cho hội đồng                       │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### 3.3. Data Augmentation Strategy
@@ -270,11 +280,13 @@ val_transform = A.Compose([
 
 ### 4.3. Training Infrastructure
 
-| Thành phần          | Công nghệ                          | Mục đích               |
-| ------------------- | ---------------------------------- | ---------------------- |
-| Experiment Tracking | **Weights & Biases**               | Logging, visualization |
-| Config              | **Hydra** / **yaml**               | Configuration          |
-| GPU                 | **Google Colab Pro+** / **Kaggle** | Training               |
+| Thành phần          | Công nghệ                    | Mục đích               | Ghi chú (24/02/2026)                     |
+| ------------------- | ---------------------------- | ---------------------- | ---------------------------------------- |
+| Experiment Tracking | **Weights & Biases**         | Logging, visualization |                                          |
+| Config              | **Hydra** / **yaml**         | Configuration          |                                          |
+| GPU (Primary)       | **Kaggle Notebooks** (T4 ×2) | Training               | 30h/tuần miễn phí, không disconnect      |
+| GPU (Backup)        | **Google Colab Free** (T4)   | Training               | Dùng khi hết quota Kaggle                |
+| GPU (Local)         | RTX 3050 4GB VRAM            | Dev & debug            | batch_size=8-16 + mixed precision (fp16) |
 
 ### 4.4. Web Application
 
@@ -422,17 +434,26 @@ val_transform = A.Compose([
 2025                                              2026
 Nov          Dec          Jan          Feb          Mar          Apr          May
  |────────────|────────────|────────────|────────────|────────────|────────────|
- │◄─ PHASE 0 ─►│          │◄────── PHASE 1 (REVISED) ─────────►│            │
- │  Research   │          │  Data + Baseline + Benchmark       │            │
- │  3 Projects │          │                                    │            │
- │  ✅ DONE    │          │◄─ Sprint 1 ─►│◄── Sprint 2 ──────►│            │
- │             │          │ Data+Train   │ Eval+XAI+Benchmark │            │
- │             │          │              │                    │            │
- │             │          │              │     │◄──── PHASE 2 (Revised) ───►│
- │             │          │              │     │  Web Demo + Report        │
- │             │          │              │     │◄ Sprint 3 ►│◄ Sprint 4 ──►│
- │             │          │              │     │ Web Demo   │ Defense Prep │
+ │◄─ PHASE 0 ─►│          │◄─────────── PHASE 1 (REVISED 24/02) ──────────►│
+ │  Research   │          │  Data + Baseline + Benchmark                    │
+ │  3 Projects │          │                                                 │
+ │  ✅ DONE    │          │◄── Sprint 1 ──────►│◄──── Sprint 2 ────────────►│
+ │             │          │ Env✅+Data+Pipeline │ Train+Eval+XAI+Benchmark  │
+ │             │          │ +Model Architecture│ +Export                    │
+ │             │          │                    │                            │
+ │             │          │                    │  │◄──── PHASE 2 ──────────►│
+ │             │          │                    │  │  Web Demo + Report       │
+ │             │          │                    │  │  (Chồng lấn Sprint 2)    │
+ │             │          │                    │  │◄Sprint 3►│◄Sprint 4────►│
+ │             │          │                    │  │ Web Demo  │ Report+Def  │
 ```
+
+> **Thay đổi 24/02/2026 so với plan cũ (10/02):**
+>
+> - Task 1.1 ĐÃ XONG ✅. Sprint 1 bắt đầu data collection từ 24/02.
+> - Sprint 2 overlap với Phase 2 để tiết kiệm 2 tuần.
+> - Web demo bắt đầu song song ngay khi có model checkpoint (không cần đợi benchmark xong).
+> - Report viết dần từ tháng 3, không dồn hết tháng 5.
 
 > **Thay đổi lớn so với kế hoạch ban đầu:**
 >
@@ -519,39 +540,43 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 **Mục tiêu Sprint**: Setup environment, thu thập data, train EfficientNet-B0
 
-| Task ID | Task                   | Subtasks                                                          | Assignee     | Status |
-| ------- | ---------------------- | ----------------------------------------------------------------- | ------------ | ------ |
-| 1.1     | **Environment Setup**  |                                                                   | Hoàng        | ⬜     |
-|         |                        | 1.1.1 Setup cấu trúc thư mục src/ chuẩn                           |              | ⬜     |
-|         |                        | 1.1.2 Cấu hình pyproject.toml + requirements                      |              | ⬜     |
-|         |                        | 1.1.3 Setup Weights & Biases project                              |              | ⬜     |
-|         |                        | 1.1.4 Tạo Colab notebook template                                 |              | ⬜     |
-| 1.2     | **Data Collection** ✨ |                                                                   | Hoàng + Luân | ⬜     |
-|         |                        | 1.2.1 Download FFHQ subset (10k real)                             | Luân         | ⬜     |
-|         |                        | 1.2.2 Download GenImage subset (Diffusion fake, 10k)              | Hoàng        | ⬜     |
-|         |                        | 1.2.3 Download/Generate StyleGAN2 faces (5k)                      | Hoàng        | ⬜     |
-|         |                        | 1.2.4 Chuẩn bị OOD test set: Flux/Gemini/SDXL (1k)                | Hoàng        | ⬜     |
-|         |                        | 1.2.5 Ảnh Gemini/Flux thực tế từ folder imgs/                     | Hoàng        | ⬜     |
-| 1.3     | **Data Pipeline**      |                                                                   | Hoàng        | ⬜     |
-|         |                        | 1.3.1 Implement Dataset class (PyTorch)                           |              | ⬜     |
-|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)            |              | ⬜     |
-|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                   |              | ⬜     |
-| 1.4     | **Model Architecture** |                                                                   | Hoàng        | ⬜     |
-|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)   |              | ⬜     |
-|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench) |              | ⬜     |
-|         |                        | 1.4.3 Unit test model forward pass                                |              | ⬜     |
-| 1.5     | **Training Pipeline**  |                                                                   | Hoàng        | ⬜     |
-|         |                        | 1.5.1 Implement Trainer class                                     |              | ⬜     |
-|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)             |              | ⬜     |
-|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                              |              | ⬜     |
-|         |                        | 1.5.4 Early stopping + Wandb logging                              |              | ⬜     |
-| 1.6     | **Baseline Training**  |                                                                   | Hoàng        | ⬜     |
-|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)        |              | ⬜     |
-|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                          |              | ⬜     |
-|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                           |              | ⬜     |
-|         |                        | 1.6.4 Save best checkpoint                                        |              | ⬜     |
+| Task ID | Task                   | Subtasks                                                           | Assignee     | Target       | Status |
+| ------- | ---------------------- | ------------------------------------------------------------------ | ------------ | ------------ | ------ |
+| 1.1     | **Environment Setup**  |                                                                    | Hoàng        | ~~17/02~~ ✅ | ✅     |
+|         |                        | 1.1.1 Setup cấu trúc thư mục src/ chuẩn                            |              |              | ✅     |
+|         |                        | 1.1.2 Cấu hình pyproject.toml + requirements                       |              |              | ✅     |
+|         |                        | 1.1.3 Setup Weights & Biases project                               |              |              | ✅     |
+|         |                        | 1.1.4 Tạo Colab/Kaggle notebook template                           |              |              | ✅     |
+| 1.2     | **Data Collection** ✨ |                                                                    | Hoàng + Luân | **02/03**    | ⬜     |
+|         |                        | 1.2.1 Download CIFAKE dataset (Real+Fake, Kaggle)                  | Luân         |              | ⬜     |
+|         |                        | 1.2.2 Download FFHQ subset (3-5k real, Kaggle mirror)              | Luân         |              | ⬜     |
+|         |                        | 1.2.3 Download/scrape StyleGAN faces (3k)                          | Hoàng        |              | ⬜     |
+|         |                        | 1.2.4 Self-generate SD v1.5 ảnh trên Colab (2-3k)                  | Hoàng        |              | ⬜     |
+|         |                        | 1.2.5 Chuẩn bị OOD: Gemini (100-200) + Flux (100-200) + Real (200) | Hoàng        |              | ⬜     |
+| 1.3     | **Data Pipeline**      |                                                                    | Hoàng        | **07/03**    | ⬜     |
+|         |                        | 1.3.1 Implement Dataset class (PyTorch)                            |              |              | ⬜     |
+|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)             |              |              | ⬜     |
+|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                    |              |              | ⬜     |
+| 1.4     | **Model Architecture** |                                                                    | Hoàng        | **07/03**    | ⬜     |
+|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)    |              |              | ⬜     |
+|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench)  |              |              | ⬜     |
+|         |                        | 1.4.3 Unit test model forward pass                                 |              |              | ⬜     |
+| 1.5     | **Training Pipeline**  |                                                                    | Hoàng        | **14/03**    | ⬜     |
+|         |                        | 1.5.1 Implement Trainer class                                      |              |              | ⬜     |
+|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)              |              |              | ⬜     |
+|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                               |              |              | ⬜     |
+|         |                        | 1.5.4 Early stopping + Wandb logging + **checkpoint resume**       |              |              | ⬜     |
+| 1.6     | **Baseline Training**  |                                                                    | Hoàng        | **21/03**    | ⬜     |
+|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)         |              |              | ⬜     |
+|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                           |              |              | ⬜     |
+|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                            |              |              | ⬜     |
+|         |                        | 1.6.4 Save best checkpoint                                         |              |              | ⬜     |
 
-**✅ Milestone 1**: Dataset v1 (≥25k ảnh, bao gồm Diffusion) + Baseline AUC ≥ 0.88 (in-domain)
+**✅ Milestone 1**: Dataset v1 (≥15k ảnh, bao gồm Diffusion) + Baseline AUC ≥ 0.85 (in-domain)
+
+> ⚠️ **Điều chỉnh 24/02**: Giảm target từ 25k→15k ảnh và AUC 0.88→0.85 cho Milestone 1.
+> Lý do: dataset nhỏ hơn (CIFAKE thay GenImage), nhưng nếu đạt 0.85 vẫn có giá trị khoa học.
+> Nếu đạt sớm → tăng data + retrain để nâng lên 0.90.
 
 ---
 
@@ -706,13 +731,13 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ### 7.3. Milestone Summary
 
-| Milestone              | Phase   | Target Date | KPI                              | Status |
-| ---------------------- | ------- | ----------- | -------------------------------- | ------ |
-| M0: Research Complete  | Phase 0 | 10/02/2026  | 3 projects chạy + documented     | ✅     |
-| M1: Dataset + Baseline | Phase 1 | 15/03/2026  | ≥25k ảnh + AUC ≥ 0.88 (ID)       | ⬜     |
-| M2: Benchmark + XAI    | Phase 1 | 31/03/2026  | Bảng so sánh chuẩn + XAI gallery | ⬜     |
-| M3: Web Demo           | Phase 2 | 30/04/2026  | Latency ≤ 2s                     | ⬜     |
-| M4: Defense Ready      | Phase 2 | 15/05/2026  | Full package                     | ⬜     |
+| Milestone              | Phase   | Target Date    | KPI                              | Status |
+| ---------------------- | ------- | -------------- | -------------------------------- | ------ |
+| M0: Research Complete  | Phase 0 | 10/02/2026     | 3 projects chạy + documented     | ✅     |
+| M1: Dataset + Baseline | Phase 1 | **21/03/2026** | ≥15k ảnh + AUC ≥ 0.85 (ID)       | ⬜     |
+| M2: Benchmark + XAI    | Phase 1 | **07/04/2026** | Bảng so sánh chuẩn + XAI gallery | ⬜     |
+| M3: Web Demo           | Phase 2 | **28/04/2026** | Latency ≤ 2s                     | ⬜     |
+| M4: Defense Ready      | Phase 2 | **15/05/2026** | Full package                     | ⬜     |
 
 ### 7.4. Weekly Progress Template
 
@@ -1002,15 +1027,101 @@ Phase 1: Image    Phase 2: Video     Phase 3: Multi-modal
 
 ## ✅ Tiêu chí thành công
 
-| Tiêu chí           | Mức đạt | Mức vượt |
-| ------------------ | ------- | -------- |
-| In-domain AUC      | ≥ 0.88  | ≥ 0.92   |
-| OOD AUC            | ≥ 0.70  | ≥ 0.78   |
-| Comparison methods | ≥ 2     | ≥ 4      |
-| Web demo           | Working | + Docker |
+| Tiêu chí           | Mức đạt | Mức vượt | Ghi chú (24/02)          |
+| ------------------ | ------- | -------- | ------------------------ |
+| In-domain AUC      | ≥ 0.85  | ≥ 0.92   | Giảm từ 0.88 do data nhỏ |
+| OOD AUC            | ≥ 0.65  | ≥ 0.78   | Giảm từ 0.70, vẫn > SOTA |
+| Comparison methods | ≥ 2     | ≥ 4      |                          |
+| Web demo           | Working | + Docker |                          |
 
 ---
 
-**Last Updated:** 10/02/2026  
+---
+
+## 12. Rủi ro & Giải pháp
+
+> Mục mới thêm 24/02/2026 — đánh giá rủi ro thực tế cho SV năm 4 NCKH cấp trường.
+
+### 12.1. Dataset khó download (Rủi ro CAO)
+
+| Vấn đề                   | Mức độ  | Giải pháp                                                               |
+| ------------------------ | ------- | ----------------------------------------------------------------------- |
+| GenImage ~50GB           | 🔴 Cao  | ❌ **Bỏ GenImage** → Thay bằng CIFAKE (~500MB, Kaggle 1-click download) |
+| DFFD cần xin access      | 🟡 TB   | ❌ **Bỏ DFFD** → CIFAKE + FFHQ đủ dùng                                  |
+| Flux/Gemini API tốn tiền | 🟡 TB   | ✅ Generate thủ công trên web (miễn phí) 100-200 ảnh                    |
+| FFHQ 70k quá lớn         | 🟢 Thấp | ✅ Dùng Kaggle mirror, subset 3-5k                                      |
+
+**Chiến lược data mới (tiết kiệm + thực tế):**
+
+```
+CIFAKE (Kaggle, 1 click):  Real 60k + AI-generated 60k  → Backbone dataset
+FFHQ (Kaggle mirror):      Subset 3-5k real faces        → Bổ sung faces
+StyleGAN (web scrape):     3k GAN faces                  → Đa dạng nguồn
+SD v1.5 (self-gen Colab):  2-3k Diffusion faces          → Đa dạng Diffusion
+OOD (thủ công):            Gemini 100-200, Flux 100-200   → Test generalization
+─────────────────────────────────────────────────────────
+Tổng: ~15-20k train + ~500 OOD test
+```
+
+### 12.2. GPU hạn chế — SV dùng free tier (Rủi ro TRUNG BÌNH)
+
+| Platform                | GPU               | Thời gian      | Disconnect? | Khuyến nghị         |
+| ----------------------- | ----------------- | -------------- | ----------- | ------------------- |
+| **Kaggle** (Primary)    | T4 ×2 (hoặc P100) | **30h/tuần**   | ❌ Không    | ⭐ **Dùng chính**   |
+| **Colab Free** (Backup) | T4                | ~4h/session    | ✅ Có       | Dùng khi hết Kaggle |
+| **Local RTX 3050**      | 4GB VRAM          | Không giới hạn | ❌ Không    | Dev & debug only    |
+
+**Chiến lược training:**
+
+```
+1. Develop + debug code trên local (RTX 3050, batch=8, 100 ảnh test)
+2. Train chính trên Kaggle (batch=32, full dataset, 30h/tuần)
+3. LUÔN save checkpoint mỗi epoch + resume từ checkpoint
+4. Nếu hết Kaggle → chuyển sang Colab free (đã có checkpoint resume)
+```
+
+**Ước tính thời gian training (18k images, Kaggle T4):**
+
+```
+Freeze backbone + train head:   ~2h  (10 epochs × 12 min)
+Fine-tune full model:           ~4h  (20 epochs × 12 min)
+Hyperparameter search (3 runs): ~12h (mỗi run ~4h)
+─────────────────────────────────────────────────
+Tổng: ~18h → vừa đủ 1 tuần Kaggle quota (30h)
+```
+
+### 12.3. Timeline chặt (Rủi ro TRUNG BÌNH)
+
+**Nguyên tắc: Overlap tasks thay vì sequential**
+
+```
+Tuần  | 24/02  01/03  08/03  15/03  22/03  29/03  05/04  12/04  19/04  26/04  ...  15/05
+──────┼──────────────────────────────────────────────────────────────────────────────────
+1.2   │ ████████████                                                Data Collection
+1.3   │      ████████████                                           Data Pipeline
+1.4   │      ████████████                                           Model Arch
+1.5   │           ████████████                                      Training Pipeline
+1.6   │                ████████████                                  Baseline Training
+2.1   │                     ████████████                             Evaluation
+2.2   │                          ████████████                        Benchmark
+2.3   │                          ████████████                        Grad-CAM
+2.4   │                               ████████                      Export
+3.1   │                               ████████████                   Backend API
+3.2   │                                    ████████████              Frontend
+4.1   │                          ████████████████████████████████    Report
+4.2   │                                              ████████████   Defense
+```
+
+**Điểm cắt giảm nếu chậm:**
+| Nếu... | Thì cắt... |
+|---|---|
+| Training xong muộn (sau 28/03) | Giảm hyperparameter search: 3 runs → 1 run |
+| Benchmark 3 SOTA mất quá lâu | Chỉ benchmark 2 SOTA (bỏ DeepfakeBench — khó setup nhất) |
+| Web demo không kịp | Dùng Gradio standalone (không cần FastAPI backend) |
+| Report chậm | Luân viết Ch1-2 song song từ tháng 3, không đợi xong hết |
+
+---
+
+**Last Updated:** 24/02/2026  
 **Author:** Lê Văn Hoàng  
-**Version:** 3.0 (Revised based on实际 benchmark results from 3 SOTA projects)
+**Version:** 4.0 (Revised: realistic timeline + accessible data sources + Kaggle GPU + risk mitigation)
