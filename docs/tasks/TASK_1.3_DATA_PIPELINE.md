@@ -19,16 +19,16 @@
 
 > **User Story:**
 
-> As a **ML Engineer**, I want to **build a robust data pipeline with proper augmentation and train/val/test-OOD splitting** so that **the model trains on diverse data, validates correctly, and gets tested on unseen sources (Gemini, Flux).**
+> As a **ML Engineer**, I want to **build a robust data pipeline with proper augmentation and train/val/test-OOD splitting** so that **the model trains on diverse data, validates correctly, and gets tested on unseen sources (Flux, tristanzhang).**
 
 **Acceptance Criteria:**
 
 - [ ] `ImageDataset(torch.utils.data.Dataset)` class hoạt động — load ảnh từ manifest JSON
 - [ ] Augmentation pipeline dùng Albumentations (JPEG compression, blur, noise, flip)
-- [ ] Normalization hỗ trợ cả ImageNet stats và custom stats
-- [ ] Train/Val/Test-OOD split tạo ra 3 manifest files JSON
+- [ ] Normalization dùng ImageNet stats (match EfficientNet-B0 pretrained)
+- [ ] Train/Val/Test-OOD split tạo ra 4 manifest files JSON (train, val, test_id, test_ood)
 - [ ] DataLoader chạy được, batch = 32 không OOM trên 8GB RAM
-- [ ] OOD test set tách riêng (Gemini, Flux) không lẫn vào train
+- [ ] OOD test set tách riêng (Flux, tristanzhang, real_pexels, real_camera) không lẫn vào train
 - [ ] Unit test: load 1 batch, kiểm tra shape, dtype, value range
 
 ---

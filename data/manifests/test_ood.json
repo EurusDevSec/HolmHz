@@ -1,0 +1,7082 @@
+[
+  {
+    "path": "data/processed/ood_test/flux/hf_001.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_002.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_003.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_004.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_005.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_006.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_007.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_008.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_009.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_010.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_011.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_012.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_013.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_014.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_015.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_016.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_017.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_018.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_019.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_020.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_021.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_022.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_023.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_024.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_025.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_026.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_027.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_028.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_029.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_030.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_031.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_032.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_033.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_034.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_035.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_036.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_037.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_038.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_039.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_040.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_041.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_042.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_043.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_044.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_045.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_046.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_047.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_048.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_049.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_050.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_051.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_052.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_053.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_054.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_055.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_056.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_057.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_058.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_059.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_060.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_061.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_062.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_063.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_064.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_065.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_066.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_067.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_068.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_069.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_070.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_071.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_072.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_073.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_074.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_075.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_076.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_077.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_078.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_079.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/flux/hf_080.png",
+    "label": 1,
+    "source": "flux",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_06KN8fESDoU.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_1Ill_QTnFSI.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_2EdIX-O2lkI.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_2hy47Cfh_VE.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_3ndDk-c4UDM.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_4nf-u-TgF2E.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_4U1x6459Q-s.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_53ouhY5koKY.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_6f1FHlC080A.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_8-YqW-uRr38.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_84E44EdD18o.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real__94FKRsG0rM.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real__cvwXhGqG-o.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_a19OVaa2rzA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_aAcymDNp7xw.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_B6G9C0kxVVc.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_CM5_ZnVQJwc.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_D41bRxx-a48.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_dNNfMegXUi4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_dUiMZkAZb1A.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_EAfy_jDka7M.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_EjgZudeZPPo.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ES6IC1xml18.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_FK6uapJbRvk.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_fm1QroQTIRg.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_FW2JEnjZhmA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_FzavNq-l3t0.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_gIJC6pgbMdU.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_hCDE-3c9YhU.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_HO_-Mr5fN1k.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ibDe3Sqz4XE.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Ica9GWo7ZiE.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ip25moYmzaw.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ITL_CZnpd3Y.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_iWlTvYween4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_J2UHUZR5W6k.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_j3iSTTDeTs8.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_J3sCyAt9dM0.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_J6Z-pSekdeQ.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_JTj_ein28zo.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_KchIV_GDy6U.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_KeA97y4jsSM.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Kj9XCWh_U3w.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_KYuzBDfPW5w.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_L2dTmhQzx4Q.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_LbwiDLhfvzA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_McqintQBgI8.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_mg8vQF1BgxQ.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_mIs_QHS1ht8.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_moe3IUPkEvo.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_MSepzbKFz10.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_mSPaYYEUHSs.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_MTZTGvDsHFY.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_n3S3byJlHBk.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_n4KewLKFOZw.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_nDSCY67CzXs.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ngRqU137qME.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_NlHGKAZ3jCI.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_nwtq6PMFErk.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Okx9dkBVT6M.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_OpPkZ1Ak6qg.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_plh71gBVxWM.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_PMVBRYY9F3s.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_puBN4mn2ijY.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_qf9eKpCmv2M.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_rjm8go9rL8Y.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_RnvVw1d40bU.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ruw8aWWwR1Q.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_SmoeWAOR6Ro.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_sOtIdlgcPv0.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Sv9xCQ7RBCs.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_sVPXYIwwqaU.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_T9ZkE_ptNEA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_tidSLv-UaNs.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_tNCH0sKSZbA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_u77-XpQS1Z4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_UdYOf5hf4JY.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_uJ8LNVCBjFQ.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Uq-DpkNms_4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_vCCZuzUEuwo.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_vCe2cRaO5rM.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_VDvNL1CsUsM.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_VlPuwEmMeA4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_W0i1N6FdCWA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_W1hRQolbvCY.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_W9XjftK7s2E.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_W_inwSSIqp8.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Whueb0Gnwh4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_XAo09LtQiAQ.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_XbxQbS1NMKE.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_XHVpWcr5grQ.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_xJj7l3tRhw8.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_Xzhba5D2ZzA.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_y2QFHMiSXvw.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_y9se00qtzd4.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_yqJ0f1CCXso.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_yZ2El6BXD_s.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ZHvM3XIOHoE.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_ZnlTGiRkGT8.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_camera/real_zrZUCPgKMHc.png",
+    "label": 0,
+    "source": "real_camera",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0004.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0014.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0022.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0046.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0049.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0084.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0101.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0104.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0116.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0142.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0159.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0161.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0167.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0201.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0211.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0221.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0223.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0236.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0238.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0255.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0268.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0314.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0330.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0337.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0364.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0373.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0379.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0412.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0421.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0427.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0440.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0447.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0489.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0494.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0511.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0527.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0536.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0563.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0565.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0574.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0584.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0585.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0597.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0607.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0615.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0623.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0635.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0661.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0666.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0671.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0688.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0695.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0698.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0702.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0710.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0763.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0766.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0813.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0824.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0835.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0841.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0865.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0874.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0886.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0889.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0935.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0938.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0939.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0941.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0948.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0971.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0980.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0989.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0992.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/0995.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1019.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1021.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1035.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1037.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1043.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1046.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1093.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1112.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1134.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1166.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1208.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1209.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1221.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1223.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1236.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1243.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1249.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1252.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1254.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1283.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1287.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1304.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1342.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1353.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1360.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1375.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1391.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1424.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1426.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1441.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1443.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1470.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1489.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1490.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1511.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1517.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1558.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1566.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1570.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1572.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1578.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1591.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1593.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1615.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1621.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1625.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1632.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1634.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1695.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1703.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1722.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1729.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1734.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1738.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1751.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1753.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1773.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1786.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1793.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1798.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1807.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1816.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1837.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1841.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1842.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1849.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1864.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1889.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1895.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1897.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1913.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1921.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1925.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1955.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1960.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1965.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1969.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1978.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1990.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1994.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1998.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/1999.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2006.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2012.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2026.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2034.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2042.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2060.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2067.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2069.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2087.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2100.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2117.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2124.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2132.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2168.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2177.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2199.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2213.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2220.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2226.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2236.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2248.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2250.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2264.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2266.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2272.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2280.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2285.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2291.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2317.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2319.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2325.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2330.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2341.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2351.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2361.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2365.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2386.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2394.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2411.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2423.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2427.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2436.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2447.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2461.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2466.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2471.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2477.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2490.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2502.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2509.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2512.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2520.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2534.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2543.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2549.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2556.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2570.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2572.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2585.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2600.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2620.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2640.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2641.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2663.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2673.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2678.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2682.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2705.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2710.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2711.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2746.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2752.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2754.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2756.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2765.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2789.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2792.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2796.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2817.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2832.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2845.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2867.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2882.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2883.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2907.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2957.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2968.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/2984.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3022.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3024.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3036.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3075.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3105.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3106.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3117.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3138.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3146.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3156.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3186.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3191.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3195.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3228.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3250.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3274.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3283.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3297.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3313.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3327.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3330.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3340.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3346.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3347.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3396.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3399.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3407.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3410.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3433.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3442.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3445.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3454.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3483.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3486.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3496.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3510.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3512.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3513.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3522.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3534.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3552.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3560.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3568.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3569.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3571.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3573.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3575.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3598.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3604.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3609.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3620.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3623.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3626.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3627.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3653.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3672.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3687.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3691.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3693.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3718.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3720.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3725.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3731.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3740.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3767.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3783.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3806.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3807.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3809.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3810.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3817.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3829.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3840.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3846.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3850.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3853.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3877.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3880.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3889.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3893.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3901.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3908.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3914.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3922.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3961.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3967.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3970.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3979.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/3995.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4000.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4003.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4016.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4021.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4022.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4029.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4050.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4136.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4145.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4155.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4188.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4190.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4223.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4233.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4244.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4260.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4271.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4275.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4281.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4298.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4350.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4352.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4365.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4376.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4390.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4409.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4410.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4411.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4419.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4425.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4446.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4462.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4474.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4489.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4509.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4522.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4534.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4535.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4542.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4549.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4554.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4567.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4572.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4579.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4611.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4621.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4624.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4637.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4659.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4663.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4669.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4703.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4716.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4717.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4724.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4727.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4741.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4752.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4765.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4785.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4822.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4830.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4832.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4849.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4851.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4854.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4865.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4875.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4878.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4884.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4888.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4889.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4919.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4942.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4964.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4967.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4970.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4975.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/4995.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5000.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5008.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5019.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5043.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5046.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5067.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5073.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5088.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5090.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5098.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5105.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5121.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5125.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5135.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5139.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5157.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5160.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5186.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5207.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5224.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5226.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5266.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5292.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5305.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5306.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5326.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5329.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5340.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5364.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5375.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5398.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5411.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5417.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5420.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5432.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5435.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5439.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5440.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5442.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5448.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5464.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5469.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5474.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5480.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5485.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5494.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5512.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5535.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5549.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5564.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5606.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5624.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5627.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5632.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5634.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5648.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5654.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5658.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5668.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5685.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5698.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5701.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5705.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5712.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5714.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5731.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5745.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5758.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5759.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5787.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5792.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5795.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5801.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5807.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5832.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5846.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5858.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5885.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5893.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5894.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5897.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5899.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5909.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5933.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5936.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5969.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/real_pexels/5989.png",
+    "label": 0,
+    "source": "real_pexels",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0005.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0018.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0027.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0030.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0054.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0059.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0065.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0077.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0080.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0095.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0121.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0160.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0173.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0194.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0204.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0205.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0218.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0227.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0245.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0258.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0261.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0263.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0296.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0318.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0326.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0327.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0343.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0356.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0362.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0376.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0386.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0411.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0415.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0417.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0444.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0459.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0466.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0469.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0475.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0480.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0481.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0483.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0497.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0500.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0521.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0525.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0543.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0553.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0557.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0562.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0564.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0567.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0569.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0570.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0581.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0582.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0585.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0595.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0601.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0617.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0618.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0646.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0654.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0657.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0672.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0702.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0713.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0745.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0757.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0760.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0765.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0768.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0773.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0793.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0795.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0803.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0807.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0820.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0828.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0838.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0840.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0843.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0849.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0872.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0877.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0886.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0896.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0899.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0913.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0914.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0917.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0939.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0945.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0946.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0983.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/0992.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1023.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1031.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1045.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1052.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1072.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1073.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1084.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1086.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1101.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1134.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1144.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1149.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1171.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1214.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1222.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1253.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1267.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1269.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1274.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1290.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1293.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1296.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1305.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1308.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1311.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1324.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1332.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1333.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1339.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1349.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1353.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1363.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1402.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1451.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1463.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1464.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1470.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1504.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1523.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1556.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1559.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1560.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1570.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1576.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1583.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1629.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1630.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1635.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1648.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1668.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1674.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1717.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1721.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1726.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1729.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1736.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1742.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1747.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1752.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1756.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1764.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1784.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1792.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1797.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1800.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1805.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1806.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1823.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1827.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1829.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1841.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1865.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1867.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1876.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1877.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1886.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1906.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1908.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1927.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1937.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1940.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1950.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1956.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1962.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1974.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/1991.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2002.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2006.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2007.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2017.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2021.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2031.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2033.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2037.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2045.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2047.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2058.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2060.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2137.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2140.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2146.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2153.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2158.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2163.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2167.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2170.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2172.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2173.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2175.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2176.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2186.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2188.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2194.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2212.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2232.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2254.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2267.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2277.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2278.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2279.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2282.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2283.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2287.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2309.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2335.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2337.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2371.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2402.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2405.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2431.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2445.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2453.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2458.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2479.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2501.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2520.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2526.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2554.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2570.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2574.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2578.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2585.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2591.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2592.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2656.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2657.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2690.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2707.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2713.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2722.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2733.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2758.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2770.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2780.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2787.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2788.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2809.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2818.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2860.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2865.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2877.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2898.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2903.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2911.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2932.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2941.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2963.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2966.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2974.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2988.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/2989.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3025.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3028.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3033.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3060.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3064.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3101.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3105.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3109.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3113.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3114.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3127.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3134.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3153.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3199.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3242.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3243.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3265.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3269.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3272.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3275.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3286.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3287.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3299.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3308.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3330.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3335.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3368.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3373.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3378.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3435.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3437.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3457.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3459.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3463.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3466.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3467.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3470.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3504.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3510.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3521.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3532.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3562.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3589.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3590.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3620.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3631.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3676.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3680.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3699.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3715.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3717.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3728.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3746.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3755.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3759.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3764.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3771.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3787.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3790.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3826.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3835.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3856.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3873.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3875.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3894.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3906.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3944.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3977.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3979.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3982.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/3987.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4003.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4043.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4090.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4101.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4120.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4140.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4141.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4145.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4159.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4161.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4174.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4175.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4212.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4240.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4283.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4323.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4334.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4335.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4345.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4351.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4364.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4376.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4393.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4394.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4399.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4405.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4416.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4418.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4419.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4429.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4442.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4451.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4465.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4468.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4470.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4504.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4509.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4520.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4523.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4527.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4533.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4538.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4544.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4553.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4563.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4587.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4595.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4598.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4599.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4613.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4631.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4647.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4648.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4667.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4678.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4721.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4730.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4743.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4745.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4757.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4772.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4781.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4782.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4786.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4789.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4820.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4821.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4828.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4838.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4871.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4875.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4882.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4886.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4907.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4932.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4946.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4955.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4970.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4989.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/4991.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5011.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5067.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5074.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5085.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5089.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5123.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5141.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5150.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5170.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5196.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5197.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5202.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5208.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5220.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5235.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5239.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5243.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5251.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5256.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5267.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5288.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5294.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5309.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5324.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5343.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5354.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5358.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5370.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5386.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5399.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5405.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5407.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5418.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5423.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5435.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5464.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5472.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5481.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5487.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5488.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5491.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5503.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5517.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5532.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5544.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5567.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5573.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5575.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5585.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5588.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5600.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5609.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5632.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5638.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5652.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5661.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5707.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5720.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5745.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5746.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5750.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5764.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5772.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5781.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5799.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5841.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5866.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5868.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5879.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5882.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5886.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5896.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5905.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5916.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5926.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5966.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5973.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5974.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5978.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5980.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5985.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  },
+  {
+    "path": "data/processed/ood_test/tristanzhang_fake/5996.png",
+    "label": 1,
+    "source": "tristanzhang_fake",
+    "category": "ood"
+  }
+]
