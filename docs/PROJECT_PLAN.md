@@ -540,37 +540,37 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 **Mục tiêu Sprint**: Setup environment, thu thập data, train EfficientNet-B0
 
-| Task ID | Task                   | Subtasks                                                           | Assignee     | Target       | Status |
-| ------- | ---------------------- | ------------------------------------------------------------------ | ------------ | ------------ | ------ |
-| 1.1     | **Environment Setup**  |                                                                    | Hoàng        | ~~17/02~~ ✅ | ✅     |
-|         |                        | 1.1.1 Setup cấu trúc thư mục src/ chuẩn                            |              |              | ✅     |
-|         |                        | 1.1.2 Cấu hình pyproject.toml + requirements                       |              |              | ✅     |
-|         |                        | 1.1.3 Setup Weights & Biases project                               |              |              | ✅     |
-|         |                        | 1.1.4 Tạo Colab/Kaggle notebook template                           |              |              | ✅     |
-| 1.2     | **Data Collection** ✨ |                                                                    | Hoàng + Luân | **02/03**    | ⬜     |
-|         |                        | 1.2.1 Download CIFAKE dataset (Real+Fake, Kaggle)                  | Luân         |              | ⬜     |
-|         |                        | 1.2.2 Download FFHQ subset (3-5k real, Kaggle mirror)              | Luân         |              | ⬜     |
-|         |                        | 1.2.3 Download/scrape StyleGAN faces (3k)                          | Hoàng        |              | ⬜     |
-|         |                        | 1.2.4 Self-generate SD v1.5 ảnh trên Colab (2-3k)                  | Hoàng        |              | ⬜     |
-|         |                        | 1.2.5 Chuẩn bị OOD: Gemini (100-200) + Flux (100-200) + Real (200) | Hoàng        |              | ⬜     |
-| 1.3     | **Data Pipeline**      |                                                                    | Hoàng        | **07/03**    | ⬜     |
-|         |                        | 1.3.1 Implement Dataset class (PyTorch)                            |              |              | ⬜     |
-|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)             |              |              | ⬜     |
-|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                    |              |              | ⬜     |
-| 1.4     | **Model Architecture** |                                                                    | Hoàng        | **07/03**    | ⬜     |
-|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)    |              |              | ⬜     |
-|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench)  |              |              | ⬜     |
-|         |                        | 1.4.3 Unit test model forward pass                                 |              |              | ⬜     |
-| 1.5     | **Training Pipeline**  |                                                                    | Hoàng        | **14/03**    | ⬜     |
-|         |                        | 1.5.1 Implement Trainer class                                      |              |              | ⬜     |
-|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)              |              |              | ⬜     |
-|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                               |              |              | ⬜     |
-|         |                        | 1.5.4 Early stopping + Wandb logging + **checkpoint resume**       |              |              | ⬜     |
-| 1.6     | **Baseline Training**  |                                                                    | Hoàng        | **21/03**    | ⬜     |
-|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)         |              |              | ⬜     |
-|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                           |              |              | ⬜     |
-|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                            |              |              | ⬜     |
-|         |                        | 1.6.4 Save best checkpoint                                         |              |              | ⬜     |
+| Task ID | Task                   | Subtasks                                                              | Assignee     | Target       | Status |
+| ------- | ---------------------- | --------------------------------------------------------------------- | ------------ | ------------ | ------ |
+| 1.1     | **Environment Setup**  |                                                                       | Hoàng        | ~~17/02~~ ✅ | ✅     |
+|         |                        | 1.1.1 Setup cấu trúc thư mục src/ chuẩn                               |              |              | ✅     |
+|         |                        | 1.1.2 Cấu hình pyproject.toml + requirements                          |              |              | ✅     |
+|         |                        | 1.1.3 Setup Weights & Biases project                                  |              |              | ✅     |
+|         |                        | 1.1.4 Tạo Colab/Kaggle notebook template                              |              |              | ✅     |
+| 1.2     | **Data Collection** ✨ |                                                                       | Hoàng + Luân | ~~02/03~~ ✅ | ✅     |
+|         |                        | 1.2.1 Download CIFAKE dataset (Real+Fake, Kaggle)                     | Luân         |              | ✅     |
+|         |                        | 1.2.2 Download FFHQ subset (5k real, Kaggle mirror)                   | Luân         |              | ✅     |
+|         |                        | 1.2.3 Download/scrape StyleGAN faces (5k)                             | Hoàng        |              | ✅     |
+|         |                        | 1.2.4 Self-generate SD v1.5 ảnh trên Colab (2.5k)                     | Hoàng        |              | ✅     |
+|         |                        | 1.2.5 Chuẩn bị OOD: Flux (80) + Real camera (100) + tristanzhang (1k) | Hoàng        |              | ✅     |
+| 1.3     | **Data Pipeline**      |                                                                       | Hoàng        | **07/03**    | ⬜     |
+|         |                        | 1.3.1 Implement Dataset class (PyTorch)                               |              |              | ⬜     |
+|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)                |              |              | ⬜     |
+|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                       |              |              | ⬜     |
+| 1.4     | **Model Architecture** |                                                                       | Hoàng        | **07/03**    | ⬜     |
+|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)       |              |              | ⬜     |
+|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench)     |              |              | ⬜     |
+|         |                        | 1.4.3 Unit test model forward pass                                    |              |              | ⬜     |
+| 1.5     | **Training Pipeline**  |                                                                       | Hoàng        | **14/03**    | ⬜     |
+|         |                        | 1.5.1 Implement Trainer class                                         |              |              | ⬜     |
+|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)                 |              |              | ⬜     |
+|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                                  |              |              | ⬜     |
+|         |                        | 1.5.4 Early stopping + Wandb logging + **checkpoint resume**          |              |              | ⬜     |
+| 1.6     | **Baseline Training**  |                                                                       | Hoàng        | **21/03**    | ⬜     |
+|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)            |              |              | ⬜     |
+|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                              |              |              | ⬜     |
+|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                               |              |              | ⬜     |
+|         |                        | 1.6.4 Save best checkpoint                                            |              |              | ⬜     |
 
 **✅ Milestone 1**: Dataset v1 (≥15k ảnh, bao gồm Diffusion) + Baseline AUC ≥ 0.85 (in-domain)
 

@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2026-02-24
+> Cập nhật lần cuối: 2026-02-25 (sau khi hoàn thành Task 1.2)
 
 ---
 
@@ -203,14 +203,14 @@ src/holmhz/
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Target (revised) | Ghi chú                                                                                                    |
-| -------------------------- | -------------- | ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE   | Mọi acceptance criteria đã pass                                                                            |
-| **1.2** Data Collection    | ⬜ Not Started | **02/03**        | CIFAKE + FFHQ + StyleGAN + SD v1.5 self-gen. Guide đã tạo: `docs/guides/GUIDE_TASK_1.2_DATA_COLLECTION.md` |
-| **1.3** Data Pipeline      | ⬜ Not Started | **07/03**        | Dataset class, transforms, dataloader                                                                      |
-| **1.4** Model Architecture | ⬜ Not Started | **07/03**        | EfficientNet-B0 backbone + binary head                                                                     |
-| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**        | Trainer, loss, metrics, WandB + checkpoint resume                                                          |
-| **1.6** Baseline Training  | ⬜ Not Started | **21/03**        | Train + eval, ưu tiên Kaggle GPU                                                                           |
+| Task                       | Trạng thái     | Target (revised)       | Ghi chú                                                            |
+| -------------------------- | -------------- | ---------------------- | ------------------------------------------------------------------ |
+| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                    |
+| **1.2** Data Collection    | ✅ Completed   | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS |
+| **1.3** Data Pipeline      | ⬜ Not Started | **07/03**              | Dataset class, transforms, dataloader                              |
+| **1.4** Model Architecture | ⬜ Not Started | **07/03**              | EfficientNet-B0 backbone + binary head                             |
+| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**              | Trainer, loss, metrics, WandB + checkpoint resume                  |
+| **1.6** Baseline Training  | ⬜ Not Started | **21/03**              | Train + eval, ưu tiên Kaggle GPU                                   |
 
 ### Sprint 2: Evaluation
 
@@ -254,7 +254,98 @@ src/holmhz/
 - [x] Colab/Kaggle notebook template (✅ đã tạo `notebooks/00_colab_template.ipynb`)
 - [x] Branch `feat/s1/environment-setup` + PR (✅ pushed, PR tạo trên GitHub)
 
-## 10. Conventions & Lưu ý
+## 10. Data Collection Progress (Task 1.2) — ✅ COMPLETED 25/02/2026
+
+### Tổng quan
+
+- **Tổng cộng**: 27,680 ảnh đã resize về 224×224 trong `data/processed/`
+- **Train**: 26,500 ảnh (Real 12K + GAN 5K + Diffusion 9.5K)
+- **OOD Test**: 1,180 ảnh (tristanzhang 500 + real_pexels 500 + flux 80 + real_camera 100)
+- **Acceptance Criteria**: ALL PASS
+- **Validation**: 27,680/27,680 valid (0 corrupt, 0 wrong size)
+
+### Raw Data (data/raw/) — Nguồn gốc
+
+| Folder                         | Nguồn                                                | Số ảnh  | Resolution | Trạng thái |
+| ------------------------------ | ---------------------------------------------------- | ------- | ---------- | ---------- |
+| `cifake/train/FAKE`            | CIFAKE (Kaggle) - Stable Diffusion v1.4              | 50,000  | 32×32      | ✅         |
+| `cifake/train/REAL`            | CIFAKE (Kaggle) - CIFAR-10                           | 50,000  | 32×32      | ✅         |
+| `cifake/test/FAKE`             | CIFAKE (Kaggle)                                      | 10,000  | 32×32      | ✅         |
+| `cifake/test/REAL`             | CIFAKE (Kaggle)                                      | 10,000  | 32×32      | ✅         |
+| `140k_real_and_fake/`          | 140k-real-and-fake (Kaggle) - StyleGAN               | 140,000 | 256×256    | ✅ bonus   |
+| `real/ffhq`                    | FFHQ subset (Kaggle mirror)                          | 5,000   | 512×512    | ✅         |
+| `real/ffhq_full`               | FFHQ full (52K)                                      | 52,001  | 512×512    | ✅ backup  |
+| `real/cifake_subset`           | Random subset CIFAKE Real                            | 7,000   | 32×32      | ✅         |
+| `fake_gan/stylegan`            | 140k-real-and-fake subset (StyleGAN faces)           | 5,000   | 256×256    | ✅         |
+| `fake_diffusion/cifake_subset` | Random subset CIFAKE Fake                            | 7,000   | 32×32      | ✅         |
+| `fake_diffusion/sd15`          | Self-gen (Colab, `runwayml/stable-diffusion-v1-5`)   | 2,500   | 512×512    | ✅         |
+| `ood_test/tristanzhang_fake`   | tristanzhang32 test/fake (SD+MJ+DALLE mixed)         | 500     | 1024×1024  | ✅         |
+| `ood_test/real_pexels`         | tristanzhang32 test/real (Pexels/Unsplash)           | 500     | ~4480×6272 | ✅         |
+| `ood_test/flux`                | HF Inference API (FLUX.1-schnell) + SD v1.5 fallback | 80      | 1024×1024  | ✅         |
+| `ood_test/real_camera`         | Unsplash API (portrait/headshot photos)              | 100     | ~400×446   | ✅         |
+
+### Processed Data (data/processed/) — 224×224 PNG
+
+```
+data/processed/
+├── train/
+│   ├── real/
+│   │   ├── cifake/          # 7,000 ảnh
+│   │   └── ffhq/            # 5,000 ảnh
+│   ├── fake_gan/
+│   │   └── stylegan/        # 5,000 ảnh
+│   └── fake_diffusion/
+│       ├── cifake/           # 7,000 ảnh
+│       └── sd15/             # 2,500 ảnh
+└── ood_test/
+    ├── tristanzhang_fake/    # 500 ảnh
+    ├── real_pexels/          # 500 ảnh
+    ├── flux/                 # 80 ảnh
+    └── real_camera/          # 100 ảnh
+```
+
+### Acceptance Criteria — TASK 1.2
+
+- [x] ≥6K ảnh Real → **12,000** (cifake 7K + ffhq 5K) ✅
+- [x] ≥5K ảnh Diffusion Fake → **9,500** (cifake 7K + sd15 2.5K) ✅
+- [x] ≥3K ảnh GAN Fake → **5,000** (stylegan 5K) ✅
+- [x] ≥50 ảnh Flux OOD → **80** ✅
+- [x] ≥50 ảnh Real camera OOD → **100** (Unsplash portraits) ✅
+- [x] Tất cả ảnh resize về 224×224 → **27,680/27,680 valid** ✅
+- [x] `data/manifests/dataset_stats.json` → ✅ tồn tại, all_criteria_pass: true
+- [x] `validate_dataset.py` → ALL DATA VALID ✅
+
+### Scripts đã tạo (Task 1.2)
+
+| Script                         | Mô tả                                                           |
+| ------------------------------ | --------------------------------------------------------------- |
+| `scripts/subset_cifake.py`     | Random subset 7K từ CIFAKE (seed=42, reproducible)              |
+| `scripts/subset_ffhq.py`       | Random subset 5K từ FFHQ                                        |
+| `scripts/subset_stylegan.py`   | Subset 5K StyleGAN từ 140k-real-and-fake                        |
+| `scripts/resize_all.py`        | Resize tất cả raw → 224×224 PNG vào data/processed/ (có resume) |
+| `scripts/dataset_stats.py`     | Tạo data/manifests/dataset_stats.json + acceptance check        |
+| `scripts/validate_dataset.py`  | Kiểm tra corrupt, wrong size, zero bytes                        |
+| `scripts/subset_ood_kaggle.py` | Subset tristanzhang_fake + real_pexels (500 mỗi folder)         |
+
+### Quyết định kỹ thuật quan trọng (25/02/2026)
+
+1. **Folder structure**: `data/processed/train/{real,fake_gan,fake_diffusion}/` + `data/processed/ood_test/` — tách rõ train vs OOD test
+2. **Flux OOD**: Gemini API deprecated/paid-only → chuyển sang HF Inference API (FLUX.1-schnell) + SD v1.5 fallback. 80 ảnh total.
+3. **Real camera OOD**: Dùng Unsplash API (free tier, 50 req/hr) thay vì tự chụp. 100 portrait photos.
+4. **tristanzhang32**: Chỉ tải folder `test/` (~12GB/52GB). Subset giữ 500 fake + 500 real.
+5. **140k-real-and-fake**: Dataset bonus 140K StyleGAN faces — dùng subset 5K cho fake_gan/stylegan.
+6. **CIFAKE 32×32**: Resize lên 224×224 bị pixelated nhưng model vẫn học texture patterns. Nếu AUC thấp → tăng FFHQ + SD v1.5.
+7. **Output format**: Tất cả resize thành PNG (lossless) để thống nhất.
+8. **Gemini OOD**: KHÔNG có — `imagen-3.0-generate-001` deprecated, `gemini-2.5-flash-image` cần paid billing. Folder `ood_test/gemini/` rỗng.
+9. **dalle, midjourney riêng**: KHÔNG có — tristanzhang_fake đã chứa mixed SD+MJ+DALLE.
+
+### Next Step
+
+→ **Task 1.3: Data Pipeline** — Viết code đọc ảnh từ `data/processed/` vào PyTorch DataLoader, implement train/val/test split, augmentation pipeline.
+
+---
+
+## 11. Conventions & Lưu ý
 
 - **Luôn dùng đường dẫn đầy đủ**: `.venv/Scripts/python.exe -m pip install ...`
 - **Package naming**: PyPI name ≠ import name (vd: `grad-cam` → `pytorch_grad_cam`)
