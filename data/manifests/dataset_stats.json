@@ -1,0 +1,79 @@
+{
+  "created": "2026-02-25T15:05:27.260292",
+  "image_size": "224x224",
+  "processed": {
+    "train": {
+      "real": {
+        "cifake": 7000,
+        "ffhq": 5000
+      },
+      "fake_gan": {
+        "stylegan": 5000
+      },
+      "fake_diffusion": {
+        "cifake": 7000,
+        "sd15": 2500
+      }
+    },
+    "test_ood": {
+      "tristanzhang_fake": 500,
+      "real_pexels": 500,
+      "flux": 80,
+      "real_camera": 100
+    }
+  },
+  "raw": {
+    "cifake": {
+      "train_FAKE": 50000,
+      "train_REAL": 50000,
+      "test_FAKE": 10000,
+      "test_REAL": 10000
+    },
+    "140k_real_and_fake": {
+      "note": "140k-real-and-fake-faces (Kaggle)",
+      "train_fake": 50000,
+      "train_real": 50000
+    },
+    "ffhq_full": 52001
+  },
+  "summary": {
+    "total_real": 12000,
+    "total_fake_gan": 5000,
+    "total_fake_diffusion": 9500,
+    "total_train": 26500,
+    "total_ood_test": 1180,
+    "total_all": 27680
+  },
+  "acceptance_criteria": {
+    "real_gte_6k": {
+      "pass": true,
+      "actual": 12000,
+      "required": 6000
+    },
+    "diffusion_gte_5k": {
+      "pass": true,
+      "actual": 9500,
+      "required": 5000
+    },
+    "gan_gte_3k": {
+      "pass": true,
+      "actual": 5000,
+      "required": 3000
+    },
+    "ood_flux_gte_50": {
+      "pass": true,
+      "actual": 80,
+      "required": 50
+    },
+    "ood_real_camera_gte_50": {
+      "pass": true,
+      "actual": 100,
+      "required": 50
+    },
+    "all_resized_224": {
+      "pass": true,
+      "note": "Validated by resize_all.py"
+    }
+  },
+  "all_criteria_pass": true
+}

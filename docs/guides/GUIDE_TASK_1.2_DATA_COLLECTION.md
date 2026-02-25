@@ -166,12 +166,16 @@ Cơ chế: Thêm nhiễu rồi khử nhiễu
 │ FFHQ subset         │ 3-5k     │ Real faces  │ Kaggle mirror           │
 │ StyleGAN faces      │ 3-5k     │ GAN         │ Kaggle / scrape         │
 │ SD v1.5 self-gen    │ 2-3k     │ Diffusion   │ Colab free (diffusers)  │
-│ Gemini (OOD)        │ 100-200  │ Diffusion   │ gemini.google.com free  │
-│ Flux (OOD)          │ 100-200  │ Diffusion   │ replicate.com free tier │
-│ Real camera (OOD)   │ 200      │ Real        │ Chụp thật / Internet    │
+│ tristanzhang fake   │ 6,000    │ OOD Fake    │ Kaggle test/ (~6GB)     │
+│ (SD+MJ+DALLE mixed) │          │ (mixed)     │ tristanzhang32 dataset  │
+│ tristanzhang real   │ 6,000    │ OOD Real    │ Kaggle test/ (~6GB)     │
+│ (Pexels/Unsplash)   │          │             │ tristanzhang32 dataset  │
+│ Gemini (OOD)        │ 50-100   │ Diffusion   │ gemini.google.com free  │
+│ Flux (OOD)          │ 50-100   │ Diffusion   │ replicate.com free tier │
+│ Real camera (OOD)   │ 50+      │ Real        │ Tự chụp / imgs/         │
 ├─────────────────────┼──────────┼─────────────┼─────────────────────────┤
 │ TỔNG TRAINING       │ ~15-20k  │ Mixed       │ Budget: $0              │
-│ TỔNG OOD TEST       │ ~500     │ Unseen      │ Thước đo chính          │
+│ TỔNG OOD TEST       │ ~700-1k  │ Unseen      │ Thước đo chính          │
 └─────────────────────┴──────────┴─────────────┴─────────────────────────┘
 ```
 
@@ -218,9 +222,11 @@ Cơ chế: Thêm nhiễu rồi khử nhiễu
 │  Total: ~18k               Total: ~3k           Total: ~2.5k         │
 │                                                                      │
 │  OOD TEST (riêng — QUAN TRỌNG NHẤT):                                │
-│  • Gemini-generated (100-200)                                        │
-│  • Flux-generated (100-200)                                          │
-│  • Real camera (200)                                                 │
+│  • tristanzhang fake (300-500) — test/fake (SD+MJ+DALLE mixed)       │
+│  • tristanzhang real (300-500) — test/real (Pexels/Unsplash)         │
+│  • Gemini-generated (50-100) — thủ công                              │
+│  • Flux-generated (50-100) — thủ công                                │
+│  • Real camera (50+) — tự chụp                                       │
 │  ➜ Đây là thước đo QUAN TRỌNG NHẤT cho hội đồng                     │
 └──────────────────────────────────────────────────────────────────────┘
 ```
@@ -257,12 +263,13 @@ git pull origin main
 git checkout -b feat/s1/data-collection
 
 # Tạo cấu trúc folder data
-mkdir -p data/raw/real/cifake
+# CIFAKE: giữ nguyên cấu trúc gốc train/test (KHÔNG flatten)
+mkdir -p data/raw/cifake
 mkdir -p data/raw/real/ffhq
 mkdir -p data/raw/fake_gan/stylegan
-mkdir -p data/raw/fake_diffusion/cifake
 mkdir -p data/raw/fake_diffusion/sd15
-mkdir -p data/raw/ood_test/gemini
+mkdir -p data/raw/ood_test/tristanzhang_fake
+mkdir -p data/raw/ood_test/real_pexels
 mkdir -p data/raw/ood_test/flux
 mkdir -p data/raw/ood_test/real_camera
 mkdir -p data/manifests
@@ -297,31 +304,41 @@ CIFAKE = **CIFAR-10 + Fake** — bộ dataset 120K ảnh (60K thật từ CIFAR-
 4. Giải nén vào `data/raw/`:
 
 ```bash
-# Sau khi giải nén, cấu trúc sẽ là:
+# Sau khi giải nén, cấu trúc gốc của CIFAKE:
 # cifake-real-and-ai-generated-synthetic-images/
 #   ├── test/
-#   │   ├── FAKE/  (10,000 ảnh)
-#   │   └── REAL/  (10,000 ảnh)
+#   │   ├── FAKE/  (10,000 ảnh: 0.png → 9999.png)
+#   │   └── REAL/  (10,000 ảnh: 0.png → 9999.png)
 #   └── train/
-#       ├── FAKE/  (50,000 ảnh)
-#       └── REAL/  (50,000 ảnh)
-
-# Copy vào đúng folder structure của HolmHz:
-# CIFAKE Real → data/raw/real/cifake/
-# CIFAKE Fake → data/raw/fake_diffusion/cifake/
+#       ├── FAKE/  (50,000 ảnh: 0.png → 49999.png)
+#       └── REAL/  (50,000 ảnh: 0.png → 49999.png)
+#
+# ⚠️ QUAN TRỌNG: Filename TRÙNG NHAU giữa train/ và test/
+#    (cả 2 đều có 0.png, 1.png, ... 9999.png)
+#    → KHÔNG ĐƯỢC merge vào 1 folder, sẽ MẤT DỮ LIỆU!
+#
+# ✅ GIỮ NGUYÊN cấu trúc gốc → move cả folder vào data/raw/cifake/
 
 # Windows PowerShell:
-Copy-Item -Recurse "path\to\cifake\train\REAL\*" "data\raw\real\cifake\"
-Copy-Item -Recurse "path\to\cifake\test\REAL\*"  "data\raw\real\cifake\"
-Copy-Item -Recurse "path\to\cifake\train\FAKE\*" "data\raw\fake_diffusion\cifake\"
-Copy-Item -Recurse "path\to\cifake\test\FAKE\*"  "data\raw\fake_diffusion\cifake\"
+Move-Item "path\to\cifake-real-and-ai-generated-synthetic-images\*" "data\raw\cifake\"
 
 # Hoặc Git Bash:
-cp -r path/to/cifake/train/REAL/* data/raw/real/cifake/
-cp -r path/to/cifake/test/REAL/*  data/raw/real/cifake/
-cp -r path/to/cifake/train/FAKE/* data/raw/fake_diffusion/cifake/
-cp -r path/to/cifake/test/FAKE/*  data/raw/fake_diffusion/cifake/
+mv path/to/cifake-real-and-ai-generated-synthetic-images/* data/raw/cifake/
 ```
+
+> **Kết quả sau bước này:**
+>
+> ```
+> data/raw/cifake/
+> ├── train/
+> │   ├── FAKE/   (50,000 ảnh)
+> │   └── REAL/   (50,000 ảnh)
+> └── test/
+>     ├── FAKE/   (10,000 ảnh)
+>     └── REAL/   (10,000 ảnh)
+> ```
+>
+> **Tại sao không tách REAL/FAKE vào folder riêng?** Vì HolmHz sẽ tự chia train/val/test ở Task 1.3. Giữ nguyên cấu trúc gốc = đơn giản + an toàn (không mất ảnh).
 
 #### Cách 2: Download qua Kaggle API (HOÀNG LÀM nếu quen CLI)
 
@@ -335,31 +352,40 @@ pip install kaggle
 # 2. Download dataset
 kaggle datasets download -d birdy654/cifake-real-and-ai-generated-synthetic-images -p data/raw/
 
-# 3. Giải nén
+# 3. Giải nén trực tiếp vào data/raw/cifake/ (giữ nguyên cấu trúc gốc)
 cd data/raw/
-unzip cifake-real-and-ai-generated-synthetic-images.zip -d cifake_download
+unzip cifake-real-and-ai-generated-synthetic-images.zip -d cifake
 cd ../..
 
-# 4. Copy vào đúng folder
-cp -r data/raw/cifake_download/train/REAL/* data/raw/real/cifake/
-cp -r data/raw/cifake_download/test/REAL/*  data/raw/real/cifake/
-cp -r data/raw/cifake_download/train/FAKE/* data/raw/fake_diffusion/cifake/
-cp -r data/raw/cifake_download/test/FAKE/*  data/raw/fake_diffusion/cifake/
+# 4. Dọn file zip (tiết kiệm ổ cứng)
+rm data/raw/cifake-real-and-ai-generated-synthetic-images.zip
 
-# 5. Dọn file zip + folder tạm (tiết kiệm ổ cứng)
-rm -rf data/raw/cifake_download data/raw/cifake-real-and-ai-generated-synthetic-images.zip
+# 5. Kiểm tra cấu trúc
+# data/raw/cifake/
+# ├── train/
+# │   ├── FAKE/   (50,000 ảnh)
+# │   └── REAL/   (50,000 ảnh)
+# └── test/
+#     ├── FAKE/   (10,000 ảnh)
+#     └── REAL/   (10,000 ảnh)
 ```
 
 ### Kiểm tra sau download
 
 ```bash
-# Đếm số ảnh
-find data/raw/real/cifake -type f | wc -l        # Kỳ vọng: ~60,000
-find data/raw/fake_diffusion/cifake -type f | wc -l  # Kỳ vọng: ~60,000
+# Đếm số ảnh REAL (train + test)
+find data/raw/cifake/train/REAL -type f | wc -l   # Kỳ vọng: 50,000
+find data/raw/cifake/test/REAL -type f | wc -l     # Kỳ vọng: 10,000
+
+# Đếm số ảnh FAKE (train + test)
+find data/raw/cifake/train/FAKE -type f | wc -l    # Kỳ vọng: 50,000
+find data/raw/cifake/test/FAKE -type f | wc -l     # Kỳ vọng: 10,000
 
 # Hoặc PowerShell:
-(Get-ChildItem data\raw\real\cifake -File).Count
-(Get-ChildItem data\raw\fake_diffusion\cifake -File).Count
+(Get-ChildItem data\raw\cifake\train\REAL -File).Count   # 50,000
+(Get-ChildItem data\raw\cifake\test\REAL -File).Count    # 10,000
+(Get-ChildItem data\raw\cifake\train\FAKE -File).Count   # 50,000
+(Get-ChildItem data\raw\cifake\test\FAKE -File).Count    # 10,000
 ```
 
 ### Subset (chỉ lấy đủ dùng)
@@ -372,6 +398,14 @@ Không cần dùng cả 60K ảnh. Để tiết kiệm thời gian xử lý + st
 Lấy random subset từ CIFAKE dataset.
 CIFAKE có 60K real + 60K fake, nhưng ta chỉ cần 7K mỗi loại cho training.
 - 5K train + 1K val + 1K test = 7K ảnh mỗi loại
+
+Cấu trúc gốc CIFAKE (giữ nguyên, KHÔNG flatten):
+  data/raw/cifake/train/REAL/  (50K, filenames: 0.png → 49999.png)
+  data/raw/cifake/train/FAKE/  (50K)
+  data/raw/cifake/test/REAL/   (10K, filenames: 0.png → 9999.png)
+  data/raw/cifake/test/FAKE/   (10K)
+
+⚠️ Filename TRÙNG giữa train/ và test/ → cần prefix khi copy sang subset.
 """
 import shutil
 import random
@@ -379,27 +413,54 @@ from pathlib import Path
 
 random.seed(42)  # Seed cố định để reproducible
 
-def subset_folder(src_dir: str, dst_dir: str, count: int):
-    """Lấy random `count` ảnh từ src_dir, copy sang dst_dir."""
-    src = Path(src_dir)
+CIFAKE_ROOT = Path("data/raw/cifake")
+
+
+def collect_cifake_images(label: str) -> list[Path]:
+    """
+    Thu thập tất cả ảnh CIFAKE cho 1 label (REAL hoặc FAKE).
+    Gộp cả train/ và test/ vào 1 list.
+    """
+    train_dir = CIFAKE_ROOT / "train" / label
+    test_dir = CIFAKE_ROOT / "test" / label
+
+    images = []
+    for d in [train_dir, test_dir]:
+        if d.exists():
+            images.extend(sorted(d.glob("*.png")) + sorted(d.glob("*.jpg")))
+
+    print(f"  Found {len(images)} {label} images (train + test)")
+    return images
+
+
+def subset_to_folder(images: list[Path], dst_dir: str, count: int):
+    """
+    Lấy random `count` ảnh, copy sang dst_dir.
+    Thêm prefix (train_ hoặc test_) để tránh trùng filename.
+    """
     dst = Path(dst_dir)
     dst.mkdir(parents=True, exist_ok=True)
 
-    all_images = sorted(list(src.glob("*.png")) + list(src.glob("*.jpg")))
-    selected = random.sample(all_images, min(count, len(all_images)))
+    selected = random.sample(images, min(count, len(images)))
 
     for img_path in selected:
-        shutil.copy2(img_path, dst / img_path.name)
+        # Prefix = tên folder cha-cha (train hoặc test)
+        split_name = img_path.parent.parent.name  # "train" hoặc "test"
+        new_name = f"{split_name}_{img_path.name}"
+        shutil.copy2(img_path, dst / new_name)
 
-    print(f"Copied {len(selected)} images: {src} → {dst}")
+    print(f"  Copied {len(selected)} images → {dst}")
     return len(selected)
 
-if __name__ == "__main__":
-    # CIFAKE Real: lấy 7K có sẵn (thêm FFHQ sau)
-    subset_folder("data/raw/real/cifake", "data/raw/real/cifake_subset", 7000)
 
-    # CIFAKE Fake (Diffusion): lấy 7K
-    subset_folder("data/raw/fake_diffusion/cifake", "data/raw/fake_diffusion/cifake_subset", 7000)
+if __name__ == "__main__":
+    print("📦 Collecting CIFAKE Real images...")
+    real_images = collect_cifake_images("REAL")
+    subset_to_folder(real_images, "data/raw/real/cifake_subset", 7000)
+
+    print("\n📦 Collecting CIFAKE Fake images...")
+    fake_images = collect_cifake_images("FAKE")
+    subset_to_folder(fake_images, "data/raw/fake_diffusion/cifake_subset", 7000)
 
     print("\n✅ Subset done! Dùng folder *_subset cho pipeline.")
     print("Nếu muốn tăng data sau → chạy lại với count lớn hơn.")
@@ -504,11 +565,98 @@ Tìm trên Kaggle: search "fake faces" hoặc "stylegan faces":
 - `ciplab/real-and-fake-face-detection` — Real + Fake faces
 
 ```bash
-# Ví dụ với dataset 140k-real-and-fake-faces:
+# Download dataset 140k-real-and-fake-faces:
 kaggle datasets download -d xhlulu/140k-real-and-fake-faces -p data/raw/
 
-# Giải nén, lấy folder fake/
-# Copy 3-5K ảnh fake vào data/raw/fake_gan/stylegan/
+# Giải nén vào data/raw/140k_real_and_fake/ (giữ nguyên cấu trúc gốc)
+cd data/raw/
+unzip 140k-real-and-fake-faces.zip -d 140k_real_and_fake
+cd ../..
+```
+
+**Cấu trúc gốc sau giải nén:**
+
+```
+data/raw/140k_real_and_fake/real_vs_fake/real-vs-fake/
+├── train/
+│   ├── fake/   (50,000 ảnh StyleGAN)  ← LẤY TỪ ĐÂY
+│   └── real/   (50,000 ảnh thật)      ← Dùng cho FFHQ (xem note bên dưới)
+├── test/
+│   ├── fake/   (10,000 ảnh)
+│   └── real/   (10,000 ảnh)
+└── valid/
+    ├── fake/   (10,000 ảnh)
+    └── real/   (10,000 ảnh)
+```
+
+> **Lấy split nào?** Chỉ cần `train/fake/` — 50K ảnh, đủ để lấy 3-5K.
+> **Không cần merge** `test/fake/` hay `valid/fake/` vì:
+>
+> 1. `train/fake/` đã có 50K — nhiều hơn đủ
+> 2. HolmHz sẽ tự chia train/val/test ở Task 1.3, split gốc không quan trọng
+
+```bash
+# Chạy script lấy subset GAN fake (xem script bên dưới)
+python scripts/subset_stylegan.py
+```
+
+> 💡 **Bonus**: `train/real/` chứa 50K ảnh khuôn mặt thật từ Flickr — **thay thế hoàn toàn cho FFHQ** ở Bước 2! Nếu đã có dataset này, có thể bỏ qua bước download FFHQ riêng.
+
+**Script lấy subset:**
+
+```python
+# scripts/subset_stylegan.py
+"""
+Lấy random 5K ảnh StyleGAN fake từ 140k-real-and-fake-faces.
+Chỉ lấy từ train/fake/ — đủ lớn (50K), không cần merge splits.
+
+Đồng thời lấy thêm 5K real faces từ train/real/ (thay thế FFHQ).
+"""
+import shutil
+import random
+from pathlib import Path
+
+random.seed(42)
+
+BASE = Path("data/raw/140k_real_and_fake/real_vs_fake/real-vs-fake")
+
+
+def subset_folder(src: Path, dst: Path, count: int) -> int:
+    dst.mkdir(parents=True, exist_ok=True)
+    images = sorted(list(src.glob("*.jpg")) + list(src.glob("*.png")))
+    selected = random.sample(images, min(count, len(images)))
+    for img in selected:
+        shutil.copy2(img, dst / img.name)
+    print(f"  Copied {len(selected)} → {dst}")
+    return len(selected)
+
+
+if __name__ == "__main__":
+    # GAN Fake → data/raw/fake_gan/stylegan/
+    print("📦 StyleGAN fake faces...")
+    subset_folder(
+        BASE / "train" / "fake",
+        Path("data/raw/fake_gan/stylegan"),
+        count=5000,
+    )
+
+    # Real faces → data/raw/real/ffhq/ (thay thế FFHQ nếu chưa có)
+    ffhq_dir = Path("data/raw/real/ffhq")
+    if len(list(ffhq_dir.glob("*"))) == 0:
+        print("\n📦 Real faces (thay thế FFHQ)...")
+        subset_folder(
+            BASE / "train" / "real",
+            ffhq_dir,
+            count=5000,
+        )
+    else:
+        print(f"\n⏭️  Bỏ qua real faces — {ffhq_dir} đã có ảnh")
+
+    print("\n✅ Done!")
+```
+
+```bash
+python scripts/subset_stylegan.py
 ```
 
 #### Cách 2: Scrape từ thispersondoesnotexist.com
@@ -744,98 +892,399 @@ find data/raw/fake_diffusion/sd15 -type f | wc -l  # Kỳ vọng: 2000-3000
 │                                                                       │
 │   OUT-OF-DISTRIBUTION TEST:                                           │
 │   Train trên CIFAKE + StyleGAN + SD v1.5                             │
-│   Test trên GEMINI + FLUX (model CHƯA HỀ THẤY)                      │
+│   Test trên MidJourney + DALL-E + Gemini + Flux                      │
+│   (model CHƯA HỀ THẤY các nguồn này!)                               │
 │   → Kỳ vọng: AUC ≥ 0.65 (RẤT KHÓ — đây là thách thức chính)       │
 │                                                                       │
-│   Hội đồng sẽ HỎI: "Model hoạt động thế nào trên Gemini/Flux?"     │
+│   Hội đồng sẽ HỎI: "Model hoạt động thế nào trên MidJourney/DALL-E │
+│   /Gemini/Flux?"                                                     │
 │   Nếu AUC OOD < 0.60: Model vô dụng ngoài thực tế                  │
 │   Nếu AUC OOD ≥ 0.65: Tốt hơn 3 SOTA (đều fail trên Diffusion)    │
 │   Nếu AUC OOD ≥ 0.70: Rất tốt cho nghiên cứu SV                    │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-### 5.1: Ảnh Gemini (100-200 ảnh)
+### Chiến lược OOD Test mới (cập nhật 24/02)
 
-Vào https://gemini.google.com → nhập prompt tạo ảnh. Mỗi ảnh save vào `data/raw/ood_test/gemini/`.
+Sử dụng **kết hợp** Kaggle dataset + tạo thủ công:
 
-**Danh sách prompt mẫu** (mỗi prompt tạo 1-4 ảnh):
+| Nguồn                                     | Loại     | Số lượng | Cách lấy                             |
+| ----------------------------------------- | -------- | -------- | ------------------------------------ |
+| **tristanzhang fake** (SD+MJ+DALLE mixed) | OOD Fake | 300-500  | Kaggle — chỉ tải `test/fake/` (~6GB) |
+| **tristanzhang real** (Pexels/Unsplash)   | OOD Real | 300-500  | Kaggle — chỉ tải `test/real/` (~6GB) |
+| **Gemini**                                | OOD Fake | 50-100   | Thủ công (model 2024-2025)           |
+| **Flux**                                  | OOD Fake | 50-100   | Thủ công (model 2024)                |
+| **Camera thật**                           | OOD Real | 50+      | Tự chụp / imgs/                      |
+
+> **Tại sao lấy cả SD từ bộ này dù đã train trên SD?** Vì bộ tristanzhang32 **không chia subfolder theo generator** — `test/fake` chứa 6K ảnh trộn lẫn SD+MidJourney+DALL-E mà không có nhãn riêng. Chấp nhận mix này và đặt tất cả vào `tristanzhang_fake/` — MidJourney + DALL-E chiếm 2/3 → vẫn đủ OOD. Không cần tách riêng.
+
+> **Tại sao vẫn cần Gemini/Flux?** Bộ Kaggle dùng model năm 2022-2023. Gemini 2.x và Flux (2024) có độ chân thực cao hơn nhiều. Bổ sung 50-100 ảnh mỗi loại = chứng minh model hoạt động trên **công nghệ mới nhất**. Hội đồng sẽ đánh giá cao điểm này.
+
+### 5.0: Download tristanzhang32 dataset từ Kaggle (CHỈ folder test/) ✅ DONE
+
+Dataset: https://www.kaggle.com/datasets/tristanzhang32/ai-generated-images-vs-real-images
+
+**Thông tin dataset (52.41 GB tổng):**
+
+- Fake (30K): 10K SD + 10K MidJourney + 10K DALL-E
+- Real (30K): 22.5K Pexels/Unsplash + 7.5K WikiArt
+- Cấu trúc: `train/` (80%) + `test/` (20%) — mỗi thư mục chỉ có `fake/` và `real/`, **KHÔNG có subfolder riêng per generator**
 
 ```
-Portrait prompts (ưu tiên - vì HolmHz focus faces):
-- "Generate a realistic portrait photo of a young Vietnamese woman"
-- "Create a headshot of a middle-aged Asian man with glasses"
-- "Generate a passport-style photo of an elderly woman"
-- "Create a selfie of a young man at a cafe"
-- "Generate a professional corporate headshot"
-
-Object/Scene prompts (đa dạng):
-- "Generate a realistic photo of a golden retriever"
-- "Create a photo of a red sports car"
-- "Generate a landscape photo of Da Lat city"
-- "Create a photo of Vietnamese street food"
-- "Generate a photo of a tropical beach sunset"
+test/
+├── fake/   (6,000 ảnh — SD + MidJourney + DALL-E trộn lẫn)
+└── real/   (6,000 ảnh — Pexels + Unsplash)
+train/
+├── fake/   (24,000 ảnh) ← KHÔNG CẦN tải
+└── real/   (24,000 ảnh) ← KHÔNG CẦN tải
 ```
 
-> 💡 **Tip**: Nhập cùng kiểu prompt đã dùng cho SD v1.5 ở Bước 4. Điều này giúp so sánh: cùng concept → Gemini sinh khác SD v1.5 thế nào → model có phân biệt được không?
+**⚡ CHỈ tải `test/` (~12GB) — bỏ qua `train/` (~40GB)**
 
-**Cách save ảnh từ Gemini**:
+Lý do:
 
-1. Gemini generate ảnh → chuột phải → Save Image As
-2. Đặt tên: `gemini_001.png`, `gemini_002.png`, ...
-3. Save vào `data/raw/ood_test/gemini/`
+- `test/fake` (6K ảnh) **là OOD test set hoàn hảo** — chứa MidJourney + DALL-E model chưa thấy khi train
+- `test/real` (6K ảnh) là ảnh Pexels/Unsplash chất lượng cao → OOD real ground truth
+- `train/` không cần vì đã có CIFAKE + StyleGAN làm training data
 
-> ⚠️ Công đoạn này **thủ công** — không có API miễn phí. Mỗi ảnh mất ~30 giây. 200 ảnh ≈ **1.5 giờ**. Có thể chia cho Luân làm cùng.
+**✅ Đã tải xong và tổ chức:**
 
-### 5.2: Ảnh Flux (100-200 ảnh)
+```bash
+# Kết quả hiện tại:
+# test/fake → data/raw/ood_test/tristanzhang_fake/  (6,000 ảnh)
+# test/real → data/raw/ood_test/real_pexels/         (6,000 ảnh)
+```
 
-Flux là model Diffusion mới nhất (2024) từ Black Forest Labs. Có thể dùng miễn phí qua:
+**Kiểm tra:**
 
-#### Cách 1: flux1.ai (free web)
+```bash
+# PowerShell:
+(Get-ChildItem data\raw\ood_test\tristanzhang_fake -File).Count  # Kỳ vọng: ~6,000
+(Get-ChildItem data\raw\ood_test\real_pexels -File).Count        # Kỳ vọng: ~6,000
 
-1. Vào https://flux1.ai hoặc https://replicate.com/black-forest-labs/flux-schnell
-2. Nhập prompt → Generate → Download
-3. Save vào `data/raw/ood_test/flux/`
-4. Đặt tên: `flux_001.png`, `flux_002.png`, ...
+# Hoặc Git Bash:
+find data/raw/ood_test/tristanzhang_fake -type f | wc -l
+find data/raw/ood_test/real_pexels -type f | wc -l
+```
 
-#### Cách 2: Replicate API (free tier)
+### 5.1: Lọc subset từ tristanzhang test/ → OOD folders
+
+Sau khi đã copy `test/fake` → `ood_test/tristanzhang_fake/` và `test/real` → `ood_test/real_pexels/` (xem 5.0), chạy script lấy random subset gọn hơn:
 
 ```python
-# Nếu tạo tài khoản Replicate.com (free tier)
-# scripts/generate_flux_ood.py
-import replicate
+# scripts/subset_ood_kaggle.py
+"""
+Lọc random subset từ bộ tristanzhang32 cho OOD test set của HolmHz.
+
+Cấu trúc đầu vào (sau bước 5.0):
+  data/raw/ood_test/tristanzhang_fake/  (6,000 ảnh: SD+MidJourney+DALL-E mixed)
+  data/raw/ood_test/real_pexels/        (6,000 ảnh: Pexels+Unsplash)
+
+⚠️ KHÔNG có subfolder riêng per generator (MidJourney/DALL-E/SD).
+   Tất cả fake nằm flat trong 1 folder. Chấp nhận điều này — đây là OOD data.
+
+Lấy:
+- 500 ảnh fake (SD+MJ+DALLE mixed) → giữ nguyên trong tristanzhang_fake/
+- 500 ảnh real Pexels              → giữ nguyên trong real_pexels/
+(Subset để tiết kiệm ổ đĩa khi có nhiều hơn cần thiết)
+"""
+import shutil
+import random
 from pathlib import Path
-import urllib.request
 
-output_dir = Path("data/raw/ood_test/flux")
-output_dir.mkdir(parents=True, exist_ok=True)
+random.seed(42)
 
-prompts = [
-    "a realistic portrait photo of a young Asian woman",
-    "a headshot of a middle-aged man in business attire",
-    "a close-up photo of an elderly person smiling",
-    # ... thêm prompts
-]
+OOD_ROOT = Path("data/raw/ood_test")
 
-for i, prompt in enumerate(prompts):
-    try:
-        output = replicate.run(
-            "black-forest-labs/flux-schnell",
-            input={"prompt": prompt}
-        )
-        # output là URL → download
-        if output:
-            url = output[0] if isinstance(output, list) else str(output)
-            urllib.request.urlretrieve(url, output_dir / f"flux_{i:03d}.png")
-            print(f"✅ [{i}] {prompt[:40]}...")
-    except Exception as e:
-        print(f"❌ [{i}] {e}")
+
+def subset_in_place(folder: Path, keep: int) -> None:
+    """
+    Giữ lại `keep` ảnh ngẫu nhiên trong folder, xóa phần còn lại.
+    Dùng khi folder đã có đủ ảnh nhưng muốn giảm xuống.
+    """
+    images = sorted(
+        list(folder.glob("*.jpg")) + list(folder.glob("*.png"))
+        + list(folder.glob("*.jpeg")) + list(folder.glob("*.webp"))
+    )
+    print(f"  Found {len(images)} images in {folder.name}")
+
+    if len(images) <= keep:
+        print(f"  ✅ Đủ/ít hơn {keep} → giữ nguyên tất cả")
+        return
+
+    to_keep = set(random.sample(images, keep))
+    removed = 0
+    for img in images:
+        if img not in to_keep:
+            img.unlink()
+            removed += 1
+
+    print(f"  Kept {keep}, removed {removed} → {folder.name}: {keep} ảnh")
+
+
+if __name__ == "__main__":
+    fake_dir = OOD_ROOT / "tristanzhang_fake"
+    real_dir = OOD_ROOT / "real_pexels"
+
+    if not fake_dir.exists() or not real_dir.exists():
+        print("❌ Chưa có folder tristanzhang_fake/ hoặc real_pexels/")
+        print("   → Chạy Bước 5.0 trước: copy test/fake và test/real từ Kaggle")
+        exit(1)
+
+    print("✂️  Subset tristanzhang_fake (giữ 500 ảnh)...")
+    subset_in_place(fake_dir, keep=500)
+
+    print("\n✂️  Subset real_pexels (giữ 500 ảnh)...")
+    subset_in_place(real_dir, keep=500)
+
+    # Tóm tắt
+    print(f"\n{'='*50}")
+    print("📊 OOD Test Set Summary:")
+    for name in ["tristanzhang_fake", "real_pexels", "gemini", "flux", "real_camera"]:
+        p = OOD_ROOT / name
+        n = len(list(p.glob("*.*"))) if p.exists() else 0
+        status = "✅" if n > 0 else "⏳"
+        print(f"  {status} {name}: {n} ảnh")
+    print("\nBước tiếp: tạo thêm Gemini + Flux thủ công (xem 5.2 và 5.3)")
 ```
 
-> 💡 **Free tier Replicate**: Thường cho ~50-100 runs miễn phí. Đủ cho OOD test set.
+```bash
+# Chạy script (chỉ cần nếu muốn giữ đúng 500 ảnh mỗi folder)
+python scripts/subset_ood_kaggle.py
+```
 
-### 5.3: Ảnh Real camera (200 ảnh)
+> 💡 **Nếu chỉ có 6K ảnh mỗi folder và muốn dùng tất cả**: Bỏ qua script này hoàn toàn. 500 ảnh là đủ cho OOD evaluation — nhiều hơn không nhất thiết tốt hơn, quan trọng là **đa dạng**, không phải số lượng.
 
-Ảnh thật chụp bằng camera thật — để đối chứng OOD test:
+### 5.2: Ảnh Flux (80 ảnh) — HuggingFace Inference API trên Google Colab
+
+> ❌ **Gemini Image API không dùng được trên free tier**: `gemini-2.5-flash-image` và
+> `imagen-3.0-generate-001` đều yêu cầu **paid billing** — free API key sẽ gặp 429
+> liên tục bất kể chờ bao lâu. Xem: https://ai.google.dev/gemini-api/docs/rate-limits
+>
+> ✅ **Giải pháp thay thế**: HuggingFace Inference API — miễn phí, ~500 req/ngày,
+> dùng model `black-forest-labs/FLUX.1-schnell`. Chỉ cần tạo HF account miễn phí.
+
+#### Cách chạy trên Google Colab
+
+1. Mở https://colab.research.google.com → New Notebook
+2. **Lấy HF token miễn phí**: Vào https://huggingface.co/settings/tokens → New token (Role: Read)
+3. Paste các cell sau:
+
+**Cell 1: Cài đặt + Setup**
+
+```python
+!pip install -q huggingface_hub Pillow
+
+from huggingface_hub import InferenceClient
+from pathlib import Path
+import os
+import time
+
+# ⚠️ THAY bằng HF token của bạn (lấy tại https://huggingface.co/settings/tokens)
+HF_TOKEN = "hf_YOUR_TOKEN_HERE"
+client = InferenceClient(token=HF_TOKEN)
+
+# Mount Google Drive để save
+from google.colab import drive
+drive.mount('/content/drive')
+
+output_dir = Path("/content/drive/MyDrive/HolmHz/data/ood_test/flux")
+output_dir.mkdir(parents=True, exist_ok=True)
+
+print(f"✅ Setup done! Output: {output_dir}")
+```
+
+**Cell 2: Định nghĩa prompts (80 prompts)**
+
+```python
+# Prompts đa dạng — chia thành 4 nhóm, mỗi nhóm 20 prompts
+# Dùng CHUNG prompt với SD v1.5 (Bước 4) → so sánh công bằng giữa 2 model
+
+face_prompts = [
+    "a portrait photo of a young Vietnamese woman with brown hair, natural lighting, DSLR quality",
+    "a headshot of a middle-aged Asian man wearing glasses, studio lighting",
+    "a close-up portrait of an elderly woman smiling, soft lighting",
+    "a professional headshot of a young man in a suit, corporate style",
+    "a candid portrait of a teenager, outdoor natural light",
+    "a passport-style photo of a woman, neutral expression, white background",
+    "a portrait of a man with beard, dramatic lighting, high quality",
+    "a close-up face photo of a child, happy expression, bright daylight",
+    "a selfie of a young woman, smartphone camera quality",
+    "a formal portrait of an older man, black and white background",
+    "a portrait of a woman with curly hair, golden hour lighting",
+    "a professional LinkedIn headshot of a young Asian woman",
+    "a casual portrait of a college student wearing a hoodie",
+    "a close-up portrait of a man with wrinkles, black and white photography",
+    "a portrait of twins, identical expressions, studio lighting",
+    "a wedding portrait of a bride and groom, outdoor ceremony",
+    "a portrait of an athlete in sportswear, action pose",
+    "a portrait of a chef in a professional kitchen",
+    "a portrait of a doctor in a white coat, hospital setting",
+    "a graduation portrait of a university student in cap and gown",
+]
+
+object_prompts = [
+    "a realistic photo of a red sports car on a highway, DSLR quality",
+    "a photo of a golden retriever dog playing in a park",
+    "a product photo of a modern smartphone on a white background",
+    "a photo of a cup of coffee on a wooden table, morning light",
+    "a photo of a bouquet of colorful flowers in a vase",
+    "a photo of a cat sleeping on a couch, warm indoor lighting",
+    "a photo of a luxury watch on a dark surface, studio lighting",
+    "a photo of fresh sushi on a plate, Japanese restaurant style",
+    "a photo of a pair of sneakers, product photography style",
+    "a photo of a classic guitar leaning against a wall",
+    "a macro photo of a butterfly on a flower",
+    "a photo of a stack of old books on a wooden shelf",
+    "a photo of a bicycle parked on a European street",
+    "a photo of a pizza fresh from the oven, food photography",
+    "a photo of a vintage camera on a leather surface",
+    "a photo of a potted plant on a windowsill, natural light",
+    "a photo of a pair of headphones on a desk, minimalist style",
+    "a photo of a birthday cake with candles, celebration setup",
+    "a photo of a laptop on a clean desk, workspace photography",
+    "a photo of a glass of red wine, elegant restaurant setting",
+]
+
+scene_prompts = [
+    "a landscape photo of Da Lat city with pine trees and mist",
+    "a street photo of Ho Chi Minh City at night, neon lights",
+    "a photo of a tropical beach sunset with palm trees",
+    "a city skyline at golden hour, modern architecture",
+    "a photo of a mountain lake with reflection, peaceful scene",
+    "a rainy street scene in Tokyo, reflections on wet pavement",
+    "a photo of a European cafe terrace, autumn afternoon",
+    "a photo of rice fields in Vietnam, aerial view",
+    "a photo of a busy market in Southeast Asia, vibrant colors",
+    "a winter landscape with snow-covered trees, blue sky",
+    "a photo of a modern library interior, warm ambient light",
+    "a photo of a cozy bedroom with fairy lights, evening mood",
+    "a photo of a rooftop garden in an urban setting",
+    "a photo of an old temple in Hue, Vietnam, golden hour",
+    "a photo of a waterfall in a tropical forest",
+    "a photo of a train station platform, morning commute",
+    "a photo of a traditional Vietnamese village, rural scene",
+    "a sunset photo from an airplane window, clouds below",
+    "a photo of a lighthouse on a rocky coast, stormy weather",
+    "a photo of cherry blossoms in spring, soft pink petals",
+]
+
+food_prompts = [
+    "a photo of Vietnamese pho bo, steaming bowl, restaurant setting",
+    "a photo of banh mi sandwich, street food style",
+    "a photo of a chocolate cake slice, dessert photography",
+    "a top-down photo of a breakfast spread, flat lay style",
+    "a photo of grilled meat on a barbecue, smoke and fire",
+    "a photo of a colorful smoothie bowl with fruit toppings",
+    "a photo of dim sum in bamboo steamers, Chinese restaurant",
+    "a photo of ice cream cones, summer day background",
+    "a photo of a cheese platter with wine, elegant presentation",
+    "a photo of ramen noodles, Japanese restaurant style",
+]
+
+architecture_prompts = [
+    "a photo of a modern skyscraper with glass facade, blue sky",
+    "a photo of an old French colonial building in Hanoi",
+    "an interior photo of a minimalist apartment, Scandinavian design",
+    "a photo of a traditional Japanese house with garden",
+    "a photo of a grand cathedral interior, stained glass windows",
+    "a photo of a modern bridge at night, illuminated",
+    "a photo of a cozy coffee shop interior, industrial style",
+    "a photo of an ancient stone castle on a hilltop",
+    "a photo of a modern museum exterior, architectural photography",
+    "a photo of a wooden cabin in the forest, surrounded by trees",
+]
+
+all_prompts = face_prompts + object_prompts + scene_prompts + food_prompts + architecture_prompts
+print(f"✅ {len(all_prompts)} prompts defined (target: 100)")
+```
+
+**Cell 3: Generate ảnh (có retry + resume)**
+
+```python
+import time
+
+existing = len(list(output_dir.glob("*.png")))
+print(f"Đã có {existing} ảnh, sẽ generate từ ảnh {existing + 1}")
+
+failed = []
+
+for i, prompt in enumerate(all_prompts):
+    file_name = f"hf_{i+1:03d}.png"
+    file_path = output_dir / file_name
+
+    # Skip nếu đã generate (resume support)
+    if file_path.exists():
+        continue
+
+    print(f"[{i+1}/{len(all_prompts)}] {prompt[:50]}...")
+
+    # Retry tối đa 3 lần
+    for attempt in range(3):
+        try:
+            # HuggingFace Inference API — trả về PIL Image trực tiếp
+            image = client.text_to_image(
+                prompt,
+                model="black-forest-labs/FLUX.1-schnell",
+            )
+            image.save(str(file_path))
+            print(f"  ✅ Saved: {file_name}")
+            break  # Thành công → thoát retry loop
+
+        except Exception as e:
+            err_msg = str(e)
+            if "429" in err_msg or "Too Many" in err_msg or "overloaded" in err_msg.lower():
+                wait = 60 * (attempt + 1)
+                print(f"  ⏳ Rate limited, chờ {wait}s... (attempt {attempt+1}/3)")
+                time.sleep(wait)
+            else:
+                print(f"  ❌ Error: {err_msg}")
+                failed.append((i+1, prompt, err_msg))
+                break
+    else:
+        failed.append((i+1, prompt, "max_retries_exceeded"))
+
+    # Rate limit: HF free tier ~30 req/min → chờ 3s
+    time.sleep(3)
+
+# Tóm tắt
+total = len(list(output_dir.glob("*.png")))
+print(f"\n{'='*50}")
+print(f"🎉 Done! Total: {total} ảnh trong {output_dir}")
+if failed:
+    print(f"⚠️ {len(failed)} prompts failed:")
+    for idx, prompt, reason in failed:
+        print(f"  [{idx}] {prompt[:40]}... → {reason}")
+```
+
+**Cell 4: Verify ảnh**
+
+```python
+from PIL import Image
+
+sample_images = sorted(output_dir.glob("*.png"))[:5]
+for img_path in sample_images:
+    img = Image.open(img_path)
+    size_kb = img_path.stat().st_size / 1024
+    print(f"{img_path.name}: {img.size} | {size_kb:.0f} KB")
+
+print(f"\nTotal: {len(list(output_dir.glob('*.png')))} images")
+```
+
+#### Sau khi generate xong
+
+```bash
+# Copy từ Google Drive về local project
+# (hoặc download folder từ Drive)
+cp -r "/path/to/google/drive/HolmHz/data/ood_test/flux/"* data/raw/ood_test/flux/
+
+# Kiểm tra
+find data/raw/ood_test/flux -type f | wc -l  # Kỳ vọng: ~80
+```
+
+> 💡 **Tip**: Dùng CHUNG danh sách prompts cho cả Flux và SD v1.5 → khi viết báo cáo có thể so sánh: cùng concept → Flux (API) sinh khác SD v1.5 (self-gen) thế nào → model có phân biệt được không? Hội đồng sẽ đánh giá cao phần so sánh này.
+
+### 5.3: Ảnh Real camera bổ sung
 
 ```bash
 # Copy ảnh đã có trong imgs/ folder
@@ -846,9 +1295,9 @@ cp -r imgs/Real/* data/raw/ood_test/real_camera/
 # Pexels: https://www.pexels.com/search/portrait/
 ```
 
-> **Tạo sao cần ảnh thật trong OOD?** Vì nếu chỉ test Gemini/Flux (toàn ảnh giả) → không biết model có phân biệt đúng ảnh thật hay không. Cần **cả hai**: ảnh thật (kỳ vọng: predict "Real") + ảnh giả (kỳ vọng: predict "Fake").
+> **Tạo sao cần ảnh thật trong OOD?** Vì nếu chỉ test MidJourney/DALL-E/Gemini/Flux (toàn ảnh giả) → không biết model có phân biệt đúng ảnh thật hay không. Cần **cả hai**: ảnh thật (kỳ vọng: predict "Real") + ảnh giả (kỳ vọng: predict "Fake").
 
-### 5.4: Copy ảnh Gemini/Flux đã có trong imgs/
+### 5.4: Copy ảnh Flux đã có trong imgs/
 
 Project đã có sẵn một số ảnh mẫu:
 
@@ -858,17 +1307,20 @@ ls imgs/Fake_AI_generated/
 ls imgs/Real/
 
 # Copy vào OOD test set
-cp imgs/Fake_AI_generated/* data/raw/ood_test/gemini/
+cp imgs/Fake_AI_generated/* data/raw/ood_test/flux/
 cp imgs/Real/* data/raw/ood_test/real_camera/
 ```
 
 ### Kiểm tra OOD
 
 ```bash
-find data/raw/ood_test/gemini -type f | wc -l       # Kỳ vọng: 100-200
-find data/raw/ood_test/flux -type f | wc -l          # Kỳ vọng: 100-200
-find data/raw/ood_test/real_camera -type f | wc -l   # Kỳ vọng: ≥200
+find data/raw/ood_test/tristanzhang_fake -type f | wc -l  # Kỳ vọng: 500 (hoặc 6000 nếu dùng tất cả)
+find data/raw/ood_test/real_pexels -type f | wc -l        # Kỳ vọng: 500 (hoặc 6000 nếu dùng tất cả)
+find data/raw/ood_test/flux -type f | wc -l               # Kỳ vọng: 80-100
+find data/raw/ood_test/real_camera -type f | wc -l        # Kỳ vọng: ≥50
 ```
+
+> 📊 **OOD Test tổng cộng**: ~700-1200 ảnh (4 nguồn fake + 2 nguồn real). Đây là OOD test set **mạnh hơn nhiều** so với kế hoạch ban đầu (chỉ có Gemini + Flux).
 
 ---
 
@@ -878,14 +1330,16 @@ find data/raw/ood_test/real_camera -type f | wc -l   # Kỳ vọng: ≥200
 
 Ảnh từ các nguồn khác nhau có kích thước khác nhau:
 
-| Nguồn    | Resolution gốc | Sau resize          |
-| -------- | -------------- | ------------------- |
-| CIFAKE   | 32×32          | 224×224 (upscale)   |
-| FFHQ     | 1024×1024      | 224×224 (downscale) |
-| StyleGAN | 1024×1024      | 224×224 (downscale) |
-| SD v1.5  | 512×512        | 224×224 (downscale) |
-| Gemini   | Varies         | 224×224             |
-| Flux     | Varies         | 224×224             |
+| Nguồn      | Resolution gốc | Sau resize          | Vai trò  |
+| ---------- | -------------- | ------------------- | -------- |
+| CIFAKE     | 32×32          | 224×224 (upscale)   | Train    |
+| FFHQ       | 1024×1024      | 224×224 (downscale) | Train    |
+| StyleGAN   | 1024×1024      | 224×224 (downscale) | Train    |
+| SD v1.5    | 512×512        | 224×224 (downscale) | Train    |
+| MidJourney | ~1024×1024     | 224×224 (downscale) | OOD Test |
+| DALL-E     | ~1024×1024     | 224×224 (downscale) | OOD Test |
+| Gemini     | Varies         | 224×224             | OOD Test |
+| Flux       | Varies         | 224×224             | OOD Test |
 
 EfficientNet-B0 nhận input 224×224. Nếu không resize → lỗi shape mismatch khi train.
 
@@ -897,9 +1351,10 @@ EfficientNet-B0 nhận input 224×224. Nếu không resize → lỗi shape misma
 # scripts/resize_all.py
 """
 Resize tất cả ảnh trong data/raw/ về 224×224 → save vào data/processed/.
-Cấu trúc folder giữ nguyên:
-  data/raw/real/cifake/ → data/processed/real/cifake/
-  data/raw/fake_gan/stylegan/ → data/processed/fake_gan/stylegan/
+Cấu trúc folder:
+  data/raw/real/cifake_subset/  → data/processed/real/cifake/
+  data/raw/fake_diffusion/cifake_subset/ → data/processed/fake_diffusion/cifake/
+  data/raw/fake_gan/stylegan/   → data/processed/fake_gan/stylegan/
   ...
 """
 from PIL import Image
@@ -952,7 +1407,8 @@ def main():
         ("fake_gan/stylegan", "fake_gan/stylegan"),
         ("fake_diffusion/cifake_subset", "fake_diffusion/cifake"),
         ("fake_diffusion/sd15", "fake_diffusion/sd15"),
-        ("ood_test/gemini", "ood_test/gemini"),
+        ("ood_test/tristanzhang_fake", "ood_test/tristanzhang_fake"),
+        ("ood_test/real_pexels", "ood_test/real_pexels"),
         ("ood_test/flux", "ood_test/flux"),
         ("ood_test/real_camera", "ood_test/real_camera"),
     ]
@@ -1000,20 +1456,28 @@ python scripts/resize_all.py
 ```
 data/
 ├── raw/                         # Ảnh gốc (giữ nguyên, backup)
+│   ├── cifake/                  # CIFAKE — GIỮ NGUYÊN cấu trúc gốc
+│   │   ├── train/
+│   │   │   ├── FAKE/            # 50K ảnh fake (32×32)
+│   │   │   └── REAL/            # 50K ảnh real (32×32)
+│   │   └── test/
+│   │       ├── FAKE/            # 10K ảnh fake (32×32)
+│   │       └── REAL/            # 10K ảnh real (32×32)
 │   ├── real/
-│   │   ├── cifake/              # 60K ảnh CIFAKE Real (32×32)
-│   │   ├── cifake_subset/       # 7K subset
+│   │   ├── cifake_subset/       # 7K subset (sau subset script)
 │   │   └── ffhq/               # 3-5K FFHQ (1024×1024)
 │   ├── fake_gan/
 │   │   └── stylegan/            # 3-5K StyleGAN (1024×1024)
 │   ├── fake_diffusion/
-│   │   ├── cifake/              # 60K CIFAKE Fake (32×32)
-│   │   ├── cifake_subset/       # 7K subset
+│   │   ├── cifake_subset/       # 7K subset (sau subset script)
 │   │   └── sd15/                # 2-3K SD v1.5 (512×512)
 │   └── ood_test/
-│       ├── gemini/              # 100-200 Gemini
-│       ├── flux/                # 100-200 Flux
-│       └── real_camera/         # 200 ảnh thật
+│       ├── midjourney/           # 200-300 MidJourney (Kaggle)
+│       ├── dalle/                # 200-300 DALL-E (Kaggle)
+│       ├── real_pexels/          # 200-300 Pexels/Unsplash (Kaggle)
+│       ├── gemini/               # 50-100 Gemini (thủ công)
+│       ├── flux/                 # 50-100 Flux (thủ công)
+│       └── real_camera/          # 50+ ảnh thật (tự chụp)
 │
 ├── processed/                   # ẢNH ĐÃ RESIZE 224×224 ← Model đọc từ đây
 │   ├── real/
@@ -1025,6 +1489,9 @@ data/
 │   │   ├── cifake/
 │   │   └── sd15/
 │   └── ood_test/
+│       ├── midjourney/
+│       ├── dalle/
+│       ├── real_pexels/
 │       ├── gemini/
 │       ├── flux/
 │       └── real_camera/
@@ -1082,7 +1549,8 @@ def main():
                 "sd15": count_images(processed / "fake_diffusion/sd15"),
             },
             "ood_test": {
-                "gemini": count_images(processed / "ood_test/gemini"),
+                "tristanzhang_fake": count_images(processed / "ood_test/tristanzhang_fake"),
+                "real_pexels": count_images(processed / "ood_test/real_pexels"),
                 "flux": count_images(processed / "ood_test/flux"),
                 "real_camera": count_images(processed / "ood_test/real_camera"),
             },
@@ -1213,7 +1681,6 @@ def main():
         processed / "fake_gan/stylegan",
         processed / "fake_diffusion/cifake",
         processed / "fake_diffusion/sd15",
-        processed / "ood_test/gemini",
         processed / "ood_test/flux",
         processed / "ood_test/real_camera",
     ]
@@ -1340,8 +1807,7 @@ Trước khi đánh dấu Task 1.2 ✅ DONE, kiểm tra hết:
 - [ ] ≥6K ảnh Real (CIFAKE Real subset + FFHQ) trong `data/processed/`
 - [ ] ≥5K ảnh Diffusion Fake (CIFAKE Fake + SD v1.5) trong `data/processed/`
 - [ ] ≥3K ảnh GAN Fake (StyleGAN) trong `data/processed/`
-- [ ] 100-200 ảnh Gemini trong `data/processed/ood_test/gemini/`
-- [ ] 100-200 ảnh Flux trong `data/processed/ood_test/flux/`
+- [ ] 80-100 ảnh Flux (HF Inference API) trong `data/processed/ood_test/flux/`
 - [ ] ≥200 ảnh Real camera trong `data/processed/ood_test/real_camera/`
 - [ ] Ảnh trong `imgs/` đã copy vào OOD test set
 
