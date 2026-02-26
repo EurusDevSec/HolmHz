@@ -1,0 +1,101 @@
+_wandb:
+    value:
+        cli_version: 0.25.0
+        e:
+            mwtf9ui3dmdqk67v6ywmznsne8h93d4g:
+                args:
+                    - training.epochs=2
+                    - data.num_workers=0
+                    - training.batch_size=8
+                codePath: scripts\train.py
+                codePathLocal: scripts\train.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.8"
+                disk:
+                    /:
+                        total: "200092413952"
+                        used: "89456697344"
+                email: hoangslevan@gmail.com
+                executable: R:\_Projects\Eurus_Workspace\HolmHz\.venv\Scripts\python.exe
+                git:
+                    commit: 6aeeec4f1be4fd5e6db26b24aa49e4bede225301
+                    remote: https://github.com/EurusDevSec/HolmHz.git
+                gpu: NVIDIA GeForce RTX 3050 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 2048
+                      memoryTotal: "4294967296"
+                      name: NVIDIA GeForce RTX 3050 Laptop GPU
+                      uuid: GPU-ec43d3fe-2e14-d5a7-a2e0-da61699a61ab
+                host: LAPTOP-78LVMDCQ
+                memory:
+                    total: "16948453376"
+                os: Windows-11-10.0.26200-SP0
+                program: R:\_Projects\Eurus_Workspace\HolmHz\scripts\train.py
+                python: CPython 3.12.4
+                root: R:\_Projects\Eurus_Workspace\HolmHz
+                startedAt: "2026-02-26T09:46:46.134040Z"
+                writerId: mwtf9ui3dmdqk67v6ywmznsne8h93d4g
+        m: []
+        python_version: 3.12.4
+        t:
+            "1":
+                - 1
+                - 5
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "2":
+                - 1
+                - 5
+                - 41
+                - 49
+                - 53
+                - 63
+                - 80
+                - 105
+            "3":
+                - 2
+                - 16
+                - 61
+            "4": 3.12.4
+            "5": 0.25.0
+            "8":
+                - 3
+            "12": 0.25.0
+            "13": windows-amd64
+data:
+    value:
+        augmentation: true
+        image_size: 224
+        num_workers: 0
+        train_manifest: data/manifests/train.json
+        val_manifest: data/manifests/val.json
+model:
+    value:
+        dropout: 0.3
+        freeze_backbone: true
+        name: efficientnet_b0
+        num_classes: 1
+        pretrained: true
+training:
+    value:
+        batch_size: 8
+        early_stopping:
+            monitor: val_auc
+            patience: 5
+        epochs: 2
+        learning_rate: 0.001
+        optimizer: adamw
+        scheduler: cosine
+        weight_decay: 0.0001
+wandb:
+    value:
+        entity: null
+        log_every_n_steps: 10
+        project: holmhz

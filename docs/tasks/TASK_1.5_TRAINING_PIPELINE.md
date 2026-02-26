@@ -24,14 +24,16 @@
 **Acceptance Criteria:**
 
 - [ ] `Trainer` class orchestrate full train loop (train/val per epoch)
-- [ ] BCEWithLogitsLoss hoạt động (nhận logits, không cần sigmoid trong loss)
+- [ ] BCEWithLogitsLoss hoạt động (nhận logits `[B,1]` từ Task 1.4, squeeze → `[B]` cho labels)
+- [ ] Metrics: `compute_accuracy()` + `compute_auc()` (cần cho early stopping monitor=val_auc)
 - [ ] CosineAnnealingLR scheduler configured
-- [ ] Early stopping: patience=5, monitor=val_auc
+- [ ] Early stopping: patience=5, monitor=val_auc, hỗ trợ state_dict (cho resume)
 - [ ] W&B logging: loss, AUC, accuracy, LR per epoch
-- [ ] Checkpoint save: best model + last model
-- [ ] **Checkpoint resume**: load từ checkpoint + tiếp tục train (quan trọng cho Colab disconnect)
-- [ ] Config-driven: tất cả hyperparams đọc từ YAML
-- [ ] Script `scripts/train.py` chạy được end-to-end trên small dataset (100 ảnh)
+- [ ] Checkpoint save: best.pt + last.pt
+- [ ] **Checkpoint resume**: load model + optimizer + scheduler + epoch + early_stopping state
+- [ ] Mixed precision (AMP): GradScaler + autocast cho GPU training (quan trọng với 4GB VRAM)
+- [ ] Config-driven: tất cả hyperparams đọc từ YAML (`configs/train.yaml`)
+- [ ] Script `scripts/train.py` chạy được end-to-end (dry run 2 epochs trên 100 ảnh)
 
 ---
 
@@ -39,13 +41,15 @@
 
 ### Subtasks
 
-- [ ] 1.5.1 Implement `src/holmhz/training/trainer.py` (train loop, val loop, epoch logic)
-- [ ] 1.5.2 Implement `src/holmhz/losses/bce.py` (BCEWithLogitsLoss wrapper)
-- [ ] 1.5.3 Implement `src/holmhz/training/lr_schedulers.py` (CosineAnnealing)
-- [ ] 1.5.4 Implement `src/holmhz/training/early_stopping.py` (patience-based)
-- [ ] 1.5.5 W&B integration trong Trainer (log metrics, save config)
-- [ ] 1.5.6 **Checkpoint resume** — load optimizer + scheduler + epoch + best metric
-- [ ] 1.5.7 Implement `scripts/train.py` CLI entry point (argparse + YAML config)
+- [ ] 1.5.1 Implement `src/holmhz/metrics/accuracy.py` + `auc.py` (compute_accuracy, compute_auc)
+- [ ] 1.5.2 Implement `src/holmhz/losses/bce.py` (BCEWithLogitsLoss factory)
+- [ ] 1.5.3 Implement `src/holmhz/utils/logger.py` (logging setup)
+- [ ] 1.5.4 Implement `src/holmhz/training/lr_schedulers.py` (CosineAnnealing factory)
+- [ ] 1.5.5 Implement `src/holmhz/training/early_stopping.py` (patience-based, state_dict support)
+- [ ] 1.5.6 Implement `src/holmhz/training/trainer.py` (Trainer class: train/val/fit, W&B, AMP, checkpoint save/resume)
+- [ ] 1.5.7 Update `__init__.py` exports (metrics, losses, training, utils)
+- [ ] 1.5.8 Implement `scripts/train.py` CLI entry point (OmegaConf + YAML config)
+- [ ] 1.5.9 Unit tests + dry run (2 epochs trên 100 ảnh)
 
 ### Branch & PR
 
@@ -58,18 +62,21 @@
 
 ## 📝 Notes
 
-> **Config YAML mẫu (`configs/train.yaml`):**
+> **Config YAML hiện tại (`configs/train.yaml`) — đã có sẵn từ Task 1.1:**
 >
 > ```yaml
 > model:
 >   name: efficientnet_b0
 >   pretrained: true
+>   num_classes: 1
+>   dropout: 0.3
 >   freeze_backbone: true
 > training:
 >   epochs: 30
 >   batch_size: 32
->   lr: 1e-3
->   optimizer: adam
+>   learning_rate: 0.001
+>   optimizer: adamw
+>   weight_decay: 0.0001
 >   scheduler: cosine
 >   early_stopping:
 >     patience: 5
@@ -79,9 +86,11 @@
 >   val_manifest: data/manifests/val.json
 >   image_size: 224
 >   num_workers: 4
+>   augmentation: true
 > wandb:
 >   project: holmhz
 >   entity: null
+>   log_every_n_steps: 10
 > ```
 
 > **Trainer pattern (từ DeepfakeBench trainer/trainer.py):**

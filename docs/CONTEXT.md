@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2026-02-25 (sau khi hoàn thành Task 1.3)
+> Cập nhật lần cuối: 2026-02-26 (sau khi hoàn thành Task 1.5)
 
 ---
 
@@ -182,7 +182,7 @@ src/holmhz/
     └── utils.py
 ```
 
-**Trạng thái**: 35 files tổng. Module `data/` đã có implementation (Task 1.3 ✅). Các module khác EMPTY trừ `__init__.py`.
+**Trạng thái**: 35 files tổng. Module `data/` (Task 1.3 ✅), `backbones/`, `detectors/`, `utils/registry.py` (Task 1.4 ✅), `metrics/`, `losses/`, `training/`, `utils/logger.py` (Task 1.5 ✅) đã có implementation. Các module khác EMPTY.
 
 ## 7. Config files
 
@@ -195,28 +195,32 @@ src/holmhz/
 
 ## 8. Tài liệu & files đã tạo
 
-| File                                            | Mô tả                                                                       |
-| ----------------------------------------------- | --------------------------------------------------------------------------- |
-| `docs/guides/GUIDE_SPRINT1_TASKS.md`            | Hướng dẫn chi tiết Tasks 1.1→1.6 (~2500 dòng), giải thích WHY cho từng bước |
-| `docs/guides/GUIDE_TASK_1.2_DATA_COLLECTION.md` | Hướng dẫn chi tiết Task 1.2 (riêng), aligned với plan revised 24/02         |
-| `docs/CONTEXT.md`                               | File này — lưu context session                                              |
-| `.env.example`                                  | Template biến môi trường (WANDB_API_KEY, DATA_ROOT, DEVICE)                 |
-| `docs/DAILY_COMMANDS.md`                        | Các lệnh kiểm tra hàng ngày (lint, test, import, git)                       |
-| `notebooks/00_colab_template.ipynb`             | Colab/Kaggle notebook template (7 steps)                                    |
-| `Makefile`                                      | Build targets: train, test, serve, lint, format, check, clean               |
+| File                                               | Mô tả                                                                       |
+| -------------------------------------------------- | --------------------------------------------------------------------------- |
+| `docs/guides/GUIDE_SPRINT1_TASKS.md`               | Hướng dẫn chi tiết Tasks 1.1→1.6 (~2500 dòng), giải thích WHY cho từng bước |
+| `docs/guides/GUIDE_TASK_1.2_DATA_COLLECTION.md`    | Hướng dẫn chi tiết Task 1.2 (riêng), aligned với plan revised 24/02         |
+| `docs/guides/GUIDE_TASK_1.3_DATA_PIPELINE.md`      | Hướng dẫn chi tiết Task 1.3 Data Pipeline                                   |
+| `docs/guides/GUIDE_TASK_1.4_MODEL_ARCHITECTURE.md` | Hướng dẫn chi tiết Task 1.4 Model Architecture                              |
+| `docs/guides/GUIDE_TASK_1.5_TRAINING_PIPELINE.md`  | Hướng dẫn chi tiết Task 1.5 Training Pipeline (~1000 dòng)                  |
+| `docs/guides/GUIDE_TASK_1.6_BASELINE_TRAINING.md`  | Hướng dẫn chi tiết Task 1.6 Baseline Training (2-phase, HP tuning)          |
+| `docs/CONTEXT.md`                                  | File này — lưu context session                                              |
+| `.env.example`                                     | Template biến môi trường (WANDB_API_KEY, DATA_ROOT, DEVICE)                 |
+| `docs/DAILY_COMMANDS.md`                           | Các lệnh kiểm tra hàng ngày (lint, test, import, git)                       |
+| `notebooks/00_colab_template.ipynb`                | Colab/Kaggle notebook template (7 steps)                                    |
+| `Makefile`                                         | Build targets: train, test, serve, lint, format, check, clean               |
 
 ## 9. Task Progress
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Target (revised)       | Ghi chú                                                             |
-| -------------------------- | -------------- | ---------------------- | ------------------------------------------------------------------- |
-| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                     |
-| **1.2** Data Collection    | ✅ Completed   | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS  |
-| **1.3** Data Pipeline      | ✅ Completed   | **07/03** → DONE 25/02 | 18,550 train / 3,975 val / 3,975 test / 1,180 OOD. 17/17 tests pass |
-| **1.4** Model Architecture | ⬜ Not Started | **07/03**              | EfficientNet-B0 backbone + binary head                              |
-| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**              | Trainer, loss, metrics, WandB + checkpoint resume                   |
-| **1.6** Baseline Training  | ⬜ Not Started | **21/03**              | Train + eval, ưu tiên Kaggle GPU                                    |
+| Task                       | Trạng thái     | Target (revised)       | Ghi chú                                                                 |
+| -------------------------- | -------------- | ---------------------- | ----------------------------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                         |
+| **1.2** Data Collection    | ✅ Completed   | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS      |
+| **1.3** Data Pipeline      | ✅ Completed   | **07/03** → DONE 25/02 | 18,550 train / 3,975 val / 3,975 test / 1,180 OOD. 17/17 tests pass     |
+| **1.4** Model Architecture | ✅ Completed   | **07/03** → DONE 26/02 | 30/30 tests pass, integration verified. Backbone + Detector + Registry  |
+| **1.5** Training Pipeline  | ✅ Completed   | **14/03** → DONE 26/02 | 16/16 tests pass, dry run OK (Val AUC 0.92), checkpoint resume verified |
+| **1.6** Baseline Training  | ⬜ Not Started | **21/03**              | Train + eval, ưu tiên Kaggle GPU                                        |
 
 ### Sprint 2: Evaluation
 
@@ -408,7 +412,124 @@ batch = {
 
 ---
 
-## 12. Conventions & Lưu ý
+## 12. Model Architecture Progress (Task 1.4) — ✅ COMPLETED 26/02/2026
+
+### Tổng quan
+
+- **Mục tiêu**: Xây dựng EfficientNet-B0 detector: backbone + head + registry
+- **Branch**: `feat/s1/model-architecture`
+- **Tests**: 30/30 passed (11 backbone + 19 detector)
+- **Integration**: Model nhận batch từ DataLoader, forward pass + loss OK
+
+### Files đã implement
+
+| File                                            | Mô tả                                                       |
+| ----------------------------------------------- | ----------------------------------------------------------- |
+| `src/holmhz/backbones/base.py`                  | `BaseBackbone` abstract (extract_features, freeze/unfreeze) |
+| `src/holmhz/backbones/efficientnet.py`          | `EfficientNetBackbone` wrapping timm, 1280-dim features     |
+| `src/holmhz/backbones/__init__.py`              | Exports + BACKBONE_REGISTRY registration                    |
+| `src/holmhz/detectors/base.py`                  | `BaseDetector` abstract (forward, predict, predict_proba)   |
+| `src/holmhz/detectors/efficientnet_detector.py` | `EfficientNetDetector` = backbone + Dropout(0.3) + Linear   |
+| `src/holmhz/detectors/__init__.py`              | Exports + DETECTOR_REGISTRY registration                    |
+| `src/holmhz/utils/registry.py`                  | `Registry` class + BACKBONE_REGISTRY + DETECTOR_REGISTRY    |
+| `src/holmhz/utils/__init__.py`                  | Exports Registry, registries                                |
+| `tests/test_backbones.py`                       | 11 tests: base abstract, features, freeze, params           |
+| `tests/test_detectors.py`                       | 19 tests: forward, predict, freeze, gradient, registry      |
+| `scripts/check_integrate_data_pipeline.py`      | Integration test: DataLoader → Model → Loss                 |
+
+### Model Interface (cho Task 1.5)
+
+```python
+# Tạo model qua Registry (config-driven)
+import holmhz.detectors  # trigger registration
+model = DETECTOR_REGISTRY.build(
+    "efficientnet_b0",
+    pretrained=True,
+    dropout=0.3,
+    freeze_backbone=True,
+)
+
+# Forward pass
+logits = model(batch["image"])  # [B, 3, 224, 224] → [B, 1]
+
+# Loss (Task 1.5)
+loss = BCEWithLogitsLoss(logits.squeeze(1), batch["label"])  # squeeze [B,1]→[B]
+
+# Inference
+probs = model.predict_proba(x)  # [B, 1] ∈ [0, 1]
+labels = model.predict(x)       # [B, 1] ∈ {0, 1}
+```
+
+### Params breakdown
+
+- **Backbone**: 4,007,548 params (EfficientNet-B0)
+- **Head**: 1,281 params (Linear(1280, 1) + bias)
+- **Total**: 4,008,829 params (~4M, under 6M limit)
+- **Freeze backbone**: Trainable = 1,281 (chỉ head)
+- **Unfreeze all**: Trainable = 4,008,829 (toàn bộ)
+
+---
+
+## 13. Training Pipeline Progress (Task 1.5) — ✅ COMPLETED 26/02/2026
+
+### Tổng quan
+
+- **Mục tiêu**: Xây dựng training pipeline: Trainer, loss, metrics, scheduler, early stopping, checkpoint
+- **Branch**: `feat/s1/trainning-pipeline`
+- **Tests**: 16/16 passed (6 metrics + 3 loss + 5 early stopping + 2 scheduler)
+- **Dry run**: 2 epochs, batch=8, AMP=True trên RTX 3050 → Val AUC 0.9173
+- **Resume**: Checkpoint resume verified (epoch 2 → epoch 3, seamless)
+- **All tests**: 63/63 passed (data 17 + backbone 11 + detector 19 + training 16)
+
+### Dry Run Results (2 epochs, batch_size=8, freeze_backbone=True)
+
+| Epoch | Train Loss | Val Loss | Val Acc | Val AUC | LR       | Time   |
+| ----- | ---------- | -------- | ------- | ------- | -------- | ------ |
+| 1     | 0.5174     | 0.4026   | 0.8327  | 0.9081  | 5.01e-04 | 105.0s |
+| 2     | 0.4786     | 0.3835   | 0.8438  | 0.9173  | 1.00e-06 | 111.7s |
+
+> Val AUC 0.91+ sau chỉ 2 epoch (freeze backbone, chỉ train 1,281 params) — rất khả quan!
+
+### Files đã implement
+
+| File                                    | Mô tả                                                              |
+| --------------------------------------- | ------------------------------------------------------------------ |
+| `src/holmhz/metrics/accuracy.py`        | `compute_accuracy(logits, labels)` — binary accuracy               |
+| `src/holmhz/metrics/auc.py`             | `compute_auc(logits, labels)` — AUC via sklearn                    |
+| `src/holmhz/metrics/__init__.py`        | Exports compute_accuracy, compute_auc                              |
+| `src/holmhz/losses/bce.py`              | `get_loss_fn()` factory — BCEWithLogitsLoss                        |
+| `src/holmhz/losses/__init__.py`         | Exports get_loss_fn                                                |
+| `src/holmhz/utils/logger.py`            | `get_logger()` — structured logging setup                          |
+| `src/holmhz/training/lr_schedulers.py`  | `get_scheduler()` factory — CosineAnnealingLR                      |
+| `src/holmhz/training/early_stopping.py` | `EarlyStopping` class — patience, state_dict support               |
+| `src/holmhz/training/trainer.py`        | `Trainer` class — train/val loop, AMP, W&B, checkpoint save/resume |
+| `src/holmhz/training/__init__.py`       | Exports Trainer, EarlyStopping, get_scheduler                      |
+| `scripts/train.py`                      | CLI entry point — OmegaConf config, DETECTOR_REGISTRY.build()      |
+| `tests/test_training.py`                | 16 tests: metrics, loss, early stopping, scheduler                 |
+
+### Training Interface (cho Task 1.6)
+
+```python
+# Dry run (local, 2 epochs)
+python scripts/train.py training.epochs=2 training.batch_size=8 data.num_workers=0
+
+# Full training (Kaggle GPU)
+python scripts/train.py
+
+# Resume from checkpoint (auto if last.pt exists)
+python scripts/train.py training.epochs=30
+```
+
+### Bugs fixed during implementation
+
+1. **CLI arg parsing**: `training.epochs=2` was treated as config path instead of override → fixed detection logic (`= not in arg`)
+2. **`total_mem` AttributeError**: PyTorch uses `total_memory` not `total_mem` → fixed
+3. **Missing trailing newlines**: 11 files missing EOF newline → auto-fixed by `ruff check --fix`
+4. **Import sorting**: `tests/test_training.py` imports unsorted → auto-fixed by ruff
+
+---
+
+## 14. Conventions & Lưu ý
 
 - **Luôn dùng đường dẫn đầy đủ**: `.venv/Scripts/python.exe -m pip install ...`
 - **Package naming**: PyPI name ≠ import name (vd: `grad-cam` → `pytorch_grad_cam`)
