@@ -553,19 +553,19 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 |         |                        | 1.2.3 Download/scrape StyleGAN faces (5k)                             | Hoàng        |              | ✅     |
 |         |                        | 1.2.4 Self-generate SD v1.5 ảnh trên Colab (2.5k)                     | Hoàng        |              | ✅     |
 |         |                        | 1.2.5 Chuẩn bị OOD: Flux (80) + Real camera (100) + tristanzhang (1k) | Hoàng        |              | ✅     |
-| 1.3     | **Data Pipeline**      |                                                                       | Hoàng        | **07/03**    | ⬜     |
-|         |                        | 1.3.1 Implement Dataset class (PyTorch)                               |              |              | ⬜     |
-|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)                |              |              | ⬜     |
-|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                       |              |              | ⬜     |
-| 1.4     | **Model Architecture** |                                                                       | Hoàng        | **07/03**    | ⬜     |
-|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)       |              |              | ⬜     |
-|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench)     |              |              | ⬜     |
-|         |                        | 1.4.3 Unit test model forward pass                                    |              |              | ⬜     |
-| 1.5     | **Training Pipeline**  |                                                                       | Hoàng        | **14/03**    | ⬜     |
-|         |                        | 1.5.1 Implement Trainer class                                         |              |              | ⬜     |
-|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)                 |              |              | ⬜     |
-|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                                  |              |              | ⬜     |
-|         |                        | 1.5.4 Early stopping + Wandb logging + **checkpoint resume**          |              |              | ⬜     |
+| 1.3     | **Data Pipeline**      |                                                                       | Hoàng        | **07/03**    | ✅     |
+|         |                        | 1.3.1 Implement Dataset class (PyTorch)                               |              |              | ✅     |
+|         |                        | 1.3.2 Implement augmentation pipeline (Albumentations)                |              |              | ✅     |
+|         |                        | 1.3.3 Train/Val/Test-OOD split + manifest files                       |              |              | ✅     |
+| 1.4     | **Model Architecture** |                                                                       | Hoàng        | **07/03**    | ✅     |
+|         |                        | 1.4.1 Implement EfficientNet-B0 classifier (timm + Linear head)       |              |              | ✅     |
+|         |                        | 1.4.2 Implement model factory (Registry pattern từ DeepfakeBench)     |              |              | ✅     |
+|         |                        | 1.4.3 Unit test model forward pass                                    |              |              | ✅     |
+| 1.5     | **Training Pipeline**  |                                                                       | Hoàng        | **14/03**    | ✅     |
+|         |                        | 1.5.1 Implement Trainer class                                         |              |              | ✅     |
+|         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)                 |              |              | ✅     |
+|         |                        | 1.5.3 LR scheduler (CosineAnnealing)                                  |              |              | ✅     |
+|         |                        | 1.5.4 Early stopping + Wandb logging + **checkpoint resume**          |              |              | ✅     |
 | 1.6     | **Baseline Training**  |                                                                       | Hoàng        | **21/03**    | ⬜     |
 |         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)            |              |              | ⬜     |
 |         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                              |              |              | ⬜     |
