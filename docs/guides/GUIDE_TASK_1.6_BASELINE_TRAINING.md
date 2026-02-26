@@ -19,6 +19,7 @@
 - [Kiến thức nền: Overfitting vs Underfitting](#kiến-thức-nền-overfitting-vs-underfitting)
 - [Kiến thức nền: Đọc W&B Dashboard](#kiến-thức-nền-đọc-wb-dashboard)
 - [Tổng quan các bước](#tổng-quan-các-bước)
+- [Triển khai trên Kaggle (KHUYẾN NGHỊ)](#triển-khai-trên-kaggle-khuyến-nghị)
 - [Bước 0: Chuẩn bị Git branch](#bước-0-chuẩn-bị-git-branch)
 - [Bước 1: Dọn dẹp dry run cũ](#bước-1-dọn-dẹp-dry-run-cũ)
 - [Bước 2: Phase 1 — Freeze backbone, train head](#bước-2-phase-1--freeze-backbone-train-head)
@@ -319,22 +320,470 @@ Sau khi train, vào W&B dashboard (https://wandb.ai/hoangslevan-thu-dau-mot-univ
 ## Tổng quan các bước
 
 ```
-Bước 0:  Git branch ────────────────────── 5 phút
-Bước 1:  Dọn dẹp dry run cũ ───────────── 2 phút
-Bước 2:  Phase 1: Freeze train (10 ep) ── 20 min (RTX 3050)
-Bước 3:  Phân tích Phase 1 ────────────── 15 phút
-Bước 4:  Phase 2: Unfreeze train (20 ep)─ 3 giờ (RTX 3050)
-Bước 5:  HP tuning (3 runs) ──────────── 6-9 giờ
-Bước 6:  Chọn best model ──────────────── 30 phút
-Bước 7:  Implement predict.py ─────────── 30 phút
-Bước 8:  Smoke test imgs/ ─────────────── 15 phút
-Bước 9:  Document results ─────────────── 30 phút
-Bước 10: Commit & PR ─────────────────── 15 phút
-                                    Tổng: ~3-4 ngày
+                                          Local (RTX 3050)    Kaggle T4
+                                          ────────────────    ─────────
+Bước 0:  Git branch ──────────────────     5 phút              5 phút
+Bước 1:  Dọn dẹp dry run cũ ──────────    2 phút              (không cần)
+Bước 2:  Phase 1: Freeze (10 ep) ─────    20 min              ~5 min
+Bước 3:  Phân tích Phase 1 ───────────    15 phút             15 phút
+Bước 4:  Phase 2: Unfreeze (20 ep) ───    3 giờ               ~40 min
+Bước 5:  HP tuning (3 runs) ──────────    6-9 giờ             ~2 giờ
+Bước 6:  Chọn best model ─────────────    30 phút             30 phút
+Bước 7:  Implement predict.py ────────    30 phút             30 phút
+Bước 8:  Smoke test imgs/ ────────────    15 phút             15 phút
+Bước 9:  Document results ────────────    30 phút             30 phút
+Bước 10: Commit & PR ─────────────────    15 phút             15 phút
+                                   Tổng: ~3-4 ngày           ~1 ngày
 ```
 
-> **Lưu ý**: Phase 2 + HP tuning tốn nhiều giờ GPU. Có thể chạy ban đêm.
-> Nếu dùng Kaggle T4: nhanh hơn ~2×, nhưng cần setup notebook.
+> **KHUYẾN NGHỊ: Dùng Kaggle T4** — nhanh gấp 3-5× so với RTX 3050 local.
+> Phase 2 + HP tuning: 9-12 giờ local → chỉ ~3 giờ trên Kaggle.
+> Bạn có thể "Save Version" rồi đi ngủ, sáng mai có kết quả.
+> Xem section [Triển khai trên Kaggle](#triển-khai-trên-kaggle-khuyến-nghị) bên dưới.
+
+---
+
+## Triển khai trên Kaggle (KHUYẾN NGHỊ)
+
+### Tại sao nên dùng Kaggle thay vì Local?
+
+```
+┌──────────────────── SO SÁNH GPU ────────────────────────┐
+│                                                          │
+│  Máy bạn: RTX 3050 (4GB VRAM)                           │
+│  ─────────────────────────────                           │
+│  • Batch size tối đa: 8 (unfreeze)                       │
+│  • Phase 1 (10 ep): ~20 min                              │
+│  • Phase 2 (20 ep): ~3 giờ                               │
+│  • HP tuning (3 runs): ~9 giờ                            │
+│  • TỔNG: ~12 giờ (ngồi coi máy cả ngày!)                │
+│  • Windows → num_workers=0 (chậm I/O)                   │
+│                                                          │
+│  Kaggle T4 (16GB VRAM) — MIỄN PHÍ                       │
+│  ─────────────────────────────────                       │
+│  • Batch size: 32 (gấp 4×!)                              │
+│  • Phase 1 (10 ep): ~5 min                               │
+│  • Phase 2 (20 ep): ~40 min                              │
+│  • HP tuning (3 runs): ~2 giờ                            │
+│  • TỔNG: ~3 giờ                                          │
+│  • "Save Version" → đi ngủ, sáng mai có kết quả         │
+│  • Linux → num_workers=4 (I/O nhanh hơn)                │
+│  • Quota: 30 giờ GPU/tuần (dư sức chạy 5-6 lần)         │
+│                                                          │
+│  ⚡ Kaggle nhanh gấp 3-5× so với Local!                  │
+└──────────────────────────────────────────────────────────┘
+```
+
+### Hiểu bản chất: Mang gì lên Kaggle?
+
+```
+┌──────────── KIẾN TRÚC TRIỂN KHAI ──────────────┐
+│                                                   │
+│  Bạn cần mang 2 thứ lên server Kaggle:           │
+│                                                   │
+│  1️⃣  MÃ NGUỒN (Code)                             │
+│     • git clone từ GitHub                         │
+│     • Bao gồm: src/, scripts/, configs/, ...      │
+│     • Kéo đúng nhánh feat/s1/baseline-training     │
+│     • data/manifests/ đã có sẵn trong git ✅       │
+│                                                   │
+│  2️⃣  DỮ LIỆU ĐÃ XỬ LÝ (Processed Images)       │
+│     • Upload data/processed/ lên Kaggle Dataset    │
+│     • ~1.62 GB (27,680 ảnh 224×224)                │
+│     • Upload 1 lần duy nhất, dùng mãi              │
+│     • Kaggle tự giải nén + mount vào notebook      │
+│                                                   │
+│  ⚠️ KHÔNG cần upload: data/raw/, weights/,         │
+│     outputs/, .env, .venv/                         │
+└───────────────────────────────────────────────────┘
+```
+
+### Kaggle Bước 1: Upload dữ liệu lên Kaggle Dataset (1 lần duy nhất)
+
+Dữ liệu đã tiền xử lý nằm ở `data/processed/` (~1.62 GB). Bạn cần upload lên Kaggle để notebook có thể đọc.
+
+**Cách nén đúng (quan trọng!):**
+
+```
+⚠️ PHẢI nén NỘI DUNG của data/processed/ — KHÔNG nén cả thư mục processed/
+
+✅ ĐÚNG — Vào trong data/processed/, chọn 2 folder cần thiết:
+  holmhz-processed.zip
+  ├── train/          ← chứa real/, fake_gan/, fake_diffusion/
+  └── ood_test/       ← chứa ảnh OOD test
+
+  ⚠️ val/ folder trống là ĐÚNG — val.json tham chiếu ảnh
+  từ train/ folder. Không cần nén val/.
+
+❌ SAI — Chuột phải vào thư mục processed → Add to archive:
+  holmhz-processed.zip
+  └── processed/      ← có thêm 1 thư mục cha → path dài hơn dự kiến
+      ├── train/
+      └── ...
+```
+
+**Cách nén trên Windows (PowerShell):**
+
+```powershell
+# Đảm bảo bao gồm đủ cả 3 folder: train, val, ood_test
+cd R:\_Projects\Eurus_Workspace\HolmHz\data\processed
+Compress-Archive -Path train, ood_test -DestinationPath ..\holmhz-processed.zip
+# File ZIP tạo ra ở: data/holmhz-processed.zip (~1.6GB)
+# ⚠️ val/ trống → không cần nén (val.json tham chiếu ảnh trong train/)
+```
+
+**Upload lên Kaggle:**
+
+1. Vào **kaggle.com** → **Datasets** → **New Dataset**
+2. Tên: `holmhz-processed-data` (chọn **Private**)
+3. Upload file `holmhz-processed.zip` → **Create**
+4. Sau khi Kaggle xử lý xong (~vài phút), path trên server sẽ là:
+   `/kaggle/input/datasets/<username>/holmhz-processed-data/train/...`
+
+> **Nếu đã upload sai** (thiếu `val/` hoặc cấu trúc lồng nhau):
+> Vào Dataset → **Settings** → **Delete Dataset** → Upload lại đúng chuẩn.
+
+### Kaggle Bước 2: Tạo Notebook + cấu hình GPU
+
+1. Vào **kaggle.com** → **Create** → **New Notebook**
+2. Cột phải (**Session Options**):
+   - **Accelerator**: chọn **GPU T4 x2** hoặc **P100**
+   - **Internet**: **On** (cần để clone git + log W&B)
+3. Bấm **Add Input** (góc trên phải) → tìm `holmhz-processed-data` → **Add**
+
+> **GPU T4 x2 vs P100:**
+>
+> | GPU  | VRAM | Batch max | Tốc độ ước tính      |
+> | ---- | ---- | --------- | -------------------- |
+> | T4   | 16GB | 32-64     | Phase 2: ~2 min/ep   |
+> | P100 | 16GB | 32-64     | Phase 2: ~2.5 min/ep |
+>
+> T4 thường nhanh hơn cho inference + mixed precision.
+> P100 tốt hơn cho FP32. Với AMP (đã bật), **chọn T4**.
+
+### Kaggle Bước 3: Setup môi trường (Cell 1)
+
+```python
+# ═══════════════════════════════════════════════════════
+# CELL 1: Clone code + Cài đặt dependencies
+# ═══════════════════════════════════════════════════════
+
+import os
+
+# 1. Clone mã nguồn từ GitHub
+!git clone https://github.com/EurusDevSec/HolmHz.git
+os.chdir("HolmHz")
+
+# 2. Checkout đúng nhánh
+# ⚠️ Phải push branch lên GitHub trước (từ máy local):
+#    git push -u origin feat/s1/baseline-training
+!git checkout feat/s1/baseline-training
+
+# 3. Cài đặt project
+# Cài build tool + grad-cam trước (Kaggle chưa có sẵn)
+!pip install hatchling grad-cam --quiet
+!pip install . --quiet
+
+# 4. Verify
+!python -c "import holmhz; print('✅ HolmHz installed successfully')"
+!ls data/manifests/  # Manifests đã có từ git
+```
+
+> **Lưu ý quan trọng — Lỗi thường gặp Cell 1:**
+>
+> | Lỗi                                                  | Nguyên nhân                            | Fix                                                        |
+> | ---------------------------------------------------- | -------------------------------------- | ---------------------------------------------------------- |
+> | `pathspec 'feat/s1/baseline-training' did not match` | Branch chưa push lên GitHub            | Trên local: `git push -u origin feat/s1/baseline-training` |
+> | `No module named 'hatchling'`                        | Build backend chưa cài trên Kaggle     | Thêm `!pip install hatchling` trước `pip install .`        |
+> | `pytorch-grad-cam not found`                         | Tên PyPI sai (đã fix thành `grad-cam`) | Pull latest: `git pull origin feat/s1/baseline-training`   |
+> | `No module named 'holmhz'`                           | pip install thất bại do lỗi trên       | Fix lỗi trên → chạy lại cell                               |
+>
+> **Tại sao `pip install .` thay vì `pip install -e .`?**
+>
+> `-e` (editable) mount code trực tiếp → dễ vỡ trong Kaggle commit mode
+> vì working directory có thể thay đổi. `pip install .` copy code vào
+> site-packages → ổn định hơn, không phụ thuộc vào cwd.
+
+### Kaggle Bước 4: Kết nối dữ liệu bằng Symlink (Cell 2)
+
+```python
+# ═══════════════════════════════════════════════════════
+# CELL 2: Symlink data — "trick đánh lừa đường dẫn"
+# ═══════════════════════════════════════════════════════
+
+import os, json
+
+# ── Auto-detect: tìm thư mục chứa train/ trong Kaggle Input ──
+# Kaggle mount dataset vào paths khác nhau tùy cách upload:
+#   /kaggle/input/holmhz-processed-data/processed/train/...
+#   /kaggle/input/datasets/eurusdevsec/holmhz-processed-data/train/...
+#   /kaggle/input/datasets/eurusdevsec/holmhz-processed-data/processed/train/...
+
+# ⚠️ val/ trống là ĐÚNG — val.json tham chiếu ảnh trong train/
+# Preprocessing split ở cấp manifest (JSON), ảnh vật lý đều nằm trong train/
+# → Chỉ cần tìm thư mục chứa train/ (có subfolder real/, fake_gan/,...)
+
+KAGGLE_INPUT = None
+for root, dirs, files in os.walk("/kaggle/input"):
+    if "train" in dirs:
+        train_path = os.path.join(root, "train")
+        # Verify đây là thư mục ảnh (có subfolder real/, fake_gan/,...)
+        if os.path.isdir(train_path) and len(os.listdir(train_path)) > 0:
+            KAGGLE_INPUT = root
+            break
+
+if KAGGLE_INPUT is None:
+    raise FileNotFoundError(
+        "❌ Không tìm thấy thư mục train/ trong /kaggle/input/\n"
+        "Kiểm tra lại Dataset đã upload đúng chưa!"
+    )
+print(f"✅ Found processed data at: {KAGGLE_INPUT}")
+print(f"   Contents: {os.listdir(KAGGLE_INPUT)}")
+
+# ── Tạo symlink: data/processed → Kaggle Input path ──
+# ⚠️ KHÔNG xóa toàn bộ data/ — manifests nằm trong đó!
+!rm -rf data/processed
+!ln -s {KAGGLE_INPUT} data/processed
+
+# ── Verify ──
+print("\n=== Symlink check ===")
+!ls data/processed/train/ | head -5
+!ls data/manifests/
+
+with open("data/manifests/train.json") as f:
+    first = json.load(f)[0]
+print(f"\nManifest path: {first['path']}")
+print(f"File exists:   {os.path.exists(first['path'])}")
+# Phải in: File exists: True
+```
+
+> **⚠️ QUAN TRỌNG — Tại sao KHÔNG `rm -rf data` rồi symlink cả folder?**
+>
+> ```
+> ❌ SAI:  rm -rf data && ln -s /kaggle/input/... data
+>       → Xóa luôn data/manifests/ (đã có trong git!)
+>       → Trừ khi bạn upload manifests trong zip Kaggle Dataset
+>
+> ✅ ĐÚNG: rm -rf data/processed && ln -s .../processed data/processed
+>       → Giữ nguyên data/manifests/ từ git
+>       → Chỉ thay thế phần ảnh (data/processed/)
+> ```
+>
+> **Auto-detect giải quyết gì?**
+>
+> Kaggle mount dataset vào paths khác nhau tùy cách upload
+> (API, web, format zip). Code ở trên sẽ **tự tìm** thư mục
+> chứa `train/` → luôn đúng dù nén kiểu nào.
+>
+> **Tại sao không cần `val/` folder?**
+>
+> Val set được split ở cấp manifest — `val.json` tham chiếu
+> ảnh nằm trong `data/processed/train/`. Không cần folder
+> `val/` riêng. Đây là thiết kế từ Task 1.3 (Data Pipeline).
+
+### Kaggle Bước 5: Cấu hình W&B bằng Kaggle Secrets (Cell 3)
+
+```python
+# ═══════════════════════════════════════════════════════
+# CELL 3: Cấu hình W&B (KHÔNG hardcode API key!)
+# ═══════════════════════════════════════════════════════
+
+import os
+
+# Cách 1 (KHUYẾN NGHỊ): Dùng Kaggle Secrets
+# Trước tiên, vào Kaggle: Add-ons → Secrets → Add Secret
+# Name: WANDB_API_KEY    Value: <your key from wandb.ai/authorize>
+try:
+    from kaggle_secrets import UserSecretsClient
+    secrets = UserSecretsClient()
+    os.environ["WANDB_API_KEY"] = secrets.get_secret("WANDB_API_KEY")
+    print("✅ W&B API key loaded from Kaggle Secrets")
+except Exception:
+    # Cách 2 (fallback): Set trực tiếp (KHÔNG khuyến nghị nếu notebook Public)
+    # os.environ["WANDB_API_KEY"] = "your-key-here"
+    print("⚠️ Kaggle Secrets not available — set WANDB_API_KEY manually")
+
+# Verify
+!python -c "import wandb; wandb.login(); print('✅ W&B connected')"
+```
+
+> **Tại sao dùng Kaggle Secrets thay vì ghi key trong cell?**
+>
+> - Notebook có thể bị share/public vô tình → lộ API key
+> - Kaggle Secrets = encrypted vault, không hiển thị trong output
+> - Best practice trong MLOps: **KHÔNG BAO GIỜ hardcode secrets**
+
+### Kaggle Bước 6: Chạy Training (Cell 4 — Phase 1 + Phase 2 + HP Tuning)
+
+Đây là cell chính. Chạy **tất cả phases** trong 1 cell, vì tổng thời gian chỉ ~3h trên T4 (dưới giới hạn 12h session):
+
+```python
+# ═══════════════════════════════════════════════════════
+# CELL 4: TRAINING — Phase 1 + Phase 2 + HP Tuning
+#
+# Tổng thời gian trên T4: ~3 giờ
+# "Save Version" rồi đi ngủ — sáng mai có kết quả!
+# ═══════════════════════════════════════════════════════
+
+import os, shutil
+
+CKPT_DIR = "outputs/checkpoints"
+RESULT_DIR = "/kaggle/working"  # Kaggle Output tab đọc từ đây
+
+# ──────── PHASE 1: Freeze backbone ────────
+print("=" * 60)
+print("🚀 PHASE 1: Freeze backbone — 10 epochs")
+print("=" * 60)
+
+# Dọn checkpoint (nếu có)
+os.makedirs(CKPT_DIR, exist_ok=True)
+for f in ["best.pt", "last.pt"]:
+    p = os.path.join(CKPT_DIR, f)
+    if os.path.exists(p): os.remove(p)
+
+!python scripts/train.py \
+    training.epochs=10 \
+    training.batch_size=32 \
+    data.num_workers=4
+
+# Backup Phase 1 checkpoint
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{CKPT_DIR}/phase1_best.pt")
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{RESULT_DIR}/phase1_best.pt")
+print("✅ Phase 1 DONE — checkpoint saved")
+
+# ──────── PHASE 2: Unfreeze, LR=1e-4 ────────
+print("\n" + "=" * 60)
+print("🚀 PHASE 2: Unfreeze — LR=1e-4, 20 epochs")
+print("=" * 60)
+
+# ⚠️ PHẢI xóa last.pt — optimizer mismatch!
+for f in ["best.pt", "last.pt"]:
+    p = os.path.join(CKPT_DIR, f)
+    if os.path.exists(p): os.remove(p)
+
+!python scripts/train.py \
+    model.freeze_backbone=false \
+    training.learning_rate=0.0001 \
+    training.epochs=20 \
+    training.batch_size=32 \
+    data.num_workers=4
+
+# Backup Phase 2 (LR=1e-4)
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{CKPT_DIR}/hp_lr1e4_best.pt")
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{RESULT_DIR}/hp_lr1e4_best.pt")
+print("✅ Phase 2 (LR=1e-4) DONE")
+
+# ──────── HP TUNING: LR=5e-4 ────────
+print("\n" + "=" * 60)
+print("🔬 HP TUNING Run A: LR=5e-4, 20 epochs")
+print("=" * 60)
+
+for f in ["best.pt", "last.pt"]:
+    p = os.path.join(CKPT_DIR, f)
+    if os.path.exists(p): os.remove(p)
+
+!python scripts/train.py \
+    model.freeze_backbone=false \
+    training.learning_rate=0.0005 \
+    training.epochs=20 \
+    training.batch_size=32 \
+    data.num_workers=4
+
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{CKPT_DIR}/hp_lr5e4_best.pt")
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{RESULT_DIR}/hp_lr5e4_best.pt")
+print("✅ HP Run A (LR=5e-4) DONE")
+
+# ──────── HP TUNING: LR=5e-5 ────────
+print("\n" + "=" * 60)
+print("🔬 HP TUNING Run B: LR=5e-5, 20 epochs")
+print("=" * 60)
+
+for f in ["best.pt", "last.pt"]:
+    p = os.path.join(CKPT_DIR, f)
+    if os.path.exists(p): os.remove(p)
+
+!python scripts/train.py \
+    model.freeze_backbone=false \
+    training.learning_rate=0.00005 \
+    training.epochs=20 \
+    training.batch_size=32 \
+    data.num_workers=4
+
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{CKPT_DIR}/hp_lr5e5_best.pt")
+shutil.copy2(f"{CKPT_DIR}/best.pt", f"{RESULT_DIR}/hp_lr5e5_best.pt")
+print("✅ HP Run B (LR=5e-5) DONE")
+
+# ──────── SUMMARY ────────
+print("\n" + "=" * 60)
+print("📊 TẤT CẢ TRAINING HOÀN TẤT!")
+print("=" * 60)
+print(f"Checkpoints in {RESULT_DIR}:")
+for f in sorted(os.listdir(RESULT_DIR)):
+    if f.endswith(".pt"):
+        size = os.path.getsize(os.path.join(RESULT_DIR, f)) / 1e6
+        print(f"  {f} ({size:.1f} MB)")
+```
+
+### Kaggle Bước 7: Save Version (chạy ngầm) + Tải kết quả
+
+**Khi đã sẵn sàng chạy toàn bộ:**
+
+```
+⚠️ ĐỪNG bấm nút Run ▶ từng cell!
+
+1. Góc trên cùng bên phải → bấm "Save Version"
+2. Chọn "Save & Run All (Commit)"
+3. Bấm "Save"
+
+→ Kaggle sẽ chạy ngầm TẤT CẢ cells theo thứ tự
+→ Bạn có thể tắt tab, tắt laptop, đi ngủ
+→ W&B tự động ghi log, xem real-time trên điện thoại:
+  https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+```
+
+**Sau khi chạy xong — tải checkpoint về local:**
+
+```
+1. Vào Kaggle Notebook → tab "Output"
+2. Tìm các file:
+   - phase1_best.pt
+   - hp_lr1e4_best.pt
+   - hp_lr5e4_best.pt
+   - hp_lr5e5_best.pt
+3. Download file checkpoint tốt nhất
+4. Copy vào local: outputs/checkpoints/best.pt
+```
+
+```bash
+# Trên máy local, copy checkpoint đã download about:
+cp ~/Downloads/hp_lr1e4_best.pt outputs/checkpoints/best.pt
+```
+
+### Kaggle — Quản lý GPU Quota
+
+```
+┌──────────────── KAGGLE GPU QUOTA ──────────────────┐
+│                                                      │
+│  T4 GPU: 30 giờ/tuần (reset thứ 7)                  │
+│  P100:   30 giờ/tuần (riêng biệt)                   │
+│                                                      │
+│  Task 1.6 ước tính:                                  │
+│  ─────────────────                                   │
+│  Phase 1 (10 ep):  ~5 min                            │
+│  Phase 2 (20 ep):  ~40 min                           │
+│  HP tuning (3×20):  ~2 giờ                           │
+│  ────────────────────────                            │
+│  TỔNG:              ~3 giờ = 10% quota tuần          │
+│                                                      │
+│  → Rất thoải mái! Có thể chạy lại nếu cần.          │
+│  → Nếu hết T4 quota → chuyển sang P100               │
+│  → Kiểm tra quota: kaggle.com → Settings → Account   │
+│                                                      │
+│  ⚠️ Session timeout: 12 giờ liên tục                  │
+│  → Phase 1 + Phase 2 + HP tuning = ~3h < 12h ✅      │
+│  → Đủ chạy trong 1 session duy nhất                  │
+└──────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -414,10 +863,14 @@ python scripts/train.py \
 > - Config default: `freeze_backbone=true`, `lr=0.001`, `scheduler=cosine`
 > - W&B: tự động log (`.env` chứa API key)
 
-### Chạy trên Kaggle T4 (nhanh hơn ~2×)
+### Chạy trên Kaggle T4 (nhanh gấp 3-5×)
+
+> **Xem hướng dẫn đầy đủ**: [Triển khai trên Kaggle](#triển-khai-trên-kaggle-khuyến-nghị)
+>
+> Nếu đã setup Kaggle notebook theo hướng dẫn, chỉ cần chạy:
 
 ```bash
-# Kaggle: batch lớn hơn, worker nhiều hơn
+# Kaggle T4: batch=32 (16GB VRAM), worker=4 (Linux)
 python scripts/train.py \
     training.epochs=10 \
     training.batch_size=32 \
@@ -556,10 +1009,10 @@ python scripts/train.py \
 
 > **Thời gian ước tính:**
 >
-> | GPU                  | Per epoch | 20 epochs |
-> | -------------------- | --------- | --------- |
-> | RTX 3050 (batch=8)   | ~8-10 min | ~3h       |
-> | Kaggle T4 (batch=32) | ~4 min    | ~1.3h     |
+> | GPU                  | Per epoch | 20 epochs | Khuyên dùng    |
+> | -------------------- | --------- | --------- | -------------- |
+> | RTX 3050 (batch=8)   | ~8-10 min | ~3h       |                |
+> | Kaggle T4 (batch=32) | ~2 min    | ~40 min   | ⭐ KHUYÊN NGHỊ |
 
 ### 4.3 Kết quả kỳ vọng
 
@@ -1199,6 +1652,83 @@ Fix:
 2. Train lại từ đầu
 3. Nếu lỗi "key mismatch": model architecture đã thay đổi
    → Xóa cả best.pt, train lại hoàn toàn
+```
+
+### Kaggle: FileNotFoundError khi train
+
+```
+Triệu chứng: FileNotFoundError: data/processed/train/real/xxx.jpg
+
+Nguyên nhân: Symlink tạo sai, hoặc dùng rm -rf data (xóa cả manifests!)
+
+Fix:
+1. Kiểm tra cấu trúc:
+   !ls data/manifests/          # Phải có train.json, val.json
+   !ls data/processed/train/    # Phải có real/, fake_gan/, fake_diffusion/
+
+2. Nếu data/manifests/ bị xóa → git checkout data/manifests/
+
+3. Nếu symlink sai:
+   !rm -f data/processed
+   !ln -s /kaggle/input/holmhz-processed-data/processed data/processed
+
+4. Verify 1 ảnh:
+   import json, os
+   d = json.load(open("data/manifests/train.json"))
+   print(os.path.exists(d[0]["path"]))  # Phải True
+```
+
+### Kaggle: pip install . bị lỗi
+
+```
+Triệu chứng: ModuleNotFoundError: No module named 'holmhz'
+
+Fix:
+1. Kiểm tra đang ở đúng thư mục:
+   !pwd  # Phải là /kaggle/working/HolmHz
+
+2. Thử cài lại:
+   !pip install . --quiet --no-build-isolation
+
+3. Nếu vẫn lỗi, cài từ requirements:
+   !pip install -r requirements.txt --quiet
+   import sys
+   sys.path.insert(0, "/kaggle/working/HolmHz")
+```
+
+### Kaggle: W&B không log (offline)
+
+```
+Triệu chứng: W&B disabled hoặc runs không hiện trên dashboard
+
+Fix:
+1. Kiểm tra Internet bật trong Session Options
+2. Kiểm tra Secret:
+   from kaggle_secrets import UserSecretsClient
+   key = UserSecretsClient().get_secret("WANDB_API_KEY")
+   print(f"Key length: {len(key)}")  # Phải > 0
+
+3. Nếu Secret chưa tạo → Set trực tiếp (tạm thời):
+   import os
+   os.environ["WANDB_API_KEY"] = "your-key"
+   !python -c "import wandb; wandb.login()"
+```
+
+### Kaggle: Session timeout sau 12 giờ
+
+```
+Triệu chứng: Notebook bị kill giữa chừng
+
+Nguyên nhân: Kaggle giới hạn 12h/session
+
+Fix:
+1. Tổng training ~3h → KHÔNG nên bị timeout
+2. Nếu bị (vì HP tuning 6+ runs):
+   → Chia thành 2 notebooks:
+     Notebook 1: Phase 1 + Phase 2 + HP Run A
+     Notebook 2: HP Run B + HP Run C
+3. Mỗi notebook dùng "Save Version" riêng
+4. Checkpoint sẽ nằm trong Output tab của mỗi notebook
 ```
 
 ---
