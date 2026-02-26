@@ -213,14 +213,14 @@ src/holmhz/
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Target (revised)       | Ghi chú                                                                 |
-| -------------------------- | -------------- | ---------------------- | ----------------------------------------------------------------------- |
-| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                         |
-| **1.2** Data Collection    | ✅ Completed   | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS      |
-| **1.3** Data Pipeline      | ✅ Completed   | **07/03** → DONE 25/02 | 18,550 train / 3,975 val / 3,975 test / 1,180 OOD. 17/17 tests pass     |
-| **1.4** Model Architecture | ✅ Completed   | **07/03** → DONE 26/02 | 30/30 tests pass, integration verified. Backbone + Detector + Registry  |
-| **1.5** Training Pipeline  | ✅ Completed   | **14/03** → DONE 26/02 | 16/16 tests pass, dry run OK (Val AUC 0.92), checkpoint resume verified |
-| **1.6** Baseline Training  | ⬜ Not Started | **21/03**              | Train + eval, ưu tiên Kaggle GPU                                        |
+| Task                       | Trạng thái   | Target (revised)       | Ghi chú                                                                 |
+| -------------------------- | ------------ | ---------------------- | ----------------------------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                         |
+| **1.2** Data Collection    | ✅ Completed | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS      |
+| **1.3** Data Pipeline      | ✅ Completed | **07/03** → DONE 25/02 | 18,550 train / 3,975 val / 3,975 test / 1,180 OOD. 17/17 tests pass     |
+| **1.4** Model Architecture | ✅ Completed | **07/03** → DONE 26/02 | 30/30 tests pass, integration verified. Backbone + Detector + Registry  |
+| **1.5** Training Pipeline  | ✅ Completed | **14/03** → DONE 26/02 | 16/16 tests pass, dry run OK (Val AUC 0.92), checkpoint resume verified |
+| **1.6** Baseline Training  | ✅ Completed | **21/03** → DONE 26/02 | Kaggle T4: Phase1 AUC 0.9419, Phase2 AUC 0.9983. predict.py implemented |
 
 ### Sprint 2: Evaluation
 
@@ -529,7 +529,86 @@ python scripts/train.py training.epochs=30
 
 ---
 
-## 14. Conventions & Lưu ý
+## 14. Baseline Training Results (Task 1.6) — ✅ COMPLETED 26/02/2026
+
+### Tổng quan
+
+- **Mục tiêu**: Train EfficientNet-B0 baseline trên 18,550 ảnh (GAN + Diffusion)
+- **Branch**: `feat/s1/baseline-training`
+- **Platform**: Kaggle T4 x2 (16GB VRAM), batch_size=32, num_workers=4
+- **Strategy**: Phase 1 (freeze backbone) → Phase 2 (fine-tune) → HP tuning (3 LR)
+- **Best Val AUC**: **0.9983** (Phase 2, LR=1e-4)
+- **W&B**: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+- **Total training time**: ~45 min (Kaggle T4)
+
+### Phase 1: Freeze backbone (head only) — run `warm-universe-3`
+
+| Config           | Value                |
+| ---------------- | -------------------- |
+| freeze_backbone  | true                 |
+| trainable params | 1,281                |
+| LR               | 1e-3                 |
+| Epochs           | 10/10                |
+| Batch size       | 32                   |
+| Best Val AUC     | **0.9419** (epoch 8) |
+
+### Phase 2: Fine-tune (unfreeze) — run `misunderstood-blaze-4`
+
+| Config           | Value                 |
+| ---------------- | --------------------- |
+| freeze_backbone  | false                 |
+| trainable params | 4,008,829             |
+| LR               | 1e-4                  |
+| Epochs           | 17/20 (early stop)    |
+| Batch size       | 32                    |
+| Best Val AUC     | **0.9983** (epoch 12) |
+
+### HP Tuning Results
+
+| Run               | LR   | Best Val AUC | Epochs run | Early Stop | W&B Run               |
+| ----------------- | ---- | ------------ | ---------- | ---------- | --------------------- |
+| Phase 2 (default) | 1e-4 | **0.9983**   | 17/20      | Ep 17      | misunderstood-blaze-4 |
+| HP Run A          | 5e-4 | 0.9982       | 7/20       | Ep 7       | fine-resonance-5      |
+| HP Run B          | 5e-5 | 0.9978       | 8/20       | Ep 8       | fanciful-eon-6        |
+
+**Winner: LR=1e-4** (0.9983 AUC) — checkpoint: `hp_lr1e4_best.pt` → `best.pt`
+
+### Kaggle Output Files
+
+| File             | Size    | Description                      |
+| ---------------- | ------- | -------------------------------- |
+| phase1_best.pt   | 16.3 MB | Phase 1 freeze-only checkpoint   |
+| hp_lr1e4_best.pt | 48.5 MB | **Best model** — Phase 2 LR=1e-4 |
+| hp_lr5e4_best.pt | 48.5 MB | HP Run A — LR=5e-4               |
+| hp_lr5e5_best.pt | 48.5 MB | HP Run B — LR=5e-5               |
+
+### Key Observations
+
+1. **Phase 1 → Phase 2 jump**: AUC 0.9419 → 0.9983 (+0.0564) — unfreezing backbone giúp rất nhiều
+2. **All 3 LRs converge**: AUC > 0.997 cho cả 3 → model robust, không nhạy LR
+3. **Early stopping effective**: All Phase 2 runs dừng sớm (7-17 epochs), tiết kiệm GPU
+4. **Overfitting nhẹ**: Phase 2 train_loss=0.006 vs val_loss=0.065 → gap 10x nhưng AUC vẫn cao
+5. **Kaggle T4 rất hiệu quả**: ~1 min/epoch Phase 1, ~1 min/epoch Phase 2
+
+### Milestone 1 Status
+
+- [x] Dataset ≥ 15K: 22,525 ✅
+- [x] Baseline AUC ≥ 0.85: **0.9983** ✅ (vượt xa target)
+- [x] W&B dashboard có training curves ✅
+- [x] Checkpoint saved: `outputs/checkpoints/best.pt` ✅
+- [x] predict.py implemented ✅
+
+### Files added/modified
+
+| File                   | Change                                                    |
+| ---------------------- | --------------------------------------------------------- |
+| `scripts/predict.py`   | NEW — inference script for single/batch images            |
+| `pyproject.toml`       | FIX — `pytorch-grad-cam` → `grad-cam` (correct PyPI name) |
+| `docs/log_task1.6.txt` | NEW — full Kaggle training log                            |
+
+---
+
+## 15. Conventions & Lưu ý
 
 - **Luôn dùng đường dẫn đầy đủ**: `.venv/Scripts/python.exe -m pip install ...`
 - **Package naming**: PyPI name ≠ import name (vd: `grad-cam` → `pytorch_grad_cam`)

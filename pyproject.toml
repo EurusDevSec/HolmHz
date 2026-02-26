@@ -23,7 +23,7 @@ dependencies = [
     "torch>=2.1.0",
     "torchvision>=0.16.0",
     "timm>=0.9.12",                    # Pre-trained models
-    "pytorch-grad-cam>=1.4.8",         # Grad-CAM
+    "grad-cam>=1.4.8",                 # Grad-CAM (PyPI: grad-cam)
     
     # Data Processing
     "numpy>=1.24.0",
