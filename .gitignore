@@ -138,6 +138,7 @@ celerybeat.pid
 .env
 .envrc
 # NOTE: .env.example is a template and SHOULD be committed (not ignored)
+.env.example
 .venv
 env/
 venv/
