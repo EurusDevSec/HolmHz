@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2026-02-25 (sau khi hoàn thành Task 1.2)
+> Cập nhật lần cuối: 2026-02-25 (sau khi hoàn thành Task 1.3)
 
 ---
 
@@ -103,6 +103,12 @@
 - **Vấn đề**: `select`/`ignore`/`isort` ở top-level `[tool.ruff]` → deprecated
 - **Fix**: Move sang `[tool.ruff.lint]` và `[tool.ruff.lint.isort]`
 
+### 4.8 Albumentations v2.0.8 API breaking changes (fix 2026-02-25)
+
+- **Vấn đề**: `quality_lower`/`quality_upper` và `var_limit` deprecated trong Albumentations v2.0.8
+- **Fix**: `quality_range=(60, 100)` thay `quality_lower/quality_upper`, `std_range=(0.01, 0.03)` thay `var_limit`
+- **File**: `src/holmhz/data/transforms.py`
+
 ## 5. Key Research Findings
 
 > Từ file `docs/research/` — kết quả chạy 3 mô hình SOTA trên dataset mới
@@ -176,7 +182,7 @@ src/holmhz/
     └── utils.py
 ```
 
-**Trạng thái**: 35 files, tất cả EMPTY trừ `__init__.py` (có version). Chưa có implementation code.
+**Trạng thái**: 35 files tổng. Module `data/` đã có implementation (Task 1.3 ✅). Các module khác EMPTY trừ `__init__.py`.
 
 ## 7. Config files
 
@@ -203,14 +209,14 @@ src/holmhz/
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái     | Target (revised)       | Ghi chú                                                            |
-| -------------------------- | -------------- | ---------------------- | ------------------------------------------------------------------ |
-| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                    |
-| **1.2** Data Collection    | ✅ Completed   | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS |
-| **1.3** Data Pipeline      | ⬜ Not Started | **07/03**              | Dataset class, transforms, dataloader                              |
-| **1.4** Model Architecture | ⬜ Not Started | **07/03**              | EfficientNet-B0 backbone + binary head                             |
-| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**              | Trainer, loss, metrics, WandB + checkpoint resume                  |
-| **1.6** Baseline Training  | ⬜ Not Started | **21/03**              | Train + eval, ưu tiên Kaggle GPU                                   |
+| Task                       | Trạng thái     | Target (revised)       | Ghi chú                                                             |
+| -------------------------- | -------------- | ---------------------- | ------------------------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed   | ~~17/02~~ DONE         | Mọi acceptance criteria đã pass                                     |
+| **1.2** Data Collection    | ✅ Completed   | **02/03** → DONE 25/02 | 27,680 ảnh processed (26,500 train + 1,180 OOD). ALL CRITERIA PASS  |
+| **1.3** Data Pipeline      | ✅ Completed   | **07/03** → DONE 25/02 | 18,550 train / 3,975 val / 3,975 test / 1,180 OOD. 17/17 tests pass |
+| **1.4** Model Architecture | ⬜ Not Started | **07/03**              | EfficientNet-B0 backbone + binary head                              |
+| **1.5** Training Pipeline  | ⬜ Not Started | **14/03**              | Trainer, loss, metrics, WandB + checkpoint resume                   |
+| **1.6** Baseline Training  | ⬜ Not Started | **21/03**              | Train + eval, ưu tiên Kaggle GPU                                    |
 
 ### Sprint 2: Evaluation
 
@@ -345,7 +351,64 @@ data/processed/
 
 ---
 
-## 11. Conventions & Lưu ý
+## 11. Data Pipeline Progress (Task 1.3) — ✅ COMPLETED 25/02/2026
+
+### Tổng quan
+
+- **Mục tiêu**: Xây dựng data pipeline từ ảnh PNG → PyTorch DataLoader
+- **Branch**: `feat/s1/data-pipeline`
+- **Tests**: 17/17 passed, 0 warnings (7.7s)
+
+### Data Splits (seed=42, stratified by source, ratio 70/15/15)
+
+| Split       | Total  | Real  | Fake   | File                           |
+| ----------- | ------ | ----- | ------ | ------------------------------ |
+| **Train**   | 18,550 | 8,427 | 10,123 | `data/manifests/train.json`    |
+| **Val**     | 3,975  | 1,776 | 2,199  | `data/manifests/val.json`      |
+| **Test ID** | 3,975  | 1,797 | 2,178  | `data/manifests/test_id.json`  |
+| **OOD**     | 1,180  | 600   | 580    | `data/manifests/test_ood.json` |
+
+### Files đã implement
+
+| File                                  | Mô tả                                                               |
+| ------------------------------------- | ------------------------------------------------------------------- |
+| `preprocessing/build_splits.py`       | Script tạo 4 JSON manifests (stratified split)                      |
+| `src/holmhz/data/transforms.py`       | `get_train_transforms()`, `get_val_transforms()`                    |
+| `src/holmhz/data/image_dataset.py`    | `ImageDataset` class (cv2 + Albumentations)                         |
+| `src/holmhz/data/utils.py`            | `create_dataloader()`, `get_dataset_info()`                         |
+| `src/holmhz/data/__init__.py`         | Exports: ImageDataset, transforms, utils, constants                 |
+| `tests/test_data.py`                  | 17 tests: TestTransforms(5), TestImageDataset(9), TestDataLoader(3) |
+| `scripts/verify_pipeline.py`          | Standalone terminal verification script                             |
+| `notebooks/01_data_exploration.ipynb` | 6-cell interactive exploration notebook                             |
+
+### DataLoader Output Interface (cho Task 1.4/1.5)
+
+```python
+batch = {
+    "image": tensor [B, 3, 224, 224],  # float32, normalized ImageNet
+    "label": tensor [B],                # float32, 0.0 hoặc 1.0
+    "source": list[str],               # ["cifake", "stylegan", ...]
+    "path": list[str],                  # ["data/processed/...", ...]
+}
+```
+
+### Augmentation Pipeline
+
+- **Train**: Resize(224) → HFlip(p=0.5) → OneOf[JPEG(`quality_range=(60,100)`), GBlur, GNoise(`std_range=(0.01,0.03)`)](p=0.3) → ColorJitter(p=0.3) → Normalize(ImageNet) → ToTensorV2
+- **Val/Test**: Resize(224) → Normalize(ImageNet) → ToTensorV2
+- **ImageNet stats**: mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+
+### Quyết định kỹ thuật
+
+1. **Manifest JSON** thay ImageFolder: reproducible, biết source từng ảnh, hỗ trợ per-source metrics
+2. **Stratified split by source**: mỗi source (cifake, ffhq, stylegan, sd15) đúng tỷ lệ 70/15/15
+3. **OOD tách riêng hoàn toàn**: Flux, tristanzhang, real_pexels, real_camera KHÔNG lẫn vào train
+4. **Binary labels float32**: Tương thích BCEWithLogitsLoss (Task 1.5)
+5. **Albumentations v2.0.8**: Dùng `quality_range`, `std_range` (API mới, không deprecated)
+
+---
+
+## 12. Conventions & Lưu ý
 
 - **Luôn dùng đường dẫn đầy đủ**: `.venv/Scripts/python.exe -m pip install ...`
 - **Package naming**: PyPI name ≠ import name (vd: `grad-cam` → `pytorch_grad_cam`)
