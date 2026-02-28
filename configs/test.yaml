@@ -4,14 +4,15 @@
 
 model:
   name: efficientnet_b0
-  checkpoint: outputs/checkpoints/best_model.pt
+  checkpoint: outputs/checkpoints/best.pt
+  dropout: 0.3
 
 data:
   test_manifest: data/manifests/test_id.json
   ood_manifest: data/manifests/test_ood.json
   image_size: 224
-  batch_size: 64
-  num_workers: 4
+  batch_size: 32
+  num_workers: 0
 
 evaluation:
   metrics: [auc, accuracy, f1, precision, recall]

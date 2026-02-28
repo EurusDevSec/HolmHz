@@ -566,11 +566,18 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 |         |                        | 1.5.2 Setup BCE Loss (Binary, num_classes=1, Sigmoid)                 |              |              | ✅     |
 |         |                        | 1.5.3 LR scheduler (CosineAnnealing)                                  |              |              | ✅     |
 |         |                        | 1.5.4 Early stopping + Wandb logging + **checkpoint resume**          |              |              | ✅     |
-| 1.6     | **Baseline Training**  |                                                                       | Hoàng        | **21/03**    | ⬜     |
-|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)            |              |              | ⬜     |
-|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                              |              |              | ⬜     |
-|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                               |              |              | ⬜     |
-|         |                        | 1.6.4 Save best checkpoint                                            |              |              | ⬜     |
+| 1.6     | **Baseline Training**  |                                                                       | Hoàng        | **21/03**    | ✅     |
+|         |                        | 1.6.1 Train EfficientNet-B0 (freeze backbone + train head)            |              |              | ✅     |
+|         |                        | 1.6.2 Fine-tune toàn bộ model (unfreeze)                              |              |              | ✅     |
+|         |                        | 1.6.3 Hyperparameter tuning (LR, batch)                               |              |              | ✅     |
+|         |                        | 1.6.4 Save best checkpoint                                            |              |              | ✅     |
+| 1.7     | **OOD Improvement**    |                                                                       | Hoàng        |              | ⬜     |
+|         |                        | 1.7.1 Subset 3,000 diverse real từ 140k dataset                       |              |              | ⬜     |
+|         |                        | 1.7.2 Split real_pexels 300 train / 200 OOD test                      |              |              | ⬜     |
+|         |                        | 1.7.3 Resize + rebuild manifests                                      |              |              | ⬜     |
+|         |                        | 1.7.4 Tăng cường augmentation v2                                      |              |              | ⬜     |
+|         |                        | 1.7.5 Retrain trên Kaggle T4                                          |              |              | ⬜     |
+|         |                        | 1.7.6 Re-evaluate OOD AUC ≥ 0.75                                      |              |              | ⬜     |
 
 **✅ Milestone 1**: Dataset v1 (≥15k ảnh, bao gồm Diffusion) + Baseline AUC ≥ 0.85 (in-domain)
 
@@ -586,11 +593,11 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 | Task ID | Task                       | Subtasks                                                            | Assignee | Status |
 | ------- | -------------------------- | ------------------------------------------------------------------- | -------- | ------ |
-| 2.1     | **Evaluation Pipeline**    |                                                                     | Hoàng    | ⬜     |
-|         |                            | 2.1.1 Compute metrics (AUC, Acc, F1) trên test set                  |          | ⬜     |
-|         |                            | 2.1.2 Per-source accuracy breakdown (GAN vs Diffusion vs Real)      |          | ⬜     |
-|         |                            | 2.1.3 OOD evaluation (Flux, Gemini, SDXL)                           |          | ⬜     |
-|         |                            | 2.1.4 Generate confusion matrix + ROC curve                         |          | ⬜     |
+| 2.1     | **Evaluation Pipeline**    |                                                                     | Hoàng    | ✅     |
+|         |                            | 2.1.1 Compute metrics (AUC, Acc, F1) trên test set                  |          | ✅     |
+|         |                            | 2.1.2 Per-source accuracy breakdown (GAN vs Diffusion vs Real)      |          | ✅     |
+|         |                            | 2.1.3 OOD evaluation (Flux, Gemini, SDXL)                           |          | ✅     |
+|         |                            | 2.1.4 Generate confusion matrix + ROC curve                         |          | ✅     |
 | 2.2     | **Benchmark chuẩn 3 SOTA** |                                                                     | Hoàng    | ⬜     |
 |         |                            | 2.2.1 Chạy CNNDetection trên test set chung (Docker/chuẩn pipeline) |          | ⬜     |
 |         |                            | 2.2.2 Chạy UniversalFakeDetect trên test set chung                  |          | ⬜     |

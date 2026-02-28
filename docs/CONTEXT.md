@@ -608,7 +608,81 @@ python scripts/train.py training.epochs=30
 
 ---
 
-## 15. Conventions & Lưu ý
+## 15. Evaluation Pipeline (Task 2.1) — Completed 26/02/2026
+
+### In-Domain Test (test_id.json)
+
+| Metric    | Value  |
+| --------- | ------ |
+| AUC       | 0.9979 |
+| Accuracy  | 0.9814 |
+| F1        | 0.9830 |
+| Precision | 0.9812 |
+| Recall    | 0.9848 |
+| Total     | 3,975  |
+
+### OOD Test (test_ood.json)
+
+| Metric    | Value  |
+| --------- | ------ |
+| AUC       | 0.4812 |
+| Accuracy  | 0.4805 |
+| F1        | 0.6255 |
+| Precision | 0.4844 |
+| Recall    | 0.8828 |
+| Total     | 1,180  |
+
+### Per-Source Breakdown
+
+| Source            | Accuracy | N     | Type | Notes                              |
+| ----------------- | -------- | ----- | ---- | ---------------------------------- |
+| cifake            | 0.9686   | 2,100 | ID   | Mixed real+fake                    |
+| ffhq              | 0.9973   | 750   | ID   | Real only (face)                   |
+| sd15              | 0.9947   | 375   | ID   | Fake only                          |
+| stylegan          | 0.9947   | 750   | ID   | Fake only                          |
+| flux              | 0.9500   | 80    | OOD  | Fake only — high acc (FAKE bias)   |
+| tristanzhang_fake | 0.8720   | 500   | OOD  | Fake only — decent acc (FAKE bias) |
+| real_pexels       | 0.0860   | 500   | OOD  | Real only — SEVERE failure         |
+| real_camera       | 0.1200   | 100   | OOD  | Real only — SEVERE failure         |
+
+### OOD Failure Analysis
+
+- **ID-OOD AUC Gap**: 0.5167 (VERY LARGE — worse than random on OOD)
+- **Weakest source**: real_pexels (Acc: 8.6%, N: 500)
+- **Error type**: False Positive dominant — model predicts nearly everything as FAKE
+- **OOD Fake sources (flux, tristanzhang)**: High accuracy because model is biased toward FAKE
+- **OOD Real sources (real_pexels, real_camera)**: Near-zero accuracy — model has never seen non-face Real images
+- **Root cause**: Shortcut learning — model learned preprocessing artifacts + face-only distribution
+- **Limitations**: Model does NOT generalize outside cifake/ffhq domain
+
+### Artifacts
+
+- `outputs/evaluation/eval_report.json`
+- `outputs/evaluation/confusion_matrix_id.png`
+- `outputs/evaluation/confusion_matrix_ood.png`
+- `outputs/evaluation/roc_curve.png`
+- `outputs/evaluation/per_source_accuracy.png`
+
+### Files Added/Modified
+
+| File                                 | Change                                          |
+| ------------------------------------ | ----------------------------------------------- |
+| `src/holmhz/metrics/f1.py`           | NEW — compute_f1(logits, labels, threshold)     |
+| `src/holmhz/metrics/precision.py`    | NEW — compute_precision(logits, labels)         |
+| `src/holmhz/metrics/recall.py`       | NEW — compute_recall(logits, labels)            |
+| `src/holmhz/metrics/__init__.py`     | UPDATED — exports all 5 metrics                 |
+| `src/holmhz/evaluation/evaluator.py` | NEW — Evaluator class (overall + per-source)    |
+| `src/holmhz/evaluation/__init__.py`  | UPDATED — exports Evaluator                     |
+| `src/holmhz/utils/visualization.py`  | NEW — confusion matrix, ROC curve, bar chart    |
+| `scripts/test.py`                    | NEW — end-to-end CLI evaluation script          |
+| `configs/test.yaml`                  | UPDATED — best.pt, batch_size=32, num_workers=0 |
+| `tests/test_metrics.py`              | NEW — 11 tests for F1/Precision/Recall          |
+| `tests/test_evaluator.py`            | NEW — 4 tests for Evaluator class               |
+| `tests/test_visualization.py`        | NEW — 5 tests for visualization functions       |
+
+---
+
+## 16. Conventions & Lưu ý
 
 - **Luôn dùng đường dẫn đầy đủ**: `.venv/Scripts/python.exe -m pip install ...`
 - **Package naming**: PyPI name ≠ import name (vd: `grad-cam` → `pytorch_grad_cam`)
