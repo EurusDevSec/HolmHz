@@ -31,38 +31,52 @@ DEFAULT_IMAGE_SIZE = 224
 
 def get_train_transforms(image_size: int = DEFAULT_IMAGE_SIZE) -> A.Compose:
     """
-    Transforms cho TRAINING — augment mạnh để chống overfitting.
+    Transforms cho TRAINING v2 — augment MẠNH HƠN để chống shortcut learning.
 
-    Mô phỏng điều kiện thực tế: ảnh trên mạng bị nén JPEG, resize,
-    chụp lại màn hình, thay đổi ánh sáng...
-    Model phải chịu được tất cả biến dạng này.
+    Thay đổi so với v1 (Task 1.7 OOD Improvement):
+    - Thêm RandomResizedCrop (0.7-1.0, p=0.5) — phá spatial artifacts
+    - OneOf p: 0.3 → 0.5 (áp dụng nhiều hơn)
+    - JPEG quality: 60-100 → 30-100 (aggressive hơn)
+    - GaussianBlur: 3-7 → 3-9 (mạnh hơn)
+    - Thêm Downscale (0.25-0.9) — mô phỏng multi-resolution
+    - ColorJitter p: 0.3 → 0.5
+
+    Lý do: Model v1 học shortcut từ preprocessing artifacts (cifake 32x32 upscale,
+    ffhq face alignment). Augmentation mạnh hơn → phá các artifacts này.
     """
     return A.Compose([
-        # 1. Resize về kích thước chuẩn
-        A.Resize(image_size, image_size),
+        # 1. Random crop + resize (50% chance) — phá spatial artifacts
+        # NẾU không crop → chỉ resize bình thường
+        A.OneOf([
+            A.RandomResizedCrop(
+                size=(image_size, image_size),
+                scale=(0.7, 1.0),
+                ratio=(0.9, 1.1),
+            ),
+            A.Resize(image_size, image_size),
+        ], p=1.0),  # Luôn chọn 1 trong 2
 
         # 2. Lật ngang ngẫu nhiên (50% chance)
         # Khuôn mặt đối xứng → lật không thay đổi Real/Fake
         A.HorizontalFlip(p=0.5),
 
-        # 3. Nhóm augmentation chính (30% chance áp dụng 1 trong 3)
+        # 3. Nhóm augmentation chính — TĂNG p từ 0.3 → 0.5
         A.OneOf([
-            # ⭐ JPEG Compression — QUAN TRỌNG NHẤT cho deepfake detection
-            # Ảnh trên mạng luôn bị nén JPEG (quality 60-100)
-            A.ImageCompression(quality_range=(60, 100)),
-            # Gaussian Blur — mô phỏng ảnh share qua MXH bị blur
-            A.GaussianBlur(blur_limit=(3, 7)),
-            # Gaussian Noise — mô phỏng camera giá rẻ
-            # std_range: normalized [0,1] scale — (0.01, 0.03) ≈ nhẹ vừa phải
-            A.GaussNoise(std_range=(0.01, 0.03)),
-        ], p=0.3),
+            # ⭐ JPEG Compression — aggressive hơn (quality 30-100)
+            A.ImageCompression(quality_range=(30, 100)),
+            # Gaussian Blur — mạnh hơn (3-9)
+            A.GaussianBlur(blur_limit=(3, 9)),
+            # Gaussian Noise
+            A.GaussNoise(std_range=(0.01, 0.05)),
+            # Downscale — mô phỏng ảnh resolution thấp
+            A.Downscale(scale_range=(0.25, 0.9)),
+        ], p=0.5),
 
-        # 4. Thay đổi màu sắc nhẹ (30% chance)
-        # Ảnh thật chụp dưới nhiều điều kiện ánh sáng
+        # 4. Thay đổi màu sắc — TĂNG p từ 0.3 → 0.5
         A.ColorJitter(
-            brightness=0.1, contrast=0.1,
-            saturation=0.1, hue=0.05,
-            p=0.3,
+            brightness=0.2, contrast=0.2,
+            saturation=0.2, hue=0.05,
+            p=0.5,
         ),
 
         # 5. Normalize (BẮT BUỘC, luôn áp dụng)

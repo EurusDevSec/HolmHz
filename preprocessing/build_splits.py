@@ -91,6 +91,9 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
     """
     Scan OOD test folder riêng.
     OOD label: fake folders → 1, real folders → 0
+
+    Task 1.7: Filter real_pexels to only keep 200 test images
+    (300 were moved to training via split_real_pexels.py).
     """
     entries = []
 
@@ -105,6 +108,14 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
         "real_pexels": 0,        # Real photos (Pexels/Unsplash)
         "real_camera": 0,        # Real camera photos (Unsplash API)
     }
+
+    # Load real_pexels test-only list (if exists) — Task 1.7
+    test_only_list = None
+    test_only_path = Path("data/manifests/real_pexels_test_only.txt")
+    if test_only_path.exists():
+        with open(test_only_path) as f:
+            test_only_list = set(line.strip() for line in f if line.strip())
+        print(f"  📋 Loaded real_pexels test-only filter: {len(test_only_list)} files")
 
     for source_dir in sorted(ood_dir.iterdir()):
         if not source_dir.is_dir():
@@ -123,6 +134,13 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
         ])
 
         for img_path in images:
+            # Filter real_pexels: only keep 200 test images (Task 1.7)
+            if source_name == "real_pexels" and test_only_list is not None:
+                stem = img_path.stem  # e.g. "0004"
+                # Check if any test-only filename starts with this stem
+                if not any(t.startswith(stem) for t in test_only_list):
+                    continue  # Skip — this is a training image
+
             entries.append({
                 "path": str(img_path.as_posix()),
                 "label": label,
@@ -131,7 +149,8 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
             })
 
         label_str = "fake" if label == 1 else "real"
-        print(f"  ✅ ood_test/{source_name}: {len(images)} ảnh (label={label} → {label_str})")
+        count = sum(1 for e in entries if e["source"] == source_name)
+        print(f"  ✅ ood_test/{source_name}: {count} ảnh (label={label} → {label_str})")
 
     return entries
 

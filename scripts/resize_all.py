@@ -110,6 +110,9 @@ def main():
         # ── Training: Real ──
         ("real/cifake_subset",          "train/real/cifake"),
         ("real/ffhq",                   "train/real/ffhq"),
+        # ── Training: Real (Task 1.7 - OOD Improvement) ──
+        ("real/diverse_real",           "train/real/diverse_real"),
+        ("real/real_pexels_train",      "train/real/real_pexels_train"),
         # ── Training: Fake GAN ──
         ("fake_gan/stylegan",           "train/fake_gan/stylegan"),
         # ── Training: Fake Diffusion ──
