@@ -118,6 +118,8 @@ def main():
         # ── Training: Fake Diffusion ──
         ("fake_diffusion/cifake_subset","train/fake_diffusion/cifake"),
         ("fake_diffusion/sd15",         "train/fake_diffusion/sd15"),
+        # ── Training: Fake Diffusion (Task 1.7 v3 - OOD Improvement) ──
+        ("fake_diffusion/tristanzhang_train", "train/fake_diffusion/tristanzhang_train"),
         # ── OOD Test: Fake ──
         ("ood_test/tristanzhang_fake",  "test_ood/tristanzhang_fake"),
         ("ood_test/flux",               "test_ood/flux"),

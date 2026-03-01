@@ -94,6 +94,8 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
 
     Task 1.7: Filter real_pexels to only keep 200 test images
     (300 were moved to training via split_real_pexels.py).
+    Task 1.7 v3: Also filter tristanzhang_fake to only keep 300 test images
+    (200 were moved to training via split_tristanzhang_fake.py).
     """
     entries = []
 
@@ -110,12 +112,20 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
     }
 
     # Load real_pexels test-only list (if exists) — Task 1.7
-    test_only_list = None
-    test_only_path = Path("data/manifests/real_pexels_test_only.txt")
-    if test_only_path.exists():
-        with open(test_only_path) as f:
-            test_only_list = set(line.strip() for line in f if line.strip())
-        print(f"  📋 Loaded real_pexels test-only filter: {len(test_only_list)} files")
+    pexels_test_only = None
+    pexels_filter_path = Path("data/manifests/real_pexels_test_only.txt")
+    if pexels_filter_path.exists():
+        with open(pexels_filter_path) as f:
+            pexels_test_only = set(line.strip() for line in f if line.strip())
+        print(f"  📋 Loaded real_pexels test-only filter: {len(pexels_test_only)} files")
+
+    # Load tristanzhang_fake test-only list (if exists) — Task 1.7 v3
+    tristanzhang_test_only = None
+    tristanzhang_filter_path = Path("data/manifests/tristanzhang_test_only.txt")
+    if tristanzhang_filter_path.exists():
+        with open(tristanzhang_filter_path) as f:
+            tristanzhang_test_only = set(line.strip() for line in f if line.strip())
+        print(f"  📋 Loaded tristanzhang test-only filter: {len(tristanzhang_test_only)} files")
 
     for source_dir in sorted(ood_dir.iterdir()):
         if not source_dir.is_dir():
@@ -135,10 +145,16 @@ def scan_ood_folder(ood_dir: Path) -> list[dict]:
 
         for img_path in images:
             # Filter real_pexels: only keep 200 test images (Task 1.7)
-            if source_name == "real_pexels" and test_only_list is not None:
+            if source_name == "real_pexels" and pexels_test_only is not None:
                 stem = img_path.stem  # e.g. "0004"
-                # Check if any test-only filename starts with this stem
-                if not any(t.startswith(stem) for t in test_only_list):
+                if not any(t.startswith(stem) for t in pexels_test_only):
+                    continue  # Skip — this is a training image
+
+            # Filter tristanzhang_fake: only keep 300 test images (Task 1.7 v3)
+            if source_name == "tristanzhang_fake" and tristanzhang_test_only is not None:
+                # Compare stems: processed files are .png but filter list has .jpg
+                stem = img_path.stem
+                if not any(t.startswith(stem + ".") for t in tristanzhang_test_only):
                     continue  # Skip — this is a training image
 
             entries.append({
