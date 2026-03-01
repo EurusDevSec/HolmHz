@@ -2292,43 +2292,13 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0027.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0030.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0054.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0059.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0065.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0077.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0080.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2346,12 +2316,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0160.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0173.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -2359,12 +2323,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/0194.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0204.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2382,31 +2340,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0227.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0245.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0258.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0261.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0263.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2436,12 +2370,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0343.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0356.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -2461,12 +2389,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/0386.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0411.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2502,37 +2424,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0469.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0475.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0480.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0481.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0483.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0497.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2545,12 +2437,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/0521.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0525.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2580,12 +2466,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0564.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0567.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -2598,19 +2478,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0570.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0581.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0582.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2629,18 +2497,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/0601.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0617.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0618.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2676,30 +2532,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0713.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0745.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0757.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0760.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0765.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -2712,37 +2544,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0773.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0793.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0795.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0803.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0807.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0820.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2790,12 +2592,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0886.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/0896.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -2803,18 +2599,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/0899.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0913.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0914.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2832,55 +2616,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/0945.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0946.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0983.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/0992.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1023.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1031.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1045.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1052.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1072.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -2911,12 +2647,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/1134.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1144.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3000,12 +2730,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1311.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1324.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -3024,12 +2748,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1339.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1349.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -3042,43 +2760,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1363.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1402.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1451.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1463.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1464.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1470.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1504.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3114,43 +2796,13 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1576.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1583.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1629.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1630.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1635.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1648.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1668.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3174,19 +2826,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1726.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1729.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1736.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3198,37 +2838,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1747.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1752.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1756.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1764.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1784.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1792.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3240,31 +2850,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1800.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1805.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1806.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1823.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1827.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3300,18 +2886,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1877.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1886.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1906.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -3330,37 +2904,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/1937.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/1940.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1950.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1956.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1962.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/1974.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3372,19 +2916,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2002.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2006.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2007.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3402,37 +2934,13 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2031.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2033.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2037.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2045.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2047.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2058.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3456,25 +2964,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2146.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2153.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2158.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2163.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3486,19 +2976,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2170.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2172.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2173.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3522,67 +3000,13 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2188.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2194.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2212.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2232.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2254.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2267.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2277.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2278.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2279.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2282.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2283.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3618,12 +3042,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2402.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2405.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -3642,25 +3060,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2453.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2458.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2479.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2501.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3673,12 +3073,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/2526.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2554.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3702,18 +3096,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2585.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2591.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2592.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -3732,31 +3114,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2690.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2707.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2713.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2722.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2733.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3774,31 +3132,13 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2780.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2787.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2788.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2809.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2818.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3822,12 +3162,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/2898.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/2903.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -3841,24 +3175,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/2932.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2941.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2963.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/2966.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3882,19 +3198,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3025.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3028.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3033.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3942,25 +3246,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3127.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3134.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3153.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3199.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -3984,19 +3270,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3269.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3272.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3275.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4008,31 +3282,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3287.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3299.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3308.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3330.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3335.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4056,18 +3306,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3435.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3437.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3457.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4080,12 +3318,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3463.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3466.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4093,18 +3325,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/3467.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3470.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3504.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4158,37 +3378,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3676.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3680.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3699.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3715.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3717.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3728.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4200,43 +3390,13 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3755.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3759.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3764.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3771.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3787.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3790.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3826.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4278,25 +3438,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/3944.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3977.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/3979.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/3982.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4309,24 +3451,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/4003.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4043.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4090.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4101.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4350,12 +3474,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4145.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4159.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4363,12 +3481,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/4161.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4174.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4386,19 +3498,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4240.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4283.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4323.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4428,12 +3528,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4364.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4376.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4447,12 +3541,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/4394.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4399.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4488,24 +3576,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4442.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4451.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4465.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4468.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4519,12 +3589,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/4504.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4509.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4578,12 +3642,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4587.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4595.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4602,19 +3660,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4613.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4631.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4647.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4626,49 +3672,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4667.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4678.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4721.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4730.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4743.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4745.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4757.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4772.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4686,19 +3690,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4786.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4789.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4820.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4711,24 +3703,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/4828.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4838.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4871.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/4875.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4770,12 +3744,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/4970.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/4989.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4788,31 +3756,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5011.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5067.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5074.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5085.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5089.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4830,25 +3774,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5150.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5170.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5196.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5197.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4872,19 +3798,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5235.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5239.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5243.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4914,12 +3828,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5294.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5309.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4927,18 +3835,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/5324.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5343.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5354.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -4968,18 +3864,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5405.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5407.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5418.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -4993,12 +3877,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/5435.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5464.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -5022,12 +3900,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5488.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5491.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -5040,19 +3912,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5517.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5532.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5544.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -5070,25 +3930,7 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5575.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5585.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5588.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5600.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -5101,18 +3943,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/5632.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5638.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5652.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -5136,12 +3966,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5745.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5746.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -5149,12 +3973,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/5750.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5764.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
@@ -5190,12 +4008,6 @@
     "category": "ood"
   },
   {
-    "path": "data/processed/ood_test/tristanzhang_fake/5868.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
     "path": "data/processed/ood_test/tristanzhang_fake/5879.png",
     "label": 1,
     "source": "tristanzhang_fake",
@@ -5203,18 +4015,6 @@
   },
   {
     "path": "data/processed/ood_test/tristanzhang_fake/5882.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5886.png",
-    "label": 1,
-    "source": "tristanzhang_fake",
-    "category": "ood"
-  },
-  {
-    "path": "data/processed/ood_test/tristanzhang_fake/5896.png",
     "label": 1,
     "source": "tristanzhang_fake",
     "category": "ood"
