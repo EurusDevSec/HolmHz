@@ -5,8 +5,6 @@ Chạy: pytest tests/test_data.py -v
 """
 
 import json
-import tempfile
-from pathlib import Path
 
 import numpy as np
 import pytest
@@ -19,7 +17,6 @@ from holmhz.data import (
     get_train_transforms,
     get_val_transforms,
 )
-
 
 # === Fixtures ===
 
@@ -226,3 +223,30 @@ class TestDataLoader:
         )
         batch = next(iter(loader))
         assert batch["image"].shape[0] == 4
+
+    def test_weighted_sampler_dataloader(self, sample_manifest):
+        """DataLoader với WeightedRandomSampler phải tạo được và trả về batch đúng."""
+        loader = create_dataloader(
+            sample_manifest,
+            batch_size=4,
+            is_training=True,
+            num_workers=0,
+            use_weighted_sampler=True,
+        )
+        batch = next(iter(loader))
+        assert batch["image"].shape == torch.Size([4, 3, 224, 224])
+        assert batch["label"].shape == torch.Size([4])
+
+    def test_compute_source_weights(self, sample_manifest):
+        """compute_source_weights phải trả về weights đúng số lượng."""
+        from holmhz.data.utils import compute_source_weights
+        weights = compute_source_weights(sample_manifest)
+        assert len(weights) == 20  # 10 real + 10 fake
+        # All weights should be equal (both sources have 10 items)
+        assert all(w == 1.0 for w in weights)
+
+    def test_create_weighted_sampler(self, sample_manifest):
+        """create_weighted_sampler phải tạo sampler đúng num_samples."""
+        from holmhz.data.utils import create_weighted_sampler
+        sampler = create_weighted_sampler(sample_manifest)
+        assert sampler.num_samples == 20
