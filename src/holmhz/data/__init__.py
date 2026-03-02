@@ -12,13 +12,20 @@ from .transforms import (
     get_train_transforms,
     get_val_transforms,
 )
-from .utils import create_dataloader, get_dataset_info
+from .utils import (
+    compute_source_weights,
+    create_dataloader,
+    create_weighted_sampler,
+    get_dataset_info,
+)
 
 __all__ = [
     "ImageDataset",
     "get_train_transforms",
     "get_val_transforms",
     "create_dataloader",
+    "create_weighted_sampler",
+    "compute_source_weights",
     "get_dataset_info",
     "IMAGENET_MEAN",
     "IMAGENET_STD",

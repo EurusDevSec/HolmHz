@@ -71,12 +71,14 @@ def main():
         logger.info(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
     # ─── Data ───
+    use_sampler = OmegaConf.select(config, "data.use_weighted_sampler", default=False)
     train_loader = create_dataloader(
         manifest_path=config.data.train_manifest,
         batch_size=config.training.batch_size,
         image_size=config.data.image_size,
         is_training=True,
         num_workers=config.data.num_workers,
+        use_weighted_sampler=use_sampler,
     )
     val_loader = create_dataloader(
         manifest_path=config.data.val_manifest,
@@ -87,6 +89,8 @@ def main():
     )
     logger.info(f"Train: {len(train_loader.dataset)} samples, {len(train_loader)} batches")
     logger.info(f"Val:   {len(val_loader.dataset)} samples, {len(val_loader)} batches")
+    if use_sampler:
+        logger.info("WeightedRandomSampler: ENABLED (balanced source sampling)")
 
     # ─── Model ───
     model = DETECTOR_REGISTRY.build(
@@ -127,7 +131,17 @@ def main():
     )
 
     # ─── Loss ───
-    loss_fn = get_loss_fn("bce_with_logits")
+    # pos_weight: tăng penalty khi miss class positive (Fake)
+    # Hữu ích khi sources có số lượng khác nhau
+    pos_weight_val = None
+    if hasattr(config, "training") and hasattr(config.training, "pos_weight"):
+        pos_weight_val = config.training.pos_weight
+        logger.info(f"pos_weight: {pos_weight_val}")
+
+    loss_fn = get_loss_fn("bce_with_logits", pos_weight=pos_weight_val)
+    if pos_weight_val is not None:
+        # Move pos_weight to same device as model
+        loss_fn = loss_fn.to(device)
 
     # ─── Early Stopping ───
     early_stopping = EarlyStopping(

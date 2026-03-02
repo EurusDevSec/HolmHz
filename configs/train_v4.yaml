@@ -1,0 +1,46 @@
+# ============================================
+# HolmHz Training v4 — Final OOD Improvement
+# ============================================
+# Thay đổi so với v3:
+# - WeightedRandomSampler: cân bằng sources (downsample cifake, upsample minority)
+# - pos_weight: 1.2 (nhẹ nhàng boost fake detection)
+# - patience: 10 (cho phép model hội tụ đầy đủ)
+# - epochs: 30 (tăng để sampler có đủ thời gian balance)
+#
+# Chiến lược Option B:
+# - Đây là lần train CUỐI CÙNG cho Task 1.7
+# - Data đã có tristanzhang_train (200 high-quality fakes)
+# - WeightedSampler sẽ upsample tristanzhang 70x → model thấy đủ modern fakes
+# - Ghi nhận kết quả dù AUC bao nhiêu → move on Sprint 2
+
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false # Full fine-tune
+
+training:
+  epochs: 30
+  batch_size: 32
+  learning_rate: 0.0001 # 1e-4
+  optimizer: adamw
+  weight_decay: 0.0001
+  scheduler: cosine
+  pos_weight: 1.2 # Boost fake detection nhẹ (real/fake ≈ 51/49%)
+  early_stopping:
+    patience: 10 # Tăng từ 8 → 10 (sampler cần nhiều epochs hơn để stable)
+    monitor: val_auc
+
+data:
+  train_manifest: data/manifests/train.json
+  val_manifest: data/manifests/val.json
+  image_size: 224
+  num_workers: 4 # Kaggle: 4, Local: 0
+  augmentation: true
+  use_weighted_sampler: true # NEW: cân bằng sources
+
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
