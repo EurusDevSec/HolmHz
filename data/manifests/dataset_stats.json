@@ -1,16 +1,17 @@
 {
   "target_size": "224x224",
-  "total_images": 31180,
+  "total_images": 31480,
   "train": {
     "real/cifake": 7000,
     "real/ffhq": 5000,
     "real/diverse_real": 3000,
     "real/real_pexels_train": 300,
+    "real/real_camera_train": 300,
     "fake_gan/stylegan": 5000,
     "fake_diffusion/cifake": 7000,
     "fake_diffusion/sd15": 2500,
     "fake_diffusion/tristanzhang_train": 200,
-    "_total": 30000
+    "_total": 30300
   },
   "test_ood": {
     "tristanzhang_fake": 500,

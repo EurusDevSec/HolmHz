@@ -113,6 +113,8 @@ def main():
         # ── Training: Real (Task 1.7 - OOD Improvement) ──
         ("real/diverse_real",           "train/real/diverse_real"),
         ("real/real_pexels_train",      "train/real/real_pexels_train"),
+        # ── Training: Real (Task 1.7 v5 - COCO camera outdoor) ──
+        ("real/real_camera_train",      "train/real/real_camera_train"),
         # ── Training: Fake GAN ──
         ("fake_gan/stylegan",           "train/fake_gan/stylegan"),
         # ── Training: Fake Diffusion ──
