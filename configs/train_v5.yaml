@@ -1,0 +1,40 @@
+# ============================================
+# HolmHz Training v5 — Fix real_camera (COCO)
+# ============================================
+# Thay đổi so với v4:
+# - +300 real_camera_train (COCO 2017 Val subset, 80 categories)
+# - pos_weight: 1.2 → 1.0 (bớt FAKE bias → giúp real_camera)
+# - threshold eval: 0.76 (Youden J optimal, đã áp dụng S2)
+# - WeightedSampler giữ nguyên: upsample real_camera_train 210→~2600/epoch
+
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false
+
+training:
+  epochs: 30
+  batch_size: 32
+  learning_rate: 0.0001
+  optimizer: adamw
+  weight_decay: 0.0001
+  scheduler: cosine
+  pos_weight: 1.0   # Giảm từ 1.2 (bớt FAKE bias, giúp real_camera)
+  early_stopping:
+    patience: 10
+    monitor: val_auc
+
+data:
+  train_manifest: data/manifests/train.json
+  val_manifest: data/manifests/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+  use_weighted_sampler: true   # Giữ: upsample minority sources
+
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10

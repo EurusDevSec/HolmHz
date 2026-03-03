@@ -4,7 +4,7 @@
 
 model:
   name: efficientnet_b0
-  checkpoint: outputs/checkpoints/best.pt
+  checkpoint: outputs/checkpoints/best_v4.pt  # v4 is best: OOD AUC 0.7838 > v5's 0.6885
   dropout: 0.3
 
 data:
@@ -16,7 +16,7 @@ data:
 
 evaluation:
   metrics: [auc, accuracy, f1, precision, recall]
-  threshold: 0.5
+  threshold: 0.76  # Youden's J optimal (was 0.5). Found by analysis/find_threshold.py
   save_predictions: true
   output_dir: outputs/evaluation
 
