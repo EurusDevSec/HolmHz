@@ -230,7 +230,7 @@ prac/ai-experiments/deepfake-detection/test_images/
 *.mov
 
 # documentation
-docs/
+
 
 # Downloaded model weights (usually large, should be downloaded on demand)
 prac/ai-experiments/deepfake-detection/weights/
