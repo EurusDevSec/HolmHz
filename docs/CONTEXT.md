@@ -225,12 +225,12 @@ src/holmhz/
 
 ### Sprint 2: Evaluation
 
-| Task                        | Trạng thái     | Target (revised)       | Ghi chú                                            |
-| --------------------------- | -------------- | ---------------------- | -------------------------------------------------- |
-| **2.1** Evaluation Pipeline | ✅ Completed   | **28/03** → DONE 26/02 | test.py + evaluator + visualization. 83 tests pass |
+| Task                        | Trạng thái     | Target (revised)       | Ghi chú                                                              |
+| --------------------------- | -------------- | ---------------------- | -------------------------------------------------------------------- |
+| **2.1** Evaluation Pipeline | ✅ Completed   | **28/03** → DONE 26/02 | test.py + evaluator + visualization. 83 tests pass                   |
 | **2.2** Benchmark SOTA      | ✅ Completed   | **07/04** → DONE 04/03 | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19 |
-| **2.3** Grad-CAM XAI        | ⬜ Not Started | **07/04**              |                                                    |
-| **2.4** Model Export        | ⬜ Not Started | **07/04**              |                                                    |
+| **2.3** Grad-CAM XAI        | ⬜ Not Started | **07/04**              |                                                                      |
+| **2.4** Model Export        | ⬜ Not Started | **07/04**              |                                                                      |
 
 ### Sprint 3-4: Web + Report
 
@@ -988,76 +988,78 @@ Logic trong `train.py` (line 47-53): Nếu arg đầu tiên KHÔNG bắt đầu 
 
 ### 17.21 Tổng kết OOD AUC qua các version
 
-| Version | OOD AUC    | ID AUC | Key Change                 | Vấn đề chính                         |
-| ------- | ---------- | ------ | -------------------------- | ------------------------------------ |
-| v1      | 0.4812     | 0.9979 | Baseline                   | FP dominant (real→fake)              |
-| v2      | 0.5215     | 0.9972 | +diverse_real +real_pexels | FN dominant (fake→real)              |
-| v3      | 0.4916     | 0.9945 | +tristanzhang (zip bug)    | Thiếu data trên Kaggle               |
-| **v4**  | **0.7838** | 0.9972 | +sampler +pos_weight +data | real_camera 36% (cần thêm real data) |
+| Version | OOD AUC    | ID AUC | Key Change                 | Vấn đề chính                          |
+| ------- | ---------- | ------ | -------------------------- | ------------------------------------- |
+| v1      | 0.4812     | 0.9979 | Baseline                   | FP dominant (real→fake)               |
+| v2      | 0.5215     | 0.9972 | +diverse_real +real_pexels | FN dominant (fake→real)               |
+| v3      | 0.4916     | 0.9945 | +tristanzhang (zip bug)    | Thiếu data trên Kaggle                |
+| **v4**  | **0.7838** | 0.9972 | +sampler +pos_weight +data | real_camera 36% (cần thêm real data)  |
 | **v5**  | **0.6885** | 0.9961 | +300 COCO real + pw=1.0    | real_camera 49% ↑, nhưng OOD AUC giảm |
 
 ### 17.22 v5 Training Results (03/03/2026)
 
 #### v5 Config Changes (so với v4)
 
-| Param | v4 | v5 | Lý do |
-| --- | --- | --- | --- |
-| **pos_weight** | 1.2 | **1.0** | Giảm FAKE bias → giúp real_camera |
-| **Training data** | 21,000 | **21,210** | +300 COCO 2017 Val (real outdoor) |
-| **threshold** | 0.5 | **0.76** | Youden's J optimal (S2) |
-| Data source mới | - | `real_camera_train` | 300 COCO images, 210 effective train |
-| epochs | 30 | 30 | Giữ |
-| sampler | true | true | Giữ |
+| Param             | v4     | v5                  | Lý do                                |
+| ----------------- | ------ | ------------------- | ------------------------------------ |
+| **pos_weight**    | 1.2    | **1.0**             | Giảm FAKE bias → giúp real_camera    |
+| **Training data** | 21,000 | **21,210**          | +300 COCO 2017 Val (real outdoor)    |
+| **threshold**     | 0.5    | **0.76**            | Youden's J optimal (S2)              |
+| Data source mới   | -      | `real_camera_train` | 300 COCO images, 210 effective train |
+| epochs            | 30     | 30                  | Giữ                                  |
+| sampler           | true   | true                | Giữ                                  |
 
 #### v5 ID Results (threshold=0.76)
 
-| Metric | v4 | v5 | Δ |
-| --- | --- | --- | --- |
-| ID AUC | 0.9972 | **0.9961** | -0.0011 |
-| ID Acc | 97.3% | **97.3%** | ≈0 |
-| Val AUC (best) | 0.9969 | **0.9972** | +0.0003 |
-| Best epoch | 30 | **24** | Hội tụ sớm hơn |
+| Metric         | v4     | v5         | Δ              |
+| -------------- | ------ | ---------- | -------------- |
+| ID AUC         | 0.9972 | **0.9961** | -0.0011        |
+| ID Acc         | 97.3%  | **97.3%**  | ≈0             |
+| Val AUC (best) | 0.9969 | **0.9972** | +0.0003        |
+| Best epoch     | 30     | **24**     | Hội tụ sớm hơn |
 
 #### v5 OOD Results (threshold=0.76)
 
-| Metric | v4 | v5 | Δ | Đánh giá |
-| --- | --- | --- | --- | --- |
+| Metric  | v4         | v5     | Δ           | Đánh giá        |
+| ------- | ---------- | ------ | ----------- | --------------- |
 | OOD AUC | **0.7838** | 0.6885 | **-0.0953** | ❌ Giảm đáng kể |
-| OOD Acc | 71.2% | 62.9% | **-8.3%** | ❌ Giảm |
+| OOD Acc | 71.2%      | 62.9%  | **-8.3%**   | ❌ Giảm         |
 
-| OOD Source | v4 Acc | v5 Acc | Δ | Đánh giá |
-| --- | --- | --- | --- | --- |
-| flux | 77.5% | **46.3%** | **-31.2%** | ❌ Giảm nặng |
-| tristanzhang_fake | 79.0% | **56.7%** | **-22.3%** | ❌ Giảm nặng |
-| real_pexels | 74.5% | **86.0%** | **+11.5%** | ✅ Tăng mạnh |
-| real_camera | 36.0% | **49.0%** | **+13.0%** | ✅ Tăng (main target) |
+| OOD Source        | v4 Acc | v5 Acc    | Δ          | Đánh giá              |
+| ----------------- | ------ | --------- | ---------- | --------------------- |
+| flux              | 77.5%  | **46.3%** | **-31.2%** | ❌ Giảm nặng          |
+| tristanzhang_fake | 79.0%  | **56.7%** | **-22.3%** | ❌ Giảm nặng          |
+| real_pexels       | 74.5%  | **86.0%** | **+11.5%** | ✅ Tăng mạnh          |
+| real_camera       | 36.0%  | **49.0%** | **+13.0%** | ✅ Tăng (main target) |
 
 #### v5 Threshold Analysis
 
-| Method | Threshold | OOD Acc | flux | real_camera | real_pexels | tristanzhang |
-| --- | --- | --- | --- | --- | --- | --- |
-| default (0.5) | 0.500 | 63.4% | 50.0% | 38.0% | 83.0% | 62.3% |
-| **applied (0.76)** | 0.760 | **62.9%** | 46.3% | **49.0%** | **86.0%** | 56.7% |
-| youden | 0.562 | 63.2% | 50.0% | 39.0% | 84.0% | 61.0% |
-| low_fpr | 0.003 | 64.6% | 75.0% | 21.0% | 53.0% | 84.0% |
+| Method             | Threshold | OOD Acc   | flux  | real_camera | real_pexels | tristanzhang |
+| ------------------ | --------- | --------- | ----- | ----------- | ----------- | ------------ |
+| default (0.5)      | 0.500     | 63.4%     | 50.0% | 38.0%       | 83.0%       | 62.3%        |
+| **applied (0.76)** | 0.760     | **62.9%** | 46.3% | **49.0%**   | **86.0%**   | 56.7%        |
+| youden             | 0.562     | 63.2%     | 50.0% | 39.0%       | 84.0%       | 61.0%        |
+| low_fpr            | 0.003     | 64.6%     | 75.0% | 21.0%       | 53.0%       | 84.0%        |
 
 #### v5 Probability Distribution (OOD)
 
-| Source | Label | Mean P(F) | Median P(F) | Std | Uncertain% |
-| --- | --- | --- | --- | --- | --- |
-| flux | Fake | 0.516 | 0.542 | 0.441 | 3.8% |
-| real_camera | Real | 0.589 | **0.826** | 0.434 | 4.0% |
-| real_pexels | Real | 0.177 | 0.002 | 0.336 | 2.0% |
-| tristanzhang_fake | Fake | 0.619 | 0.898 | 0.432 | 4.3% |
+| Source            | Label | Mean P(F) | Median P(F) | Std   | Uncertain% |
+| ----------------- | ----- | --------- | ----------- | ----- | ---------- |
+| flux              | Fake  | 0.516     | 0.542       | 0.441 | 3.8%       |
+| real_camera       | Real  | 0.589     | **0.826**   | 0.434 | 4.0%       |
+| real_pexels       | Real  | 0.177     | 0.002       | 0.336 | 2.0%       |
+| tristanzhang_fake | Fake  | 0.619     | 0.898       | 0.432 | 4.3%       |
 
 #### v5 Diagnostic — Trade-off Analysis
 
 **Cải thiện (nhờ +COCO real + pos_weight=1.0)**:
+
 - ✅ `real_camera`: 36% → 49% (+13%) — P(Fake) median giảm 0.897→0.826
 - ✅ `real_pexels`: 74.5% → 86% (+11.5%) — Model nhận real outdoor tốt hơn nhiều
 - ✅ ID performance giữ vững (AUC 0.996)
 
 **Trả giá (pos_weight=1.0 giảm FAKE detection)**:
+
 - ❌ `flux`: 77.5% → 46.3% (-31.2%) — Model shift sang predict REAL
 - ❌ `tristanzhang_fake`: 79% → 56.7% (-22.3%) — Cùng nguyên nhân
 - ❌ OOD AUC: 0.784 → 0.689 (-0.095) — Do fake sources accuracy giảm
@@ -1068,14 +1070,14 @@ Logic trong `train.py` (line 47-53): Nếu arg đầu tiên KHÔNG bắt đầu 
 
 #### v5 Files Changed
 
-| File | Thay đổi |
-| --- | --- |
-| `scripts/subset_coco_real.py` | NEW: Subset 300 COCO Val images |
-| `scripts/resize_all.py` | +1 mapping real_camera_train |
-| `configs/train_v5.yaml` | NEW: pos_weight=1.0, sampler=true |
-| `configs/test.yaml` | threshold 0.5→0.76, checkpoint→best_v4.pt |
-| `analysis/find_threshold.py` | NEW: threshold optimization script |
-| `data/raw/real/real_camera_train/` | NEW: 300 COCO 2017 Val images |
+| File                               | Thay đổi                                  |
+| ---------------------------------- | ----------------------------------------- |
+| `scripts/subset_coco_real.py`      | NEW: Subset 300 COCO Val images           |
+| `scripts/resize_all.py`            | +1 mapping real_camera_train              |
+| `configs/train_v5.yaml`            | NEW: pos_weight=1.0, sampler=true         |
+| `configs/test.yaml`                | threshold 0.5→0.76, checkpoint→best_v4.pt |
+| `analysis/find_threshold.py`       | NEW: threshold optimization script        |
+| `data/raw/real/real_camera_train/` | NEW: 300 COCO 2017 Val images             |
 
 ---
 
@@ -1083,24 +1085,24 @@ Logic trong `train.py` (line 47-53): Nếu arg đầu tiên KHÔNG bắt đầu 
 
 ### Sprint 1: Foundation
 
-| Task                       | Trạng thái   | Ghi chú                           |
-| -------------------------- | ------------ | --------------------------------- |
-| **1.1** Environment Setup  | ✅ Completed |                                   |
-| **1.2** Data Collection    | ✅ Completed | 27,680 → 30,300 (v5 +COCO)        |
-| **1.3** Data Pipeline      | ✅ Completed |                                   |
-| **1.4** Model Architecture | ✅ Completed |                                   |
-| **1.5** Training Pipeline  | ✅ Completed |                                   |
-| **1.6** Baseline Training  | ✅ Completed | Val AUC 0.9983, ID AUC 0.9979     |
+| Task                       | Trạng thái   | Ghi chú                                                                                                                     |
+| -------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **1.1** Environment Setup  | ✅ Completed |                                                                                                                             |
+| **1.2** Data Collection    | ✅ Completed | 27,680 → 30,300 (v5 +COCO)                                                                                                  |
+| **1.3** Data Pipeline      | ✅ Completed |                                                                                                                             |
+| **1.4** Model Architecture | ✅ Completed |                                                                                                                             |
+| **1.5** Training Pipeline  | ✅ Completed |                                                                                                                             |
+| **1.6** Baseline Training  | ✅ Completed | Val AUC 0.9983, ID AUC 0.9979                                                                                               |
 | **1.7** OOD Improvement    | ✅ Completed | **Best: v4** OOD AUC 0.7838 (target >0.70). v5 tried +COCO → real_camera ↑ but OOD AUC ↓. Known limitation: real_camera 36% |
 
 ### Sprint 2: Evaluation
 
-| Task                        | Trạng thái     | Ghi chú                             |
-| --------------------------- | -------------- | ----------------------------------- |
-| **2.1** Evaluation Pipeline | ✅ Completed   | test.py + evaluator + visualization |
+| Task                        | Trạng thái     | Ghi chú                                                              |
+| --------------------------- | -------------- | -------------------------------------------------------------------- |
+| **2.1** Evaluation Pipeline | ✅ Completed   | test.py + evaluator + visualization                                  |
 | **2.2** Benchmark SOTA      | ✅ Completed   | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19 |
-| **2.3** Grad-CAM XAI        | ⬜ Not Started |                                     |
-| **2.4** Model Export        | ⬜ Not Started |                                     |
+| **2.3** Grad-CAM XAI        | ⬜ Not Started |                                                                      |
+| **2.4** Model Export        | ⬜ Not Started |                                                                      |
 
 ### Tests: 86/86 passed (as of 03/03/2026)
 
@@ -1115,21 +1117,21 @@ OOD test set 100% fair — disjoint from ALL models' training data.
 
 ### 19.2 Overall Results
 
-| Model | Params | ID AUC | OOD AUC | OOD Acc | OOD F1 |
-| --- | --- | --- | --- | --- | --- |
-| **HolmHz v4** | 4M | **0.9959** | **0.7823** | **71.3%** | **0.7547** |
-| CNNDetection | 25M | 0.5882 | 0.4264 | 44.0% | 0.0052 |
-| UniversalFakeDetect | 300M | 0.6479 | 0.4674 | 44.1% | 0.0306 |
-| DeepfakeBench | 19M | 0.5237 | 0.3913 | 42.8% | 0.4203 |
+| Model               | Params | ID AUC     | OOD AUC    | OOD Acc   | OOD F1     |
+| ------------------- | ------ | ---------- | ---------- | --------- | ---------- |
+| **HolmHz v4**       | 4M     | **0.9959** | **0.7823** | **71.3%** | **0.7547** |
+| CNNDetection        | 25M    | 0.5882     | 0.4264     | 44.0%     | 0.0052     |
+| UniversalFakeDetect | 300M   | 0.6479     | 0.4674     | 44.1%     | 0.0306     |
+| DeepfakeBench       | 19M    | 0.5237     | 0.3913     | 42.8%     | 0.4203     |
 
 ### 19.3 Per-Source OOD Accuracy
 
-| Model | flux (80) | tristanzhang (300) | real_pexels (200) | real_camera (100) |
-| --- | --- | --- | --- | --- |
-| **HolmHz v4** | **77.5%** | **79.3%** | **74.5%** | 36.0% |
-| CNNDetection | 0.0% | 0.3% | 99.0% | 100.0% |
-| UniversalFakeDetect | 0.0% | 2.0% | 98.0% | 98.0% |
-| DeepfakeBench | 57.5% | 31.7% | 47.5% | 55.0% |
+| Model               | flux (80) | tristanzhang (300) | real_pexels (200) | real_camera (100) |
+| ------------------- | --------- | ------------------ | ----------------- | ----------------- |
+| **HolmHz v4**       | **77.5%** | **79.3%**          | **74.5%**         | 36.0%             |
+| CNNDetection        | 0.0%      | 0.3%               | 99.0%             | 100.0%            |
+| UniversalFakeDetect | 0.0%      | 2.0%               | 98.0%             | 98.0%             |
+| DeepfakeBench       | 57.5%     | 31.7%              | 47.5%             | 55.0%             |
 
 ### 19.4 Key Findings
 
@@ -1142,22 +1144,23 @@ OOD test set 100% fair — disjoint from ALL models' training data.
 
 ### 19.5 Fairness Note
 
-> *"The OOD test set is fully disjoint from all models' training data. OOD metrics should be considered the primary fair comparison. The ID test set contains 12.5% sources unique to HolmHz training."*
+> _"The OOD test set is fully disjoint from all models' training data. OOD metrics should be considered the primary fair comparison. The ID test set contains 12.5% sources unique to HolmHz training."_
 
 ### 19.6 Files Created/Modified
 
-| File | Mô tả |
-| --- | --- |
-| `scripts/benchmark_sota.py` | Fixed HolmHz model loading (registry pattern) + DeepfakeBench importlib bypass |
-| `analysis/compare_models.py` | NEW: comparison table + ROC overlay + per-source bar chart |
-| `outputs/benchmark/predictions/*.csv` | 4 prediction files (5,225 samples each) |
-| `outputs/benchmark/comparison/comparison_table.md` | Markdown comparison table |
-| `outputs/benchmark/comparison/roc_overlay.png` | ROC curves (ID + OOD side by side) |
-| `outputs/benchmark/comparison/per_source_ood_accuracy.png` | Grouped bar chart |
+| File                                                       | Mô tả                                                                          |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `scripts/benchmark_sota.py`                                | Fixed HolmHz model loading (registry pattern) + DeepfakeBench importlib bypass |
+| `analysis/compare_models.py`                               | NEW: comparison table + ROC overlay + per-source bar chart                     |
+| `outputs/benchmark/predictions/*.csv`                      | 4 prediction files (5,225 samples each)                                        |
+| `outputs/benchmark/comparison/comparison_table.md`         | Markdown comparison table                                                      |
+| `outputs/benchmark/comparison/roc_overlay.png`             | ROC curves (ID + OOD side by side)                                             |
+| `outputs/benchmark/comparison/per_source_ood_accuracy.png` | Grouped bar chart                                                              |
 
 ### 19.7 Conclusion cho báo cáo
 
 Kết luận chính để viết vào paper:
+
 - HolmHz (4M params, trained on mixed GAN+Diffusion) achieves **OOD AUC 0.78**, outperforming all 3 SOTA methods
 - Key insight: **"Right training data matters more than model size"** — 75x fewer parameters than CLIP but 1.67x better OOD AUC
 - All SOTA methods trained only on GAN data → completely fail on modern Diffusion-generated images
