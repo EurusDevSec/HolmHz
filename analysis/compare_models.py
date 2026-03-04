@@ -159,8 +159,10 @@ def plot_per_source_bar(all_preds: dict, output_path: str):
         )
         accs = [ps.get(src, {}).get("accuracy", 0) * 100 for src in ood_sources]
         color = colors.get(model_name, "#666")
-        bars = ax.bar(x + i * bar_width, accs, bar_width,
-                      label=model_name, color=color, alpha=0.85)
+        bars = ax.bar(
+            x + i * bar_width, accs, bar_width,
+            label=model_name, color=color, alpha=0.85,
+        )
         # Add value labels
         for bar, acc in zip(bars, accs):
             if acc > 0:
@@ -197,7 +199,7 @@ def main():
         print(f"  Loaded: {name} ({len(all_preds[name]['labels'])} samples)")
 
     if not all_preds:
-        print("❌ No predictions found in outputs/benchmark/predictions/")
+        print("No predictions found in outputs/benchmark/predictions/")
         print("   Run: python scripts/benchmark_sota.py --model <name>")
         return
 
@@ -293,7 +295,7 @@ def main():
     # ── Per-source bar chart ──
     plot_per_source_bar(all_preds, str(out_dir / "per_source_ood_accuracy.png"))
 
-    print(f"\n✅ All outputs saved to: {out_dir}")
+    print(f"\n All outputs saved to: {out_dir}")
 
 
 if __name__ == "__main__":

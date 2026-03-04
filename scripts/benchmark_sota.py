@@ -46,9 +46,12 @@ def load_manifest(manifest_path: str) -> list[dict]:
 
 def run_holmhz(samples: list[dict], device: str) -> list[float]:
     """HolmHz v4 — EfficientNet-B0, ImageNet norm, 224x224."""
-    from holmhz.model.factory import create_model
+    import holmhz.detectors  # noqa: F401 — registers detectors
+    from holmhz.utils.registry import DETECTOR_REGISTRY
 
-    model = create_model("efficientnet_b0", num_classes=1, pretrained=False)
+    model = DETECTOR_REGISTRY.build(
+        "efficientnet_b0", pretrained=False, dropout=0.3, freeze_backbone=False,
+    )
     ckpt = torch.load(
         "outputs/checkpoints/best_v4.pt",
         map_location=device,
@@ -145,22 +148,77 @@ def run_universalfake(samples: list[dict], device: str) -> list[float]:
 def run_deepfakebench(samples: list[dict], device: str) -> list[float]:
     """DeepfakeBench — EfficientNet-B4, [0.5,0.5,0.5] norm, 256x256.
 
-    ⚠️ Cần mock tensorboard + dlib (không cần cho inference).
+    ⚠️ Cần mock tensorboard + dlib + các dependencies nặng.
     Theo test_deepfakebench.py: resize 256, norm [0.5,0.5,0.5].
     """
     import yaml
+    import importlib.util
+    import types
     from unittest.mock import MagicMock
-
-    # Mock problematic imports
-    sys.modules['torch.utils.tensorboard'] = MagicMock()
-    sys.modules['tensorboard'] = MagicMock()
-    sys.modules['dlib'] = MagicMock()
 
     repo_path = PRAC_BASE / "DeepfakeBench"
     training_path = repo_path / "training"
-    sys.path.insert(0, str(training_path))
 
-    from detectors.efficientnetb4_detector import EfficientDetector
+    # Add training path to sys.path
+    if str(training_path) not in sys.path:
+        sys.path.insert(0, str(training_path))
+
+    # Mock tensorboard
+    sys.modules.setdefault('torch.utils.tensorboard', MagicMock())
+
+    # ── Step 1: Load registry (simple, no heavy deps) ──
+    import metrics.registry as registry_mod
+    BACKBONE = registry_mod.BACKBONE
+    DETECTOR = registry_mod.DETECTOR
+    LOSSFUNC = registry_mod.LOSSFUNC
+
+    # ── Step 2: Load EfficientNetB4 backbone (needs efficientnet_pytorch) ──
+    from networks.efficientnetb4 import EfficientNetB4
+
+    # ── Step 3: Register dummy cross_entropy loss ──
+    import torch.nn as _nn
+
+    @LOSSFUNC.register_module(module_name='cross_entropy')
+    class _DummyCE(_nn.Module):
+        def forward(self, pred, label):
+            return torch.nn.functional.cross_entropy(pred, label)
+
+    # ── Step 4: Load base_detector.py via importlib (bypass detectors/__init__) ──
+    def _load_module(name, filepath):
+        spec = importlib.util.spec_from_file_location(name, str(filepath))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+    base_det_mod = _load_module(
+        "detectors.base_detector",
+        training_path / "detectors" / "base_detector.py",
+    )
+    AbstractDetector = base_det_mod.AbstractDetector
+
+    # ── Step 5: Prepare fake 'loss' and 'detectors' packages in sys.modules ──
+    # so that `from loss import LOSSFUNC` and `from detectors import DETECTOR`
+    # inside efficientnetb4_detector.py resolve correctly.
+    fake_loss = types.ModuleType('loss')
+    fake_loss.LOSSFUNC = LOSSFUNC
+    sys.modules['loss'] = fake_loss
+
+    fake_detectors = types.ModuleType('detectors')
+    fake_detectors.DETECTOR = DETECTOR
+    fake_detectors.base_detector = base_det_mod
+    sys.modules['detectors'] = fake_detectors
+    sys.modules['detectors.base_detector'] = base_det_mod
+
+    fake_networks = types.ModuleType('networks')
+    fake_networks.BACKBONE = BACKBONE
+    sys.modules['networks'] = fake_networks
+
+    # ── Step 6: Load efficientnetb4_detector.py ──
+    efb4_mod = _load_module(
+        "detectors.efficientnetb4_detector",
+        training_path / "detectors" / "efficientnetb4_detector.py",
+    )
+    EfficientDetector = efb4_mod.EfficientDetector
 
     # Load config
     conf_path = training_path / "config" / "detector" / "efficientnetb4.yaml"
