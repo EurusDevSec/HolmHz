@@ -1,0 +1,495 @@
+============================================================
+🚀 PHASE 1: Freeze backbone — 10 epochs
+============================================================
+2026-02-26 13:56:19 | INFO     | Config loaded from: configs/train.yaml
+2026-02-26 13:56:19 | INFO     | Config:
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: true
+training:
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.001
+  optimizer: adamw
+  weight_decay: 0.0001
+  scheduler: cosine
+  early_stopping:
+    patience: 5
+    monitor: val_auc
+data:
+  train_manifest: data/manifests/train.json
+  val_manifest: data/manifests/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
+
+2026-02-26 13:56:19 | INFO     | Device: cuda
+2026-02-26 13:56:19 | INFO     | GPU: Tesla T4
+2026-02-26 13:56:19 | INFO     | VRAM: 15.6 GB
+2026-02-26 13:56:19 | INFO     | Train: 18550 samples, 579 batches
+2026-02-26 13:56:19 | INFO     | Val:   3975 samples, 63 batches
+model.safetensors: 100%|███████████████████| 21.4M/21.4M [00:01<00:00, 21.3MB/s]
+2026-02-26 13:56:21 | INFO     | Model: efficientnet_b0
+2026-02-26 13:56:21 | INFO     | Total params: 4,008,829
+2026-02-26 13:56:21 | INFO     | Trainable params: 1,281
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: hoangslevan (hoangslevan-thu-dau-mot-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: ⢿ Waiting for wandb.init()...
+wandb: ⣻ Waiting for wandb.init()...
+wandb: ⣽ Waiting for wandb.init()...
+wandb: ⣾ setting up run 54a11d26 (0.3s)
+wandb: ⣷ setting up run 54a11d26 (0.3s)
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /kaggle/working/HolmHz/HolmHz/HolmHz/HolmHz/wandb/run-20260226_135621-54a11d26
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run warm-universe-3
+wandb: ⭐️ View project at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: 🚀 View run at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/54a11d26
+2026-02-26 13:56:23 | INFO     | W&B run: warm-universe-3
+2026-02-26 13:56:24 | INFO     | ============================================================
+2026-02-26 13:56:24 | INFO     | TRAINING START
+2026-02-26 13:56:24 | INFO     | ============================================================
+2026-02-26 13:56:24 | INFO     | Epochs: 1 → 10
+2026-02-26 13:56:24 | INFO     | Train samples: 18550
+2026-02-26 13:56:24 | INFO     | Val samples:   3975
+2026-02-26 13:56:24 | INFO     | Device: cuda
+2026-02-26 13:56:24 | INFO     | AMP: True
+2026-02-26 13:56:24 | INFO     | Checkpoints: outputs/checkpoints
+2026-02-26 13:56:24 | INFO     | ============================================================
+2026-02-26 13:57:38 | INFO     | Epoch   1 | Train Loss: 0.4851 | Val Loss: 0.3845 | Val Acc: 0.8387 | Val AUC: 0.9202 | LR: 9.76e-04 | 74.8s
+2026-02-26 13:57:38 | INFO     |   ★ New best model saved (val_auc=0.9202)
+2026-02-26 13:58:29 | INFO     | Epoch   2 | Train Loss: 0.4321 | Val Loss: 0.3523 | Val Acc: 0.8581 | Val AUC: 0.9316 ★ | LR: 9.05e-04 | 50.8s
+2026-02-26 13:58:30 | INFO     |   ★ New best model saved (val_auc=0.9316)
+2026-02-26 13:59:21 | INFO     | Epoch   3 | Train Loss: 0.4174 | Val Loss: 0.3426 | Val Acc: 0.8614 | Val AUC: 0.9346 ★ | LR: 7.94e-04 | 51.1s
+2026-02-26 13:59:21 | INFO     |   ★ New best model saved (val_auc=0.9346)
+2026-02-26 14:00:12 | INFO     | Epoch   4 | Train Loss: 0.4069 | Val Loss: 0.3327 | Val Acc: 0.8647 | Val AUC: 0.9376 ★ | LR: 6.55e-04 | 50.7s
+2026-02-26 14:00:12 | INFO     |   ★ New best model saved (val_auc=0.9376)
+2026-02-26 14:01:03 | INFO     | Epoch   5 | Train Loss: 0.4095 | Val Loss: 0.3271 | Val Acc: 0.8702 | Val AUC: 0.9398 ★ | LR: 5.01e-04 | 51.0s
+2026-02-26 14:01:03 | INFO     |   ★ New best model saved (val_auc=0.9398)
+2026-02-26 14:01:54 | INFO     | Epoch   6 | Train Loss: 0.4038 | Val Loss: 0.3253 | Val Acc: 0.8709 | Val AUC: 0.9406 ★ | LR: 3.46e-04 | 50.6s
+2026-02-26 14:01:54 | INFO     |   ★ New best model saved (val_auc=0.9406)
+2026-02-26 14:02:44 | INFO     | Epoch   7 | Train Loss: 0.4038 | Val Loss: 0.3279 | Val Acc: 0.8652 | Val AUC: 0.9389 ★ | LR: 2.07e-04 | 50.0s
+2026-02-26 14:03:35 | INFO     | Epoch   8 | Train Loss: 0.4041 | Val Loss: 0.3210 | Val Acc: 0.8707 | Val AUC: 0.9419 | LR: 9.64e-05 | 50.7s
+2026-02-26 14:03:35 | INFO     |   ★ New best model saved (val_auc=0.9419)
+2026-02-26 14:04:26 | INFO     | Epoch   9 | Train Loss: 0.3994 | Val Loss: 0.3238 | Val Acc: 0.8684 | Val AUC: 0.9409 ★ | LR: 2.54e-05 | 51.5s
+2026-02-26 14:05:16 | INFO     | Epoch  10 | Train Loss: 0.3969 | Val Loss: 0.3270 | Val Acc: 0.8697 | Val AUC: 0.9399 | LR: 1.00e-06 | 49.6s
+2026-02-26 14:05:16 | INFO     | ============================================================
+2026-02-26 14:05:16 | INFO     | TRAINING COMPLETE — Best val_auc: 0.9419
+2026-02-26 14:05:16 | INFO     | ============================================================
+wandb: ⢿ updating run metadata (0.0s)
+wandb: ⣻ updating run metadata (0.0s)
+wandb: ⣽ updating run metadata (0.0s)
+wandb: ⣾ updating run metadata (0.0s)
+wandb: ⣷ uploading config.yaml 3.1KB/3.1KB (0.0s)
+wandb: ⣯ uploading config.yaml 3.1KB/3.1KB (0.0s)
+wandb: ⣟ uploading config.yaml 3.1KB/3.1KB (0.0s)
+wandb: ⡿ uploading config.yaml 3.1KB/3.1KB (0.0s)
+wandb: ⢿ uploading config.yaml 3.1KB/3.1KB (0.0s)
+wandb: ⣻ uploading console lines 14-31 (0.1s)
+wandb: ⣽ uploading console lines 14-31 (0.1s)
+wandb: 
+wandb: Run history:
+wandb:      epoch ▁▂▃▃▄▅▆▆▇█
+wandb: epoch_time █▁▁▁▁▁▁▁▂▁
+wandb:         lr █▇▇▆▅▃▂▂▁▁
+wandb:  train_acc ▁▅▆▇▇▇▇▇▇█
+wandb:  train_auc ▁▅▆▇▇▇▇▇██
+wandb: train_loss █▄▃▂▂▂▂▂▁▁
+wandb:    val_acc ▁▅▆▇██▇█▇█
+wandb:    val_auc ▁▅▆▇▇█▇██▇
+wandb:   val_loss █▄▃▂▂▁▂▁▁▂
+wandb: 
+wandb: Run summary:
+wandb:      epoch 9
+wandb: epoch_time 49.56329
+wandb:         lr 0.0
+wandb:  train_acc 0.82351
+wandb:  train_auc 0.90068
+wandb: train_loss 0.39691
+wandb:    val_acc 0.86969
+wandb:    val_auc 0.93994
+wandb:   val_loss 0.32705
+wandb: 
+wandb: 🚀 View run warm-universe-3 at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/54a11d26
+wandb: ⭐️ View project at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260226_135621-54a11d26/logs
+2026-02-26 14:05:17 | INFO     | Done!
+✅ Phase 1 DONE — checkpoint saved
+
+============================================================
+🚀 PHASE 2: Unfreeze — LR=1e-4, 20 epochs
+============================================================
+2026-02-26 14:05:27 | INFO     | Config loaded from: configs/train.yaml
+2026-02-26 14:05:27 | INFO     | Config:
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false
+training:
+  epochs: 20
+  batch_size: 32
+  learning_rate: 0.0001
+  optimizer: adamw
+  weight_decay: 0.0001
+  scheduler: cosine
+  early_stopping:
+    patience: 5
+    monitor: val_auc
+data:
+  train_manifest: data/manifests/train.json
+  val_manifest: data/manifests/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
+
+2026-02-26 14:05:27 | INFO     | Device: cuda
+2026-02-26 14:05:27 | INFO     | GPU: Tesla T4
+2026-02-26 14:05:27 | INFO     | VRAM: 15.6 GB
+2026-02-26 14:05:27 | INFO     | Train: 18550 samples, 579 batches
+2026-02-26 14:05:27 | INFO     | Val:   3975 samples, 63 batches
+2026-02-26 14:05:27 | INFO     | Model: efficientnet_b0
+2026-02-26 14:05:27 | INFO     | Total params: 4,008,829
+2026-02-26 14:05:27 | INFO     | Trainable params: 4,008,829
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: hoangslevan (hoangslevan-thu-dau-mot-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: ⢿ Waiting for wandb.init()...
+wandb: ⣻ Waiting for wandb.init()...
+wandb: ⣽ Waiting for wandb.init()...
+wandb: ⣾ setting up run ffoeio13 (0.3s)
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /kaggle/working/HolmHz/HolmHz/HolmHz/HolmHz/wandb/run-20260226_140528-ffoeio13
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run misunderstood-blaze-4
+wandb: ⭐️ View project at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: 🚀 View run at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/ffoeio13
+2026-02-26 14:05:29 | INFO     | W&B run: misunderstood-blaze-4
+2026-02-26 14:05:29 | INFO     | ============================================================
+2026-02-26 14:05:29 | INFO     | TRAINING START
+2026-02-26 14:05:29 | INFO     | ============================================================
+2026-02-26 14:05:29 | INFO     | Epochs: 1 → 20
+2026-02-26 14:05:29 | INFO     | Train samples: 18550
+2026-02-26 14:05:29 | INFO     | Val samples:   3975
+2026-02-26 14:05:29 | INFO     | Device: cuda
+2026-02-26 14:05:29 | INFO     | AMP: True
+2026-02-26 14:05:29 | INFO     | Checkpoints: outputs/checkpoints
+2026-02-26 14:05:29 | INFO     | ============================================================
+2026-02-26 14:06:46 | INFO     | Epoch   1 | Train Loss: 0.2364 | Val Loss: 0.0868 | Val Acc: 0.9711 | Val AUC: 0.9955 | LR: 9.94e-05 | 76.3s
+2026-02-26 14:06:46 | INFO     |   ★ New best model saved (val_auc=0.9955)
+2026-02-26 14:07:50 | INFO     | Epoch   2 | Train Loss: 0.1107 | Val Loss: 0.0749 | Val Acc: 0.9748 | Val AUC: 0.9971 ★ | LR: 9.76e-05 | 64.0s
+2026-02-26 14:07:51 | INFO     |   ★ New best model saved (val_auc=0.9971)
+2026-02-26 14:08:56 | INFO     | Epoch   3 | Train Loss: 0.0736 | Val Loss: 0.0746 | Val Acc: 0.9736 | Val AUC: 0.9968 ★ | LR: 9.46e-05 | 65.5s
+2026-02-26 14:10:00 | INFO     | Epoch   4 | Train Loss: 0.0565 | Val Loss: 0.0683 | Val Acc: 0.9774 | Val AUC: 0.9970 | LR: 9.05e-05 | 63.9s
+2026-02-26 14:11:05 | INFO     | Epoch   5 | Train Loss: 0.0427 | Val Loss: 0.0641 | Val Acc: 0.9784 | Val AUC: 0.9976 | LR: 8.55e-05 | 64.5s
+2026-02-26 14:11:05 | INFO     |   ★ New best model saved (val_auc=0.9976)
+2026-02-26 14:12:11 | INFO     | Epoch   6 | Train Loss: 0.0334 | Val Loss: 0.0650 | Val Acc: 0.9804 | Val AUC: 0.9972 ★ | LR: 7.96e-05 | 65.1s
+2026-02-26 14:13:15 | INFO     | Epoch   7 | Train Loss: 0.0273 | Val Loss: 0.0768 | Val Acc: 0.9733 | Val AUC: 0.9970 | LR: 7.30e-05 | 64.3s
+2026-02-26 14:14:19 | INFO     | Epoch   8 | Train Loss: 0.0205 | Val Loss: 0.0634 | Val Acc: 0.9801 | Val AUC: 0.9978 | LR: 6.58e-05 | 64.2s
+2026-02-26 14:14:20 | INFO     |   ★ New best model saved (val_auc=0.9978)
+2026-02-26 14:15:24 | INFO     | Epoch   9 | Train Loss: 0.0192 | Val Loss: 0.0753 | Val Acc: 0.9761 | Val AUC: 0.9974 ★ | LR: 5.82e-05 | 63.8s
+2026-02-26 14:16:28 | INFO     | Epoch  10 | Train Loss: 0.0163 | Val Loss: 0.0714 | Val Acc: 0.9796 | Val AUC: 0.9974 | LR: 5.05e-05 | 64.1s
+2026-02-26 14:17:32 | INFO     | Epoch  11 | Train Loss: 0.0131 | Val Loss: 0.0823 | Val Acc: 0.9784 | Val AUC: 0.9969 | LR: 4.28e-05 | 64.2s
+2026-02-26 14:18:38 | INFO     | Epoch  12 | Train Loss: 0.0105 | Val Loss: 0.0620 | Val Acc: 0.9826 | Val AUC: 0.9983 | LR: 3.52e-05 | 64.9s
+2026-02-26 14:18:38 | INFO     |   ★ New best model saved (val_auc=0.9983)
+2026-02-26 14:19:42 | INFO     | Epoch  13 | Train Loss: 0.0090 | Val Loss: 0.0671 | Val Acc: 0.9826 | Val AUC: 0.9979 ★ | LR: 2.80e-05 | 64.2s
+2026-02-26 14:20:47 | INFO     | Epoch  14 | Train Loss: 0.0093 | Val Loss: 0.0638 | Val Acc: 0.9859 | Val AUC: 0.9979 | LR: 2.14e-05 | 64.3s
+2026-02-26 14:21:51 | INFO     | Epoch  15 | Train Loss: 0.0048 | Val Loss: 0.0692 | Val Acc: 0.9831 | Val AUC: 0.9979 | LR: 1.55e-05 | 64.3s
+2026-02-26 14:22:56 | INFO     | Epoch  16 | Train Loss: 0.0048 | Val Loss: 0.0683 | Val Acc: 0.9836 | Val AUC: 0.9978 | LR: 1.05e-05 | 64.1s
+2026-02-26 14:23:59 | INFO     | Epoch  17 | Train Loss: 0.0061 | Val Loss: 0.0649 | Val Acc: 0.9844 | Val AUC: 0.9980 | LR: 6.40e-06 | 63.6s
+2026-02-26 14:24:00 | INFO     | Early stopping at epoch 17 (no improvement for 5 epochs)
+2026-02-26 14:24:00 | INFO     | ============================================================
+2026-02-26 14:24:00 | INFO     | TRAINING COMPLETE — Best val_auc: 0.9983
+2026-02-26 14:24:00 | INFO     | ============================================================
+wandb: ⢿ updating run metadata (0.0s)
+wandb: ⣻ updating run metadata (0.0s)
+wandb: ⣽ updating run metadata (0.0s)
+wandb: ⣾ updating run metadata (0.0s)
+wandb: ⣷ uploading config.yaml 3.2KB/3.2KB (0.1s)
+wandb: ⣯ uploading config.yaml 3.2KB/3.2KB (0.1s)
+wandb: ⣟ uploading config.yaml 3.2KB/3.2KB (0.1s)
+wandb: ⡿ uploading config.yaml 3.2KB/3.2KB (0.1s)
+wandb: ⢿ uploading config.yaml 3.2KB/3.2KB (0.1s)
+wandb: ⣻ uploading history steps 15-16, summary, console lines 11-11 (0.4s)
+wandb: ⣽ uploading history steps 15-16, summary, console lines 11-11 (0.4s)
+wandb: ⣾ uploading history steps 15-16, summary, console lines 11-11 (0.4s)
+wandb: ⣷ uploading history steps 15-16, summary, console lines 11-11 (0.4s)
+wandb: 
+wandb: Run history:
+wandb:      epoch ▁▁▂▂▃▃▄▄▅▅▅▆▆▇▇██
+wandb: epoch_time █▁▂▁▁▂▁▁▁▁▁▂▁▁▁▁▁
+wandb:         lr ███▇▇▇▆▅▅▄▄▃▃▂▂▁▁
+wandb:  train_acc ▁▅▆▇▇▇▇██████████
+wandb:  train_auc ▁▆▇██████████████
+wandb: train_loss █▄▃▃▂▂▂▁▁▁▁▁▁▁▁▁▁
+wandb:    val_acc ▁▃▂▄▄▅▂▅▃▅▄▆▆█▇▇▇
+wandb:    val_auc ▁▅▄▅▆▅▅▇▆▆▄█▇▇▇▇▇
+wandb:   val_loss █▅▅▃▂▂▅▁▅▄▇▁▂▂▃▃▂
+wandb: 
+wandb: Run summary:
+wandb:      epoch 16
+wandb: epoch_time 63.60497
+wandb:         lr 1e-05
+wandb:  train_acc 0.99806
+wandb:  train_auc 0.99997
+wandb: train_loss 0.00611
+wandb:    val_acc 0.9844
+wandb:    val_auc 0.99802
+wandb:   val_loss 0.06495
+wandb: 
+wandb: 🚀 View run misunderstood-blaze-4 at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/ffoeio13
+wandb: ⭐️ View project at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260226_140528-ffoeio13/logs
+2026-02-26 14:24:01 | INFO     | Done!
+✅ Phase 2 (LR=1e-4) DONE
+
+============================================================
+🔬 HP TUNING Run A: LR=5e-4, 20 epochs
+============================================================
+2026-02-26 14:24:09 | INFO     | Config loaded from: configs/train.yaml
+2026-02-26 14:24:09 | INFO     | Config:
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false
+training:
+  epochs: 20
+  batch_size: 32
+  learning_rate: 0.0005
+  optimizer: adamw
+  weight_decay: 0.0001
+  scheduler: cosine
+  early_stopping:
+    patience: 5
+    monitor: val_auc
+data:
+  train_manifest: data/manifests/train.json
+  val_manifest: data/manifests/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
+
+2026-02-26 14:24:10 | INFO     | Device: cuda
+2026-02-26 14:24:10 | INFO     | GPU: Tesla T4
+2026-02-26 14:24:10 | INFO     | VRAM: 15.6 GB
+2026-02-26 14:24:10 | INFO     | Train: 18550 samples, 579 batches
+2026-02-26 14:24:10 | INFO     | Val:   3975 samples, 63 batches
+2026-02-26 14:24:10 | INFO     | Model: efficientnet_b0
+2026-02-26 14:24:10 | INFO     | Total params: 4,008,829
+2026-02-26 14:24:10 | INFO     | Trainable params: 4,008,829
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: hoangslevan (hoangslevan-thu-dau-mot-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: ⢿ Waiting for wandb.init()...
+wandb: ⣻ Waiting for wandb.init()...
+wandb: ⣽ Waiting for wandb.init()...
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /kaggle/working/HolmHz/HolmHz/HolmHz/HolmHz/wandb/run-20260226_142410-8lwftwxp
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fine-resonance-5
+wandb: ⭐️ View project at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: 🚀 View run at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/8lwftwxp
+2026-02-26 14:24:12 | INFO     | W&B run: fine-resonance-5
+2026-02-26 14:24:12 | INFO     | ============================================================
+2026-02-26 14:24:12 | INFO     | TRAINING START
+2026-02-26 14:24:12 | INFO     | ============================================================
+2026-02-26 14:24:12 | INFO     | Epochs: 1 → 20
+2026-02-26 14:24:12 | INFO     | Train samples: 18550
+2026-02-26 14:24:12 | INFO     | Val samples:   3975
+2026-02-26 14:24:12 | INFO     | Device: cuda
+2026-02-26 14:24:12 | INFO     | AMP: True
+2026-02-26 14:24:12 | INFO     | Checkpoints: outputs/checkpoints
+2026-02-26 14:24:12 | INFO     | ============================================================
+2026-02-26 14:25:27 | INFO     | Epoch   1 | Train Loss: 0.2226 | Val Loss: 0.1049 | Val Acc: 0.9600 | Val AUC: 0.9943 | LR: 4.97e-04 | 74.6s
+2026-02-26 14:25:27 | INFO     |   ★ New best model saved (val_auc=0.9943)
+2026-02-26 14:26:31 | INFO     | Epoch   2 | Train Loss: 0.1302 | Val Loss: 0.0564 | Val Acc: 0.9816 | Val AUC: 0.9982 ★ | LR: 4.88e-04 | 64.0s
+2026-02-26 14:26:31 | INFO     |   ★ New best model saved (val_auc=0.9982)
+2026-02-26 14:27:37 | INFO     | Epoch   3 | Train Loss: 0.1004 | Val Loss: 0.0624 | Val Acc: 0.9776 | Val AUC: 0.9976 ★ | LR: 4.73e-04 | 65.8s
+2026-02-26 14:28:43 | INFO     | Epoch   4 | Train Loss: 0.0691 | Val Loss: 0.0931 | Val Acc: 0.9663 | Val AUC: 0.9949 | LR: 4.52e-04 | 65.5s
+2026-02-26 14:29:49 | INFO     | Epoch   5 | Train Loss: 0.0677 | Val Loss: 0.0839 | Val Acc: 0.9640 | Val AUC: 0.9960 | LR: 4.27e-04 | 65.7s
+2026-02-26 14:30:55 | INFO     | Epoch   6 | Train Loss: 0.0572 | Val Loss: 0.0596 | Val Acc: 0.9781 | Val AUC: 0.9979 | LR: 3.97e-04 | 65.8s
+2026-02-26 14:32:01 | INFO     | Epoch   7 | Train Loss: 0.0480 | Val Loss: 0.0732 | Val Acc: 0.9723 | Val AUC: 0.9969 | LR: 3.64e-04 | 66.2s
+2026-02-26 14:32:01 | INFO     | Early stopping at epoch 7 (no improvement for 5 epochs)
+2026-02-26 14:32:01 | INFO     | ============================================================
+2026-02-26 14:32:01 | INFO     | TRAINING COMPLETE — Best val_auc: 0.9982
+2026-02-26 14:32:01 | INFO     | ============================================================
+wandb: ⢿ updating run metadata (0.0s)
+wandb: ⣻ updating run metadata (0.0s)
+wandb: ⣽ updating run metadata (0.0s)
+wandb: ⣾ updating run metadata (0.0s)
+wandb: ⣷ uploading config.yaml 3.2KB/3.2KB (0.2s)
+wandb: ⣯ uploading config.yaml 3.2KB/3.2KB (0.2s)
+wandb: ⣟ uploading config.yaml 3.2KB/3.2KB (0.2s)
+wandb: ⡿ uploading config.yaml 3.2KB/3.2KB (0.2s)
+wandb: ⢿ uploading config.yaml 3.2KB/3.2KB (0.2s)
+wandb: ⣻ uploading console lines 14-24 (0.2s)
+wandb: 
+wandb: Run history:
+wandb:      epoch ▁▂▃▅▆▇█
+wandb: epoch_time █▁▂▂▂▂▂
+wandb:         lr ██▇▆▄▃▁
+wandb:  train_acc ▁▅▆▇▇██
+wandb:  train_auc ▁▆▇████
+wandb: train_loss █▄▃▂▂▁▁
+wandb:    val_acc ▁█▇▃▂▇▅
+wandb:    val_auc ▁█▇▂▄▇▆
+wandb:   val_loss █▁▂▆▅▁▃
+wandb: 
+wandb: Run summary:
+wandb:      epoch 6
+wandb: epoch_time 66.22526
+wandb:         lr 0.00036
+wandb:  train_acc 0.98284
+wandb:  train_auc 0.99842
+wandb: train_loss 0.04801
+wandb:    val_acc 0.97233
+wandb:    val_auc 0.99693
+wandb:   val_loss 0.07321
+wandb: 
+wandb: 🚀 View run fine-resonance-5 at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/8lwftwxp
+wandb: ⭐️ View project at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260226_142410-8lwftwxp/logs
+2026-02-26 14:32:02 | INFO     | Done!
+✅ HP Run A (LR=5e-4) DONE
+
+============================================================
+🔬 HP TUNING Run B: LR=5e-5, 20 epochs
+============================================================
+2026-02-26 14:32:11 | INFO     | Config loaded from: configs/train.yaml
+2026-02-26 14:32:11 | INFO     | Config:
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false
+training:
+  epochs: 20
+  batch_size: 32
+  learning_rate: 5.0e-05
+  optimizer: adamw
+  weight_decay: 0.0001
+  scheduler: cosine
+  early_stopping:
+    patience: 5
+    monitor: val_auc
+data:
+  train_manifest: data/manifests/train.json
+  val_manifest: data/manifests/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
+
+2026-02-26 14:32:12 | INFO     | Device: cuda
+2026-02-26 14:32:12 | INFO     | GPU: Tesla T4
+2026-02-26 14:32:12 | INFO     | VRAM: 15.6 GB
+2026-02-26 14:32:12 | INFO     | Train: 18550 samples, 579 batches
+2026-02-26 14:32:12 | INFO     | Val:   3975 samples, 63 batches
+2026-02-26 14:32:12 | INFO     | Model: efficientnet_b0
+2026-02-26 14:32:12 | INFO     | Total params: 4,008,829
+2026-02-26 14:32:12 | INFO     | Trainable params: 4,008,829
+wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from WANDB_API_KEY.
+wandb: Currently logged in as: hoangslevan (hoangslevan-thu-dau-mot-university) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: ⢿ Waiting for wandb.init()...
+wandb: ⣻ Waiting for wandb.init()...
+wandb: ⣽ Waiting for wandb.init()...
+wandb: Tracking run with wandb version 0.24.0
+wandb: Run data is saved locally in /kaggle/working/HolmHz/HolmHz/HolmHz/HolmHz/wandb/run-20260226_143212-1vd00osf
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fanciful-eon-6
+wandb: ⭐️ View project at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: 🚀 View run at https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/1vd00osf
+2026-02-26 14:32:14 | INFO     | W&B run: fanciful-eon-6
+2026-02-26 14:32:14 | INFO     | ============================================================
+2026-02-26 14:32:14 | INFO     | TRAINING START
+2026-02-26 14:32:14 | INFO     | ============================================================
+2026-02-26 14:32:14 | INFO     | Epochs: 1 → 20
+2026-02-26 14:32:14 | INFO     | Train samples: 18550
+2026-02-26 14:32:14 | INFO     | Val samples:   3975
+2026-02-26 14:32:14 | INFO     | Device: cuda
+2026-02-26 14:32:14 | INFO     | AMP: True
+2026-02-26 14:32:14 | INFO     | Checkpoints: outputs/checkpoints
+2026-02-26 14:32:14 | INFO     | ============================================================
+2026-02-26 14:33:31 | INFO     | Epoch   1 | Train Loss: 0.2864 | Val Loss: 0.0963 | Val Acc: 0.9615 | Val AUC: 0.9951 | LR: 4.97e-05 | 77.3s
+2026-02-26 14:33:32 | INFO     |   ★ New best model saved (val_auc=0.9951)
+2026-02-26 14:34:37 | INFO     | Epoch   2 | Train Loss: 0.1372 | Val Loss: 0.0748 | Val Acc: 0.9733 | Val AUC: 0.9967 ★ | LR: 4.88e-05 | 65.3s
+2026-02-26 14:34:37 | INFO     |   ★ New best model saved (val_auc=0.9967)
+2026-02-26 14:35:43 | INFO     | Epoch   3 | Train Loss: 0.0947 | Val Loss: 0.0612 | Val Acc: 0.9781 | Val AUC: 0.9978 ★ | LR: 4.73e-05 | 65.8s
+2026-02-26 14:35:44 | INFO     |   ★ New best model saved (val_auc=0.9978)
+2026-02-26 14:36:50 | INFO     | Epoch   4 | Train Loss: 0.0711 | Val Loss: 0.0615 | Val Acc: 0.9789 | Val AUC: 0.9974 ★ | LR: 4.53e-05 | 65.9s
+2026-02-26 14:37:55 | INFO     | Epoch   5 | Train Loss: 0.0552 | Val Loss: 0.0596 | Val Acc: 0.9774 | Val AUC: 0.9974 | LR: 4.28e-05 | 64.8s
+2026-02-26 14:39:00 | INFO     | Epoch   6 | Train Loss: 0.0439 | Val Loss: 0.0641 | Val Acc: 0.9791 | Val AUC: 0.9970 | LR: 3.99e-05 | 64.7s
+2026-02-26 14:40:05 | INFO     | Epoch   7 | Train Loss: 0.0360 | Val Loss: 0.0624 | Val Acc: 0.9816 | Val AUC: 0.9972 | LR: 3.66e-05 | 64.9s
+2026-02-26 14:41:11 | INFO     | Epoch   8 | Train Loss: 0.0341 | Val Loss: 0.0697 | Val Acc: 0.9781 | Val AUC: 0.9971 | LR: 3.31e-05 | 65.5s
+2026-02-26 14:41:11 | INFO     | Early stopping at epoch 8 (no improvement for 5 epochs)
+2026-02-26 14:41:11 | INFO     | ============================================================
+2026-02-26 14:41:11 | INFO     | TRAINING COMPLETE — Best val_auc: 0.9978
+2026-02-26 14:41:11 | INFO     | ============================================================
+wandb: ⢿ updating run metadata (0.0s)
+wandb: ⣻ updating run metadata (0.0s)
+wandb: ⣽ updating run metadata (0.0s)
+wandb: ⣾ updating run metadata (0.0s)
+wandb: ⣷ uploading history steps 6-7, summary, console lines 11-11 (0.1s)
+wandb: ⣯ uploading history steps 6-7, summary, console lines 11-11 (0.1s)
+wandb: ⣟ uploading history steps 6-7, summary, console lines 11-11 (0.1s)
+wandb: 
+wandb: Run history:
+wandb:      epoch ▁▂▃▄▅▆▇█
+wandb: epoch_time █▁▂▂▁▁▁▁
+wandb:         lr ██▇▆▅▄▂▁
+wandb:  train_acc ▁▅▆▇████
+wandb:  train_auc ▁▆▇█████
+wandb: train_loss █▄▃▂▂▁▁▁
+wandb:    val_acc ▁▅▇▇▇▇█▇
+wandb:    val_auc ▁▅█▇▇▆▇▆
+wandb:   val_loss █▄▁▁▁▂▂▃
+wandb: 
+wandb: Run summary:
+wandb:      epoch 7
+wandb: epoch_time 65.53422
+wandb:         lr 3e-05
+wandb:  train_acc 0.98737
+wandb:  train_auc 0.99928
+wandb: train_loss 0.03411
+wandb:    val_acc 0.97811
+wandb:    val_auc 0.99707
+wandb:   val_loss 0.06972
+wandb: 
+wandb: 🚀 View run fanciful-eon-6 at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz/runs/1vd00osf
+wandb: ⭐️ View project at: https://wandb.ai/hoangslevan-thu-dau-mot-university/holmhz
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260226_143212-1vd00osf/logs
+2026-02-26 14:41:12 | INFO     | Done!
+✅ HP Run B (LR=5e-5) DONE
+
+============================================================
+📊 TẤT CẢ TRAINING HOÀN TẤT!
+============================================================
+Checkpoints in /kaggle/working:
+  hp_lr1e4_best.pt (48.5 MB)
+  hp_lr5e4_best.pt (48.5 MB)
+  hp_lr5e5_best.pt (48.5 MB)
+  phase1_best.pt (16.3 MB)
