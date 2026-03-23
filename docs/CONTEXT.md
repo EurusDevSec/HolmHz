@@ -1098,13 +1098,13 @@ Logic trong `train.py` (line 47-53): Nếu arg đầu tiên KHÔNG bắt đầu 
 
 ### Sprint 2: Evaluation
 
-| Task                          | Trạng thái   | Ghi chú                                                                     |
-| ----------------------------- | ------------ | --------------------------------------------------------------------------- |
-| **2.1** Evaluation Pipeline   | ✅ Completed | test.py + evaluator + visualization                                         |
-| **2.2** Benchmark SOTA        | ✅ Completed | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19       |
-| **2.2b** Multi-Arch Benchmark | ✅ Completed | 7 models total. EfficientNet-B0 still #1 OOD. Xem Section 21               |
-| **2.3** Grad-CAM XAI          | ✅ Completed | gradcam.py + utils.py + explain.py CLI implemented                          |
-| **2.4** Model Export          | ✅ Completed | onnx_export.py + validate.py + export_onnx.py CLI implemented              |
+| Task                          | Trạng thái   | Ghi chú                                                              |
+| ----------------------------- | ------------ | -------------------------------------------------------------------- |
+| **2.1** Evaluation Pipeline   | ✅ Completed | test.py + evaluator + visualization                                  |
+| **2.2** Benchmark SOTA        | ✅ Completed | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19 |
+| **2.2b** Multi-Arch Benchmark | ✅ Completed | 7 models total. EfficientNet-B0 still #1 OOD. Xem Section 21         |
+| **2.3** Grad-CAM XAI          | ✅ Completed | gradcam.py + utils.py + explain.py CLI implemented                   |
+| **2.4** Model Export          | ✅ Completed | onnx_export.py + validate.py + export_onnx.py CLI implemented        |
 
 ### Tests: 36/36 passed (as of 23/03/2026)
 
@@ -1232,8 +1232,8 @@ TimmDetector(model_name, pretrained, dropout, freeze_backbone)
 All 3 new architectures trained on Kaggle T4 GPU with **same hyperparameters as v4**:
 AdamW, lr=1e-4, cosine scheduler, pos_weight=1.2, 30 epochs, image_size=224.
 
-| Model              | Type        | Params | Best Epoch | Val AUC | Training Time |
-| ------------------ | ----------- | ------ | ---------- | ------- | ------------- |
+| Model               | Type        | Params | Best Epoch | Val AUC | Training Time |
+| ------------------- | ----------- | ------ | ---------- | ------- | ------------- |
 | **EfficientNet-B0** | CNN         | 4M     | 28         | 0.9972  | ~22 min       |
 | **ResNet-18**       | CNN         | 11M    | 23         | 0.9907  | ~23 min       |
 | **ViT-Small/16**    | Transformer | 22M    | 26         | 0.9942  | ~40 min       |
@@ -1241,24 +1241,24 @@ AdamW, lr=1e-4, cosine scheduler, pos_weight=1.2, 30 epochs, image_size=224.
 
 ### 21.2 Full 7-Model Comparison (ID + OOD)
 
-| #  | Model                 | Type        | Params | ID AUC     | ID Acc   | OOD AUC    | OOD Acc   | OOD F1     |
-| -- | --------------------- | ----------- | ------ | ---------- | -------- | ---------- | --------- | ---------- |
-| 1  | **EfficientNet-B0 v4** | CNN         | 4M     | 0.9959     | 97.4%    | **0.7838** | **71.3%** | **0.7547** |
-| 2  | Swin-T                | Swin Trans. | 28M    | **0.9959** | **97.5%**| 0.6932     | 63.1%     | 0.6399     |
-| 3  | ViT-Small/16          | Transformer | 22M    | 0.9932     | 96.9%    | 0.6860     | 62.5%     | 0.6320     |
-| 4  | ResNet-18             | CNN         | 11M    | 0.9902     | 95.5%    | 0.6596     | 61.9%     | 0.6476     |
-| 5  | UniversalFakeDetect   | CLIP        | 300M   | 0.6479     | —        | 0.4674     | 44.1%     | 0.0306     |
-| 6  | CNNDetection          | CNN         | 25M    | 0.5882     | —        | 0.4264     | 44.0%     | 0.0052     |
-| 7  | DeepfakeBench         | CNN         | 19M    | 0.5237     | —        | 0.3913     | 42.8%     | 0.4203     |
+| #   | Model                  | Type        | Params | ID AUC     | ID Acc    | OOD AUC    | OOD Acc   | OOD F1     |
+| --- | ---------------------- | ----------- | ------ | ---------- | --------- | ---------- | --------- | ---------- |
+| 1   | **EfficientNet-B0 v4** | CNN         | 4M     | 0.9959     | 97.4%     | **0.7838** | **71.3%** | **0.7547** |
+| 2   | Swin-T                 | Swin Trans. | 28M    | **0.9959** | **97.5%** | 0.6932     | 63.1%     | 0.6399     |
+| 3   | ViT-Small/16           | Transformer | 22M    | 0.9932     | 96.9%     | 0.6860     | 62.5%     | 0.6320     |
+| 4   | ResNet-18              | CNN         | 11M    | 0.9902     | 95.5%     | 0.6596     | 61.9%     | 0.6476     |
+| 5   | UniversalFakeDetect    | CLIP        | 300M   | 0.6479     | —         | 0.4674     | 44.1%     | 0.0306     |
+| 6   | CNNDetection           | CNN         | 25M    | 0.5882     | —         | 0.4264     | 44.0%     | 0.0052     |
+| 7   | DeepfakeBench          | CNN         | 19M    | 0.5237     | —         | 0.3913     | 42.8%     | 0.4203     |
 
 ### 21.3 Per-Source OOD Accuracy (4 HolmHz Models)
 
-| Source              | EfficientNet-B0 | Swin-T   | ViT-Small | ResNet-18 |
-| ------------------- | --------------- | -------- | --------- | --------- |
-| **flux** (80)       | **77.5%**       | 45.0%    | 58.8%     | 50.0%     |
-| **tristanzhang** (300) | **79.0%**    | 62.3%    | 57.3%     | 66.0%     |
-| **real_pexels** (200)  | 74.5%        | **85.5%**| **84.0%** | 76.5%     |
-| **real_camera** (100)  | 36.0%        | 35.0%    | 38.0%     | 30.0%     |
+| Source                 | EfficientNet-B0 | Swin-T    | ViT-Small | ResNet-18 |
+| ---------------------- | --------------- | --------- | --------- | --------- |
+| **flux** (80)          | **77.5%**       | 45.0%     | 58.8%     | 50.0%     |
+| **tristanzhang** (300) | **79.0%**       | 62.3%     | 57.3%     | 66.0%     |
+| **real_pexels** (200)  | 74.5%           | **85.5%** | **84.0%** | 76.5%     |
+| **real_camera** (100)  | 36.0%           | 35.0%     | 38.0%     | 30.0%     |
 
 ### 21.4 Key Findings
 
@@ -1272,24 +1272,24 @@ AdamW, lr=1e-4, cosine scheduler, pos_weight=1.2, 30 epochs, image_size=224.
 
 ### 21.5 Analysis: Why EfficientNet-B0 Wins OOD
 
-| Factor                      | EfficientNet-B0              | Swin-T / ViT                        |
-| --------------------------- | ---------------------------- | ------------------------------------ |
-| **Receptive field**         | Multi-scale (MBConv blocks)  | Global attention (all tokens)        |
-| **Feature extraction**      | Local texture + edge         | Global structure + semantics         |
-| **Diffusion artifacts**     | ✅ Captures noise patterns    | ❌ Sees "realistic" composition      |
-| **Parameter efficiency**    | 4M (focused capacity)        | 22-28M (overfit to training dist.)   |
-| **Generalization pattern**  | Texture-based → transfers    | Semantic-based → distribution-bound  |
+| Factor                     | EfficientNet-B0             | Swin-T / ViT                        |
+| -------------------------- | --------------------------- | ----------------------------------- |
+| **Receptive field**        | Multi-scale (MBConv blocks) | Global attention (all tokens)       |
+| **Feature extraction**     | Local texture + edge        | Global structure + semantics        |
+| **Diffusion artifacts**    | ✅ Captures noise patterns  | ❌ Sees "realistic" composition     |
+| **Parameter efficiency**   | 4M (focused capacity)       | 22-28M (overfit to training dist.)  |
+| **Generalization pattern** | Texture-based → transfers   | Semantic-based → distribution-bound |
 
 **Hypothesis**: Diffusion models (Flux, SD) produce perfect global composition nhưng leave detectable LOCAL artifacts (noise fingerprint, frequency anomalies). CNN excels at local pattern detection → better OOD generalization trên unseen generators.
 
 ### 21.6 Checkpoints
 
-| Model              | File                                | Size   | Epoch | Val AUC |
-| ------------------ | ----------------------------------- | ------ | ----- | ------- |
-| EfficientNet-B0 v4 | `outputs/checkpoints/best_v4.pt`    | 48.5MB | 28    | 0.9972  |
-| ResNet-18          | `outputs/checkpoints/best_resnet18.pt` | 44MB| 23    | 0.9907  |
-| ViT-Small/16       | `outputs/checkpoints/best_vit_small.pt`| 86MB| 26    | 0.9942  |
-| Swin-T             | `outputs/checkpoints/best_swin_tiny.pt`| 110MB| 29   | 0.9966  |
+| Model              | File                                    | Size   | Epoch | Val AUC |
+| ------------------ | --------------------------------------- | ------ | ----- | ------- |
+| EfficientNet-B0 v4 | `outputs/checkpoints/best_v4.pt`        | 48.5MB | 28    | 0.9972  |
+| ResNet-18          | `outputs/checkpoints/best_resnet18.pt`  | 44MB   | 23    | 0.9907  |
+| ViT-Small/16       | `outputs/checkpoints/best_vit_small.pt` | 86MB   | 26    | 0.9942  |
+| Swin-T             | `outputs/checkpoints/best_swin_tiny.pt` | 110MB  | 29    | 0.9966  |
 
 ### 21.7 Conclusion cho báo cáo
 
