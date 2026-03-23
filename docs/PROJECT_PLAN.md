@@ -598,18 +598,23 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 |         |                            | 2.1.2 Per-source accuracy breakdown (GAN vs Diffusion vs Real)      |          | ✅     |
 |         |                            | 2.1.3 OOD evaluation (Flux, Gemini, SDXL)                           |          | ✅     |
 |         |                            | 2.1.4 Generate confusion matrix + ROC curve                         |          | ✅     |
-| 2.2     | **Benchmark chuẩn 3 SOTA** |                                                                     | Hoàng    | ⬜     |
-|         |                            | 2.2.1 Chạy CNNDetection trên test set chung (Docker/chuẩn pipeline) |          | ⬜     |
-|         |                            | 2.2.2 Chạy UniversalFakeDetect trên test set chung                  |          | ⬜     |
-|         |                            | 2.2.3 Chạy DeepfakeBench (EffNetB4) trên test set chung             |          | ⬜     |
-|         |                            | 2.2.4 Tạo bảng so sánh AUC/Acc chính thức cho báo cáo               |          | ⬜     |
-| 2.3     | **Grad-CAM Integration**   |                                                                     | Hoàng    | ⬜     |
-|         |                            | 2.3.1 Integrate pytorch-grad-cam                                    |          | ⬜     |
-|         |                            | 2.3.2 Implement heatmap overlay function                            |          | ⬜     |
-|         |                            | 2.3.3 Generate XAI gallery (50 samples)                             |          | ⬜     |
-| 2.4     | **Model Export**           |                                                                     | Hoàng    | ⬜     |
-|         |                            | 2.4.1 Export to ONNX format                                         |          | ⬜     |
-|         |                            | 2.4.2 Validate ONNX output matches PyTorch                          |          | ⬜     |
+| 2.2     | **Benchmark chuẩn 3 SOTA** |                                                                     | Hoàng    | ✅     |
+|         |                            | 2.2.1 Chạy CNNDetection trên test set chung (Docker/chuẩn pipeline) |          | ✅     |
+|         |                            | 2.2.2 Chạy UniversalFakeDetect trên test set chung                  |          | ✅     |
+|         |                            | 2.2.3 Chạy DeepfakeBench (EffNetB4) trên test set chung             |          | ✅     |
+|         |                            | 2.2.4 Tạo bảng so sánh AUC/Acc chính thức cho báo cáo               |          | ✅     |
+| 2.2b    | **Multi-Arch Benchmark**   |                                                                     | Hoàng    | ✅     |
+|         |                            | 2.2b.1 Implement TimmBackbone + TimmDetector (generic)              |          | ✅     |
+|         |                            | 2.2b.2 Register ResNet-18, ViT-Small, Swin-T + configs              |          | ✅     |
+|         |                            | 2.2b.3 Train 3 models trên Kaggle T4                                |          | ✅     |
+|         |                            | 2.2b.4 Evaluate + so sánh 7 models (4 SOTA + 3 internal)            |          | ✅     |
+| 2.3     | **Grad-CAM Integration**   |                                                                     | Hoàng    | ✅     |
+|         |                            | 2.3.1 Integrate pytorch-grad-cam                                    |          | ✅     |
+|         |                            | 2.3.2 Implement heatmap overlay function                            |          | ✅     |
+|         |                            | 2.3.3 Generate XAI gallery (50 samples)                             |          | 🔄     |
+| 2.4     | **Model Export**           |                                                                     | Hoàng    | ✅     |
+|         |                            | 2.4.1 Export to ONNX format                                         |          | ✅     |
+|         |                            | 2.4.2 Validate ONNX output matches PyTorch                          |          | ✅     |
 
 **✅ Milestone 2**: Final model (AUC ≥ 0.90 ID, ≥ 0.75 OOD) + Bảng so sánh chính thức + XAI gallery
 
@@ -741,8 +746,8 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 | Milestone              | Phase   | Target Date    | KPI                              | Status |
 | ---------------------- | ------- | -------------- | -------------------------------- | ------ |
 | M0: Research Complete  | Phase 0 | 10/02/2026     | 3 projects chạy + documented     | ✅     |
-| M1: Dataset + Baseline | Phase 1 | **21/03/2026** | ≥15k ảnh + AUC ≥ 0.85 (ID)       | ⬜     |
-| M2: Benchmark + XAI    | Phase 1 | **07/04/2026** | Bảng so sánh chuẩn + XAI gallery | ⬜     |
+| M1: Dataset + Baseline | Phase 1 | **21/03/2026** | ≥15k ảnh + AUC ≥ 0.85 (ID)       | ✅     |
+| M2: Benchmark + XAI    | Phase 1 | **07/04/2026** | Bảng so sánh chuẩn + XAI gallery | 🔄     |
 | M3: Web Demo           | Phase 2 | **28/04/2026** | Latency ≤ 2s                     | ⬜     |
 | M4: Defense Ready      | Phase 2 | **15/05/2026** | Full package                     | ⬜     |
 

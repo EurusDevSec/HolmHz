@@ -1,0 +1,17 @@
+# ============================================
+# ViT-Small/16 Detector Configuration
+# ============================================
+# Vision Transformer — attention-based architecture.
+# 22M params, 384-dim features. Patch size 16.
+
+detector:
+  name: vit_small
+  backbone:
+    name: vit_small
+    pretrained: true
+    features_dim: 384
+  head:
+    dropout: 0.3
+    num_classes: 1
+  loss:
+    name: bce_with_logits

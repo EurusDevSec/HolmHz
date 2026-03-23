@@ -22,6 +22,8 @@ INCLUDE_FILES = [
     "pyproject.toml",
     "scripts/train.py",
     "scripts/test.py",
+    "scripts/explain.py",
+    "scripts/export_onnx.py",
 ]
 
 # Extensions to skip inside included dirs

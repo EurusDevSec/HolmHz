@@ -210,3 +210,88 @@ class TestDetectorRegistry:
         from holmhz.utils.registry import DETECTOR_REGISTRY
 
         assert "efficientnet_b0" in DETECTOR_REGISTRY
+
+    def test_registry_new_detectors(self):
+        """Registry phải chứa 3 detector mới (resnet18, vit_small, swin_tiny)."""
+        import holmhz.detectors  # noqa: F401
+        from holmhz.utils.registry import DETECTOR_REGISTRY
+
+        for name in ["resnet18", "vit_small", "swin_tiny"]:
+            assert name in DETECTOR_REGISTRY, f"{name} not in registry"
+
+
+class TestTimmDetector:
+    """Test generic TimmDetector with ResNet-18, ViT-Small, Swin-T."""
+
+    @pytest.fixture(params=[
+        ("resnet18", 512, 11_000_000, 15_000_000),
+        ("vit_small_patch16_224", 384, 20_000_000, 25_000_000),
+        ("swin_tiny_patch4_window7_224", 768, 27_000_000, 30_000_000),
+    ])
+    def model_info(self, request):
+        """Parametrized fixture: (model_name, features_dim, min_params, max_params)."""
+        return request.param
+
+    @pytest.fixture
+    def dummy_input(self):
+        return torch.randn(2, 3, 224, 224)
+
+    def test_forward_shape(self, model_info, dummy_input):
+        """Forward pass trả về [B, 1]."""
+        from holmhz.detectors.timm_detector import TimmDetector
+
+        model_name = model_info[0]
+        model = TimmDetector(model_name=model_name, pretrained=False, freeze_backbone=False)
+        model.eval()
+        with torch.no_grad():
+            logits = model(dummy_input)
+        assert logits.shape == (2, 1)
+
+    def test_features_dim(self, model_info):
+        """Backbone features_dim phải đúng."""
+        from holmhz.detectors.timm_detector import TimmDetector
+
+        model_name, expected_dim = model_info[0], model_info[1]
+        model = TimmDetector(model_name=model_name, pretrained=False)
+        assert model.backbone.get_features_dim() == expected_dim
+
+    def test_predict_proba_range(self, model_info, dummy_input):
+        """predict_proba trả về [0, 1]."""
+        from holmhz.detectors.timm_detector import TimmDetector
+
+        model = TimmDetector(model_name=model_info[0], pretrained=False, freeze_backbone=False)
+        probs = model.predict_proba(dummy_input)
+        assert (probs >= 0.0).all() and (probs <= 1.0).all()
+
+    def test_freeze_backbone(self, model_info):
+        """Freeze backbone → chỉ head trainable."""
+        from holmhz.detectors.timm_detector import TimmDetector
+
+        model = TimmDetector(model_name=model_info[0], pretrained=False, freeze_backbone=True)
+        backbone_trainable = sum(
+            p.numel() for p in model.backbone.parameters() if p.requires_grad
+        )
+        head_trainable = sum(
+            p.numel() for p in model.head.parameters() if p.requires_grad
+        )
+        assert backbone_trainable == 0
+        assert head_trainable > 0
+
+    def test_get_feature_layer(self, model_info):
+        """get_feature_layer trả về nn.Module (cho Grad-CAM)."""
+        from holmhz.detectors.timm_detector import TimmDetector
+
+        model = TimmDetector(model_name=model_info[0], pretrained=False)
+        layer = model.get_feature_layer()
+        assert isinstance(layer, torch.nn.Module)
+
+    def test_registry_build(self, dummy_input):
+        """Build qua registry hoạt động."""
+        import holmhz.detectors  # noqa: F401
+        from holmhz.utils.registry import DETECTOR_REGISTRY
+
+        model = DETECTOR_REGISTRY.build("resnet18", pretrained=False, freeze_backbone=False)
+        model.eval()
+        with torch.no_grad():
+            logits = model(dummy_input)
+        assert logits.shape == (2, 1)

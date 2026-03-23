@@ -4,7 +4,7 @@
 
 model:
   name: efficientnet_b0
-  checkpoint: outputs/checkpoints/best_model.pt
+  checkpoint: outputs/checkpoints/best_v4.pt
 
 export:
   format: onnx

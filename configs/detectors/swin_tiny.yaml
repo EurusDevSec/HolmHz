@@ -1,0 +1,17 @@
+# ============================================
+# Swin-T Detector Configuration
+# ============================================
+# Swin Transformer — shifted window attention.
+# 28M params, 768-dim features. Patch size 4, window size 7.
+
+detector:
+  name: swin_tiny
+  backbone:
+    name: swin_tiny
+    pretrained: true
+    features_dim: 768
+  head:
+    dropout: 0.3
+    num_classes: 1
+  loss:
+    name: bce_with_logits

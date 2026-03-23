@@ -1,0 +1,17 @@
+# ============================================
+# ResNet-18 Detector Configuration
+# ============================================
+# Baseline CNN — simple, fast, well-understood architecture.
+# 11M params, 512-dim features.
+
+detector:
+  name: resnet18
+  backbone:
+    name: resnet18
+    pretrained: true
+    features_dim: 512
+  head:
+    dropout: 0.3
+    num_classes: 1
+  loss:
+    name: bce_with_logits
