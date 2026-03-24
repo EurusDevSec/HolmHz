@@ -243,14 +243,24 @@ src/holmhz/
 | **2.3** Grad-CAM XAI          | ✅ Completed | **07/04** → DONE 24/03 | GradCAMExplainer + explain.py CLI + 61-image gallery. Xem Section 22   |
 | **2.4** Model Export          | ✅ Completed | **07/04** → DONE 24/03 | 4 models × ONNX (15-108MB). max_diff<1e-4. Xem Section 23              |
 
-### Sprint 3-4: Web + Report
+### Sprint 3: Web Demo (T04/2026)
 
-| Task                   | Trạng thái     | Target (revised) | Ghi chú                     |
-| ---------------------- | -------------- | ---------------- | --------------------------- |
-| **3.1** Backend API    | ⬜ Not Started | **14/04**        | Overlap với Sprint 2        |
-| **3.2** Frontend       | ⬜ Not Started | **28/04**        |                             |
-| **4.1** Report Writing | ⬜ Not Started | **30/04**        | Luân bắt đầu Ch1-2 từ 29/03 |
-| **4.2** Defense Prep   | ⬜ Not Started | **15/05**        | Task cuối cùng              |
+| Task                          | Trạng thái     | Target         | Ghi chú                                              |
+| ----------------------------- | -------------- | -------------- | ----------------------------------------------------- |
+| **3.1.1** Backend API         | ⬜ Not Started | **14/04**      | FastAPI + POST /api/predict + /api/explain + /api/health |
+| **3.1.2** Model Service       | ⬜ Not Started | **14/04**      | ONNX inference + Grad-CAM service                     |
+| **3.1.3** Frontend UI         | ⬜ Not Started | **21/04**      | Gradio: upload + Real/Fake result + heatmap           |
+| **3.1.4** UI Testing ✨       | ⬜ Not Started | **21/04**      | Luân test + feedback                                  |
+| **3.1.5** Integration         | ⬜ Not Started | **28/04**      | E2E testing + latency ≤ 2s + deploy                   |
+
+### Sprint 4: Documentation & Defense Prep (T04-T05/2026)
+
+| Task                          | Trạng thái     | Target         | Ghi chú                                              |
+| ----------------------------- | -------------- | -------------- | ----------------------------------------------------- |
+| **3.2.1** Báo cáo Ch1-2 ✨    | ⬜ Not Started | **30/04**      | Luân viết theo outline Hoàng                          |
+| **3.2.2** Báo cáo Ch3-4-5    | ⬜ Not Started | **30/04**      | Hoàng viết technical chapters                         |
+| **3.2.3** Tổng hợp báo cáo   | ⬜ Not Started | **05/05**      | Merge + format + GVHD review                         |
+| **3.2.4** Defense Prep        | ⬜ Not Started | **15/05**      | Slide + video demo + Q&A                              |
 
 ### Timeline Revision Note (24/02/2026)
 
