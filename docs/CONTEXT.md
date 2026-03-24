@@ -247,11 +247,11 @@ src/holmhz/
 
 | Task                          | Trạng thái     | Target         | Ghi chú                                              |
 | ----------------------------- | -------------- | -------------- | ----------------------------------------------------- |
-| **3.1.1** Backend API         | ⬜ Not Started | **14/04**      | FastAPI + POST /api/predict + /api/explain + /api/health |
-| **3.1.2** Model Service       | ⬜ Not Started | **14/04**      | ONNX inference + Grad-CAM service                     |
-| **3.1.3** Frontend UI         | ⬜ Not Started | **21/04**      | Gradio: upload + Real/Fake result + heatmap           |
+| **3.1.1** Backend API         | ✅ Completed   | **14/04**      | Gradio app w/ predict + explain endpoints VERIFIED    |
+| **3.1.2** Model Service       | ✅ Completed   | **14/04**      | OnnxPredictor (~32ms) + GradCAMService working        |
+| **3.1.3** Frontend UI         | ✅ Completed   | **21/04**      | 2-tab UI: Predict + Explain(Grad-CAM) + examples      |
 | **3.1.4** UI Testing ✨       | ⬜ Not Started | **21/04**      | Luân test + feedback                                  |
-| **3.1.5** Integration         | ⬜ Not Started | **28/04**      | E2E testing + latency ≤ 2s + deploy                   |
+| **3.1.5** Integration         | 🔄 In Progress | **28/04**      | E2E testing + latency ≤ 2s + deploy                   |
 
 ### Sprint 4: Documentation & Defense Prep (T04-T05/2026)
 

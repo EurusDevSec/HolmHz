@@ -646,23 +646,23 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 | Task ID | Task                        | Subtasks                                        | Assignee | Status |
 | ------- | --------------------------- | ----------------------------------------------- | -------- | ------ |
-| 3.1.1   | **Backend API**             |                                                 | Hoàng    | ⬜     |
-|         |                             | 3.1.1.1 Setup FastAPI project                   |          | ⬜     |
-|         |                             | 3.1.1.2 Implement POST /api/predict             |          | ⬜     |
-|         |                             | 3.1.1.3 Implement POST /api/explain             |          | ⬜     |
-|         |                             | 3.1.1.4 Implement GET /api/health               |          | ⬜     |
-|         |                             | 3.1.1.5 Add request validation                  |          | ⬜     |
-| 3.1.2   | **Model Service**           |                                                 | Hoàng    | ⬜     |
-|         |                             | 3.1.2.1 Load ONNX model on startup              |          | ⬜     |
-|         |                             | 3.1.2.2 Implement preprocessing pipeline        |          | ⬜     |
-|         |                             | 3.1.2.3 Implement Grad-CAM service              |          | ⬜     |
-|         |                             | 3.1.2.4 Add error handling                      |          | ⬜     |
-| 3.1.3   | **Frontend UI**             |                                                 | Hoàng    | ⬜     |
-|         |                             | 3.1.3.1 Setup Gradio interface                  |          | ⬜     |
-|         |                             | 3.1.3.2 Image upload component                  |          | ⬜     |
-|         |                             | 3.1.3.3 Result display (Real/Fake + confidence) |          | ⬜     |
-|         |                             | 3.1.3.4 Heatmap visualization                   |          | ⬜     |
-|         |                             | 3.1.3.5 UI styling và UX polish                 |          | ⬜     |
+| 3.1.1   | **Backend API**             |                                                 | Hoàng    | ✅     |
+|         |                             | 3.1.1.1 Setup FastAPI project                   |          | ✅ (Gradio) |
+|         |                             | 3.1.1.2 Implement POST /api/predict             |          | ✅     |
+|         |                             | 3.1.1.3 Implement POST /api/explain             |          | ✅     |
+|         |                             | 3.1.1.4 Implement GET /api/health               |          | ✅     |
+|         |                             | 3.1.1.5 Add request validation                  |          | ✅     |
+| 3.1.2   | **Model Service**           |                                                 | Hoàng    | ✅     |
+|         |                             | 3.1.2.1 Load ONNX model on startup              |          | ✅     |
+|         |                             | 3.1.2.2 Implement preprocessing pipeline        |          | ✅     |
+|         |                             | 3.1.2.3 Implement Grad-CAM service              |          | ✅     |
+|         |                             | 3.1.2.4 Add error handling                      |          | ✅     |
+| 3.1.3   | **Frontend UI**             |                                                 | Hoàng    | ✅     |
+|         |                             | 3.1.3.1 Setup Gradio interface                  |          | ✅     |
+|         |                             | 3.1.3.2 Image upload component                  |          | ✅     |
+|         |                             | 3.1.3.3 Result display (Real/Fake + confidence) |          | ✅     |
+|         |                             | 3.1.3.4 Heatmap visualization                   |          | ✅     |
+|         |                             | 3.1.3.5 UI styling và UX polish                 |          | ✅     |
 | 3.1.4   | **UI Testing** ✨           |                                                 | Luân     | ⬜     |
 |         | _(Test và góp ý cho Hoàng)_ | 3.1.4.1 Test upload nhiều loại ảnh              |          | ⬜     |
 |         |                             | 3.1.4.2 Ghi nhận lỗi và feedback                |          | ⬜     |
