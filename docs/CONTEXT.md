@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2026-03-23 (Task 2.2b Multi-Arch Benchmark — 7 models evaluated. EfficientNet-B0 BEST OOD AUC 0.7838)
+> Cập nhật lần cuối: 2026-03-24 (Task 2.3 Grad-CAM XAI + Task 2.4 ONNX Export — Sprint 2 HOÀN THÀNH. EfficientNet-B0 BEST OOD AUC 0.7838. 61 heatmap gallery. 4×ONNX exported.)
 
 ---
 
@@ -136,10 +136,11 @@
 ```
 src/holmhz/
 ├── __init__.py              # Package root (__version__ = "0.1.0")
-├── backbones/               # CNN backbones (EfficientNet-B0)
+├── backbones/               # CNN backbones
 │   ├── __init__.py
 │   ├── base.py
-│   └── efficientnet.py
+│   ├── efficientnet.py
+│   └── timm_backbone.py     # NEW: Generic timm backbone (ResNet, ViT, Swin)
 ├── data/                    # Dataset, transforms, dataloader
 │   ├── __init__.py
 │   ├── base_dataset.py
@@ -149,15 +150,16 @@ src/holmhz/
 ├── detectors/               # Detector models
 │   ├── __init__.py
 │   ├── base.py
-│   └── efficientnet_detector.py
+│   ├── efficientnet_detector.py
+│   └── timm_detector.py     # NEW: Generic timm detector
 ├── evaluation/              # Eval pipeline
 │   ├── __init__.py
 │   ├── benchmark.py
 │   └── evaluator.py
 ├── exports/                 # ONNX export
 │   ├── __init__.py
-│   ├── onnx_export.py
-│   └── validate.py
+│   ├── onnx_export.py       # export_to_onnx()
+│   └── validate.py          # validate_onnx()
 ├── losses/                  # Loss functions
 │   ├── __init__.py
 │   └── bce.py
@@ -176,13 +178,13 @@ src/holmhz/
 │   ├── logger.py
 │   ├── registry.py
 │   └── visualization.py
-└── xai/                     # Grad-CAM
+└── xai/                     # Grad-CAM (Explainable AI)
     ├── __init__.py
-    ├── gradcam.py
-    └── utils.py
+    ├── gradcam.py            # GradCAMExplainer
+    └── utils.py              # load_image_for_gradcam(), create_comparison_grid()
 ```
 
-**Trạng thái**: 35 files tổng. Module `data/` (Task 1.3 ✅), `backbones/`, `detectors/`, `utils/registry.py` (Task 1.4 ✅), `metrics/`, `losses/`, `training/`, `utils/logger.py` (Task 1.5 ✅) đã có implementation. Các module khác EMPTY.
+**Trạng thái**: 39 files tổng. Tất cả modules đã có implementation.
 
 ## 7. Config files
 
@@ -192,6 +194,12 @@ src/holmhz/
 | `configs/test.yaml`                      | ✅ Có nội dung (model, data, evaluation, wandb) |
 | `configs/export.yaml`                    | ✅ Có nội dung (model, export ONNX, validation) |
 | `configs/detectors/efficientnet_b0.yaml` | ✅ Có nội dung (detector, backbone, head, loss) |
+| `configs/detectors/resnet18.yaml`        | ✅ ResNet-18 detector config                    |
+| `configs/detectors/vit_small.yaml`       | ✅ ViT-Small detector config                    |
+| `configs/detectors/swin_tiny.yaml`       | ✅ Swin-T detector config                       |
+| `configs/train_resnet18.yaml`            | ✅ ResNet-18 training config                    |
+| `configs/train_vit_small.yaml`           | ✅ ViT-Small training config                    |
+| `configs/train_swin_tiny.yaml`           | ✅ Swin-T training config                       |
 
 ## 8. Tài liệu & files đã tạo
 
@@ -208,6 +216,8 @@ src/holmhz/
 | `docs/DAILY_COMMANDS.md`                           | Các lệnh kiểm tra hàng ngày (lint, test, import, git)                       |
 | `notebooks/00_colab_template.ipynb`                | Colab/Kaggle notebook template (7 steps)                                    |
 | `Makefile`                                         | Build targets: train, test, serve, lint, format, check, clean               |
+| `docs/MULTI_ARCH_IMPLEMENTATION.md`                | Quá trình triển khai, so sánh & phân tích 7 models (chi tiết)               |
+| `docs/KAGGLE_MULTI_ARCH_TRAINING.md`               | Hướng dẫn training 3 models trên Kaggle T4                                  |
 
 ## 9. Task Progress
 
@@ -225,13 +235,13 @@ src/holmhz/
 
 ### Sprint 2: Evaluation
 
-| Task                          | Trạng thái     | Target (revised)       | Ghi chú                                                                                 |
-| ----------------------------- | -------------- | ---------------------- | --------------------------------------------------------------------------------------- |
-| **2.1** Evaluation Pipeline   | ✅ Completed   | **28/03** → DONE 26/02 | test.py + evaluator + visualization. 83 tests pass                                      |
-| **2.2** Benchmark SOTA        | ✅ Completed   | **07/04** → DONE 04/03 | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19                    |
-| **2.2b** Multi-Arch Benchmark | 🔄 In Progress | **07/04**              | ResNet-18, ViT-Small, Swin-T backbone. Code done, cần train trên Kaggle. Xem Section 20 |
-| **2.3** Grad-CAM XAI          | ✅ Completed   | **07/04** → DONE       | GradCAMExplainer + CLI. Cần checkpoint để generate gallery                              |
-| **2.4** Model Export          | ✅ Completed   | **07/04** → DONE       | ONNX export + validation + CPU benchmark CLI                                            |
+| Task                          | Trạng thái   | Target (revised)       | Ghi chú                                                                 |
+| ----------------------------- | ------------ | ---------------------- | ----------------------------------------------------------------------- |
+| **2.1** Evaluation Pipeline   | ✅ Completed | **28/03** → DONE 26/02 | test.py + evaluator + visualization. 83 tests pass                      |
+| **2.2** Benchmark SOTA        | ✅ Completed | **07/04** → DONE 04/03 | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19    |
+| **2.2b** Multi-Arch Benchmark | ✅ Completed | **07/04** → DONE 23/03 | 7 models evaluated. EfficientNet-B0 BEST OOD AUC 0.7838. Xem Section 21 |
+| **2.3** Grad-CAM XAI          | ✅ Completed | **07/04** → DONE 24/03 | GradCAMExplainer + explain.py CLI + 61-image gallery. Xem Section 22   |
+| **2.4** Model Export          | ✅ Completed | **07/04** → DONE 24/03 | 4 models × ONNX (15-108MB). max_diff<1e-4. Xem Section 23              |
 
 ### Sprint 3-4: Web + Report
 
@@ -1103,8 +1113,8 @@ Logic trong `train.py` (line 47-53): Nếu arg đầu tiên KHÔNG bắt đầu 
 | **2.1** Evaluation Pipeline   | ✅ Completed | test.py + evaluator + visualization                                  |
 | **2.2** Benchmark SOTA        | ✅ Completed | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19 |
 | **2.2b** Multi-Arch Benchmark | ✅ Completed | 7 models total. EfficientNet-B0 still #1 OOD. Xem Section 21         |
-| **2.3** Grad-CAM XAI          | ✅ Completed | gradcam.py + utils.py + explain.py CLI implemented                   |
-| **2.4** Model Export          | ✅ Completed | onnx_export.py + validate.py + export_onnx.py CLI implemented        |
+| **2.3** Grad-CAM XAI          | ✅ Completed | 61-image gallery generated (flux/tristanzhang/real_pexels/real_camera/sd15). Xem Section 22 |
+| **2.4** Model Export          | ✅ Completed | 4 ONNX files: EffNet(15MB)+ResNet18(43MB)+ViT-S(83MB)+Swin-T(108MB). max_diff<1e-4. Xem Section 23 |
 
 ### Tests: 36/36 passed (as of 23/03/2026)
 
@@ -1294,3 +1304,106 @@ AdamW, lr=1e-4, cosine scheduler, pos_weight=1.2, 30 epochs, image_size=224.
 ### 21.7 Conclusion cho báo cáo
 
 > **"EfficientNet-B0 (4M params) achieves the best OOD generalization (AUC 0.7838) among all 7 models tested, including 3 external SOTA and 3 larger Transformer architectures. This confirms that (1) training data diversity (GAN + Diffusion) is the dominant factor for Synthetic Image Detection, and (2) CNN's local feature extraction is more effective than Transformer's global attention for detecting Diffusion-generated artifacts."**
+
+---
+
+## 22. Task 2.3 Grad-CAM XAI Gallery (24/03/2026)
+
+### 22.1 Overview
+
+- **Mục tiêu**: Tạo Grad-CAM heatmap gallery để visualize model đang "nhìn" vào vùng nào khi phán đoán Real vs Fake.
+- **Model dùng**: EfficientNet-B0 v4 (`best_v4.pt`)
+- **Gallery**: `outputs/xai_gallery/` — **61 ảnh** heatmap
+
+### 22.2 Implementation
+
+| File                                        | Mô tả                                              |
+| ------------------------------------------- | -------------------------------------------------- |
+| `src/holmhz/xai/gradcam.py`                 | `GradCAMExplainer` class (explain, overlay, save)  |
+| `src/holmhz/xai/utils.py`                   | `load_image_for_gradcam()`, `create_comparison_grid()` |
+| `src/holmhz/xai/__init__.py`                | Exports GradCAMExplainer, utils                    |
+| `scripts/explain.py`                        | CLI: single image hoặc folder batch                |
+| `scripts/generate_xai_gallery.py`           | Gallery generator script (50 OOD + 11 manual)      |
+
+### 22.3 Gallery Composition (61 ảnh)
+
+| Source                   | Count | Type | Ghi chú                              |
+| ------------------------ | ----- | ---- | ------------------------------------ |
+| `imgs/Fake_AI_generated` | 5     | Fake | Gemini / SD generated (manual test)  |
+| `imgs/Real`              | 6     | Real | Ảnh thật (camera / internet)         |
+| `ood_test/flux`          | 10    | Fake | FLUX.1-schnell generated             |
+| `ood_test/tristanzhang`  | 15    | Fake | Mixed SD+MJ+DALLE                    |
+| `ood_test/real_pexels`   | 10    | Real | Pexels/Unsplash photos               |
+| `ood_test/real_camera`   | 10    | Real | Unsplash portrait photos             |
+| `train/fake_diffusion/sd15` | 5  | Fake | Stable Diffusion v1.5 self-gen       |
+| **Total**                | **61** |     |                                      |
+
+### 22.4 Qualitative Observations
+
+- **Diffusion Fake (flux, tristanzhang)**: Heatmap tập trung vào skin texture, eye region, và hair boundary — nơi Diffusion để lại noise artifacts.
+- **GAN Fake (stylegan, sd15)**: Heatmap lan rộng hơn, đặc biệt ở background và facial contours.
+- **Real ảnh (pexels, camera)**: Heatmap phân tán, không có focus rõ ràng (model không chắc → dự đoán Real).
+
+### 22.5 Usage
+
+```bash
+# Single image
+python scripts/explain.py --image path/to/img.jpg --model efficientnet_b0 --checkpoint outputs/checkpoints/best_v4.pt
+
+# Batch folder
+python scripts/explain.py --image-dir data/processed/ood_test/flux/ --model efficientnet_b0 --checkpoint outputs/checkpoints/best_v4.pt --output outputs/xai_gallery/
+
+# Full 50-image OOD gallery
+python scripts/generate_xai_gallery.py
+```
+
+---
+
+## 23. Task 2.4 ONNX Export Results (24/03/2026)
+
+### 23.1 Overview
+
+- **Mục tiêu**: Export tất cả 4 HolmHz models sang ONNX format để optimize inference.
+- **Script**: `scripts/export_all_onnx.py` — exports + validates cả 4 models tự động.
+- **Validation**: PyTorch vs ONNX max absolute difference < 1e-4 (all pass).
+
+### 23.2 Export Results
+
+| Model              | Checkpoint            | ONNX File                         | Size   | max_diff   | Export Time |
+| ------------------ | --------------------- | --------------------------------- | ------ | ---------- | ----------- |
+| EfficientNet-B0    | `best_v4.pt`          | `outputs/exports/efficientnet_b0.onnx` | **15.3 MB** | 1.03e-05 | 1.3s |
+| ResNet-18          | `best_resnet18.pt`    | `outputs/exports/resnet18.onnx`   | 42.6 MB | 2.50e-06 | 0.9s        |
+| ViT-Small/16       | `best_vit_small.pt`   | `outputs/exports/vit_small.onnx`  | 82.8 MB | 5.01e-06 | 2.1s        |
+| Swin-T             | `best_swin_tiny.pt`   | `outputs/exports/swin_tiny.onnx`  | 107.6 MB | 3.10e-06 | 3.7s       |
+
+> ✅ All 4 models: max_diff < 1e-4 → ONNX output matches PyTorch output.
+
+### 23.3 Key Observation
+
+- **EfficientNet-B0 nhẹ nhất** (15.3 MB) — phù hợp nhất cho web demo (latency ≤ 2s target).
+- **ONNX opset_version=17** — compatible với onnxruntime ≥ 1.16.
+- **Dynamic batch axis** — ONNX model hỗ trợ batch size bất kỳ tại inference.
+
+### 23.4 Implementation Files
+
+| File                                 | Mô tả                                              |
+| ------------------------------------ | -------------------------------------------------- |
+| `src/holmhz/exports/onnx_export.py`  | `export_to_onnx()` — PyTorch → ONNX               |
+| `src/holmhz/exports/validate.py`     | `validate_onnx()` — compare PyTorch vs ONNX output |
+| `src/holmhz/exports/__init__.py`     | Exports module                                     |
+| `scripts/export_onnx.py`             | CLI: single model export + CPU latency benchmark   |
+| `scripts/export_all_onnx.py`         | Batch export tất cả 4 models                       |
+
+### 23.5 Usage
+
+```bash
+# Export + validate tất cả 4 models
+python scripts/export_all_onnx.py
+
+# Single model export + CPU latency benchmark
+python scripts/export_onnx.py configs/export.yaml --benchmark
+```
+
+### 23.6 Next Step: Web Demo
+
+ONNX ready → Sprint 3 (Task 3.1 Backend API) có thể load `efficientnet_b0.onnx` với `onnxruntime` để serve predictions với latency ≤ 2s.

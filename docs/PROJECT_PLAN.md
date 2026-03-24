@@ -611,7 +611,7 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 | 2.3     | **Grad-CAM Integration**   |                                                                     | Hoàng    | ✅     |
 |         |                            | 2.3.1 Integrate pytorch-grad-cam                                    |          | ✅     |
 |         |                            | 2.3.2 Implement heatmap overlay function                            |          | ✅     |
-|         |                            | 2.3.3 Generate XAI gallery (50 samples)                             |          | 🔄     |
+|         |                            | 2.3.3 Generate XAI gallery (50 samples)                             |          | ✅ Done (61 images) |
 | 2.4     | **Model Export**           |                                                                     | Hoàng    | ✅     |
 |         |                            | 2.4.1 Export to ONNX format                                         |          | ✅     |
 |         |                            | 2.4.2 Validate ONNX output matches PyTorch                          |          | ✅     |
@@ -620,11 +620,12 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 **📊 Phase 1 Deliverables**:
 
-- [ ] Dataset v1 với manifest files (bao gồm Diffusion data)
-- [ ] Baseline model checkpoint (.pt + .onnx)
-- [ ] Training logs trên W&B
-- [ ] Bảng so sánh정식 với 3 SOTA (chạy trên cùng test set)
-- [ ] XAI gallery (50 heatmap samples)
+- [x] Dataset v1 với manifest files (bao gồm Diffusion data) ✅
+- [x] Baseline model checkpoint (.pt + .onnx) ✅ best_v4.pt + efficientnet_b0.onnx
+- [x] Training logs trên W&B ✅
+- [x] Bảng so sánh chính thức với 3 SOTA (chạy trên cùng test set) ✅ 7-model comparison
+- [x] XAI gallery (50 heatmap samples) ✅ 61 Grad-CAM images in `outputs/xai_gallery/`
+- [x] ONNX models (4 files) ✅ efficientnet_b0(15MB) + resnet18(43MB) + vit_small(83MB) + swin_tiny(108MB)
 - [ ] Báo cáo kết quả Phase 1
 
 ---
@@ -717,7 +718,7 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 - [ ] Slide thuyết trình
 - [ ] Video demo
 - [ ] Source code đóng gói + README
-- [ ] Model weights (.pt + .onnx)
+- [x] Model weights (.pt + .onnx) ✅ 4× .pt + 4× .onnx exported
 
 ---
 
@@ -728,7 +729,7 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 | Phase                 | Sprints | Trạng thái                     |
 | --------------------- | ------- | ------------------------------ |
 | Phase 0: Research     | -       | ✅ Đã xong (11/2025 - 02/2026) |
-| Phase 1: Data + Model | 2       | ⬜ Sắp bắt đầu                 |
+| Phase 1: Data + Model | 2       | ✅ Đã xong (02/2026 - 03/2026) |
 | Phase 2: Web + Report | 2       | ⬜ Chưa bắt đầu                |
 
 ### 7.2. Task Status Legend
@@ -747,7 +748,7 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 | ---------------------- | ------- | -------------- | -------------------------------- | ------ |
 | M0: Research Complete  | Phase 0 | 10/02/2026     | 3 projects chạy + documented     | ✅     |
 | M1: Dataset + Baseline | Phase 1 | **21/03/2026** | ≥15k ảnh + AUC ≥ 0.85 (ID)       | ✅     |
-| M2: Benchmark + XAI    | Phase 1 | **07/04/2026** | Bảng so sánh chuẩn + XAI gallery | 🔄     |
+| M2: Benchmark + XAI    | Phase 1 | **07/04/2026** | Bảng so sánh chuẩn + XAI gallery | ✅ DONE 24/03 |
 | M3: Web Demo           | Phase 2 | **28/04/2026** | Latency ≤ 2s                     | ⬜     |
 | M4: Defense Ready      | Phase 2 | **15/05/2026** | Full package                     | ⬜     |
 
