@@ -94,6 +94,42 @@ def collect_datasets():
                     "dataset": "camera_vs_ai",
                 })
 
+    # ──────────────────────────────────────
+    # 4. diffusion_fakes — DALL-E, SD, Midjourney + verified Real
+    #    Source: jayanthbottu/labeled-deepfake-image-collection (Kaggle)
+    #    Categorized by AI model, peer-reviewed labels
+    # ──────────────────────────────────────
+    diff_base = RAW_V2 / "diffusion_fakes"
+    if diff_base.exists():
+        # Diffusion-model fakes (the key addition for OOD fix!)
+        for dirname, source_name in [
+            ("DALL-E", "dalle_fake"),
+            ("Stable Diffusion", "sd_fake"),
+            ("Midjourney", "midjourney_fake"),
+        ]:
+            d = diff_base / dirname
+            if d.exists():
+                imgs = scan(d)
+                for img in imgs:
+                    samples.append({
+                        "path": str(img.resolve()),
+                        "label": 1,
+                        "source": source_name,
+                        "dataset": "diffusion_fakes",
+                    })
+
+        # Extra verified Real images (diverse, non-face)
+        d = diff_base / "Real"
+        if d.exists():
+            imgs = scan(d)
+            for img in imgs:
+                samples.append({
+                    "path": str(img.resolve()),
+                    "label": 0,
+                    "source": "deepfake_collection_real",
+                    "dataset": "diffusion_fakes",
+                })
+
     return samples
 
 
