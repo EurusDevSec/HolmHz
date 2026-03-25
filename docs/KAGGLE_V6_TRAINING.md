@@ -228,7 +228,7 @@ print("Training EfficientNet-B0 v6 (data reset)...")
 ### Cell 7: Save + Evaluate
 
 ```python
-import shutil, json
+import shutil, json, os
 from pathlib import Path
 
 best = Path("outputs/checkpoints/best.pt")
@@ -236,17 +236,37 @@ if best.exists():
     shutil.copy2(best, "/kaggle/working/best_v6.pt")
     print(f"✅ Saved /kaggle/working/best_v6.pt ({best.stat().st_size/1e6:.1f}MB)")
 
-# Quick evaluate on test_id
-print("\n=== Test ID ===")
-!PYTHONPATH=src python scripts/test.py model.name=efficientnet_b0 \
-    model.checkpoint=outputs/checkpoints/best.pt \
-    data.test_manifest=data/manifests_v2/test_id.json
+# Write v6 test config (sử dụng manifests_v2, KHÔNG phải manifests cũ)
+test_config = """
+model:
+  name: efficientnet_b0
+  checkpoint: outputs/checkpoints/best.pt
+  dropout: 0.3
 
-# OOD evaluate (camera_vs_ai!)
-print("\n=== Test OOD (Camera vs AI) ===")
-!PYTHONPATH=src python scripts/test.py model.name=efficientnet_b0 \
-    model.checkpoint=outputs/checkpoints/best.pt \
-    data.test_manifest=data/manifests_v2/test_ood.json
+data:
+  test_manifest: data/manifests_v2/test_id.json
+  ood_manifest: data/manifests_v2/test_ood.json
+  image_size: 224
+  batch_size: 32
+  num_workers: 4
+
+evaluation:
+  metrics: [auc, accuracy, f1, precision, recall]
+  threshold: 0.5
+  save_predictions: true
+  output_dir: outputs/evaluation_v6
+
+wandb:
+  project: holmhz
+  log_results: false
+"""
+with open("configs/test_v6.yaml", "w") as f:
+    f.write(test_config)
+print("✅ configs/test_v6.yaml written")
+
+# Evaluate using v6 config
+print("\n=== Full Evaluation (ID + OOD) ===")
+!PYTHONPATH=src python scripts/test.py configs/test_v6.yaml
 ```
 
 ---

@@ -1,0 +1,26 @@
+# ============================================
+# HolmHz Test v6 — Data Reset Evaluation
+# ============================================
+# Uses manifests_v2 (rvf10k + ciplab + camera_vs_ai)
+
+model:
+  name: efficientnet_b0
+  checkpoint: outputs/checkpoints/best_v6.pt
+  dropout: 0.3
+
+data:
+  test_manifest: data/manifests_v2/test_id.json
+  ood_manifest: data/manifests_v2/test_ood.json
+  image_size: 224
+  batch_size: 32
+  num_workers: 0
+
+evaluation:
+  metrics: [auc, accuracy, f1, precision, recall]
+  threshold: 0.5  # Re-calibrate after eval (don't use old 0.76)
+  save_predictions: true
+  output_dir: outputs/evaluation_v6
+
+wandb:
+  project: holmhz
+  log_results: true

@@ -5,13 +5,13 @@ from pathlib import Path
 # Project root
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# Model paths
-ONNX_MODEL_PATH = str(PROJECT_ROOT / "outputs" / "exports" / "efficientnet_b0.onnx")
-PYTORCH_CHECKPOINT = str(PROJECT_ROOT / "outputs" / "checkpoints" / "best_v4.pt")
+# Model paths — v6 (data reset, trained on rvf10k + ciplab)
+ONNX_MODEL_PATH = str(PROJECT_ROOT / "outputs" / "exports" / "efficientnet_b0_v6.onnx")
+PYTORCH_CHECKPOINT = str(PROJECT_ROOT / "outputs" / "checkpoints" / "best_v6.pt")
 MODEL_NAME = "efficientnet_b0"
 
 # Inference settings
-THRESHOLD = 0.76  # Youden's J optimal from v4
+THRESHOLD = 0.5  # Reset to 0.5 for v6 (was 0.76 for v4, biased)
 DEVICE = "cpu"
 
 # ImageNet normalization
