@@ -1,0 +1,40 @@
+# ============================================
+# HolmHz Training v6 — DATA RESET (Clean Data)
+# ============================================
+# COMPLETE data reset:
+# - REMOVED: CIFAKE (32x32 bias), FFHQ, StyleGAN, old manifests
+# - NEW: rvf10k (10K diverse), ciplab faces (4K), camera_vs_ai (454 OOD)
+# - 14,536 verified images, ≥256px, multi-domain, multi-generator
+# - Backbone UNFROZEN for full fine-tune on new data distribution
+
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false  # Full fine-tune (data distribution changed)
+
+training:
+  epochs: 30
+  batch_size: 32
+  learning_rate: 0.0003   # Lower LR for unfroz backbone
+  optimizer: adamw
+  weight_decay: 0.01      # Stronger regularization
+  scheduler: cosine
+  pos_weight: 1.0         # Balanced data, no bias weight
+  early_stopping:
+    patience: 7
+    monitor: val_auc
+
+data:
+  train_manifest: data/manifests_v2/train.json
+  val_manifest: data/manifests_v2/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+  use_weighted_sampler: true  # Balance across sources
+
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10

@@ -240,3 +240,6 @@ prac/ai-experiments/deepfake-detection/*/pretrained/
 prac/ai-experiments/deepfake-detection/**/checkpoints/
 holmhz-data-v3.zip
 .gitnexus
+kaggle.json
+data/raw_v2/
+wandb/
