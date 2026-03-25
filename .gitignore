@@ -243,3 +243,5 @@ holmhz-data-v3.zip
 kaggle.json
 data/raw_v2/
 wandb/
+
+*.zip   
