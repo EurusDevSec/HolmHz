@@ -126,12 +126,16 @@ class CLIPPredictor:
 
 
 class EnsemblePredictor:
-    """Ensemble of EfficientNet (ONNX) + CLIP (PyTorch).
+    """Ensemble of EfficientNet (ONNX) + CLIP (PyTorch) + EXIF Hard Constraint.
 
-    Strategy — Weighted average with CLIP bias:
-    - p_ensemble = 0.4 * p_effnet + 0.6 * p_clip
-    - CLIP gets higher weight because it's better at OOD
-    - Result: v8 ID accuracy + CLIP OOD robustness
+    Strategy:
+    1. Weighted average: p = w_effnet * p_effnet + w_clip * p_clip
+    2. EXIF Hard Constraint: p *= exif_multiplier
+       - Camera EXIF → 0.5x (strong REAL boost)
+       - + GPS data → 0.85x additional
+       - AI software → 1.2x (boost FAKE)
+       - No EXIF → 1.0x (neutral — social media strips EXIF)
+    3. Clamp to [0, 1]
 
     Fallback: If CLIP not available, uses EfficientNet only.
     """
@@ -140,22 +144,25 @@ class EnsemblePredictor:
         self,
         effnet_predictor: OnnxPredictor,
         clip_predictor: CLIPPredictor = None,
+        exif_analyzer=None,
         threshold: float = 0.5,
         effnet_weight: float = 0.4,
         clip_weight: float = 0.6,
     ):
         self.effnet = effnet_predictor
         self.clip = clip_predictor
+        self.exif = exif_analyzer
         self.threshold = threshold
         self.w_effnet = effnet_weight
         self.w_clip = clip_weight
 
     def predict(self, image: Image.Image) -> dict:
-        """Ensemble prediction.
+        """Ensemble prediction with EXIF hard constraint.
 
         Returns:
-            {label, confidence, prob_fake,
-             effnet_prob, clip_prob, model_used}
+            {label, confidence, prob_fake, prob_fake_raw,
+             effnet_prob, clip_prob, model_used,
+             exif_summary, exif_multiplier, exif_device}
         """
         # EfficientNet prediction (always available)
         effnet_result = self.effnet.predict(image)
@@ -165,14 +172,26 @@ class EnsemblePredictor:
         if self.clip is not None:
             clip_result = self.clip.predict(image)
             clip_prob = clip_result["prob_fake"]
-
-            # Weighted average
-            prob_fake = self.w_effnet * effnet_prob + self.w_clip * clip_prob
+            prob_fake_raw = self.w_effnet * effnet_prob + self.w_clip * clip_prob
             model_used = "ensemble"
         else:
             clip_prob = None
-            prob_fake = effnet_prob
+            prob_fake_raw = effnet_prob
             model_used = "efficientnet_only"
+
+        # EXIF Hard Constraint
+        exif_summary = "No EXIF analysis"
+        exif_multiplier = 1.0
+        exif_device = None
+
+        if self.exif is not None:
+            exif_result = self.exif.analyze(image)
+            exif_summary = exif_result["exif_summary"]
+            exif_multiplier = exif_result["multiplier"]
+            exif_device = exif_result["device"]
+
+        # Apply EXIF multiplier and clamp
+        prob_fake = max(0.0, min(1.0, prob_fake_raw * exif_multiplier))
 
         label = "FAKE" if prob_fake >= self.threshold else "REAL"
         confidence = prob_fake if label == "FAKE" else 1.0 - prob_fake
@@ -181,9 +200,13 @@ class EnsemblePredictor:
             "label": label,
             "confidence": round(confidence, 4),
             "prob_fake": round(prob_fake, 4),
+            "prob_fake_raw": round(prob_fake_raw, 4),
             "effnet_prob": round(effnet_prob, 4),
             "clip_prob": round(clip_prob, 4) if clip_prob is not None else None,
             "model_used": model_used,
+            "exif_summary": exif_summary,
+            "exif_multiplier": round(exif_multiplier, 2),
+            "exif_device": exif_device,
         }
 
 

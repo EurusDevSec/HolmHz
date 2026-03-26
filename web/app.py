@@ -55,15 +55,26 @@ else:
     print(f"  ⚠️ CLIP checkpoint not found: {CLIP_CHECKPOINT}", flush=True)
     print("  Running EfficientNet only mode.", flush=True)
 
+# Load EXIF analyzer
+from holmhz.analysis.exif_analyzer import EXIFAnalyzer
+exif_analyzer = EXIFAnalyzer(
+    camera_multiplier=0.5,     # Camera EXIF → p_fake *= 0.5
+    gps_multiplier=0.85,       # + GPS → p_fake *= 0.85
+    ai_software_multiplier=1.2,  # AI software → p_fake *= 1.2
+)
+print("  ✅ EXIF analyzer loaded", flush=True)
+
 # Ensemble predictor
 predictor = EnsemblePredictor(
     effnet_predictor=effnet_predictor,
     clip_predictor=clip_predictor,
+    exif_analyzer=exif_analyzer,
     threshold=THRESHOLD,
     effnet_weight=EFFNET_WEIGHT,
     clip_weight=CLIP_WEIGHT,
 )
-ensemble_mode = "Ensemble" if clip_predictor else "EfficientNet Only"
+has_clip = clip_predictor is not None
+ensemble_mode = "Ensemble + EXIF" if has_clip else "EfficientNet + EXIF"
 print(f"\n🚀 Mode: {ensemble_mode}", flush=True)
 
 print("Loading Grad-CAM service...", flush=True)
@@ -95,16 +106,25 @@ def predict_fn(image):
         f"Latency: {elapsed*1000:.0f}ms\n\n",
     ]
 
-    # Show individual model probabilities if ensemble
+    # Show model probabilities
     if result.get("clip_prob") is not None:
         detail_parts.append(
             f"📊 **Ensemble** — "
             f"EfficientNet: {result['effnet_prob']:.4f} | "
             f"CLIP: {result['clip_prob']:.4f} | "
-            f"Weights: {EFFNET_WEIGHT:.0%}/{CLIP_WEIGHT:.0%}"
+            f"Weights: {EFFNET_WEIGHT:.0%}/{CLIP_WEIGHT:.0%}\n\n"
         )
     else:
-        detail_parts.append("📊 EfficientNet only (CLIP not loaded)")
+        detail_parts.append("📊 EfficientNet only\n\n")
+
+    # EXIF info
+    if result.get("exif_multiplier", 1.0) != 1.0:
+        detail_parts.append(
+            f"🔑 **EXIF**: {result['exif_summary']} "
+            f"(raw: {result.get('prob_fake_raw', 0):.4f} → adjusted: {result['prob_fake']:.4f})"
+        )
+    elif result.get("exif_summary"):
+        detail_parts.append(f"🔑 EXIF: {result['exif_summary']}")
 
     detail = "".join(detail_parts)
     label_dict = {"FAKE": result["prob_fake"], "REAL": 1 - result["prob_fake"]}
@@ -136,6 +156,16 @@ def explain_fn(image):
             f"EfficientNet: {result['effnet_prob']:.4f} | "
             f"CLIP: {result['clip_prob']:.4f}\n\n"
         )
+
+    # EXIF info
+    if result.get("exif_multiplier", 1.0) != 1.0:
+        detail_parts.append(
+            f"🔑 **EXIF**: {result['exif_summary']} "
+            f"(raw: {result.get('prob_fake_raw', 0):.4f} → {result['prob_fake']:.4f})\n\n"
+        )
+    elif result.get("exif_summary"):
+        detail_parts.append(f"🔑 EXIF: {result['exif_summary']}\n\n")
+
     detail_parts.append("🔴 Red = Model focuses here | 🔵 Blue = Model ignores")
 
     detail = "".join(detail_parts)
