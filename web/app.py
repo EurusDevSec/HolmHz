@@ -1,8 +1,8 @@
 """
-HolmHz Web Demo — Synthetic Image Detector.
+HolmHz Web Demo — Synthetic Image Detector (Ensemble v10).
 
 Upload an image to detect if it's AI-generated (Fake) or Real.
-Powered by EfficientNet-B0 (4M params, OOD AUC 0.7838).
+Ensemble: EfficientNet-B0 (v8 ID champion) + CLIP ViT-L/14 (v9 OOD champion).
 
 Usage:
     cd R:/_Projects/Eurus_Workspace/HolmHz
@@ -26,21 +26,50 @@ sys.path.insert(0, str(_web_dir.parent / "src"))
 os.environ.setdefault("GRADIO_ANALYTICS_ENABLED", "False")
 
 import gradio as gr
-from model_service import OnnxPredictor, GradCAMService
-from config import ONNX_MODEL_PATH, PYTORCH_CHECKPOINT, MODEL_NAME, DEVICE, THRESHOLD
+from model_service import OnnxPredictor, CLIPPredictor, EnsemblePredictor, GradCAMService
+from config import (
+    ONNX_MODEL_PATH, PYTORCH_CHECKPOINT, MODEL_NAME, DEVICE, THRESHOLD,
+    CLIP_CHECKPOINT, EFFNET_WEIGHT, CLIP_WEIGHT,
+)
 
 # ──────────────────────────────────────────────────────────────
 # Load models (once on startup)
 # ──────────────────────────────────────────────────────────────
-print("Loading ONNX predictor...", flush=True)
+print("Loading EfficientNet ONNX predictor...", flush=True)
 t0 = time.time()
-predictor = OnnxPredictor(ONNX_MODEL_PATH, threshold=THRESHOLD)
-print(f"  ONNX loaded in {time.time() - t0:.1f}s", flush=True)
+effnet_predictor = OnnxPredictor(ONNX_MODEL_PATH, threshold=THRESHOLD)
+print(f"  EfficientNet loaded in {time.time() - t0:.1f}s", flush=True)
+
+# Load CLIP (optional — graceful fallback)
+clip_predictor = None
+if Path(CLIP_CHECKPOINT).exists():
+    try:
+        print("Loading CLIP ViT-L/14 predictor...", flush=True)
+        t1 = time.time()
+        clip_predictor = CLIPPredictor(CLIP_CHECKPOINT, threshold=THRESHOLD, device=DEVICE)
+        print(f"  CLIP loaded in {time.time() - t1:.1f}s", flush=True)
+    except Exception as e:
+        print(f"  ⚠️ CLIP load failed: {e}", flush=True)
+        print("  Falling back to EfficientNet only.", flush=True)
+else:
+    print(f"  ⚠️ CLIP checkpoint not found: {CLIP_CHECKPOINT}", flush=True)
+    print("  Running EfficientNet only mode.", flush=True)
+
+# Ensemble predictor
+predictor = EnsemblePredictor(
+    effnet_predictor=effnet_predictor,
+    clip_predictor=clip_predictor,
+    threshold=THRESHOLD,
+    effnet_weight=EFFNET_WEIGHT,
+    clip_weight=CLIP_WEIGHT,
+)
+ensemble_mode = "Ensemble" if clip_predictor else "EfficientNet Only"
+print(f"\n🚀 Mode: {ensemble_mode}", flush=True)
 
 print("Loading Grad-CAM service...", flush=True)
-t1 = time.time()
+t2 = time.time()
 gradcam_service = GradCAMService(MODEL_NAME, PYTORCH_CHECKPOINT, device=DEVICE)
-print(f"  Grad-CAM loaded in {time.time() - t1:.1f}s", flush=True)
+print(f"  Grad-CAM loaded in {time.time() - t2:.1f}s", flush=True)
 print("Models ready!\n", flush=True)
 
 
@@ -57,13 +86,27 @@ def predict_fn(image):
     elapsed = time.time() - t
 
     label_text = f"{'🚨 FAKE' if result['label'] == 'FAKE' else '✅ REAL'}"
-    detail = (
-        f"**{label_text}** — Confidence: {result['confidence']:.1%}\n\n"
-        f"P(Fake) = {result['prob_fake']:.4f} | "
-        f"Threshold = {THRESHOLD} | "
-        f"Latency: {elapsed*1000:.0f}ms"
-    )
-    # For gr.Label: dict of {class: prob}
+
+    # Build detail string
+    detail_parts = [
+        f"**{label_text}** — Confidence: {result['confidence']:.1%}\n\n",
+        f"P(Fake) = {result['prob_fake']:.4f} | ",
+        f"Threshold = {THRESHOLD} | ",
+        f"Latency: {elapsed*1000:.0f}ms\n\n",
+    ]
+
+    # Show individual model probabilities if ensemble
+    if result.get("clip_prob") is not None:
+        detail_parts.append(
+            f"📊 **Ensemble** — "
+            f"EfficientNet: {result['effnet_prob']:.4f} | "
+            f"CLIP: {result['clip_prob']:.4f} | "
+            f"Weights: {EFFNET_WEIGHT:.0%}/{CLIP_WEIGHT:.0%}"
+        )
+    else:
+        detail_parts.append("📊 EfficientNet only (CLIP not loaded)")
+
+    detail = "".join(detail_parts)
     label_dict = {"FAKE": result["prob_fake"], "REAL": 1 - result["prob_fake"]}
     return label_dict, detail
 
@@ -79,13 +122,23 @@ def explain_fn(image):
     elapsed = time.time() - t
 
     label_text = f"{'🚨 FAKE' if result['label'] == 'FAKE' else '✅ REAL'}"
-    detail = (
-        f"**{label_text}** — Confidence: {result['confidence']:.1%}\n\n"
-        f"P(Fake) = {result['prob_fake']:.4f} | "
-        f"Threshold = {THRESHOLD} | "
-        f"Latency: {elapsed*1000:.0f}ms\n\n"
-        f"🔴 Red = Model focuses here | 🔵 Blue = Model ignores"
-    )
+
+    detail_parts = [
+        f"**{label_text}** — Confidence: {result['confidence']:.1%}\n\n",
+        f"P(Fake) = {result['prob_fake']:.4f} | ",
+        f"Threshold = {THRESHOLD} | ",
+        f"Latency: {elapsed*1000:.0f}ms\n\n",
+    ]
+
+    if result.get("clip_prob") is not None:
+        detail_parts.append(
+            f"📊 **Ensemble** — "
+            f"EfficientNet: {result['effnet_prob']:.4f} | "
+            f"CLIP: {result['clip_prob']:.4f}\n\n"
+        )
+    detail_parts.append("🔴 Red = Model focuses here | 🔵 Blue = Model ignores")
+
+    detail = "".join(detail_parts)
     label_dict = {"FAKE": result["prob_fake"], "REAL": 1 - result["prob_fake"]}
     return label_dict, detail, heatmap
 
@@ -107,7 +160,7 @@ with gr.Blocks(
     gr.Markdown(
         "# 🔍 HolmHz — Synthetic Image Detector\n"
         "Upload an image to detect if it's AI-generated (Fake) or Real.\n"
-        "Powered by EfficientNet-B0 (4M params) trained on GAN + Diffusion data."
+        f"**Mode: {ensemble_mode}** — EfficientNet-B0 (ID) + CLIP ViT-L/14 (OOD)"
     )
 
     with gr.Tabs():
@@ -170,11 +223,12 @@ with gr.Blocks(
 
     gr.Markdown(
         '<div class="footer">'
-        "<b>Model</b>: EfficientNet-B0 (4M params) | "
-        "<b>Best OOD AUC</b>: 0.7838 | "
-        "<b>Threshold</b>: 0.76 (Youden's J) | "
-        "<b>ONNX</b>: 15.3 MB<br>"
-        "HolmHz — AI-Generated Image Detection | Sprint 3 Demo"
+        f"<b>Mode</b>: {ensemble_mode} | "
+        "<b>EfficientNet</b>: v8 (ID AUC 0.9984) | "
+        "<b>CLIP</b>: v9 (OOD AUC 0.9419) | "
+        f"<b>Weights</b>: {EFFNET_WEIGHT:.0%}/{CLIP_WEIGHT:.0%} | "
+        f"<b>Threshold</b>: {THRESHOLD}<br>"
+        "HolmHz — AI-Generated Image Detection | Ensemble v10"
         "</div>",
     )
 
