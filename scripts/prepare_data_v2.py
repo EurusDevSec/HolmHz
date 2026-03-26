@@ -2,9 +2,11 @@
 HolmHz Data v2 — Prepare unified manifests from downloaded datasets.
 
 Sources:
-1. rvf10k: 10K images (real diverse + AI-generated), balanced
+1. rvf10k: 10K images (real diverse + AI-generated)
 2. ciplab_faces: ~4K face images (real + StyleGAN/ProGAN)
-3. camera_vs_ai: 454 images (camera real + AI-generated diverse)
+3. camera_vs_ai: 454 images — 60% train, 40% OOD test
+4. diffusion_fakes: DALL-E 2K + SD 2K + MJ 930 + Real 5.9K
+5. deepdetect2025: 112K images — sampled 5K real + 5K fake (diverse categories)
 
 Creates: data/manifests_v2/{train,val,test_id,test_ood}.json
 
@@ -77,6 +79,8 @@ def collect_datasets():
 
     # ──────────────────────────────────────
     # 3. camera_vs_ai (454 images, camera photos)
+    #    NOW: 60% train, 40% OOD test (was 100% OOD)
+    #    This fixes the seesaw problem — model sees camera domain
     # ──────────────────────────────────────
     cam_base = RAW_V2 / "camera_vs_ai" / "ai vs real photos"
     for label_name, label, dirname in [
@@ -86,22 +90,30 @@ def collect_datasets():
         d = cam_base / dirname
         if d.exists():
             imgs = scan(d)
-            for img in imgs:
+            random.shuffle(imgs)
+            # 60% train (tagged as camera_train_*), 40% OOD (tagged as camera_*)
+            split_idx = int(len(imgs) * 0.6)
+            for img in imgs[:split_idx]:
                 samples.append({
                     "path": str(img.resolve()),
                     "label": label,
-                    "source": label_name,
+                    "source": f"camera_train_{label_name.split('_')[1]}",  # camera_train_real / camera_train_ai
+                    "dataset": "camera_vs_ai",
+                })
+            for img in imgs[split_idx:]:
+                samples.append({
+                    "path": str(img.resolve()),
+                    "label": label,
+                    "source": label_name,  # camera_real / camera_ai → OOD
                     "dataset": "camera_vs_ai",
                 })
 
     # ──────────────────────────────────────
     # 4. diffusion_fakes — DALL-E, SD, Midjourney + verified Real
     #    Source: jayanthbottu/labeled-deepfake-image-collection (Kaggle)
-    #    Categorized by AI model, peer-reviewed labels
     # ──────────────────────────────────────
     diff_base = RAW_V2 / "diffusion_fakes"
     if diff_base.exists():
-        # Diffusion-model fakes (the key addition for OOD fix!)
         for dirname, source_name in [
             ("DALL-E", "dalle_fake"),
             ("Stable Diffusion", "sd_fake"),
@@ -118,7 +130,6 @@ def collect_datasets():
                         "dataset": "diffusion_fakes",
                     })
 
-        # Extra verified Real images (diverse, non-face)
         d = diff_base / "Real"
         if d.exists():
             imgs = scan(d)
@@ -129,6 +140,39 @@ def collect_datasets():
                     "source": "deepfake_collection_real",
                     "dataset": "diffusion_fakes",
                 })
+
+    # ──────────────────────────────────────
+    # 5. DeepDetect-2025 — MASSIVE diversity dataset
+    #    Source: ayushmandatta1/deepdetect-2025 (Kaggle, Apache-2.0)
+    #    112K images (SD3, StyleGAN3, DALL-E 3, Midjourney)
+    #    Categories: people, animals, nature, urban, artworks, objects
+    #    → Sample 5K real + 5K fake for diversity boost
+    # ──────────────────────────────────────
+    DEEPDETECT_SAMPLE = 5000  # per class
+    dd_base = RAW_V2 / "deepdetect2025" / "ddata"
+    if dd_base.exists():
+        for split in ["train", "test"]:
+            for label_name, label in [("real", 0), ("fake", 1)]:
+                d = dd_base / split / label_name
+                if d.exists():
+                    imgs = scan(d)
+                    random.shuffle(imgs)
+                    # Take proportional subset from each split
+                    n_take = min(len(imgs), DEEPDETECT_SAMPLE)
+                    for img in imgs[:n_take]:
+                        samples.append({
+                            "path": str(img.resolve()),
+                            "label": label,
+                            "source": f"dd2025_{label_name}",
+                            "dataset": "deepdetect2025",
+                        })
+        # Cap total per label to DEEPDETECT_SAMPLE
+        dd_real = [s for s in samples if s["dataset"] == "deepdetect2025" and s["label"] == 0]
+        dd_fake = [s for s in samples if s["dataset"] == "deepdetect2025" and s["label"] == 1]
+        # Remove excess
+        samples = [s for s in samples if s["dataset"] != "deepdetect2025"]
+        samples.extend(dd_real[:DEEPDETECT_SAMPLE])
+        samples.extend(dd_fake[:DEEPDETECT_SAMPLE])
 
     return samples
 
@@ -148,11 +192,12 @@ def deduplicate(samples):
 def split_data(samples, val_ratio=0.10, test_ratio=0.10, ood_sources=None):
     """Split into train/val/test_id/test_ood.
 
-    OOD test: camera_vs_ai images (never seen during training).
+    OOD test: camera_vs_ai 40% (camera_real + camera_ai sources).
+    camera_train_* goes into train/val/test_id (60% of camera_vs_ai).
     ID splits: stratified by source.
     """
     if ood_sources is None:
-        ood_sources = {"camera_real", "camera_ai"}
+        ood_sources = {"camera_real", "camera_ai"}  # Only the 40% OOD portion
 
     ood = [s for s in samples if s["source"] in ood_sources]
     id_samples = [s for s in samples if s["source"] not in ood_sources]
