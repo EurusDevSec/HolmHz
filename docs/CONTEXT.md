@@ -1417,3 +1417,258 @@ python scripts/export_onnx.py configs/export.yaml --benchmark
 ### 23.6 Next Step: Web Demo
 
 ONNX ready → Sprint 3 (Task 3.1 Backend API) có thể load `efficientnet_b0.onnx` với `onnxruntime` để serve predictions với latency ≤ 2s.
+
+---
+
+## 24. Version 7-8: Dataset Mở Rộng & JPEG Augmentation (26/03/2026)
+
+### 24.1 Bối cảnh
+
+Sau Sprints 1-2, model EfficientNet-B0 đạt ID AUC 0.9984 nhưng khi test thực tế trên ảnh iPhone/Facebook chụp thật → **False Positive cao** (nhận Real thành Fake). Root cause: model chỉ train trên CIFAKE/FFHQ/StyleGAN, chưa biết ảnh từ social media bị nén JPEG.
+
+### 24.2 Thay đổi chính (v7 → v8)
+
+| Version | Thay đổi chính | Kaggle guide | Kết quả |
+|---------|----------------|--------------|---------|
+| **v7** | Mở rộng dataset 30K + thêm camera_train_real/ai sources | `docs/KAGGLE_V6_TRAINING.md` | ID AUC 0.9984, OOD AUC 0.44 |
+| **v8** | Thêm JPEG augmentation (quality 30-95) cho training | `docs/KAGGLE_V9_TRAINING.md` | ID AUC 0.9984, OOD tốt hơn |
+
+### 24.3 Kết quả v7 (Evaluation trên Kaggle)
+
+```
+IN-DOMAIN: AUC 0.9984, Acc 0.9870, F1 0.9865
+OOD:       AUC ~0.44, Acc 0.5385
+
+Per-source:
+  camera_train_ai   — Acc: 0.9231, N: 13   (Fake, nhận đúng)
+  camera_train_real  — Acc: 0.0000, N: 3     (Real, nhận SAI hết = False Positive)
+```
+
+### 24.4 Vấn đề iPhone/Facebook False Positive
+
+User test với ảnh thật từ iPhone → tất cả bị nhận là Fake. Nguyên nhân:
+1. iPhone chụp HEIC → sync qua Google Photos / đăng Facebook → JPEG nén
+2. JPEG nén tạo artifacts mà model CHƯA biết → nhầm là AI artifacts
+3. Ảnh social media bị strip EXIF → model không phân biệt được camera thật vs AI
+
+→ **Giải pháp hướng A**: JPEG augmentation trong training (quality 30-95)
+→ **Giải pháp hướng B**: CLIP model (generalize tốt hơn EfficientNet trên OOD)
+
+---
+
+## 25. Version 9: CLIP ViT-L/14 Training (26/03/2026)
+
+### 25.1 Objective
+
+Train CLIP ViT-L/14 (fine-tune linear head trên frozen CLIP backbone) để so sánh với EfficientNet-B0 trên bài toán Real/Fake detection. CLIP được kỳ vọng generalize tốt hơn nhờ pre-training trên 400M text-image pairs.
+
+### 25.2 Kết quả Training (Kaggle)
+
+```
+Model: CLIPDetector (ViT-L/14, open_clip, pretrained='openai')
+Checkpoint: best_v9_clip.pt (1710.6MB)
+Epoch: 11, val_auc: 0.9718
+
+IN-DOMAIN: AUC 0.9718, Acc 0.9226, F1 0.9257
+OOD:       AUC 0.6649, Acc 0.4670
+```
+
+### 25.3 So sánh EfficientNet vs CLIP
+
+| Metric | EfficientNet-B0 (v8) | CLIP ViT-L/14 (v9) | Winner |
+|--------|----------------------|---------------------|--------|
+| ID AUC | **0.9984** | 0.9718 | EfficientNet |
+| OOD AUC | ~0.44 | **0.6649** | **CLIP** |
+| Size | 48.5 MB | 1710.6 MB | EfficientNet |
+| Inference | ~32ms (ONNX) | ~400ms (PyTorch) | EfficientNet |
+
+**Kết luận**: EfficientNet mạnh ID, CLIP mạnh OOD → **Ensemble** kết hợp cả hai.
+
+### 25.4 Dependencies
+
+- `open-clip-torch` — CLIP inference in PyTorch
+- `src/holmhz/detectors/clip_detector.py` — CLIPDetector extends BaseDetector
+
+---
+
+## 26. Version 10: Ensemble Deployment (26/03/2026)
+
+### 26.1 Architecture
+
+```
+Image → ┬→ EfficientNet (ONNX, ~32ms) → p_effnet
+        └→ CLIP ViT-L/14 (PyTorch, ~400ms) → p_clip
+
+p_ensemble = 0.4 * p_effnet + 0.6 * p_clip
+```
+
+**Trọng số**: EfficientNet 40% (mạnh ID) + CLIP 60% (mạnh OOD)
+**Fallback**: Nếu CLIP không load được → EfficientNet only
+
+### 26.2 Implementation
+
+| File | Thay đổi |
+|------|----------|
+| `web/model_service.py` | `CLIPPredictor` + `EnsemblePredictor` |
+| `web/config.py` | `CLIP_CHECKPOINT`, `EFFNET_WEIGHT`, `CLIP_WEIGHT` |
+| `web/app.py` | Load ensemble, show per-model probabilities |
+
+### 26.3 Kết quả thực tế
+
+- Độ chính xác sample test: ~92%
+- CLIP modulate overconfidence → giảm False Positive
+- Latency: ~900ms (EfficientNet ~32ms + CLIP ~400ms + overhead)
+
+### 26.4 Nguồn tham khảo
+
+- [open-clip-torch](https://github.com/mlfoundations/open_clip) — CLIP implementation
+- [Frank et al. 2020](https://arxiv.org/abs/2003.08685) — Frequency analysis for deepfake detection
+- [Ojha et al. 2023](https://arxiv.org/abs/2302.10174) — UniversalFakeDetect (CLIP-based detection)
+
+---
+
+## 27. Version 11 Phase 1: EXIF Hard Constraint (26/03/2026)
+
+### 27.1 Động lực
+
+Ảnh thật từ iPhone/Camera luôn có EXIF metadata (Make, Model, FocalLength, GPS). Ảnh AI-generated KHÔNG có EXIF (hoặc giả). Social media (Facebook, Telegram) XÓA EXIF khi upload.
+
+→ EXIF là **bộ lọc rule-based** nhanh nhất (<1ms) để giảm False Positive.
+
+### 27.2 Logic Hard Constraint
+
+```
+Có camera EXIF (iPhone, Samsung, Canon...) → p_fake *= 0.5  (giảm 50%)
++ Có GPS data                              → p_fake *= 0.85 (thêm)
+Có AI software tag (Midjourney, DALL-E...)  → p_fake *= 1.2  (tăng)
+Không có EXIF                              → p_fake *= 1.0  (NEUTRAL — không phạt)
+```
+
+> **Quan trọng**: "Không có EXIF" = NEUTRAL (không phạt) vì social media strip EXIF.
+
+### 27.3 Implementation
+
+| File | Mô tả |
+|------|-------|
+| `src/holmhz/analysis/__init__.py` | NEW — Analysis module init |
+| `src/holmhz/analysis/exif_analyzer.py` | NEW — `EXIFAnalyzer` class (~155 LOC) |
+| `web/model_service.py` | MODIFIED — `EnsemblePredictor` + EXIF multiplier |
+| `web/app.py` | MODIFIED — Load EXIF analyzer, show metadata in UI |
+
+### 27.4 Nguồn tham khảo
+
+- Ý tưởng từ [TruthScan](https://truthscan.ai/) — EXIF analysis as first-pass filter
+- [Pillow EXIF tags](https://pillow.readthedocs.io/en/stable/reference/ExifTags.html) — Python EXIF extraction
+- Góp ý chuyên gia: EXIF nên là "hard constraint" (multiplier), không phải additive boost
+
+---
+
+## 28. Version 11 Phase 2: FFT Frequency Detector (26/03/2026 — IN PROGRESS)
+
+### 28.1 Lý thuyết
+
+AI-generated images để lại dấu vết trong **miền tần số** mà mắt thường không thấy:
+- **GANs**: Grid patterns tuần hoàn trong amplitude spectrum (do upsampling artifacts)
+- **Diffusion models**: Spectral roll-off khác natural images ở high frequencies
+- **Tất cả AI**: Phase spectrum không consistent so với ảnh tự nhiên
+
+### 28.2 Architecture
+
+```
+Image (RGB) → Grayscale → FFT2D → ┬→ Log(|Amplitude|) (normalized [0,1])
+                                    └→ Phase (normalized [0,1])
+              ↓ Stack: [B, 2, 224, 224]
+              ↓
+         Custom CNN (3 blocks):
+           Conv2d(2,32,3) → BN → ReLU → MaxPool
+           Conv2d(32,64,3) → BN → ReLU → MaxPool
+           Conv2d(64,128,3) → BN → ReLU → AdaptiveAvgPool(7)
+              ↓
+         Flatten → Linear(128*7*7, 256) → ReLU → Dropout → Linear(256, 1)
+              ↓
+         logit → Sigmoid → P(Fake)
+```
+
+### 28.3 Specs
+
+| Metric | Value |
+|--------|-------|
+| **Total params** | ~1.7M |
+| **Input** | [B, 3, 224, 224] RGB |
+| **Output** | [B, 1] logit |
+| **Use phase** | Yes (2-channel: amplitude + phase) |
+| **Dependencies** | None (PyTorch FFT built-in) |
+| **Registry name** | `freq_fft` |
+
+### 28.4 Implementation
+
+| File | Mô tả |
+|------|-------|
+| `src/holmhz/detectors/freq_detector.py` | NEW — `FrequencyCNN` + `FrequencyDetector` |
+| `src/holmhz/detectors/__init__.py` | MODIFIED — Register `freq_fft` |
+| `docs/KAGGLE_V11_TRAINING.md` | NEW — Training guide cho Kaggle |
+
+### 28.5 Trọng số Ensemble v11 (Planned)
+
+```
+p_final = (0.30 * p_effnet + 0.40 * p_clip + 0.25 * p_fft) * exif_multiplier
+              ↑                 ↑                ↑                   ↑
+         EfficientNet        CLIP           FFT CNN          EXIF Hard Constraint
+         (ID accuracy)    (OOD robust)   (frequency domain)  (rule-based filter)
+```
+
+### 28.6 Trạng thái
+
+- [x] Code FrequencyDetector (tested, forward pass OK)
+- [x] Registry registration (`freq_fft`)
+- [x] Kaggle training guide
+- [ ] Train trên Kaggle → download checkpoint
+- [ ] Integrate vào Ensemble
+- [ ] Test End-to-End
+
+### 28.7 Nguồn tham khảo khoa học
+
+| Paper | Năm | Link | Đóng góp |
+|-------|-----|------|----------|
+| Frank et al. "Leveraging Frequency Analysis for Deep Fake Image Recognition" | 2020 | [arXiv:2003.08685](https://arxiv.org/abs/2003.08685) | FFT/DCT for deepfake, first to show spectral differences |
+| Dzanic et al. "Fourier Spectrum Discrepancies in Deep Network Generated Images" | 2020 | [NeurIPS 2020](https://arxiv.org/abs/1911.06465) | Spectral analysis of GAN outputs |
+| FreqNet (Tan et al.) | 2024 | [AAAI 2024](https://ojs.aaai.org/index.php/AAAI/article/view/28333) | Source-agnostic frequency features |
+| Durall et al. "Watch Your Up-Convolution" | 2020 | [arXiv:1907.02761](https://arxiv.org/abs/1907.02761) | Spectral artifacts of upsampling layers |
+
+---
+
+## 29. Cấu trúc Source Code (Cập nhật v11, 26/03/2026)
+
+```
+src/holmhz/
+├── analysis/                # v11 NEW — Rule-based analysis
+│   ├── __init__.py
+│   └── exif_analyzer.py     # EXIFAnalyzer (camera, GPS, AI software)
+├── backbones/               # CNN backbones
+│   ├── base.py
+│   ├── efficientnet.py
+│   └── timm_backbone.py
+├── data/                    # Dataset, transforms
+│   ├── image_dataset.py
+│   ├── transforms.py
+│   └── utils.py
+├── detectors/               # Detector models
+│   ├── base.py              # BaseDetector (ABC)
+│   ├── efficientnet_detector.py
+│   ├── clip_detector.py     # v9 NEW — CLIP ViT-L/14
+│   ├── freq_detector.py     # v11 NEW — FFT CNN
+│   └── timm_detector.py
+├── evaluation/
+├── exports/
+├── losses/
+├── metrics/
+├── training/
+├── utils/
+└── xai/
+
+web/
+├── app.py                   # Gradio UI (v10 ensemble + v11 EXIF)
+├── model_service.py         # OnnxPredictor, CLIPPredictor, EnsemblePredictor
+└── config.py                # Paths, weights, thresholds
+```
+

@@ -21,4 +21,9 @@ try:
 except ImportError:
     pass  # open_clip not installed
 
-__all__ = ["BaseDetector", "EfficientNetDetector", "TimmDetector", "DETECTOR_REGISTRY"]
+# Frequency detector — FFT-based (no extra dependencies)
+from .freq_detector import FrequencyDetector
+DETECTOR_REGISTRY.register("freq_fft")(FrequencyDetector)
+
+__all__ = ["BaseDetector", "EfficientNetDetector", "TimmDetector", "FrequencyDetector", "DETECTOR_REGISTRY"]
+

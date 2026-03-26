@@ -1,7 +1,7 @@
 # 🔍 HolmHz - Synthetic Image Detection System
 
 > **Triển khai và đánh giá các phương pháp CNN cho bài toán phát hiện ảnh tổng hợp**  
-> Thời gian: 11/2025 - 05/2026 (7 tháng)  
+> Thời gian: 11/2025 - 05/2026 (7 tháng) | Cập nhật: 26/03/2026  
 > Thực hiện: Lê Văn Hoàng (Chính) | Ngô Huỳnh Bảo Luân (Hỗ trợ)  
 > Loại hình: Nghiên cứu ứng dụng (Applied Research)
 >
@@ -263,8 +263,9 @@ val_transform = A.Compose([
 | ----------------- | -------------------- | --------- | ----------------------------------- | ----------------------------- |
 | Framework         | **PyTorch**          | 2.1+      | Linh hoạt, ecosystem mạnh           | Giữ nguyên                    |
 | Vision            | **timm**             | 1.0+      | Pre-trained models đa dạng          | Đã cài, dùng cho EfficientNet |
-| Backbone chính    | **EfficientNet-B0**  | -         | Balance accuracy/speed              | Train trên Diffusion data     |
-| Backbone fallback | **CLIP ViT-L/14**    | -         | SOTA generalization (đã kiểm chứng) | Dùng nếu EffNet OOD < 0.70    |
+| Backbone chính    | **EfficientNet-B0**  | -         | Balance accuracy/speed              | v8 best, ID AUC 0.9984       |
+| Backbone OOD      | **CLIP ViT-L/14**    | -         | SOTA generalization (đã kiểm chứng) | v9, OOD AUC 0.6649            |
+| Frequency Branch  | **FrequencyDetector** (Custom CNN) | - | FFT spectral analysis    | v11 NEW, ~1.7M params         |
 | XAI               | **pytorch-grad-cam** | 1.4+      | Grad-CAM, Grad-CAM++                | Giữ nguyên                    |
 | Optimization      | **ONNX Runtime**     | 1.16+     | Inference optimization              | Giữ nguyên                    |
 
@@ -1135,6 +1136,41 @@ Tuần  | 24/02  01/03  08/03  15/03  22/03  29/03  05/04  12/04  19/04  26/04  
 
 ---
 
-**Last Updated:** 24/02/2026  
+## 13. v11 Multi-Modal Upgrade (26/03/2026)
+
+> Phase mới: Nâng cấp từ 2-model ensemble lên hệ thống đa tầng, giải quyết False Positive on real-world images.
+
+### 13.1 Lộ trình 3 Phase
+
+| Phase | Nội dung | Trạng thái |
+|-------|----------|------------|
+| **Phase 1** | EXIF Hard Constraint + ONNX INT8 Quantization | ✅ EXIF done, ⬜ Quantization |
+| **Phase 2** | FFT Frequency Detector (custom 3-layer CNN) | 🔄 Code done, chưa train |
+| **Phase 3** | SRM + Patch-based analysis (optional) | ⬜ Nếu còn thời gian |
+
+### 13.2 Ensemble v11 (Planned)
+
+```
+p_final = (0.30 * p_effnet + 0.40 * p_clip + 0.25 * p_fft) * exif_multiplier
+```
+
+### 13.3 Files mới
+
+| File | Mô tả |
+|------|-------|
+| `src/holmhz/analysis/exif_analyzer.py` | ✅ EXIF rule-based filter |
+| `src/holmhz/detectors/freq_detector.py` | ✅ FFT CNN detector (~1.7M params) |
+| `docs/KAGGLE_V11_TRAINING.md` | ✅ Kaggle training guide for FFT |
+
+### 13.4 Nguồn tham khảo
+
+- [Frank et al. 2020](https://arxiv.org/abs/2003.08685) — FFT/DCT for deepfake detection
+- [FreqNet, AAAI 2024](https://ojs.aaai.org/index.php/AAAI/article/view/28333) — Source-agnostic frequency features
+- [Ojha et al. 2023](https://arxiv.org/abs/2302.10174) — CLIP-based detection (UniversalFakeDetect)
+- [TruthScan](https://truthscan.ai/) — Enterprise EXIF + multi-modal inspiration
+
+---
+
+**Last Updated:** 26/03/2026  
 **Author:** Lê Văn Hoàng  
-**Version:** 4.0 (Revised: realistic timeline + accessible data sources + Kaggle GPU + risk mitigation)
+**Version:** 5.0 (v11 Multi-Modal upgrade: EXIF + FFT + Ensemble)
