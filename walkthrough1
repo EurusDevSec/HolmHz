@@ -1,0 +1,72 @@
+# Walkthrough: v9 Full Evaluation — v8 vs JPEG Aug vs CLIP
+
+## 📊 Tổng hợp 3 Model
+
+| Metric | v8 EfficientNet | v9 JPEG Aug | v9 CLIP ViT-L/14 |
+|--------|:-:|:-:|:-:|
+| **ID AUC** | **0.9984** ✅ | 0.9984 | 0.9773 |
+| **ID Acc** | **98.70%** ✅ | 98.44% | 92.34% |
+| **OOD AUC** | 0.9310 | 0.8963 ↓ | **0.9419** ✅ |
+| **OOD Acc** | 82.42% | 78.02% ↓ | **87.36%** ✅ |
+| camera_ai | 88.64% | 82.95% ↓ | **94.32%** ✅ |
+| camera_real | 76.60% | 73.40% ↓ | **80.85%** ✅ |
+| OOD Gap | 0.0674 | 0.1021 | **0.0355** ✅ |
+| Model size | 48 MB | 48 MB | 1,710 MB |
+| Trainable params | 4M | 4M | 769 |
+| Sample test | 11/12 | 11/12 | (not local) |
+
+## 🔍 Phân tích chi tiết
+
+### ❌ Hướng A (JPEG Aug) — THẤT BẠI
+- OOD **tệ hơn** v8 ở mọi metric
+- JPEG compression mạnh **phá luôn AI artifacts** → model mất khả năng phân biệt
+- EfficientNet-B0 quá nhỏ để vừa chống JPEG vừa detect fake
+
+### ✅ Hướng B (CLIP) — THÀNH CÔNG về OOD
+- OOD AUC tốt nhất mọi thời đại: **0.9419** (+1.1% so với v8)
+- camera_ai: **94.32%** (+5.7%) — phát hiện AI tốt hơn hẳn
+- camera_real: **80.85%** (+4.3%) — ít false positive hơn trên ảnh thật
+- OOD Gap chỉ **3.55%** (vs 6.7% ở v8) — generalize cực tốt
+
+### ⚠️ CLIP vẫn có trade-off
+- ID accuracy giảm: 98.7% → **92.3%** (ciplab_fake chỉ 73.4%)
+- Model **1.7GB** — quá lớn cho ONNX web deploy
+- Linear probe (769 params) quá đơn giản cho ID diversity
+
+## 🏆 Kết luận: Không có model nào thắng tuyệt đối
+
+| Use Case | Best Model | Why |
+|----------|:-:|---|
+| Web demo (nhẹ) | **v8** | 48MB ONNX, ID 98.7% |
+| Real-world (iPhone/FB) | **CLIP** | OOD 87.4%, ít false positive |
+| Best overall | **Ensemble** | v8 ID + CLIP OOD |
+
+## 📋 Đề xuất tiếp theo
+
+### Option 1: Ensemble v8 + CLIP (Recommend)
+- Chạy cả 2 model → lấy average/weighted vote
+- Nếu v8 nói FAKE + CLIP nói FAKE → chắc chắn FAKE
+- Nếu v8 nói FAKE + CLIP nói REAL → **tin CLIP** (fix false positive)
+- Pro: best of both. Con: cần cả 2 model (1.76GB)
+
+### Option 2: CLIP + MLP Head (thay Linear)
+- Thay `Linear(768→1)` bằng `MLP(768→256→1)` 
+- Thêm capacity cho ID learning mà vẫn giữ CLIP features
+- Train lại trên Kaggle (~20 min)
+- Pro: 1 model. Con: cần retrain
+
+### Option 3: Giữ v8 cho web + CLIP cho API
+- Web demo: giữ v8 ONNX (48MB, nhẹ)
+- Backend API: CLIP PyTorch (chính xác hơn cho iPhone/FB)
+- Pro: không cần thay đổi web. Con: maintain 2 model
+
+## Files đã thay đổi trong v9
+
+| File | Status |
+|------|--------|
+| [transforms.py](file:///r:/_Projects/Eurus_Workspace/HolmHz/src/holmhz/data/transforms.py) | JPEG aug v3 (Hướng A — thất bại) |
+| [clip_detector.py](file:///r:/_Projects/Eurus_Workspace/HolmHz/src/holmhz/detectors/clip_detector.py) | CLIP ViT-L/14 (Hướng B — thành công OOD) |
+| [__init__.py](file:///r:/_Projects/Eurus_Workspace/HolmHz/src/holmhz/detectors/__init__.py) | Register `clip_vit_l14` |
+| [train_v9.yaml](file:///r:/_Projects/Eurus_Workspace/HolmHz/configs/train_v9.yaml) | EfficientNet v9 config |
+| [train_v9_clip.yaml](file:///r:/_Projects/Eurus_Workspace/HolmHz/configs/train_v9_clip.yaml) | CLIP v9 config |
+| [web/config.py](file:///r:/_Projects/Eurus_Workspace/HolmHz/web/config.py) | Vẫn giữ v8 (tốt nhất cho web) |

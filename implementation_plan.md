@@ -1,189 +1,74 @@
-# Kế Hoạch Sửa Lỗi Model — Phiên Bản 2 (FINAL)
+# Phân Tích v7 & Kế Hoạch Fix OOD — v5
 
-> Phương án A: Fix data + retrain. Phương án B: Nâng cấp CLIP backbone (sau khi A thành công).
+## Bảng so sánh v4 → v6 → v7
+
+| Metric | v4 | v6 | v7 | Trend |
+|--------|-----|-----|-----|-------|
+| ID AUC | 0.97 | 0.9958 | **0.9989** | 📈 Liên tục tăng |
+| camera_real (OOD) | ~40% | **98.3%** | 36.75% | 🔄 Seesaw |
+| camera_ai (OOD) | ~100% | 2.7% | **71.36%** | 🔄 Seesaw |
+| OOD AUC | 0.78 | 0.41 | 0.57 | Unstable |
+
+> [!WARNING]
+> **Model đang "seesaw"** — mỗi lần train lại, nó swing giữa 2 cực:
+> - v6: Quá conservative → mọi thứ = REAL (real 98%, fake 2.7%)
+> - v7: Quá aggressive → mọi thứ = FAKE (fake 71%, real 36%)
 
 ---
 
-## TL;DR — Có sửa được không?
+## Root Cause — Tại sao OOD luôn kém?
+
+**Model đang học DOMAIN, không phải AUTHENTICITY.**
+
+EfficientNet-B0 + ImageNet features nhận diện "ảnh này nhìn giống training data hay không" thay vì "ảnh này có artifact AI hay không":
+
+```
+Training data:  rvf10k faces, ciplab GAN, DALL-E/SD/MJ
+                ↓
+Model learns:   "nếu ảnh giống samples tôi đã thấy → REAL/FAKE"
+                ↓
+OOD images:     camera_vs_ai (kiểu ảnh khác hoàn toàn)
+                ↓
+Model confused: "chưa bao giờ thấy kiểu này → random guess"
+```
+
+**Bằng chứng**: OOD AUC = 0.57 ≈ random (0.5). Model KHÔNG CÓ KHẢ NĂNG phân biệt real/fake trong domain camera_vs_ai, bất kể threshold.
+
+---
+
+## Kế hoạch fix — 2 bước
+
+### Bước 1: Đưa camera_vs_ai vào training (Quick Fix)
+
+> Split camera_vs_ai: 60% train, 40% OOD test
+
+Nếu model **thấy** camera domain trong training, nó sẽ học phân biệt real/fake trong domain đó.
+
+- Train: +136 real + +132 fake (từ camera_vs_ai)
+- OOD test: 98 real + 88 fake (giữ lại để đánh giá)
+
+**Ưu điểm**: Không cần download thêm gì, chỉ sửa script split.
+**Nhược**: OOD test set nhỏ hơn (186 vs 454).
+
+### Bước 2: Thêm DeepDetect-2025 (Robust Fix)
 
 > [!IMPORTANT]
-> **CÓ, và đây là vấn đề RẤT PHỔ BIẾN trong ML.** Nó gọi là **\"data-centric AI\"** — khi model chạy sai, 90% lỗi nằm ở data, không phải code.
+> **DeepDetect-2025** (Kaggle) — dataset **lớn nhất và đa dạng nhất** cho AI detection:
+> - 100K+ images (60K real, 55K fake)
+> - Fake generators: **SD3, StyleGAN3, DALL-E 3, Midjourney**
+> - Categories: people, animals, nature, urban, artworks, objects
+> - Peer-reviewed, 2025, designed specifically for detection research
 
-**Tại sao mình tự tin sửa được:**
+Lấy subset ~5K-10K đa dạng từ DeepDetect-2025 → thêm vào training.
 
-1. **Codebase HolmHz hoàn toàn ổn** — training pipeline (`Trainer`), evaluation (`Evaluator`), model registry, ONNX export, Grad-CAM, web demo — tất cả đều robust, reusable. Chỉ cần **swap data** và **retrain**.
-2. **UniversalFakeDetect** — CVPR 2023 paper, chỉ ~3 file Python, dùng CLIP + 1 linear layer → đạt >85% AUC trên mọi generator. Bí quyết: **data chất lượng + pre-trained features**. Mình đã có tiền đề tốt hơn (multi-arch, Grad-CAM, web demo).
-3. **GenImage dataset** — 1 triệu ảnh, 8 generators (SD, Midjourney, BigGAN, ADM, GLIDE...), đã được verify trong 50+ papers. Thay CIFAKE bằng GenImage = fix ngay vấn đề.
-4. **Những repo nhỏ chạy đúng** vì họ dùng đúng data. Codebase lớn mà data sai thì vẫn sai. Ngược lại, 1 file script mà data chuẩn thì vẫn chạy tốt. **Data is king.**
-
-> **Kết luận**: Codebase không có gì sai. Data sai. Fix data = fix vấn đề.
-
----
-
-## Root Cause — Tóm tắt
-
-| # | Vấn đề | Mức độ | Giải pháp |
-| --- | --- | --- | --- |
-| 1 | **CIFAKE 32×32** chiếm 46% → model học shortcut upscaling | 🔴 Critical | Bỏ hoàn toàn, thay bằng GenImage high-res |
-| 2 | **Real images quá hẹp** (85% chỉ FFHQ faces + CIFAR objects) | 🔴 Critical | Dùng ImageNet subset (1000 class, diverse) |
-| 3 | **Data lộn xộn**, nguồn không xác minh (Unsplash có AI?) | 🟡 High | Reset 100%, chỉ dùng nguồn verified |
-| 4 | **Threshold 0.76** calibrate trên CIFAKE-biased test set | 🟡 Medium | Re-calibrate sau khi retrain |
-| 5 | **Không có JPEG augmentation** | 🟡 Medium | Thêm vào pipeline |
+**Ưu điểm**: Massive domain diversity → model buộc phải học features thực sự.
+**Nhược**: Download thêm ~2-5GB, cần nén lại lên Kaggle.
 
 ---
 
-## Bước 0: Chạy Reference MVP — Validate approach
+## Thực hiện
 
-> [!TIP]
-> Chạy UniversalFakeDetect trên ảnh user thử nghiệm TRƯỚC KHI retrain. Nếu nó phân loại đúng → chứng minh approach đúng, chỉ cần fix data.
-
-**UniversalFakeDetect** (CVPR 2023, Ojha et al.):
-- GitHub: `Yuheng-Li/UniversalFakeDetect`
-- Architecture: CLIP ViT-L/14 + 1 Linear layer
-- Training: Chỉ train trên ProGAN → generalize sang SD, DALLE, MJ
-- Accuracy: >85% trên unseen generators
-- **Mình đã có repo clone** tại `prac/ai-experiments/deepfake-detection/UniversalFakeDetect/`
-
-```bash
-# Test nhanh: upload cùng ảnh user đã thử trên HolmHz web
-python prac/.../UniversalFakeDetect/validate.py --image <user_test_image>
-```
-
-Nếu UniversalFakeDetect **đúng** mà HolmHz **sai** → CHỨNG MINH data là vấn đề.
-
----
-
-## Bước 1: Data Reset — Xoá sạch & Xây mới
-
-### Nguyên tắc data mới
-
-| Rule | Mô tả |
-| --- | --- |
-| **Chỉ dùng nguồn verified** | Dataset từ paper có peer review + citations |
-| **High-res** (≥256px) | Không bao giờ dùng ảnh <128px |
-| **Multi-domain** | People, animals, nature, urban, objects, food, art |
-| **Multi-generator** | GAN + Diffusion + Text-to-Image (≥5 generators) |
-| **Balanced** | ~50/50 Real/Fake |
-| **Clean split** | Train/Val/Test KHÔNG overlap, source-level split |
-
-### Dataset Plan (3 nguồn chính)
-
-#### Nguồn 1: GenImage (Academic, Proven)
-
-- **Paper**: \"GenImage: A Million-Scale Benchmark\" (NeurIPS 2023)
-- **Size**: 1,350,000 images (1000 classes × 1350/class)
-- **Real source**: ImageNet subset (VERIFIED real)
-- **Fake sources**: Stable Diffusion v1.4, Midjourney, ADM, GLIDE, Wukong, VQDM, BigGAN
-- **Resolution**: 256×256+ (high quality)
-- **Download**: HuggingFace / Google Drive (links trên GitHub)
-- **Dùng cho HolmHz**: Lấy subset ~30K-50K (15K real + 15K-25K fake multi-gen)
-
-#### Nguồn 2: ForenSynths (Academic, GAN-focused)
-
-- **Paper**: \"CNN-generated images are surprisingly easy to spot\" (CVPR 2020, Wang et al.)
-- **Size**: ~70K images (11 generators)
-- **Generators**: ProGAN, StyleGAN, BigGAN, CycleGAN, StarGAN, GauGAN, etc.
-- **Dùng cho HolmHz**: GAN-diverse fake source (lấy ~5K)
-
-#### Nguồn 3: Self-generated (Newest generators)
-
-- Own SD v1.5 data (đã có `sd15`): Giữ lại 1,750 ảnh
-- **Thêm mới**: Generate 2K-3K ảnh từ FLUX.1/SDXL/DALLE-3 (API hoặc Kaggle)
-
-### Target Dataset v2
-
-```
-data_v2/
-├── real/         ~15,000 images
-│   ├── imagenet_subset/   10,000  (GenImage real, 1000 classes)
-│   ├── lsun_bedroom/       2,000  (ForenSynths real)
-│   └── camera_diverse/     3,000  (User's own camera photos, verified)
-│
-├── fake/         ~20,000 images
-│   ├── genimage_sd/        4,000  (Stable Diffusion v1.4)
-│   ├── genimage_midjourney/ 3,000  (Midjourney)
-│   ├── genimage_adm/       2,000  (Guided Diffusion)
-│   ├── genimage_glide/     2,000  (GLIDE)
-│   ├── genimage_biggan/    2,000  (BigGAN)
-│   ├── forensynths_multi/  3,000  (ProGAN+StyleGAN+CycleGAN mix)
-│   ├── sd15_existing/      1,750  (Keep existing)
-│   ├── flux_new/           1,000  (Generate new)
-│   └── sdxl_new/           1,250  (Generate new)
-│
-└── Total: ~35,000 images (43% real, 57% fake)
-```
-
-> **Không bao giờ dùng**: CIFAKE, Unsplash (unverified), random internet sources.
-
----
-
-## Bước 2: Training Pipeline Adjustments
-
-### 2.1 JPEG Augmentation (NEW)
-
-```python
-# Thêm vào transforms
-transforms.RandomApply([
-    lambda img: Image.fromarray(
-        np.array(img.save(buf:=io.BytesIO(), 'JPEG', quality=random.randint(70,100)) or buf.seek(0) or Image.open(buf))
-    )
-], p=0.5)
-```
-
-### 2.2 Stronger augmentation
-
-```python
-transforms.Compose([
-    transforms.Resize((256, 256)),        # Resize lớn hơn trước
-    transforms.RandomCrop((224, 224)),     # Random crop thay vì center
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(10),
-    transforms.ColorJitter(0.1, 0.1, 0.1, 0.05),  # Subtle color jitter
-    # JPEG augmentation (above)
-    transforms.ToTensor(),
-    transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD),
-])
-```
-
-### 2.3 Retrain on Kaggle T4
-
-- Model: EfficientNet-B0 (giữ nguyên, codebase không đổi)
-- Epochs: 30-40
-- Early stopping patience: 5
-- Threshold: Re-calibrate bằng Youden's J trên validation set MỚI
-
----
-
-## Bước 3: Verify & Compare
-
-1. Evaluate v2 model trên OOD test set MỚI (KHÔNG dùng ảnh train)
-2. Test trên **cùng ảnh user đã thử** trên web demo → phải cải thiện
-3. So sánh v1 vs v2 → bảng cho báo cáo
-4. Test trên **ảnh ngẫu nhiên từ internet** → real-world readiness
-
----
-
-## Timeline
-
-| Ngày | Task | Chi tiết |
-| --- | --- | --- |
-| D1 | Reference MVP | Chạy UniversalFakeDetect trên test images |
-| D1-D2 | Download GenImage | Subset 30K-50K images |
-| D2 | Data pipeline | Rebuild manifests, train/val/test split |
-| D3 | Retrain v2 | Kaggle T4, ~4-6h training |
-| D4 | Evaluate + Compare | v1 vs v2, OOD test, real-world images |
-| D4 | Web demo update | Load v2 model → re-test |
-| D5 | Document | CONTEXT.md Section 24, guide update |
-
----
-
-## Impact trên báo cáo
-
-Thay đổi này **TÍCH CỰC** cho báo cáo:
-
-- **Chapter 3**: Thêm mục \"Data Quality Analysis & Dataset v2\" — cho thấy process nghiên cứu mature
-- **Chapter 4**: So sánh v1 (biased) vs v2 (fixed) → bảng improvement rất ấn tượng
-- **Kết luận**: \"Data diversity is the dominant factor\" → được chứng minh bằng thực nghiệm
-
-> [!NOTE]
-> Việc phát hiện và fix bias là **dấu hiệu tích cực** trong nghiên cứu khoa học, KHÔNG phải thất bại. Hội đồng đánh giá cao khả năng tự phát hiện và sửa lỗi.
+1. Sửa [prepare_data_v2.py](file:///r:/_Projects/Eurus_Workspace/HolmHz/scripts/prepare_data_v2.py): split camera_vs_ai 60/40 thay vì 100% OOD
+2. Download DeepDetect-2025 subset (Kaggle)
+3. Rebuild manifests → nén → train v8
+4. Target: OOD AUC > **0.80**, camera_real > **80%**, camera_ai > **70%**
