@@ -115,7 +115,7 @@ img_dst_root = Path("data/raw_v2")
 img_dst_root.mkdir(parents=True, exist_ok=True)
 
 # Danh sách TẤT CẢ thư mục cần link
-IMAGE_DIRS = ["rvf10k", "ciplab_faces", "camera_vs_ai", "diffusion_fakes"]
+IMAGE_DIRS = ["rvf10k", "ciplab_faces", "camera_vs_ai", "diffusion_fakes", "deepdetect2025"]
 
 for d in IMAGE_DIRS:
     src_dir = IMG_INPUT / d
