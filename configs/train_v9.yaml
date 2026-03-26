@@ -1,0 +1,35 @@
+# configs/train_v9.yaml
+# v9: EfficientNet-B0 + JPEG augmentation v3 (fix iPhone/Facebook false positives)
+# Same dataset as v8, only augmentation pipeline changed
+
+model:
+  name: efficientnet_b0
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false
+
+training:
+  epochs: 30
+  batch_size: 32
+  learning_rate: 0.0003
+  optimizer: adamw
+  weight_decay: 0.01
+  scheduler: cosine
+  pos_weight: 1.0
+  early_stopping:
+    patience: 7
+    monitor: val_auc
+
+data:
+  train_manifest: data/manifests_v2/train.json
+  val_manifest: data/manifests_v2/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+  use_weighted_sampler: true
+
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10

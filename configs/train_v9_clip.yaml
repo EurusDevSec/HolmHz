@@ -1,0 +1,36 @@
+# configs/train_v9_clip.yaml
+# Training config for CLIP ViT-L/14 Linear Probe
+# Architecture: CLIP ViT-L/14 (frozen) + Linear(768→1)
+# Only 769 trainable params — trains in ~10 minutes!
+
+model:
+  name: clip_vit_l14
+  pretrained: true  # Not used for CLIP (auto-loads)
+  num_classes: 1
+  dropout: 0.1      # Light dropout for linear probe
+  freeze_backbone: true  # CLIP backbone always frozen
+
+training:
+  epochs: 15         # Converges fast (linear probe)
+  batch_size: 32
+  learning_rate: 0.001  # Higher LR for linear probe (only 769 params)
+  optimizer: adamw
+  weight_decay: 0.01
+  scheduler: cosine
+  pos_weight: 1.0
+  early_stopping:
+    patience: 5
+    monitor: val_auc
+
+data:
+  train_manifest: data/manifests_v2/train.json
+  val_manifest: data/manifests_v2/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+  use_weighted_sampler: true
+
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
