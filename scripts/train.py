@@ -93,17 +93,31 @@ def main():
         logger.info("WeightedRandomSampler: ENABLED (balanced source sampling)")
 
     # ─── Model ───
-    model = DETECTOR_REGISTRY.build(
-        config.model.name,
-        pretrained=config.model.pretrained,
-        dropout=config.model.dropout,
-        freeze_backbone=config.model.freeze_backbone,
-    )
+    # Build model with only supported kwargs (FrequencyDetector doesn't have pretrained/freeze_backbone)
+    build_kwargs = {}
+    if OmegaConf.select(config, "model.pretrained", default=None) is not None:
+        build_kwargs["pretrained"] = config.model.pretrained
+    if OmegaConf.select(config, "model.dropout", default=None) is not None:
+        build_kwargs["dropout"] = config.model.dropout
+    if OmegaConf.select(config, "model.freeze_backbone", default=None) is not None:
+        build_kwargs["freeze_backbone"] = config.model.freeze_backbone
+    if OmegaConf.select(config, "model.use_phase", default=None) is not None:
+        build_kwargs["use_phase"] = config.model.use_phase
+
+    model = DETECTOR_REGISTRY.build(config.model.name, **build_kwargs)
     total_params = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     logger.info(f"Model: {config.model.name}")
     logger.info(f"Total params: {total_params:,}")
     logger.info(f"Trainable params: {trainable_params:,}")
+
+    # ─── DataParallel (multi-GPU) ───
+    if torch.cuda.device_count() > 1:
+        n_gpus = torch.cuda.device_count()
+        logger.info(f"DataParallel: Using {n_gpus} GPUs")
+        model = torch.nn.DataParallel(model)
+    else:
+        logger.info("Single GPU mode")
 
     # ─── Optimizer ───
     # Chỉ optimize params có requires_grad (head khi freeze backbone)
