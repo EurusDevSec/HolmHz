@@ -241,18 +241,18 @@ torch.cuda.empty_cache()
 # ══════════════════════════════════════════════════
 # FFT Frequency Detector — Custom 3-layer CNN
 # Optimized for Kaggle T4 x2 (DataParallel)
+# v11.1 FIX: LR 0.0003, batch 32/GPU, patience 10
 # ══════════════════════════════════════════════════
 
 import torch
 n_gpus = torch.cuda.device_count()
 
-# T4x2: batch_size per GPU = 64, total = 128
-# T4x1: batch_size = 64
-batch_size = 64 * max(1, n_gpus)
-num_workers = 4 * max(1, n_gpus)  # 4 per GPU → 8 for 2 GPUs
+# T4x2: batch 32/GPU → total 64; T4x1: batch 32
+batch_size = 32 * max(1, n_gpus)
+num_workers = 4 * max(1, n_gpus)
 
 print(f"GPUs: {n_gpus}")
-print(f"Batch size: {batch_size} ({64} × {max(1, n_gpus)} GPUs)")
+print(f"Batch size: {batch_size} ({32} × {max(1, n_gpus)} GPUs)")
 print(f"Num workers: {num_workers}")
 
 config_v11 = f"""
@@ -262,15 +262,15 @@ model:
   use_phase: true
 
 training:
-  epochs: 30
+  epochs: 40
   batch_size: {batch_size}
-  learning_rate: 0.001
+  learning_rate: 0.0003
   optimizer: adamw
   weight_decay: 0.0001
   scheduler: cosine
   pos_weight: 1.0
   early_stopping:
-    patience: 7
+    patience: 10
     monitor: val_auc
   use_data_parallel: true
 
@@ -294,8 +294,7 @@ with open("configs/train_v11_freq.yaml", "w") as f:
     f.write(config_v11)
 print(f"✅ configs/train_v11_freq.yaml written")
 print(f"   model: freq_fft (FFT CNN ~1.7M params)")
-print(f"   batch_size: {batch_size}, num_workers: {num_workers}")
-print(f"   lr: 0.001, epochs: 30, patience: 7")
+print(f"   lr: 0.0003 (stable), batch: {batch_size}, epochs: 40, patience: 10")
 ```
 
 ### Cell 6: Train!

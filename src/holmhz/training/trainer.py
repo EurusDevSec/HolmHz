@@ -335,9 +335,12 @@ class Trainer:
             epoch: epoch hiện tại
             is_best: True → save thêm best.pt
         """
+        # Unwrap DataParallel if needed — save clean state_dict without 'module.' prefix
+        raw_model = self.model.module if isinstance(self.model, torch.nn.DataParallel) else self.model
+
         state = {
             "epoch": epoch,
-            "model_state_dict": self.model.state_dict(),
+            "model_state_dict": raw_model.state_dict(),
             "optimizer_state_dict": self.optimizer.state_dict(),
             "scheduler_state_dict": self.scheduler.state_dict(),
             "early_stopping_state_dict": self.early_stopping.state_dict(),

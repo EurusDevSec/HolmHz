@@ -82,15 +82,27 @@ def main():
         logger.error("Train first: python scripts/train.py")
         sys.exit(1)
 
-    model = DETECTOR_REGISTRY.build(
-        config.model.name,
-        pretrained=False,
-        dropout=config.model.get("dropout", 0.3),
-        freeze_backbone=False,
-    )
+    # Flexible build — skip unsupported kwargs (e.g. FrequencyDetector has no pretrained/freeze_backbone)
+    build_kwargs = {"dropout": config.model.get("dropout", 0.3)}
+    if OmegaConf.select(config, "model.use_phase", default=None) is not None:
+        build_kwargs["use_phase"] = config.model.use_phase
+    # Only pass pretrained/freeze_backbone for models that support them
+    model_name = config.model.name
+    if model_name not in ("freq_fft",):
+        build_kwargs["pretrained"] = False
+        build_kwargs["freeze_backbone"] = False
+
+    model = DETECTOR_REGISTRY.build(model_name, **build_kwargs)
 
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
-    model.load_state_dict(checkpoint["model_state_dict"])
+    state_dict = checkpoint["model_state_dict"]
+
+    # Strip DataParallel 'module.' prefix if present (saved with nn.DataParallel on multi-GPU)
+    if any(k.startswith("module.") for k in state_dict):
+        logger.info("Stripping DataParallel 'module.' prefix from checkpoint keys")
+        state_dict = {k.replace("module.", "", 1): v for k, v in state_dict.items()}
+
+    model.load_state_dict(state_dict)
     model.to(device)
     model.eval()
 
