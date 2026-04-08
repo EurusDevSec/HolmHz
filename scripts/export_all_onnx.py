@@ -4,6 +4,9 @@ Simpler script — exports one model at a time, minimal imports.
 Usage: .venv/Scripts/python scripts/export_all_onnx.py
 """
 
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = ""  # Prevent CUDA hang on Windows
+
 import sys
 import time
 from pathlib import Path

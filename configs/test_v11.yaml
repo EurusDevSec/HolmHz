@@ -1,0 +1,23 @@
+
+model:
+  name: freq_fft
+  checkpoint: outputs/checkpoints/best_v11_freq.pt
+  dropout: 0.3
+  use_phase: true
+
+data:
+  test_manifest: data/manifests_v2/test_id.json
+  ood_manifest: data/manifests_v2/test_ood.json
+  image_size: 224
+  batch_size: 32
+  num_workers: 0
+
+evaluation:
+  metrics: [auc, accuracy, f1, precision, recall]
+  threshold: 0.5
+  save_predictions: true
+  output_dir: outputs/evaluation_v11
+
+wandb:
+  project: holmhz
+  log_results: false
