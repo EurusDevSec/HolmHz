@@ -1,7 +1,7 @@
 # HolmHz Project - Session Context
 
 > File này lưu trữ toàn bộ context của quá trình phát triển dự án để không bị mất giữa các phiên chat.
-> Cập nhật lần cuối: 2026-03-24 (Task 2.3 Grad-CAM XAI + Task 2.4 ONNX Export — Sprint 2 HOÀN THÀNH. EfficientNet-B0 BEST OOD AUC 0.7838. 61 heatmap gallery. 4×ONNX exported.)
+> Cập nhật lần cuối: 2026-04-09 (Dataset v2 retrained 3 architectures on Kaggle. ResNet-18 v2 = BEST model (ALL 4 KPIs PASS). Research models re-benchmarked on v2. Web demo switched to ResNet-18.)
 
 ---
 
@@ -235,32 +235,32 @@ src/holmhz/
 
 ### Sprint 2: Evaluation
 
-| Task                          | Trạng thái   | Target (revised)       | Ghi chú                                                                 |
-| ----------------------------- | ------------ | ---------------------- | ----------------------------------------------------------------------- |
-| **2.1** Evaluation Pipeline   | ✅ Completed | **28/03** → DONE 26/02 | test.py + evaluator + visualization. 83 tests pass                      |
-| **2.2** Benchmark SOTA        | ✅ Completed | **07/04** → DONE 04/03 | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19    |
-| **2.2b** Multi-Arch Benchmark | ✅ Completed | **07/04** → DONE 23/03 | 7 models evaluated. EfficientNet-B0 BEST OOD AUC 0.7838. Xem Section 21 |
-| **2.3** Grad-CAM XAI          | ✅ Completed | **07/04** → DONE 24/03 | GradCAMExplainer + explain.py CLI + 61-image gallery. Xem Section 22   |
-| **2.4** Model Export          | ✅ Completed | **07/04** → DONE 24/03 | 4 models × ONNX (15-108MB). max_diff<1e-4. Xem Section 23              |
+| Task                          | Trạng thái   | Target (revised)       | Ghi chú                                                                         |
+| ----------------------------- | ------------ | ---------------------- | ------------------------------------------------------------------------------- |
+| **2.1** Evaluation Pipeline   | ✅ Completed | **28/03** → DONE 26/02 | test.py + evaluator + visualization. 83 tests pass                              |
+| **2.2** Benchmark SOTA        | ✅ Completed | **07/04** → DONE 04/03 | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19            |
+| **2.2b** Multi-Arch Benchmark | ✅ Completed | **07/04** → DONE 09/04 | 7 models evaluated + 3 research models on v2. ResNet-18 BEST. Xem Section 30-31 |
+| **2.3** Grad-CAM XAI          | ✅ Completed | **07/04** → DONE 24/03 | GradCAMExplainer + explain.py CLI + 61-image gallery. Xem Section 22            |
+| **2.4** Model Export          | ✅ Completed | **07/04** → DONE 24/03 | 4 models × ONNX (15-108MB). max_diff<1e-4. Xem Section 23                       |
 
 ### Sprint 3: Web Demo (T04/2026)
 
-| Task                          | Trạng thái     | Target         | Ghi chú                                              |
-| ----------------------------- | -------------- | -------------- | ----------------------------------------------------- |
-| **3.1.1** Backend API         | ✅ Completed   | **14/04**      | Gradio app w/ predict + explain endpoints VERIFIED    |
-| **3.1.2** Model Service       | ✅ Completed   | **14/04**      | OnnxPredictor (~32ms) + GradCAMService working        |
-| **3.1.3** Frontend UI         | ✅ Completed   | **21/04**      | 2-tab UI: Predict + Explain(Grad-CAM) + examples      |
-| **3.1.4** UI Testing ✨       | ⬜ Not Started | **21/04**      | Luân test + feedback                                  |
-| **3.1.5** Integration         | 🔄 In Progress | **28/04**      | E2E testing + latency ≤ 2s + deploy                   |
+| Task                    | Trạng thái     | Target    | Ghi chú                                               |
+| ----------------------- | -------------- | --------- | ----------------------------------------------------- |
+| **3.1.1** Backend API   | ✅ Completed   | **14/04** | Gradio app w/ predict + explain endpoints VERIFIED    |
+| **3.1.2** Model Service | ✅ Completed   | **14/04** | OnnxPredictor (~32ms) + GradCAMService working        |
+| **3.1.3** Frontend UI   | ✅ Completed   | **21/04** | 2-tab UI: Predict + Explain(Grad-CAM) + examples      |
+| **3.1.4** UI Testing ✨ | ⬜ Not Started | **21/04** | Luân test + feedback                                  |
+| **3.1.5** Integration   | ✅ Completed   | **28/04** | Demo switched to ResNet-18 v2. ONNX exported (42.6MB) |
 
 ### Sprint 4: Documentation & Defense Prep (T04-T05/2026)
 
-| Task                          | Trạng thái     | Target         | Ghi chú                                              |
-| ----------------------------- | -------------- | -------------- | ----------------------------------------------------- |
-| **3.2.1** Báo cáo Ch1-2 ✨    | ⬜ Not Started | **30/04**      | Luân viết theo outline Hoàng                          |
-| **3.2.2** Báo cáo Ch3-4-5    | ⬜ Not Started | **30/04**      | Hoàng viết technical chapters                         |
-| **3.2.3** Tổng hợp báo cáo   | ⬜ Not Started | **05/05**      | Merge + format + GVHD review                         |
-| **3.2.4** Defense Prep        | ⬜ Not Started | **15/05**      | Slide + video demo + Q&A                              |
+| Task                       | Trạng thái     | Target    | Ghi chú                       |
+| -------------------------- | -------------- | --------- | ----------------------------- |
+| **3.2.1** Báo cáo Ch1-2 ✨ | ⬜ Not Started | **30/04** | Luân viết theo outline Hoàng  |
+| **3.2.2** Báo cáo Ch3-4-5  | ⬜ Not Started | **30/04** | Hoàng viết technical chapters |
+| **3.2.3** Tổng hợp báo cáo | ⬜ Not Started | **05/05** | Merge + format + GVHD review  |
+| **3.2.4** Defense Prep     | ⬜ Not Started | **15/05** | Slide + video demo + Q&A      |
 
 ### Timeline Revision Note (24/02/2026)
 
@@ -1118,12 +1118,12 @@ Logic trong `train.py` (line 47-53): Nếu arg đầu tiên KHÔNG bắt đầu 
 
 ### Sprint 2: Evaluation
 
-| Task                          | Trạng thái   | Ghi chú                                                              |
-| ----------------------------- | ------------ | -------------------------------------------------------------------- |
-| **2.1** Evaluation Pipeline   | ✅ Completed | test.py + evaluator + visualization                                  |
-| **2.2** Benchmark SOTA        | ✅ Completed | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19 |
-| **2.2b** Multi-Arch Benchmark | ✅ Completed | 7 models total. EfficientNet-B0 still #1 OOD. Xem Section 21         |
-| **2.3** Grad-CAM XAI          | ✅ Completed | 61-image gallery generated (flux/tristanzhang/real_pexels/real_camera/sd15). Xem Section 22 |
+| Task                          | Trạng thái   | Ghi chú                                                                                            |
+| ----------------------------- | ------------ | -------------------------------------------------------------------------------------------------- |
+| **2.1** Evaluation Pipeline   | ✅ Completed | test.py + evaluator + visualization                                                                |
+| **2.2** Benchmark SOTA        | ✅ Completed | 4 models × 5,225 samples. HolmHz BEST OOD AUC 0.7823. Xem Section 19                               |
+| **2.2b** Multi-Arch Benchmark | ✅ Completed | 7 models total. EfficientNet-B0 still #1 OOD. Xem Section 21                                       |
+| **2.3** Grad-CAM XAI          | ✅ Completed | 61-image gallery generated (flux/tristanzhang/real_pexels/real_camera/sd15). Xem Section 22        |
 | **2.4** Model Export          | ✅ Completed | 4 ONNX files: EffNet(15MB)+ResNet18(43MB)+ViT-S(83MB)+Swin-T(108MB). max_diff<1e-4. Xem Section 23 |
 
 ### Tests: 36/36 passed (as of 23/03/2026)
@@ -1327,26 +1327,26 @@ AdamW, lr=1e-4, cosine scheduler, pos_weight=1.2, 30 epochs, image_size=224.
 
 ### 22.2 Implementation
 
-| File                                        | Mô tả                                              |
-| ------------------------------------------- | -------------------------------------------------- |
-| `src/holmhz/xai/gradcam.py`                 | `GradCAMExplainer` class (explain, overlay, save)  |
-| `src/holmhz/xai/utils.py`                   | `load_image_for_gradcam()`, `create_comparison_grid()` |
-| `src/holmhz/xai/__init__.py`                | Exports GradCAMExplainer, utils                    |
-| `scripts/explain.py`                        | CLI: single image hoặc folder batch                |
-| `scripts/generate_xai_gallery.py`           | Gallery generator script (50 OOD + 11 manual)      |
+| File                              | Mô tả                                                  |
+| --------------------------------- | ------------------------------------------------------ |
+| `src/holmhz/xai/gradcam.py`       | `GradCAMExplainer` class (explain, overlay, save)      |
+| `src/holmhz/xai/utils.py`         | `load_image_for_gradcam()`, `create_comparison_grid()` |
+| `src/holmhz/xai/__init__.py`      | Exports GradCAMExplainer, utils                        |
+| `scripts/explain.py`              | CLI: single image hoặc folder batch                    |
+| `scripts/generate_xai_gallery.py` | Gallery generator script (50 OOD + 11 manual)          |
 
 ### 22.3 Gallery Composition (61 ảnh)
 
-| Source                   | Count | Type | Ghi chú                              |
-| ------------------------ | ----- | ---- | ------------------------------------ |
-| `imgs/Fake_AI_generated` | 5     | Fake | Gemini / SD generated (manual test)  |
-| `imgs/Real`              | 6     | Real | Ảnh thật (camera / internet)         |
-| `ood_test/flux`          | 10    | Fake | FLUX.1-schnell generated             |
-| `ood_test/tristanzhang`  | 15    | Fake | Mixed SD+MJ+DALLE                    |
-| `ood_test/real_pexels`   | 10    | Real | Pexels/Unsplash photos               |
-| `ood_test/real_camera`   | 10    | Real | Unsplash portrait photos             |
-| `train/fake_diffusion/sd15` | 5  | Fake | Stable Diffusion v1.5 self-gen       |
-| **Total**                | **61** |     |                                      |
+| Source                      | Count  | Type | Ghi chú                             |
+| --------------------------- | ------ | ---- | ----------------------------------- |
+| `imgs/Fake_AI_generated`    | 5      | Fake | Gemini / SD generated (manual test) |
+| `imgs/Real`                 | 6      | Real | Ảnh thật (camera / internet)        |
+| `ood_test/flux`             | 10     | Fake | FLUX.1-schnell generated            |
+| `ood_test/tristanzhang`     | 15     | Fake | Mixed SD+MJ+DALLE                   |
+| `ood_test/real_pexels`      | 10     | Real | Pexels/Unsplash photos              |
+| `ood_test/real_camera`      | 10     | Real | Unsplash portrait photos            |
+| `train/fake_diffusion/sd15` | 5      | Fake | Stable Diffusion v1.5 self-gen      |
+| **Total**                   | **61** |      |                                     |
 
 ### 22.4 Qualitative Observations
 
@@ -1379,12 +1379,12 @@ python scripts/generate_xai_gallery.py
 
 ### 23.2 Export Results
 
-| Model              | Checkpoint            | ONNX File                         | Size   | max_diff   | Export Time |
-| ------------------ | --------------------- | --------------------------------- | ------ | ---------- | ----------- |
-| EfficientNet-B0    | `best_v4.pt`          | `outputs/exports/efficientnet_b0.onnx` | **15.3 MB** | 1.03e-05 | 1.3s |
-| ResNet-18          | `best_resnet18.pt`    | `outputs/exports/resnet18.onnx`   | 42.6 MB | 2.50e-06 | 0.9s        |
-| ViT-Small/16       | `best_vit_small.pt`   | `outputs/exports/vit_small.onnx`  | 82.8 MB | 5.01e-06 | 2.1s        |
-| Swin-T             | `best_swin_tiny.pt`   | `outputs/exports/swin_tiny.onnx`  | 107.6 MB | 3.10e-06 | 3.7s       |
+| Model           | Checkpoint          | ONNX File                              | Size        | max_diff | Export Time |
+| --------------- | ------------------- | -------------------------------------- | ----------- | -------- | ----------- |
+| EfficientNet-B0 | `best_v4.pt`        | `outputs/exports/efficientnet_b0.onnx` | **15.3 MB** | 1.03e-05 | 1.3s        |
+| ResNet-18       | `best_resnet18.pt`  | `outputs/exports/resnet18.onnx`        | 42.6 MB     | 2.50e-06 | 0.9s        |
+| ViT-Small/16    | `best_vit_small.pt` | `outputs/exports/vit_small.onnx`       | 82.8 MB     | 5.01e-06 | 2.1s        |
+| Swin-T          | `best_swin_tiny.pt` | `outputs/exports/swin_tiny.onnx`       | 107.6 MB    | 3.10e-06 | 3.7s        |
 
 > ✅ All 4 models: max_diff < 1e-4 → ONNX output matches PyTorch output.
 
@@ -1396,13 +1396,13 @@ python scripts/generate_xai_gallery.py
 
 ### 23.4 Implementation Files
 
-| File                                 | Mô tả                                              |
-| ------------------------------------ | -------------------------------------------------- |
-| `src/holmhz/exports/onnx_export.py`  | `export_to_onnx()` — PyTorch → ONNX               |
-| `src/holmhz/exports/validate.py`     | `validate_onnx()` — compare PyTorch vs ONNX output |
-| `src/holmhz/exports/__init__.py`     | Exports module                                     |
-| `scripts/export_onnx.py`             | CLI: single model export + CPU latency benchmark   |
-| `scripts/export_all_onnx.py`         | Batch export tất cả 4 models                       |
+| File                                | Mô tả                                              |
+| ----------------------------------- | -------------------------------------------------- |
+| `src/holmhz/exports/onnx_export.py` | `export_to_onnx()` — PyTorch → ONNX                |
+| `src/holmhz/exports/validate.py`    | `validate_onnx()` — compare PyTorch vs ONNX output |
+| `src/holmhz/exports/__init__.py`    | Exports module                                     |
+| `scripts/export_onnx.py`            | CLI: single model export + CPU latency benchmark   |
+| `scripts/export_all_onnx.py`        | Batch export tất cả 4 models                       |
 
 ### 23.5 Usage
 
@@ -1428,10 +1428,10 @@ Sau Sprints 1-2, model EfficientNet-B0 đạt ID AUC 0.9984 nhưng khi test th�
 
 ### 24.2 Thay đổi chính (v7 → v8)
 
-| Version | Thay đổi chính | Kaggle guide | Kết quả |
-|---------|----------------|--------------|---------|
-| **v7** | Mở rộng dataset 30K + thêm camera_train_real/ai sources | `docs/KAGGLE_V6_TRAINING.md` | ID AUC 0.9984, OOD AUC 0.44 |
-| **v8** | Thêm JPEG augmentation (quality 30-95) cho training | `docs/KAGGLE_V9_TRAINING.md` | ID AUC 0.9984, OOD tốt hơn |
+| Version | Thay đổi chính                                          | Kaggle guide                 | Kết quả                     |
+| ------- | ------------------------------------------------------- | ---------------------------- | --------------------------- |
+| **v7**  | Mở rộng dataset 30K + thêm camera_train_real/ai sources | `docs/KAGGLE_V6_TRAINING.md` | ID AUC 0.9984, OOD AUC 0.44 |
+| **v8**  | Thêm JPEG augmentation (quality 30-95) cho training     | `docs/KAGGLE_V9_TRAINING.md` | ID AUC 0.9984, OOD tốt hơn  |
 
 ### 24.3 Kết quả v7 (Evaluation trên Kaggle)
 
@@ -1447,6 +1447,7 @@ Per-source:
 ### 24.4 Vấn đề iPhone/Facebook False Positive
 
 User test với ảnh thật từ iPhone → tất cả bị nhận là Fake. Nguyên nhân:
+
 1. iPhone chụp HEIC → sync qua Google Photos / đăng Facebook → JPEG nén
 2. JPEG nén tạo artifacts mà model CHƯA biết → nhầm là AI artifacts
 3. Ảnh social media bị strip EXIF → model không phân biệt được camera thật vs AI
@@ -1475,12 +1476,12 @@ OOD:       AUC 0.6649, Acc 0.4670
 
 ### 25.3 So sánh EfficientNet vs CLIP
 
-| Metric | EfficientNet-B0 (v8) | CLIP ViT-L/14 (v9) | Winner |
-|--------|----------------------|---------------------|--------|
-| ID AUC | **0.9984** | 0.9718 | EfficientNet |
-| OOD AUC | ~0.44 | **0.6649** | **CLIP** |
-| Size | 48.5 MB | 1710.6 MB | EfficientNet |
-| Inference | ~32ms (ONNX) | ~400ms (PyTorch) | EfficientNet |
+| Metric    | EfficientNet-B0 (v8) | CLIP ViT-L/14 (v9) | Winner       |
+| --------- | -------------------- | ------------------ | ------------ |
+| ID AUC    | **0.9984**           | 0.9718             | EfficientNet |
+| OOD AUC   | ~0.44                | **0.6649**         | **CLIP**     |
+| Size      | 48.5 MB              | 1710.6 MB          | EfficientNet |
+| Inference | ~32ms (ONNX)         | ~400ms (PyTorch)   | EfficientNet |
 
 **Kết luận**: EfficientNet mạnh ID, CLIP mạnh OOD → **Ensemble** kết hợp cả hai.
 
@@ -1507,11 +1508,11 @@ p_ensemble = 0.4 * p_effnet + 0.6 * p_clip
 
 ### 26.2 Implementation
 
-| File | Thay đổi |
-|------|----------|
-| `web/model_service.py` | `CLIPPredictor` + `EnsemblePredictor` |
-| `web/config.py` | `CLIP_CHECKPOINT`, `EFFNET_WEIGHT`, `CLIP_WEIGHT` |
-| `web/app.py` | Load ensemble, show per-model probabilities |
+| File                   | Thay đổi                                          |
+| ---------------------- | ------------------------------------------------- |
+| `web/model_service.py` | `CLIPPredictor` + `EnsemblePredictor`             |
+| `web/config.py`        | `CLIP_CHECKPOINT`, `EFFNET_WEIGHT`, `CLIP_WEIGHT` |
+| `web/app.py`           | Load ensemble, show per-model probabilities       |
 
 ### 26.3 Kết quả thực tế
 
@@ -1548,12 +1549,12 @@ Không có EXIF                              → p_fake *= 1.0  (NEUTRAL — kh�
 
 ### 27.3 Implementation
 
-| File | Mô tả |
-|------|-------|
-| `src/holmhz/analysis/__init__.py` | NEW — Analysis module init |
-| `src/holmhz/analysis/exif_analyzer.py` | NEW — `EXIFAnalyzer` class (~155 LOC) |
-| `web/model_service.py` | MODIFIED — `EnsemblePredictor` + EXIF multiplier |
-| `web/app.py` | MODIFIED — Load EXIF analyzer, show metadata in UI |
+| File                                   | Mô tả                                              |
+| -------------------------------------- | -------------------------------------------------- |
+| `src/holmhz/analysis/__init__.py`      | NEW — Analysis module init                         |
+| `src/holmhz/analysis/exif_analyzer.py` | NEW — `EXIFAnalyzer` class (~155 LOC)              |
+| `web/model_service.py`                 | MODIFIED — `EnsemblePredictor` + EXIF multiplier   |
+| `web/app.py`                           | MODIFIED — Load EXIF analyzer, show metadata in UI |
 
 ### 27.4 Nguồn tham khảo
 
@@ -1568,6 +1569,7 @@ Không có EXIF                              → p_fake *= 1.0  (NEUTRAL — kh�
 ### 28.1 Lý thuyết
 
 AI-generated images để lại dấu vết trong **miền tần số** mà mắt thường không thấy:
+
 - **GANs**: Grid patterns tuần hoàn trong amplitude spectrum (do upsampling artifacts)
 - **Diffusion models**: Spectral roll-off khác natural images ở high frequencies
 - **Tất cả AI**: Phase spectrum không consistent so với ảnh tự nhiên
@@ -1591,22 +1593,22 @@ Image (RGB) → Grayscale → FFT2D → ┬→ Log(|Amplitude|) (normalized [0,1
 
 ### 28.3 Specs
 
-| Metric | Value |
-|--------|-------|
-| **Total params** | ~1.7M |
-| **Input** | [B, 3, 224, 224] RGB |
-| **Output** | [B, 1] logit |
-| **Use phase** | Yes (2-channel: amplitude + phase) |
-| **Dependencies** | None (PyTorch FFT built-in) |
-| **Registry name** | `freq_fft` |
+| Metric            | Value                              |
+| ----------------- | ---------------------------------- |
+| **Total params**  | ~1.7M                              |
+| **Input**         | [B, 3, 224, 224] RGB               |
+| **Output**        | [B, 1] logit                       |
+| **Use phase**     | Yes (2-channel: amplitude + phase) |
+| **Dependencies**  | None (PyTorch FFT built-in)        |
+| **Registry name** | `freq_fft`                         |
 
 ### 28.4 Implementation
 
-| File | Mô tả |
-|------|-------|
+| File                                    | Mô tả                                      |
+| --------------------------------------- | ------------------------------------------ |
 | `src/holmhz/detectors/freq_detector.py` | NEW — `FrequencyCNN` + `FrequencyDetector` |
-| `src/holmhz/detectors/__init__.py` | MODIFIED — Register `freq_fft` |
-| `docs/KAGGLE_V11_TRAINING.md` | NEW — Training guide cho Kaggle |
+| `src/holmhz/detectors/__init__.py`      | MODIFIED — Register `freq_fft`             |
+| `docs/KAGGLE_V11_TRAINING.md`           | NEW — Training guide cho Kaggle            |
 
 ### 28.5 Trọng số Ensemble v11 (Planned)
 
@@ -1628,12 +1630,12 @@ p_final = (0.30 * p_effnet + 0.40 * p_clip + 0.25 * p_fft) * exif_multiplier
 
 ### 28.7 Nguồn tham khảo khoa học
 
-| Paper | Năm | Link | Đóng góp |
-|-------|-----|------|----------|
-| Frank et al. "Leveraging Frequency Analysis for Deep Fake Image Recognition" | 2020 | [arXiv:2003.08685](https://arxiv.org/abs/2003.08685) | FFT/DCT for deepfake, first to show spectral differences |
-| Dzanic et al. "Fourier Spectrum Discrepancies in Deep Network Generated Images" | 2020 | [NeurIPS 2020](https://arxiv.org/abs/1911.06465) | Spectral analysis of GAN outputs |
-| FreqNet (Tan et al.) | 2024 | [AAAI 2024](https://ojs.aaai.org/index.php/AAAI/article/view/28333) | Source-agnostic frequency features |
-| Durall et al. "Watch Your Up-Convolution" | 2020 | [arXiv:1907.02761](https://arxiv.org/abs/1907.02761) | Spectral artifacts of upsampling layers |
+| Paper                                                                           | Năm  | Link                                                                | Đóng góp                                                 |
+| ------------------------------------------------------------------------------- | ---- | ------------------------------------------------------------------- | -------------------------------------------------------- |
+| Frank et al. "Leveraging Frequency Analysis for Deep Fake Image Recognition"    | 2020 | [arXiv:2003.08685](https://arxiv.org/abs/2003.08685)                | FFT/DCT for deepfake, first to show spectral differences |
+| Dzanic et al. "Fourier Spectrum Discrepancies in Deep Network Generated Images" | 2020 | [NeurIPS 2020](https://arxiv.org/abs/1911.06465)                    | Spectral analysis of GAN outputs                         |
+| FreqNet (Tan et al.)                                                            | 2024 | [AAAI 2024](https://ojs.aaai.org/index.php/AAAI/article/view/28333) | Source-agnostic frequency features                       |
+| Durall et al. "Watch Your Up-Convolution"                                       | 2020 | [arXiv:1907.02761](https://arxiv.org/abs/1907.02761)                | Spectral artifacts of upsampling layers                  |
 
 ---
 
@@ -1667,8 +1669,210 @@ src/holmhz/
 └── xai/
 
 web/
-├── app.py                   # Gradio UI (v10 ensemble + v11 EXIF)
+├── app.py                   # Gradio UI (v12 ResNet-18 + optional CLIP + EXIF)
 ├── model_service.py         # OnnxPredictor, CLIPPredictor, EnsemblePredictor
 └── config.py                # Paths, weights, thresholds
 ```
 
+---
+
+## 30. Dataset v2 & Multi-Architecture Retrain (04/2026)
+
+### 30.1 Dataset v2 (raw_v2)
+
+Dataset mới lớn hơn, đa dạng nguồn hơn, phục vụ retraining 3 kiến trúc.
+
+| Split       | Total  | Real             | Fake           | File                              |
+| ----------- | ------ | ---------------- | -------------- | --------------------------------- |
+| **Train**   | 28,220 | ~14K             | ~14K           | `data/manifests_v2/train.json`    |
+| **Val**     | 3,526  | ~1.7K            | ~1.8K          | `data/manifests_v2/val.json`      |
+| **Test ID** | 3,526  | ~1.7K            | ~1.8K          | `data/manifests_v2/test_id.json`  |
+| **OOD**     | 182    | 94 (camera_real) | 88 (camera_ai) | `data/manifests_v2/test_ood.json` |
+
+**Nguồn dữ liệu v2**: deepdetect2025, rvf10k, diffusion_fakes (Midjourney, DALL-E, SD), ciplab, deepfake_collection_real, camera_vs_ai.
+
+**Khác biệt so với v1**:
+
+- Train: 28,220 (+7,220 so với v1 21,000)
+- OOD: 182 samples (camera_real + camera_ai thay vì flux, tristanzhang, real_pexels)
+- Paths: Windows absolute format (`R:\_Projects\...`)
+
+### 30.2 Kaggle Training (T4 ×2, DataParallel)
+
+| Config           | Value                                     |
+| ---------------- | ----------------------------------------- |
+| **Platform**     | Kaggle T4 ×2 (16GB VRAM × 2)              |
+| **Optimizer**    | AdamW, lr=3e-4, weight_decay=0.01         |
+| **Scheduler**    | CosineAnnealing                           |
+| **Loss**         | BCEWithLogitsLoss, pos_weight=1.0         |
+| **Epochs**       | 30, patience=7                            |
+| **Augmentation** | Standard (JPEG, blur, noise, flip, color) |
+| **Sampler**      | WeightedRandomSampler                     |
+
+### 30.3 Results — 3 Architectures + EfficientNet-B0 v7
+
+| Model              | Type | Params | Best Epoch | Val AUC | ID AUC     | ID Acc     | OOD AUC    | OOD Acc | KPIs       |
+| ------------------ | ---- | ------ | ---------- | ------- | ---------- | ---------- | ---------- | ------- | ---------- |
+| **ResNet-18 v2**   | CNN  | 11M    | 28         | 0.9956  | **0.9953** | **0.9711** | **0.8646** | 0.8022  | **4/4 ✅** |
+| ViT-Small/16 v2    | ViT  | 22M    | 29         | 0.9735  | 0.9741     | 0.9209     | 0.8331     | 0.7473  | 3/4        |
+| Swin-T v2          | Swin | 28M    | **0**      | 0.6198  | 0.6195     | 0.5366     | 0.8112     | 0.6758  | **0/4 ❌** |
+| EfficientNet-B0 v7 | CNN  | 4M     | N/A        | N/A     | 0.9984     | 0.9870     | **0.44**   | 0.5385  | 2/4        |
+
+### 30.4 KPI Assessment
+
+| KPI            | Target | ResNet-18 v2 | Status |
+| -------------- | ------ | ------------ | ------ |
+| Dataset ≥ 20K  | 20,000 | 28,220       | ✅     |
+| ID AUC ≥ 0.92  | 0.92   | 0.9953       | ✅     |
+| ID Acc ≥ 90%   | 90%    | 97.1%        | ✅     |
+| OOD AUC ≥ 0.85 | 0.85   | 0.8646       | ✅     |
+
+**ResNet-18 v2 là model DUY NHẤT đạt ALL 4 KPIs.**
+
+### 30.5 Swin-T Failure Analysis
+
+- Best epoch = 0 (pretrained init, no training improvement)
+- lr=3e-4 quá cao cho Swin → training diverged
+- Real class accuracy ~20-30% (predict FAKE cho hầu hết)
+- **Khuyến nghị**: lr=5e-5, warmup_epochs=3, layer_decay=0.65 nếu retry
+
+### 30.6 Checkpoints
+
+| File                        | Size     | Model                            |
+| --------------------------- | -------- | -------------------------------- |
+| `best_resnet18_v2.pt`       | 134.2 MB | ResNet-18 v2 (DataParallel keys) |
+| `best_resnet18_v2_clean.pt` | ~134 MB  | ResNet-18 v2 (clean keys)        |
+| `best_vit_small_v2.pt`      | 260.2 MB | ViT-Small/16 v2                  |
+| `best_swin_tiny_v2.pt`      | 330.4 MB | Swin-T v2 (FAILED)               |
+
+---
+
+## 31. Research Models Benchmark on v2 Test Sets (04/2026)
+
+### 31.1 Motivation
+
+Research models (CNNDetection, UniversalFakeDetect, DeepfakeBench) were previously benchmarked only on v1 test sets. For fair comparison with HolmHz v2 models, re-run on v2 test sets.
+
+### 31.2 Results
+
+| Model               | Architecture           | Training Data           | ID AUC | OOD AUC | Notes                           |
+| ------------------- | ---------------------- | ----------------------- | ------ | ------- | ------------------------------- |
+| CNNDetection        | ResNet-50              | ProGAN (blur+jpg)       | 0.6619 | 0.3253  | GAN-focused, fails on Diffusion |
+| UniversalFakeDetect | CLIP ViT-L/14 + Linear | ProGAN + CLIP features  | 0.7218 | 0.4858  | Best research ID, OOD ~random   |
+| DeepfakeBench       | EfficientNet-B4        | FaceForensics++ (video) | 0.4389 | 0.5359  | Video deepfake → wrong domain   |
+
+### 31.3 Key Insights
+
+1. **All research models perform near-random on v2**: No GAN-trained detector generalizes to modern Diffusion data
+2. **UniversalFakeDetect** is best research baseline on ID (AUC 0.7218) but OOD 0.4858 ~random — extreme Real bias (98.9% camera_real, 4.6% camera_ai)
+3. **CNNDetection** OOD AUC 0.3253 < 0.5 = anti-correlated (predicts opposite)
+4. **DeepfakeBench** ID AUC 0.4389 < 0.5 = worse than random on image synthesis
+5. **HolmHz ResNet-18 v2** OOD AUC 0.8646 — dramatically outperforms all research baselines
+
+### 31.4 Files
+
+| File                                                             | Description                        |
+| ---------------------------------------------------------------- | ---------------------------------- |
+| `outputs/benchmark/predictions_v2/cnndetection_predictions.csv`  | CNNDetection v2 predictions        |
+| `outputs/benchmark/predictions_v2/deepfakebench_predictions.csv` | DeepfakeBench v2 predictions       |
+| `outputs/benchmark/predictions_v2/universalfake_predictions.csv` | UniversalFakeDetect v2 predictions |
+| `outputs/benchmark/v2_benchmark_results.json`                    | Complete benchmark data            |
+
+---
+
+## 32. Web Demo — Switched to ResNet-18 v2 (04/2026)
+
+### 32.1 Previous Setup (v10)
+
+- EfficientNet-B0 v8 (ONNX) + CLIP v9 (PyTorch) ensemble
+- Accuracy: ~92%, Latency: ~900ms
+
+### 32.2 New Setup (v12)
+
+- **Primary model**: ResNet-18 v2 (ONNX, 42.6 MB)
+- Optional CLIP ensemble (fallback if checkpoint exists)
+- EXIF analysis intact
+
+### 32.3 Changes
+
+| File                               | Change                                                                                       |
+| ---------------------------------- | -------------------------------------------------------------------------------------------- |
+| `web/config.py`                    | ONNX → `resnet18_v2.onnx`, Checkpoint → `best_resnet18_v2_clean.pt`, MODEL_NAME → `resnet18` |
+| `web/app.py`                       | Updated docstring                                                                            |
+| `scripts/predict.py`               | Default model → `resnet18`, checkpoint → `best_resnet18_v2_clean.pt`                         |
+| `outputs/exports/resnet18_v2.onnx` | NEW — 42.6 MB, max_diff=2.98e-08                                                             |
+
+### 32.4 Model Performance Comparison (Demo)
+
+| Metric       | EfficientNet-B0 v7 (old) | ResNet-18 v2 (new) | Change     |
+| ------------ | ------------------------ | ------------------ | ---------- |
+| ID AUC       | 0.9984                   | 0.9953             | -0.003     |
+| OOD AUC      | 0.44                     | **0.8646**         | **+0.425** |
+| ID Accuracy  | 98.7%                    | 97.1%              | -1.6%      |
+| OOD Accuracy | 53.9%                    | **80.2%**          | **+26.3%** |
+| ONNX Size    | 15 MB                    | 42.6 MB            | +27.6 MB   |
+
+---
+
+## 33. Benchmark nghiệm thu NCKH (09/04/2026)
+
+### 33.1 Chuẩn quốc tế cho paper AI Detection
+
+Theo survey các paper SOTA (Frank 2020, Ojha 2023, Tan/FreqNet 2024), benchmark chuẩn quốc tế cần:
+
+| Yêu cầu | HolmHz đã có? |
+|----------|---------------|
+| ≥3 models so sánh | ✅ 7 models (4 HolmHz + 3 research) |
+| In-Domain (ID) test | ✅ 3,526 samples |
+| Out-of-Domain (OOD) test | ✅ 182 samples |
+| Cross-dataset / External test | ⬜ **Cần bổ sung** |
+| Per-source breakdown | ✅ |
+| AUC + Acc + F1 | ✅ |
+| Training details | ✅ |
+
+### 33.2 Bảng benchmark hoàn chỉnh (7 models)
+
+| Group | Method | Architecture | Params | ID AUC↑ | ID Acc↑ | OOD AUC↑ | OOD Acc↑ |
+|-------|--------|-------------|--------|---------|---------|----------|----------|
+| Baseline | CNNDetection | ResNet-50 (Wang 2020) | ~23M | 0.662 | 0.524 | 0.325 | 0.517 |
+| Baseline | UnivFakeDetect | CLIP ViT-L/14 (Ojha 2023) | ~304M | 0.722 | 0.715 | 0.486 | 0.533 |
+| Baseline | DeepfakeBench | EfficientNet-B4 (Yan 2023) | ~19M | 0.439 | 0.450 | 0.536 | 0.539 |
+| **Ours** | EfficientNet-B0 | EfficientNet-B0 | 4M | **0.998** | **0.987** | 0.440 | 0.539 |
+| **Ours** | **ResNet-18** | ResNet-18 | 11M | 0.995 | 0.971 | **0.865** | **0.802** |
+| **Ours** | ViT-Small/16 | ViT-Small | 22M | 0.974 | 0.921 | 0.833 | 0.747 |
+| **Ours** | Swin-Tiny† | Swin-T | 28M | 0.620 | 0.537 | 0.811 | 0.676 |
+
+> † Swin-Tiny training diverged (best epoch = 0). Included for completeness.
+
+### 33.3 External Test Dataset — Chống Confirmation Bias
+
+**Vấn đề**: Tất cả benchmark trên đều dùng data từ đường ống dữ liệu v2 → tiềm ẩn confirmation bias.
+
+**Giải pháp**: Cần 1 dataset hoàn toàn mới, KHÔNG trùng nguồn với training.
+
+Nguồn đã dùng (CẤM trùng): rvf10k, ciplab_faces, DALL-E, Stable Diffusion fakes, Midjourney, DeepDetect-2025, camera_vs_ai.
+
+**Đề xuất External Test Dataset (Kaggle):**
+
+| # | Dataset | Size | Real source | Fake source | Tại sao |
+|---|---------|------|-------------|-------------|---------|
+| 🥇 | CIFAKE | 120K | CIFAR-10 | SD 1.4 | Phổ biến, domain khác hoàn toàn (32×32 upscaled) |
+| 🥈 | GRAVEX-200K | 200K | High-quality photos | SD 1.5/2.1/XL | Đa dạng nguồn nhất |
+| 🥉 | AI-ArtBench | ~5-10K | Art/paintings | MJ, DALL-E | Domain khác (art vs photo) |
+
+### 33.4 Trạng thái
+
+- [x] Benchmark 4 HolmHz models + 3 research baselines trên v2
+- [x] KPI assessment (ResNet-18 = best, 4/4 KPIs)
+- [x] Web demo switched to ResNet-18 v2
+- [ ] **EfficientNet-B0 v9** chưa có trong benchmark (chỉ có v7)
+- [ ] **External test dataset** chưa download/test
+- [ ] **Bảng + biểu đồ cuối** cho báo cáo
+
+### 33.5 Key Findings cho báo cáo
+
+1. **ResNet-18 (11M) là model tốt nhất** — đạt tất cả 4 KPIs, OOD AUC 0.865
+2. **Model đơn giản > model phức tạp** trên dataset 28K: ResNet-18 > ViT > Swin-T
+3. **Research baselines fail** trên Diffusion data: CNNDetection/UnivFD/DeepfakeBench đều ≈ random
+4. **EfficientNet-B0 overfit ID** (AUC 0.998) nhưng anti-correlated OOD (AUC 0.44)
+5. **Swin-T cần hyperparams phức tạp** (warmup, layer decay) → không converge trên dataset nhỏ

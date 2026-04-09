@@ -1,7 +1,7 @@
 # 🔍 HolmHz - Synthetic Image Detection System
 
 > **Triển khai và đánh giá các phương pháp CNN cho bài toán phát hiện ảnh tổng hợp**  
-> Thời gian: 11/2025 - 05/2026 (7 tháng) | Cập nhật: 26/03/2026  
+> Thời gian: 11/2025 - 05/2026 (7 tháng) | Cập nhật: 09/04/2026  
 > Thực hiện: Lê Văn Hoàng (Chính) | Ngô Huỳnh Bảo Luân (Hỗ trợ)  
 > Loại hình: Nghiên cứu ứng dụng (Applied Research)
 >
@@ -259,15 +259,15 @@ val_transform = A.Compose([
 
 ### 4.1. Core ML/DL
 
-| Thành phần        | Công nghệ            | Phiên bản | Lý do chọn                          | Ghi chú (02/2026)             |
-| ----------------- | -------------------- | --------- | ----------------------------------- | ----------------------------- |
-| Framework         | **PyTorch**          | 2.1+      | Linh hoạt, ecosystem mạnh           | Giữ nguyên                    |
-| Vision            | **timm**             | 1.0+      | Pre-trained models đa dạng          | Đã cài, dùng cho EfficientNet |
-| Backbone chính    | **EfficientNet-B0**  | -         | Balance accuracy/speed              | v8 best, ID AUC 0.9984       |
-| Backbone OOD      | **CLIP ViT-L/14**    | -         | SOTA generalization (đã kiểm chứng) | v9, OOD AUC 0.6649            |
-| Frequency Branch  | **FrequencyDetector** (Custom CNN) | - | FFT spectral analysis    | v11 NEW, ~1.7M params         |
-| XAI               | **pytorch-grad-cam** | 1.4+      | Grad-CAM, Grad-CAM++                | Giữ nguyên                    |
-| Optimization      | **ONNX Runtime**     | 1.16+     | Inference optimization              | Giữ nguyên                    |
+| Thành phần       | Công nghệ                          | Phiên bản | Lý do chọn                          | Ghi chú (02/2026)                      |
+| ---------------- | ---------------------------------- | --------- | ----------------------------------- | -------------------------------------- |
+| Framework        | **PyTorch**                        | 2.1+      | Linh hoạt, ecosystem mạnh           | Giữ nguyên                             |
+| Vision           | **timm**                           | 1.0+      | Pre-trained models đa dạng          | Đã cài, dùng cho EfficientNet          |
+| Backbone chính   | **ResNet-18**                      | -         | Best overall (ID + OOD balance)     | v2 best, ID AUC 0.9953, OOD AUC 0.8646 |
+| Backbone OOD     | **CLIP ViT-L/14**                  | -         | SOTA generalization (đã kiểm chứng) | v9, optional ensemble                  |
+| Frequency Branch | **FrequencyDetector** (Custom CNN) | -         | FFT spectral analysis               | v11 NEW, ~1.7M params                  |
+| XAI              | **pytorch-grad-cam**               | 1.4+      | Grad-CAM, Grad-CAM++                | Giữ nguyên                             |
+| Optimization     | **ONNX Runtime**                   | 1.16+     | Inference optimization              | Giữ nguyên                             |
 
 > ⚠️ **Bài học từ benchmark**: Không nên chỉ dựa vào 1 backbone. Kết quả thực tế cho thấy CLIP generalize tốt hơn CNN thuần túy trên GAN, nhưng cả hai đều fail trên Diffusion mới. **Chìa khóa là TRAINING DATA, không phải kiến trúc.**
 
@@ -592,30 +592,30 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 **Mục tiêu Sprint**: Đánh giá model, tích hợp XAI, so sánh chuẩn với 3 SOTA
 
-| Task ID | Task                       | Subtasks                                                            | Assignee | Status |
-| ------- | -------------------------- | ------------------------------------------------------------------- | -------- | ------ |
-| 2.1     | **Evaluation Pipeline**    |                                                                     | Hoàng    | ✅     |
-|         |                            | 2.1.1 Compute metrics (AUC, Acc, F1) trên test set                  |          | ✅     |
-|         |                            | 2.1.2 Per-source accuracy breakdown (GAN vs Diffusion vs Real)      |          | ✅     |
-|         |                            | 2.1.3 OOD evaluation (Flux, Gemini, SDXL)                           |          | ✅     |
-|         |                            | 2.1.4 Generate confusion matrix + ROC curve                         |          | ✅     |
-| 2.2     | **Benchmark chuẩn 3 SOTA** |                                                                     | Hoàng    | ✅     |
-|         |                            | 2.2.1 Chạy CNNDetection trên test set chung (Docker/chuẩn pipeline) |          | ✅     |
-|         |                            | 2.2.2 Chạy UniversalFakeDetect trên test set chung                  |          | ✅     |
-|         |                            | 2.2.3 Chạy DeepfakeBench (EffNetB4) trên test set chung             |          | ✅     |
-|         |                            | 2.2.4 Tạo bảng so sánh AUC/Acc chính thức cho báo cáo               |          | ✅     |
-| 2.2b    | **Multi-Arch Benchmark**   |                                                                     | Hoàng    | ✅     |
-|         |                            | 2.2b.1 Implement TimmBackbone + TimmDetector (generic)              |          | ✅     |
-|         |                            | 2.2b.2 Register ResNet-18, ViT-Small, Swin-T + configs              |          | ✅     |
-|         |                            | 2.2b.3 Train 3 models trên Kaggle T4                                |          | ✅     |
-|         |                            | 2.2b.4 Evaluate + so sánh 7 models (4 SOTA + 3 internal)            |          | ✅     |
-| 2.3     | **Grad-CAM Integration**   |                                                                     | Hoàng    | ✅     |
-|         |                            | 2.3.1 Integrate pytorch-grad-cam                                    |          | ✅     |
-|         |                            | 2.3.2 Implement heatmap overlay function                            |          | ✅     |
+| Task ID | Task                       | Subtasks                                                            | Assignee | Status              |
+| ------- | -------------------------- | ------------------------------------------------------------------- | -------- | ------------------- |
+| 2.1     | **Evaluation Pipeline**    |                                                                     | Hoàng    | ✅                  |
+|         |                            | 2.1.1 Compute metrics (AUC, Acc, F1) trên test set                  |          | ✅                  |
+|         |                            | 2.1.2 Per-source accuracy breakdown (GAN vs Diffusion vs Real)      |          | ✅                  |
+|         |                            | 2.1.3 OOD evaluation (Flux, Gemini, SDXL)                           |          | ✅                  |
+|         |                            | 2.1.4 Generate confusion matrix + ROC curve                         |          | ✅                  |
+| 2.2     | **Benchmark chuẩn 3 SOTA** |                                                                     | Hoàng    | ✅                  |
+|         |                            | 2.2.1 Chạy CNNDetection trên test set chung (Docker/chuẩn pipeline) |          | ✅                  |
+|         |                            | 2.2.2 Chạy UniversalFakeDetect trên test set chung                  |          | ✅                  |
+|         |                            | 2.2.3 Chạy DeepfakeBench (EffNetB4) trên test set chung             |          | ✅                  |
+|         |                            | 2.2.4 Tạo bảng so sánh AUC/Acc chính thức cho báo cáo               |          | ✅                  |
+| 2.2b    | **Multi-Arch Benchmark**   |                                                                     | Hoàng    | ✅                  |
+|         |                            | 2.2b.1 Implement TimmBackbone + TimmDetector (generic)              |          | ✅                  |
+|         |                            | 2.2b.2 Register ResNet-18, ViT-Small, Swin-T + configs              |          | ✅                  |
+|         |                            | 2.2b.3 Train 3 models trên Kaggle T4                                |          | ✅                  |
+|         |                            | 2.2b.4 Evaluate + so sánh 7 models (4 SOTA + 3 internal)            |          | ✅                  |
+| 2.3     | **Grad-CAM Integration**   |                                                                     | Hoàng    | ✅                  |
+|         |                            | 2.3.1 Integrate pytorch-grad-cam                                    |          | ✅                  |
+|         |                            | 2.3.2 Implement heatmap overlay function                            |          | ✅                  |
 |         |                            | 2.3.3 Generate XAI gallery (50 samples)                             |          | ✅ Done (61 images) |
-| 2.4     | **Model Export**           |                                                                     | Hoàng    | ✅     |
-|         |                            | 2.4.1 Export to ONNX format                                         |          | ✅     |
-|         |                            | 2.4.2 Validate ONNX output matches PyTorch                          |          | ✅     |
+| 2.4     | **Model Export**           |                                                                     | Hoàng    | ✅                  |
+|         |                            | 2.4.1 Export to ONNX format                                         |          | ✅                  |
+|         |                            | 2.4.2 Validate ONNX output matches PyTorch                          |          | ✅                  |
 
 **✅ Milestone 2**: Final model (AUC ≥ 0.90 ID, ≥ 0.75 OOD) + Bảng so sánh chính thức + XAI gallery
 
@@ -645,34 +645,34 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 **Mục tiêu Sprint**: Xây dựng ứng dụng web hoàn chỉnh
 
-| Task ID | Task                        | Subtasks                                        | Assignee | Status |
-| ------- | --------------------------- | ----------------------------------------------- | -------- | ------ |
-| 3.1.1   | **Backend API**             |                                                 | Hoàng    | ✅     |
+| Task ID | Task                        | Subtasks                                        | Assignee | Status      |
+| ------- | --------------------------- | ----------------------------------------------- | -------- | ----------- |
+| 3.1.1   | **Backend API**             |                                                 | Hoàng    | ✅          |
 |         |                             | 3.1.1.1 Setup FastAPI project                   |          | ✅ (Gradio) |
-|         |                             | 3.1.1.2 Implement POST /api/predict             |          | ✅     |
-|         |                             | 3.1.1.3 Implement POST /api/explain             |          | ✅     |
-|         |                             | 3.1.1.4 Implement GET /api/health               |          | ✅     |
-|         |                             | 3.1.1.5 Add request validation                  |          | ✅     |
-| 3.1.2   | **Model Service**           |                                                 | Hoàng    | ✅     |
-|         |                             | 3.1.2.1 Load ONNX model on startup              |          | ✅     |
-|         |                             | 3.1.2.2 Implement preprocessing pipeline        |          | ✅     |
-|         |                             | 3.1.2.3 Implement Grad-CAM service              |          | ✅     |
-|         |                             | 3.1.2.4 Add error handling                      |          | ✅     |
-| 3.1.3   | **Frontend UI**             |                                                 | Hoàng    | ✅     |
-|         |                             | 3.1.3.1 Setup Gradio interface                  |          | ✅     |
-|         |                             | 3.1.3.2 Image upload component                  |          | ✅     |
-|         |                             | 3.1.3.3 Result display (Real/Fake + confidence) |          | ✅     |
-|         |                             | 3.1.3.4 Heatmap visualization                   |          | ✅     |
-|         |                             | 3.1.3.5 UI styling và UX polish                 |          | ✅     |
-| 3.1.4   | **UI Testing** ✨           |                                                 | Luân     | ⬜     |
-|         | _(Test và góp ý cho Hoàng)_ | 3.1.4.1 Test upload nhiều loại ảnh              |          | ⬜     |
-|         |                             | 3.1.4.2 Ghi nhận lỗi và feedback                |          | ⬜     |
-|         |                             | 3.1.4.3 Test trên nhiều thiết bị                |          | ⬜     |
-| 3.1.5   | **Integration**             |                                                 | Hoàng    | ⬜     |
-|         |                             | 3.1.5.1 End-to-end testing                      |          | ⬜     |
-|         |                             | 3.1.5.2 Latency optimization (target ≤ 2s)      |          | ⬜     |
-|         |                             | 3.1.5.3 Error case handling                     |          | ⬜     |
-|         |                             | 3.1.5.4 Deploy to local/Colab                   |          | ⬜     |
+|         |                             | 3.1.1.2 Implement POST /api/predict             |          | ✅          |
+|         |                             | 3.1.1.3 Implement POST /api/explain             |          | ✅          |
+|         |                             | 3.1.1.4 Implement GET /api/health               |          | ✅          |
+|         |                             | 3.1.1.5 Add request validation                  |          | ✅          |
+| 3.1.2   | **Model Service**           |                                                 | Hoàng    | ✅          |
+|         |                             | 3.1.2.1 Load ONNX model on startup              |          | ✅          |
+|         |                             | 3.1.2.2 Implement preprocessing pipeline        |          | ✅          |
+|         |                             | 3.1.2.3 Implement Grad-CAM service              |          | ✅          |
+|         |                             | 3.1.2.4 Add error handling                      |          | ✅          |
+| 3.1.3   | **Frontend UI**             |                                                 | Hoàng    | ✅          |
+|         |                             | 3.1.3.1 Setup Gradio interface                  |          | ✅          |
+|         |                             | 3.1.3.2 Image upload component                  |          | ✅          |
+|         |                             | 3.1.3.3 Result display (Real/Fake + confidence) |          | ✅          |
+|         |                             | 3.1.3.4 Heatmap visualization                   |          | ✅          |
+|         |                             | 3.1.3.5 UI styling và UX polish                 |          | ✅          |
+| 3.1.4   | **UI Testing** ✨           |                                                 | Luân     | ⬜          |
+|         | _(Test và góp ý cho Hoàng)_ | 3.1.4.1 Test upload nhiều loại ảnh              |          | ⬜          |
+|         |                             | 3.1.4.2 Ghi nhận lỗi và feedback                |          | ⬜          |
+|         |                             | 3.1.4.3 Test trên nhiều thiết bị                |          | ⬜          |
+| 3.1.5   | **Integration**             |                                                 | Hoàng    | ⬜          |
+|         |                             | 3.1.5.1 End-to-end testing                      |          | ⬜          |
+|         |                             | 3.1.5.2 Latency optimization (target ≤ 2s)      |          | ⬜          |
+|         |                             | 3.1.5.3 Error case handling                     |          | ⬜          |
+|         |                             | 3.1.5.4 Deploy to local/Colab                   |          | ⬜          |
 
 **✅ Milestone 3.1**: Working web demo (latency ≤ 2s/ảnh)
 
@@ -745,13 +745,13 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ### 7.3. Milestone Summary
 
-| Milestone              | Phase   | Target Date    | KPI                              | Status |
-| ---------------------- | ------- | -------------- | -------------------------------- | ------ |
-| M0: Research Complete  | Phase 0 | 10/02/2026     | 3 projects chạy + documented     | ✅     |
-| M1: Dataset + Baseline | Phase 1 | **21/03/2026** | ≥15k ảnh + AUC ≥ 0.85 (ID)       | ✅     |
+| Milestone              | Phase   | Target Date    | KPI                              | Status        |
+| ---------------------- | ------- | -------------- | -------------------------------- | ------------- |
+| M0: Research Complete  | Phase 0 | 10/02/2026     | 3 projects chạy + documented     | ✅            |
+| M1: Dataset + Baseline | Phase 1 | **21/03/2026** | ≥15k ảnh + AUC ≥ 0.85 (ID)       | ✅            |
 | M2: Benchmark + XAI    | Phase 1 | **07/04/2026** | Bảng so sánh chuẩn + XAI gallery | ✅ DONE 24/03 |
-| M3: Web Demo           | Phase 2 | **28/04/2026** | Latency ≤ 2s                     | ⬜     |
-| M4: Defense Ready      | Phase 2 | **15/05/2026** | Full package                     | ⬜     |
+| M3: Web Demo           | Phase 2 | **28/04/2026** | Latency ≤ 2s                     | ⬜            |
+| M4: Defense Ready      | Phase 2 | **15/05/2026** | Full package                     | ⬜            |
 
 ### 7.4. Weekly Progress Template
 
@@ -816,27 +816,30 @@ Nov          Dec          Jan          Feb          Mar          Apr          Ma
 
 ## 9. Evaluation Protocol
 
-### 9.1. Comparison Table Template (Cập nhật với dữ liệu thực tế)
+### 9.1. Comparison Table Template (Cập nhật với kết quả thực tế v2 — 04/2026)
 
-| Method                     | Year | In-domain AUC (Paper) | OOD AUC (Paper) | Test trên Gemini/Flux (02/2026) | Params |
-| -------------------------- | ---- | --------------------- | --------------- | ------------------------------- | ------ |
-| Wang et al. (CNNDetection) | 2020 | 0.99                  | 0.78            | ❌ ~6% (thất bại)               | 25M    |
-| UniversalFakeDetect (CLIP) | 2023 | 0.95                  | 0.82            | ❌ <10% (thất bại)              | 300M   |
-| DeepfakeBench (EffNetB4)   | 2023 | 0.95                  | -               | ⚠️ ~50% (đoán mò)               | 19M    |
-| **HolmHz (Ours)**          | 2026 | Target: 0.90          | Target: 0.75    | **Target: >70%**                | ~5M    |
+| Method                         | Year | ID AUC (v2) | OOD AUC (v2) | ID Acc    | Params | Notes                            |
+| ------------------------------ | ---- | ----------- | ------------ | --------- | ------ | -------------------------------- |
+| Wang et al. (CNNDetection)     | 2020 | 0.6619      | 0.3253       | 52.4%     | 25M    | GAN-only, fails on Diffusion     |
+| UniversalFakeDetect (CLIP)     | 2023 | 0.7218      | 0.4858       | 71.5%     | 300M   | Best research ID, OOD ~random    |
+| DeepfakeBench (EffNetB4)       | 2023 | 0.4389      | 0.5359       | 45.0%     | 19M    | Video deepfake ≠ image synthesis |
+| **HolmHz ResNet-18 v2 (Ours)** | 2026 | **0.9953**  | **0.8646**   | **97.1%** | 11M    | **ALL KPIs PASS ✅**             |
+| HolmHz ViT-Small/16 v2         | 2026 | 0.9741      | 0.8331       | 92.1%     | 22M    | 3/4 KPIs                         |
+| HolmHz EfficientNet-B0 v7      | 2026 | 0.9984      | 0.44         | 98.7%     | 4M     | OOD fails (anti-correlated)      |
 
-> 📝 **Ghi chú cho hội đồng**: Cột "Test trên Gemini/Flux" là kết quả test sơ bộ trên ảnh đơn lẻ (02/2026). Kết quả chính thức sẽ được tính trên test set chuẩn (≥500 ảnh) với AUC metric ở Sprint 2.
+> 📝 **Kết luận**: HolmHz ResNet-18 v2, trained trên dataset đa dạng (Diffusion + GAN), dramatically outperforms tất cả research baselines trained trên GAN data cũ. Chìa khóa = TRAINING DATA phù hợp, không phải kiến trúc.
 
-### 9.2. Per-Source Breakdown
+### 9.2. Per-Source Breakdown (v2 dataset)
 
-| Source        | Type          | AUC (HolmHz) | AUC (CNNDetection) | AUC (UniversalFakeDetect) | Notes                     |
-| ------------- | ------------- | ------------ | ------------------ | ------------------------- | ------------------------- |
-| StyleGAN2     | GAN (seen)    | ?            | ~0.95 (paper)      | ~0.99 (paper)             | In-domain                 |
-| ProGAN        | GAN (seen)    | ?            | ~0.94 (đã test)    | ~1.00 (đã test)           | In-domain                 |
-| GenImage (SD) | Diff (seen)   | ?            | Fail               | Fail                      | Train data mới cho HolmHz |
-| SDXL          | Diff (unseen) | ?            | Fail               | Fail                      | OOD                       |
-| Gemini        | Diff (unseen) | ?            | ~0.06              | <0.10                     | OOD - Thách thức chính    |
-| Flux          | Diff (unseen) | ?            | N/A                | <0.10                     | OOD                       |
+Benchmark trên v2 test sets (3526 ID + 182 OOD). Tất cả methods đánh giá trên cùng dataset.
+
+| Source            | HolmHz ResNet-18 v2 | CNNDetection | UniversalFakeDetect | DeepfakeBench      | Notes                   |
+| ----------------- | ------------------- | ------------ | ------------------- | ------------------ | ----------------------- |
+| **ID AUC**        | **0.9953**          | 0.6619       | 0.7218              | 0.4389             | HolmHz vượt trội        |
+| **OOD AUC**       | **0.8646**          | 0.3253       | 0.4858              | 0.5359             | Research models ~random |
+| camera_ai (OOD)   | 79.6% acc           | ~50%         | 4.6%                | ~54%               | Diffusion-camera mix    |
+| camera_real (OOD) | 80.9% acc           | ~52%         | 98.9%               | ~54%               | Real camera photos      |
+| camera_real (OOD) | 80.9% acc           | ~52%         | ~54%                | Real camera images |
 
 ---
 
@@ -1039,14 +1042,14 @@ Phase 1: Image    Phase 2: Video     Phase 3: Multi-modal
 
 ---
 
-## ✅ Tiêu chí thành công
+## ✅ Tiêu chí thành công (Cập nhật 09/04/2026 — kết quả thực tế)
 
-| Tiêu chí           | Mức đạt | Mức vượt | Ghi chú (24/02)          |
-| ------------------ | ------- | -------- | ------------------------ |
-| In-domain AUC      | ≥ 0.85  | ≥ 0.92   | Giảm từ 0.88 do data nhỏ |
-| OOD AUC            | ≥ 0.65  | ≥ 0.78   | Giảm từ 0.70, vẫn > SOTA |
-| Comparison methods | ≥ 2     | ≥ 4      |                          |
-| Web demo           | Working | + Docker |                          |
+| Tiêu chí           | Mức đạt | Mức vượt | **Kết quả thực tế**           | Status  |
+| ------------------ | ------- | -------- | ----------------------------- | ------- |
+| In-domain AUC      | ≥ 0.85  | ≥ 0.92   | **0.9953** (ResNet-18 v2)     | ✅ VƯỢT |
+| OOD AUC            | ≥ 0.65  | ≥ 0.78   | **0.8646** (ResNet-18 v2)     | ✅ VƯỢT |
+| Comparison methods | ≥ 2     | ≥ 4      | **7** (4 HolmHz + 3 research) | ✅ VƯỢT |
+| Web demo           | Working | + Docker | Working (Gradio + ONNX)       | ✅ ĐẠT  |
 
 ---
 
@@ -1142,11 +1145,11 @@ Tuần  | 24/02  01/03  08/03  15/03  22/03  29/03  05/04  12/04  19/04  26/04  
 
 ### 13.1 Lộ trình 3 Phase
 
-| Phase | Nội dung | Trạng thái |
-|-------|----------|------------|
+| Phase       | Nội dung                                      | Trạng thái                    |
+| ----------- | --------------------------------------------- | ----------------------------- |
 | **Phase 1** | EXIF Hard Constraint + ONNX INT8 Quantization | ✅ EXIF done, ⬜ Quantization |
-| **Phase 2** | FFT Frequency Detector (custom 3-layer CNN) | 🔄 Code done, chưa train |
-| **Phase 3** | SRM + Patch-based analysis (optional) | ⬜ Nếu còn thời gian |
+| **Phase 2** | FFT Frequency Detector (custom 3-layer CNN)   | 🔄 Code done, chưa train      |
+| **Phase 3** | SRM + Patch-based analysis (optional)         | ⬜ Nếu còn thời gian          |
 
 ### 13.2 Ensemble v11 (Planned)
 
@@ -1156,11 +1159,11 @@ p_final = (0.30 * p_effnet + 0.40 * p_clip + 0.25 * p_fft) * exif_multiplier
 
 ### 13.3 Files mới
 
-| File | Mô tả |
-|------|-------|
-| `src/holmhz/analysis/exif_analyzer.py` | ✅ EXIF rule-based filter |
+| File                                    | Mô tả                              |
+| --------------------------------------- | ---------------------------------- |
+| `src/holmhz/analysis/exif_analyzer.py`  | ✅ EXIF rule-based filter          |
 | `src/holmhz/detectors/freq_detector.py` | ✅ FFT CNN detector (~1.7M params) |
-| `docs/KAGGLE_V11_TRAINING.md` | ✅ Kaggle training guide for FFT |
+| `docs/KAGGLE_V11_TRAINING.md`           | ✅ Kaggle training guide for FFT   |
 
 ### 13.4 Nguồn tham khảo
 
@@ -1171,6 +1174,38 @@ p_final = (0.30 * p_effnet + 0.40 * p_clip + 0.25 * p_fft) * exif_multiplier
 
 ---
 
-**Last Updated:** 26/03/2026  
+## 14. Benchmark nghiệm thu (09/04/2026)
+
+> Chuẩn bị bảng benchmark chuẩn quốc tế cho báo cáo NCKH cấp trường.
+
+### 14.1 Benchmark hiện tại (7 models)
+
+| Group | Model | ID AUC | OOD AUC | Trạng thái |
+|-------|-------|--------|---------|-----------|
+| Baseline | CNNDetection (Wang 2020) | 0.662 | 0.325 | ✅ Done |
+| Baseline | UnivFakeDetect (Ojha 2023) | 0.722 | 0.486 | ✅ Done |
+| Baseline | DeepfakeBench (Yan 2023) | 0.439 | 0.536 | ✅ Done |
+| **Ours** | EfficientNet-B0 v7 | **0.998** | 0.440 | ✅ Done |
+| **Ours** | **ResNet-18 v2** | 0.995 | **0.865** | ✅ **Best** |
+| **Ours** | ViT-Small/16 v2 | 0.974 | 0.833 | ✅ Done |
+| **Ours** | Swin-Tiny v2† | 0.620 | 0.811 | ❌ Failed |
+
+### 14.2 Còn thiếu
+
+- [ ] EfficientNet-B0 v9 (bản tốt nhất) chưa trong benchmark
+- [ ] External test dataset (chống confirmation bias)
+- [ ] Bảng + biểu đồ cuối cho báo cáo
+
+### 14.3 External Test Dataset đề xuất
+
+| Dataset | Source | Lý do |
+|---------|--------|-------|
+| **CIFAKE** (Kaggle) | CIFAR-10 + SD 1.4, 120K images | Không trùng nguồn, phổ biến |
+| GRAVEX-200K (Kaggle) | Photos + SD 1.5/2.1/XL, 200K | Đa dạng nhất |
+
+---
+
+**Last Updated:** 09/04/2026  
 **Author:** Lê Văn Hoàng  
-**Version:** 5.0 (v11 Multi-Modal upgrade: EXIF + FFT + Ensemble)
+**Version:** 6.0 (Benchmark nghiệm thu: 7 models, external test plan)
+
