@@ -748,7 +748,8 @@ Bộ dữ liệu được sử dụng là **Dataset v2** (`data/raw_v2/`), đư�
 
 #### 4.5.1 Biểu đồ cột — ID AUC vs OOD AUC (Hình 4.1)
 
-![Hình 4.1: Biểu đồ cột so sánh ID AUC và OOD AUC của 7 mô hình](outputs/benchmark/final_benchmark/id_vs_ood_auc.png)
+![Hình 4.1: Biểu đồ cột so sánh ID AUC và OOD AUC của 7 mô hình](../outputs/benchmark/final_benchmark/id_vs_ood_auc.png)
+
 
 **Cách đọc**: Trục X hiển thị 7 mô hình, chia thành 2 nhóm bởi đường phân cách: bên trái là 3 nghiên cứu baseline, bên phải là 4 mô hình HolmHz. Trục Y hiển thị AUC Score (0–1). Cột đậm biểu diễn ID AUC, cột nhạt biểu diễn OOD AUC. Đường đỏ nét đứt ở mức 0,5 đại diện cho baseline ngẫu nhiên (random). Đường xanh lá nét đứt ở mức 0,85 đại diện cho KPI mục tiêu OOD AUC.
 
@@ -756,7 +757,7 @@ Bộ dữ liệu được sử dụng là **Dataset v2** (`data/raw_v2/`), đư�
 
 #### 4.5.2 Biểu đồ Radar — Đa chỉ số (Hình 4.2)
 
-![Hình 4.2: Biểu đồ radar đa chỉ số — top 4 mô hình](outputs/benchmark/final_benchmark/radar_comparison.png)
+![Hình 4.2: Biểu đồ radar đa chỉ số — top 4 mô hình](../outputs/benchmark/final_benchmark/radar_comparison.png)
 
 **Cách đọc**: Biểu đồ radar hiển thị 5 chỉ số (ID Acc, ID AUC, OOD AUC, OOD Acc, ID F1) trên 5 trục. Diện tích hình càng lớn và tròn đều = mô hình càng cân bằng trên tất cả chỉ số.
 
@@ -764,7 +765,7 @@ Bộ dữ liệu được sử dụng là **Dataset v2** (`data/raw_v2/`), đư�
 
 #### 4.5.3 Heatmap OOD per-source (Hình 4.3)
 
-![Hình 4.3: Heatmap độ chính xác OOD trên camera_ai và camera_real](outputs/benchmark/final_benchmark/ood_heatmap.png)
+![Hình 4.3: Heatmap độ chính xác OOD trên camera_ai và camera_real](../outputs/benchmark/final_benchmark/ood_heatmap.png)
 
 **Cách đọc**: Hàng = 7 mô hình. Cột trái = accuracy trên `camera_ai` (88 ảnh fake), cột phải = accuracy trên `camera_real` (94 ảnh thật). Màu xanh đậm = accuracy cao (tốt), màu nhạt/đỏ = accuracy thấp (xấu).
 
