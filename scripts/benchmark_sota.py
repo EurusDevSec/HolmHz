@@ -276,15 +276,23 @@ def main():
     parser = argparse.ArgumentParser(description="Benchmark SOTA models on HolmHz test set")
     parser.add_argument("--model", required=True, choices=list(MODEL_RUNNERS.keys()))
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
+    parser.add_argument(
+        "--manifest-dir", default="data/manifests",
+        help="Directory containing test_id.json and test_ood.json (default: data/manifests)",
+    )
     args = parser.parse_args()
 
+    manifest_dir = Path(args.manifest_dir)
+    version_suffix = "_v2" if "v2" in str(manifest_dir) else ""
+
     # Load test sets
-    id_samples = load_manifest("data/manifests/test_id.json")
-    ood_samples = load_manifest("data/manifests/test_ood.json")
+    id_samples = load_manifest(str(manifest_dir / "test_id.json"))
+    ood_samples = load_manifest(str(manifest_dir / "test_ood.json"))
     all_samples = id_samples + ood_samples
 
     print(f"\n{'='*60}")
     print(f"  BENCHMARK: {args.model}")
+    print(f"  Manifest: {manifest_dir}")
     print(f"  Samples: {len(all_samples)} (ID: {len(id_samples)}, OOD: {len(ood_samples)})")
     print(f"  Device: {args.device}")
     print(f"{'='*60}\n")
@@ -294,7 +302,7 @@ def main():
     probs = runner(all_samples, args.device)
 
     # Save predictions CSV
-    output_dir = Path("outputs/benchmark/predictions")
+    output_dir = Path(f"outputs/benchmark/predictions{version_suffix}")
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / f"{args.model}_predictions.csv"
 

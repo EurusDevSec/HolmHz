@@ -74,7 +74,7 @@ def main():
         sys.exit(1)
 
     input_path = sys.argv[1]
-    checkpoint_path = "outputs/checkpoints/best.pt"
+    checkpoint_path = "outputs/checkpoints/best_resnet18_v2_clean.pt"
 
     # Parse --checkpoint arg
     if "--checkpoint" in sys.argv:
@@ -93,9 +93,8 @@ def main():
 
     # Load model
     model = DETECTOR_REGISTRY.build(
-        "efficientnet_b0",
-        pretrained=False,   # Sẽ load weights từ checkpoint
-        dropout=0.3,
+        "resnet18",
+        pretrained=False,
         freeze_backbone=False,
     )
 

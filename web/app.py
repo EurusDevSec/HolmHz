@@ -1,8 +1,9 @@
 """
-HolmHz Web Demo — Synthetic Image Detector (Ensemble v10).
+HolmHz Web Demo — Synthetic Image Detector.
 
 Upload an image to detect if it's AI-generated (Fake) or Real.
-Ensemble: EfficientNet-B0 (v8 ID champion) + CLIP ViT-L/14 (v9 OOD champion).
+Primary model: ResNet-18 v2 (ID AUC 0.9953, OOD AUC 0.8646).
+Optional CLIP ensemble for additional OOD robustness.
 
 Usage:
     cd R:/_Projects/Eurus_Workspace/HolmHz
@@ -35,10 +36,10 @@ from config import (
 # ──────────────────────────────────────────────────────────────
 # Load models (once on startup)
 # ──────────────────────────────────────────────────────────────
-print("Loading EfficientNet ONNX predictor...", flush=True)
+print(f"Loading ONNX predictor ({MODEL_NAME})...", flush=True)
 t0 = time.time()
 effnet_predictor = OnnxPredictor(ONNX_MODEL_PATH, threshold=THRESHOLD)
-print(f"  EfficientNet loaded in {time.time() - t0:.1f}s", flush=True)
+print(f"  {MODEL_NAME} loaded in {time.time() - t0:.1f}s", flush=True)
 
 # Load CLIP (optional — graceful fallback)
 clip_predictor = None
@@ -50,7 +51,7 @@ if Path(CLIP_CHECKPOINT).exists():
         print(f"  CLIP loaded in {time.time() - t1:.1f}s", flush=True)
     except Exception as e:
         print(f"  ⚠️ CLIP load failed: {e}", flush=True)
-        print("  Falling back to EfficientNet only.", flush=True)
+        print(f"  Falling back to {MODEL_NAME} only.", flush=True)
 else:
     print(f"  ⚠️ CLIP checkpoint not found: {CLIP_CHECKPOINT}", flush=True)
     print("  Running EfficientNet only mode.", flush=True)

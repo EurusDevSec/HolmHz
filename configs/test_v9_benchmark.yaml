@@ -1,0 +1,23 @@
+data:
+  batch_size: 32
+  image_size: 224
+  num_workers: 0
+  ood_manifest: data/manifests_v2/test_ood.json
+  test_manifest: data/manifests_v2/test_id.json
+evaluation:
+  metrics:
+  - auc
+  - accuracy
+  - f1
+  - precision
+  - recall
+  output_dir: outputs/evaluation_v9_benchmark
+  save_predictions: true
+  threshold: 0.5
+model:
+  checkpoint: outputs/checkpoints/best_v9.pt
+  dropout: 0.3
+  name: efficientnet_b0
+wandb:
+  log_results: false
+  project: holmhz

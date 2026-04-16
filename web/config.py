@@ -1,17 +1,16 @@
-"""Web Demo configuration — Ensemble v8 EfficientNet + v9 CLIP."""
+"""Web Demo configuration — ResNet-18 v2 (best overall: ID AUC 0.9953, OOD AUC 0.8646)."""
 
 from pathlib import Path
 
 # Project root
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# Model paths — Ensemble
-# EfficientNet v8 (ID: AUC 0.9984, Acc 98.7%)
-ONNX_MODEL_PATH = str(PROJECT_ROOT / "outputs" / "exports" / "efficientnet_b0_v8.onnx")
-PYTORCH_CHECKPOINT = str(PROJECT_ROOT / "outputs" / "checkpoints" / "best_v7.pt")
-MODEL_NAME = "efficientnet_b0"
+# Model paths — ResNet-18 v2 (trained on raw_v2, passes ALL 4 KPIs)
+ONNX_MODEL_PATH = str(PROJECT_ROOT / "outputs" / "exports" / "resnet18_v2.onnx")
+PYTORCH_CHECKPOINT = str(PROJECT_ROOT / "outputs" / "checkpoints" / "best_resnet18_v2_clean.pt")
+MODEL_NAME = "resnet18"
 
-# CLIP v9 (OOD: AUC 0.9419, camera_real 80.9%)
+# CLIP v9 (optional ensemble, disabled by default for ResNet-18 demo)
 CLIP_CHECKPOINT = str(PROJECT_ROOT / "outputs" / "checkpoints" / "best_v9_clip.pt")
 
 # Inference settings

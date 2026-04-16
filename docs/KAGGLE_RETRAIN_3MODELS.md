@@ -631,15 +631,20 @@ print("\n=== Swin-T Evaluation (ID + OOD) ===")
 
 ## Cell 7: So sánh kết quả (chạy sau khi train xong cả 3)
 
+> **Lưu ý**: eval_report.json có key `in_domain` và `ood`, metrics nằm trong `overall`.
+
 ```python
 import json
 from pathlib import Path
+
+def fmt(v):
+    """Format number or return N/A."""
+    return f"{v:.4f}" if isinstance(v, (int, float)) else str(v)
 
 print("=" * 70)
 print("BENCHMARK COMPARISON — All models trained on Dataset v2")
 print("=" * 70)
 
-# Collect results
 results = {}
 for name, eval_dir in [
     ("ResNet-18", "outputs/evaluation_resnet18"),
@@ -651,14 +656,21 @@ for name, eval_dir in [
         data = json.load(open(report_path))
         results[name] = data
         print(f"\n--- {name} ---")
-        if "id" in data:
-            print(f"  ID:  AUC={data['id'].get('auc', 'N/A'):.4f}  Acc={data['id'].get('accuracy', 'N/A'):.4f}")
+
+        # Keys: in_domain (not "id"), ood — metrics under "overall"
+        if "in_domain" in data:
+            o = data["in_domain"].get("overall", {})
+            print(f"  ID:  AUC={fmt(o.get('auc', 'N/A'))}  Acc={fmt(o.get('accuracy', 'N/A'))}  F1={fmt(o.get('f1', 'N/A'))}")
         if "ood" in data:
-            print(f"  OOD: AUC={data['ood'].get('auc', 'N/A'):.4f}  Acc={data['ood'].get('accuracy', 'N/A'):.4f}")
+            o = data["ood"].get("overall", {})
+            print(f"  OOD: AUC={fmt(o.get('auc', 'N/A'))}  Acc={fmt(o.get('accuracy', 'N/A'))}  F1={fmt(o.get('f1', 'N/A'))}")
+            # Per-source OOD
+            for src, m in data["ood"].get("per_source", {}).items():
+                print(f"       {src}: Acc={fmt(m.get('accuracy', 'N/A'))} (N={m.get('n', '?')})")
     else:
         print(f"\n--- {name} --- ❌ eval_report.json not found")
 
-# Reference: EfficientNet-B0 v7 (trained on same dataset v2)
+# Reference
 print(f"\n--- EfficientNet-B0 v7 (reference, same dataset) ---")
 print(f"  ID:  AUC=0.9984  Acc=0.9870")
 print(f"  OOD: AUC=~0.44   Acc=0.5385")
