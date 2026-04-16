@@ -1,0 +1,457 @@
+{
+  "benchmark": "HolmHz v2 \u00e2\u20ac\u201d Multi-Architecture Benchmark",
+  "dataset": "data/raw_v2 + data/manifests_v2",
+  "dataset_stats": {
+    "train": 28220,
+    "val": 3526,
+    "test_id": 3526,
+    "test_ood": 182,
+    "ood_sources": [
+      "camera_ai (88 fake)",
+      "camera_real (94 real)"
+    ]
+  },
+  "training_config": {
+    "optimizer": "AdamW",
+    "lr": 0.0003,
+    "weight_decay": 0.01,
+    "scheduler": "cosine",
+    "pos_weight": 1.0,
+    "epochs": 30,
+    "patience": 7,
+    "augmentation": true,
+    "use_weighted_sampler": true,
+    "platform": "Kaggle T4 x2 (DataParallel)"
+  },
+  "timestamp": "2026-04-09",
+  "models": {
+    "efficientnet_b0_v7": {
+      "architecture": "EfficientNet-B0",
+      "type": "CNN",
+      "params": "4M",
+      "batch_size": 32,
+      "checkpoint": "best_v7.pt",
+      "best_epoch": "N/A",
+      "best_val_auc": "N/A",
+      "id": {
+        "auc": 0.9984,
+        "accuracy": 0.987,
+        "f1": null,
+        "precision": null,
+        "recall": null,
+        "n": 3526
+      },
+      "ood": {
+        "auc": 0.44,
+        "accuracy": 0.5385,
+        "f1": null,
+        "precision": null,
+        "recall": null,
+        "n": 182,
+        "per_source": {
+          "camera_ai": {
+            "accuracy": 0.9231,
+            "n": 88
+          },
+          "camera_real": {
+            "accuracy": 0.0,
+            "n": 94
+          }
+        }
+      },
+      "notes": "Reference model. Excellent ID but completely fails on OOD real images (classifies ALL camera_real as fake). OOD AUC < 0.5 = anti-correlated."
+    },
+    "resnet18_v2": {
+      "architecture": "ResNet-18",
+      "type": "CNN",
+      "params": "11M",
+      "batch_size": 32,
+      "checkpoint": "best_resnet18_v2.pt",
+      "checkpoint_size_mb": 128.0,
+      "best_epoch": 28,
+      "best_val_auc": 0.9956,
+      "id": {
+        "auc": 0.9953,
+        "accuracy": 0.9711,
+        "f1": 0.9702,
+        "precision": 0.9685,
+        "recall": 0.9719,
+        "n": 3526,
+        "per_source": {
+          "camera_train_ai": {
+            "accuracy": 0.8462,
+            "n": 13
+          },
+          "camera_train_real": {
+            "accuracy": 0.7857,
+            "n": 14
+          },
+          "ciplab_training_fake": {
+            "accuracy": 0.9635,
+            "n": 192
+          },
+          "ciplab_training_real": {
+            "accuracy": 0.9537,
+            "n": 216
+          },
+          "dalle_fake": {
+            "accuracy": 0.99,
+            "n": 200
+          },
+          "dd2025_fake": {
+            "accuracy": 0.962,
+            "n": 500
+          },
+          "dd2025_real": {
+            "accuracy": 0.976,
+            "n": 500
+          },
+          "deepfake_collection_real": {
+            "accuracy": 0.9796,
+            "n": 589
+          },
+          "midjourney_fake": {
+            "accuracy": 1.0,
+            "n": 93
+          },
+          "rvf10k_train_fake": {
+            "accuracy": 0.9714,
+            "n": 350
+          },
+          "rvf10k_train_real": {
+            "accuracy": 0.9686,
+            "n": 350
+          },
+          "rvf10k_valid_fake": {
+            "accuracy": 0.9467,
+            "n": 150
+          },
+          "rvf10k_valid_real": {
+            "accuracy": 0.96,
+            "n": 150
+          },
+          "sd_fake": {
+            "accuracy": 1.0,
+            "n": 209
+          }
+        }
+      },
+      "ood": {
+        "auc": 0.8646,
+        "accuracy": 0.8022,
+        "f1": 0.7955,
+        "precision": 0.7955,
+        "recall": 0.7955,
+        "n": 182,
+        "per_source": {
+          "camera_ai": {
+            "accuracy": 0.7955,
+            "n": 88
+          },
+          "camera_real": {
+            "accuracy": 0.8085,
+            "n": 94
+          }
+        }
+      },
+      "ood_analysis": {
+        "gap": 0.1307,
+        "bias": "False Negative dominant \u00e2\u20ac\u201d misses some fakes",
+        "weakest_source": "camera_ai (79.6%)"
+      }
+    },
+    "vit_small_v2": {
+      "architecture": "ViT-Small/16",
+      "type": "Vision Transformer",
+      "params": "22M",
+      "batch_size": 16,
+      "checkpoint": "best_vit_small_v2.pt",
+      "checkpoint_size_mb": 248.1,
+      "best_epoch": 29,
+      "best_val_auc": 0.9735,
+      "id": {
+        "auc": 0.9741,
+        "accuracy": 0.9209,
+        "f1": 0.9201,
+        "precision": 0.8998,
+        "recall": 0.9414,
+        "n": 3526,
+        "per_source": {
+          "camera_train_ai": {
+            "accuracy": 0.8462,
+            "n": 13
+          },
+          "camera_train_real": {
+            "accuracy": 0.7857,
+            "n": 14
+          },
+          "ciplab_training_fake": {
+            "accuracy": 0.9167,
+            "n": 192
+          },
+          "ciplab_training_real": {
+            "accuracy": 0.8796,
+            "n": 216
+          },
+          "dalle_fake": {
+            "accuracy": 0.99,
+            "n": 200
+          },
+          "dd2025_fake": {
+            "accuracy": 0.934,
+            "n": 500
+          },
+          "dd2025_real": {
+            "accuracy": 0.89,
+            "n": 500
+          },
+          "deepfake_collection_real": {
+            "accuracy": 0.944,
+            "n": 589
+          },
+          "midjourney_fake": {
+            "accuracy": 0.9785,
+            "n": 93
+          },
+          "rvf10k_train_fake": {
+            "accuracy": 0.9114,
+            "n": 350
+          },
+          "rvf10k_train_real": {
+            "accuracy": 0.8771,
+            "n": 350
+          },
+          "rvf10k_valid_fake": {
+            "accuracy": 0.9133,
+            "n": 150
+          },
+          "rvf10k_valid_real": {
+            "accuracy": 0.8733,
+            "n": 150
+          },
+          "sd_fake": {
+            "accuracy": 0.9952,
+            "n": 209
+          }
+        }
+      },
+      "ood": {
+        "auc": 0.8331,
+        "accuracy": 0.7473,
+        "f1": 0.7444,
+        "precision": 0.7283,
+        "recall": 0.7614,
+        "n": 182,
+        "per_source": {
+          "camera_ai": {
+            "accuracy": 0.7614,
+            "n": 88
+          },
+          "camera_real": {
+            "accuracy": 0.734,
+            "n": 94
+          }
+        }
+      },
+      "ood_analysis": {
+        "gap": 0.141,
+        "bias": "False Positive dominant \u00e2\u20ac\u201d bias toward FAKE",
+        "weakest_source": "camera_real (73.4%)"
+      }
+    },
+    "swin_tiny_v2": {
+      "architecture": "Swin-T (Swin Transformer Tiny)",
+      "type": "Swin Transformer",
+      "params": "28M",
+      "batch_size": 16,
+      "checkpoint": "best_swin_tiny_v2.pt",
+      "checkpoint_size_mb": 315.1,
+      "best_epoch": 0,
+      "best_val_auc": 0.6198,
+      "training_status": "FAILED \u00e2\u20ac\u201d model never improved past epoch 0",
+      "id": {
+        "auc": 0.6195,
+        "accuracy": 0.5366,
+        "f1": 0.6331,
+        "precision": 0.5133,
+        "recall": 0.826,
+        "n": 3526,
+        "per_source": {
+          "camera_train_ai": {
+            "accuracy": 0.7692,
+            "n": 13
+          },
+          "camera_train_real": {
+            "accuracy": 0.2857,
+            "n": 14
+          },
+          "ciplab_training_fake": {
+            "accuracy": 0.6719,
+            "n": 192
+          },
+          "ciplab_training_real": {
+            "accuracy": 0.2963,
+            "n": 216
+          },
+          "dalle_fake": {
+            "accuracy": 0.995,
+            "n": 200
+          },
+          "dd2025_fake": {
+            "accuracy": 0.76,
+            "n": 500
+          },
+          "dd2025_real": {
+            "accuracy": 0.24,
+            "n": 500
+          },
+          "deepfake_collection_real": {
+            "accuracy": 0.2963,
+            "n": 589
+          },
+          "midjourney_fake": {
+            "accuracy": 0.9892,
+            "n": 93
+          },
+          "rvf10k_train_fake": {
+            "accuracy": 0.8286,
+            "n": 350
+          },
+          "rvf10k_train_real": {
+            "accuracy": 0.2057,
+            "n": 350
+          },
+          "rvf10k_valid_fake": {
+            "accuracy": 0.7533,
+            "n": 150
+          },
+          "rvf10k_valid_real": {
+            "accuracy": 0.2267,
+            "n": 150
+          },
+          "sd_fake": {
+            "accuracy": 0.9426,
+            "n": 209
+          }
+        }
+      },
+      "ood": {
+        "auc": 0.8112,
+        "accuracy": 0.6758,
+        "f1": 0.7204,
+        "precision": 0.6179,
+        "recall": 0.8636,
+        "n": 182,
+        "per_source": {
+          "camera_ai": {
+            "accuracy": 0.8636,
+            "n": 88
+          },
+          "camera_real": {
+            "accuracy": 0.5,
+            "n": 94
+          }
+        }
+      },
+      "ood_analysis": {
+        "gap": -0.1917,
+        "bias": "Extreme FAKE bias \u00e2\u20ac\u201d classifies ~75% of ALL real images as fake",
+        "weakest_source": "camera_real (50.0% = random)"
+      },
+      "failure_analysis": {
+        "root_cause": "Training diverged \u00e2\u20ac\u201d Swin-T requires lower LR, warmup, and layer-wise LR decay for fine-tuning on small datasets",
+        "evidence": [
+          "Best epoch = 0 (pretrained init, no training improvement)",
+          "Real class accuracy ~20-30% (model predicts FAKE for most inputs)",
+          "ID AUC 0.6195 < OOD AUC 0.8112 = abnormal (bias toward fake benefits OOD which is mostly fake)",
+          "Recall=0.826 vs Precision=0.513 = model says fake most of the time"
+        ],
+        "recommendation": "Exclude from final benchmark. If retrying: use lr=5e-5, warmup_epochs=3, layer_decay=0.65, freeze backbone for 3-5 epochs first."
+      }
+    },
+    "efficientnet_b0_v9": {
+      "architecture": "EfficientNet-B0",
+      "type": "CNN",
+      "params": "4M",
+      "batch_size": 32,
+      "checkpoint": "best_v9.pt",
+      "checkpoint_size_mb": 46.3,
+      "best_epoch": 25,
+      "best_val_auc": 0.9993,
+      "id": {
+        "auc": 0.9984,
+        "accuracy": 0.9844,
+        "f1": 0.9839,
+        "precision": 0.9814,
+        "recall": 0.9865,
+        "n": 3526
+      },
+      "ood": {
+        "auc": 0.8963,
+        "accuracy": 0.7802,
+        "f1": 0.7849,
+        "precision": 0.7449,
+        "recall": 0.8295,
+        "n": 182,
+        "per_source": {
+          "camera_ai": {
+            "accuracy": 0.8295,
+            "n": 88
+          },
+          "camera_real": {
+            "accuracy": 0.734,
+            "n": 94
+          }
+        }
+      },
+      "notes": "BEST overall: highest ID AUC (0.9984) and highest OOD AUC (0.8963). JPEG augmentation v3 improved OOD from 0.44 (v7) to 0.90."
+    }
+  },
+  "research_models_v2": {
+    "note": "Re-benchmarked on v2 test sets for fair comparison with HolmHz models.",
+    "test_set": "data/manifests_v2/test_id.json (3526) + test_ood.json (182)",
+    "cnndetection": {
+      "architecture": "ResNet-50 (Wang et al. 2020)",
+      "training_data": "ProGAN (blur+jpg augmented)",
+      "id_auc": 0.6619,
+      "id_acc": 0.5244,
+      "id_f1": 0.0368,
+      "ood_auc": 0.3253,
+      "ood_acc": 0.5165,
+      "ood_f1": 0.0,
+      "notes": "Designed for GAN detection. Completely fails on Diffusion-era test data."
+    },
+    "universalfake": {
+      "architecture": "CLIP ViT-L/14 + Linear (Ojha et al. 2023)",
+      "training_data": "ProGAN features via CLIP",
+      "id_auc": 0.7218,
+      "id_acc": 0.7153,
+      "id_f1": 0.627,
+      "ood_auc": 0.4858,
+      "ood_acc": 0.533,
+      "ood_f1": 0.086,
+      "ood_per_source": {
+        "camera_ai": {
+          "accuracy": 0.0455,
+          "n": 88
+        },
+        "camera_real": {
+          "accuracy": 0.9894,
+          "n": 94
+        }
+      },
+      "notes": "Best research baseline on ID (AUC 0.72). OOD nearly random \u00e2\u20ac\u201d extreme Real bias (classifies 95.5% of fakes as real). CLIP features help generalize but linear probe insufficient."
+    },
+    "deepfakebench": {
+      "architecture": "EfficientNet-B4 (Yan et al. 2023)",
+      "training_data": "FaceForensics++ (video frames)",
+      "id_auc": 0.4389,
+      "id_acc": 0.4504,
+      "id_f1": 0.4055,
+      "ood_auc": 0.5359,
+      "ood_acc": 0.5385,
+      "ood_f1": 0.4878,
+      "notes": "Trained on video deepfakes (face manipulation). AUC < 0.5 ID = anti-correlated with image synthesis detection."
+    }
+  }
+}

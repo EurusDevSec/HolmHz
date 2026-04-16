@@ -194,11 +194,21 @@ cython_debug/
 .ruff_cache/
 
 # === HolmHz Project-Specific ===
-# Large data files (download on demand)
-data/raw/
-data/processed/
-weights/
-outputs/
+# Large outputs — ignore checkpoints, logs, raw eval, xai gallery
+# but KEEP benchmark charts and report figures
+outputs/checkpoints/
+outputs/logs/
+outputs/evaluation/
+outputs/evaluation_v*/
+outputs/exports/
+outputs/xai_gallery/
+outputs/threshold_analysis/
+outputs/*.txt
+outputs/*.png
+outputs/*.jpg
+# NOTE: outputs/benchmark/ is intentionally NOT ignored
+# so that benchmark charts (id_vs_ood_auc.png, radar_comparison.png,
+# ood_heatmap.png) are tracked by git and visible on GitHub.
 
 # PyPI configuration file
 .pypirc
@@ -223,11 +233,21 @@ prac/ai-experiments/deepfake-detection/*/
 
 # Test images (can be large)
 prac/ai-experiments/deepfake-detection/test_images/
-*.jpg
-*.jpeg
-*.png
-*.mp4
-*.mov
+
+# Raw data images — too large for git
+data/raw/
+data/raw_v2/
+data/processed/
+
+# Only ignore images inside prac/ and data/ directories
+prac/**/*.jpg
+prac/**/*.jpeg
+prac/**/*.png
+prac/**/*.mp4
+prac/**/*.mov
+data/**/*.jpg
+data/**/*.jpeg
+data/**/*.png
 
 # documentation
 
