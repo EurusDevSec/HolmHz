@@ -1,0 +1,37 @@
+# ============================================
+# HolmHz Training — ViT-Small/16 v2 (Kaggle T4 x2)
+# ============================================
+# Actual hyperparams used for v2 benchmark training.
+# ViT-Small: 22M params, batch_size=16 for Kaggle T4 VRAM.
+
+model:
+  name: vit_small
+  pretrained: true
+  num_classes: 1
+  dropout: 0.3
+  freeze_backbone: false
+
+training:
+  epochs: 30
+  batch_size: 16
+  learning_rate: 0.0003 # 3e-4
+  optimizer: adamw
+  weight_decay: 0.01
+  scheduler: cosine
+  pos_weight: 1.0
+  early_stopping:
+    patience: 7
+    monitor: val_auc
+
+data:
+  train_manifest: data/manifests_v2/train.json
+  val_manifest: data/manifests_v2/val.json
+  image_size: 224
+  num_workers: 4
+  augmentation: true
+  use_weighted_sampler: true
+
+wandb:
+  project: holmhz
+  entity: null
+  log_every_n_steps: 10
