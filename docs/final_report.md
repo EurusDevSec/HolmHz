@@ -42,6 +42,7 @@
   - 3.5 Pipeline huấn luyện (Trainer)
   - 3.6 Pipeline đánh giá (Evaluator)
   - 3.7 Thiết kế Web Demo
+  - 3.8 Đề xuất kiến trúc triển khai đám mây (AWS)
 - Chương 4: Kết quả thực nghiệm và Đánh giá
   - 4.1 Môi trường và tham số thực nghiệm
   - 4.2 Bộ dữ liệu
@@ -86,6 +87,7 @@
 | Hình 4.4 | Đường cong ROC — EfficientNet-B0 v9 | Ch.4 |
 | Hình 4.5 | Ma trận nhầm lẫn — EfficientNet-B0 v9 (ID test) | Ch.4 |
 | Hình 4.6 | Ma trận nhầm lẫn — EfficientNet-B0 v9 (OOD test) | Ch.4 |
+| Hình 3.1 | Kiến trúc triển khai đám mây HolmHz trên AWS | Ch.3 |
 | Hình 4.7 | Biểu đồ độ chính xác theo từng nguồn dữ liệu | Ch.4 |
 
 ---
@@ -633,6 +635,82 @@ Module `GradCAMExplainer` (`src/holmhz/xai/gradcam.py`) sử dụng thư viện 
 2. Sinh heatmap [H, W] ∈ [0, 1].
 3. Overlay lên ảnh gốc → hiển thị cho người dùng.
 
+### 3.8 Đề xuất kiến trúc triển khai đám mây (AWS)
+
+Nhằm định hướng khả năng thương mại hóa và triển khai thực tế, nhóm đề xuất kiến trúc cloud-native trên nền tảng **Amazon Web Services (AWS)** tuân theo các nguyên tắc **Well-Architected Framework**: bảo mật tối thiểu đặc quyền, sẵn sàng cao, tối ưu chi phí và khả năng mở rộng.
+
+**Hình 3.1: Kiến trúc triển khai đám mây HolmHz trên AWS**
+
+![Hình 3.1: Kiến trúc triển khai đám mây HolmHz trên AWS](../outputs/benchmark/final_benchmark/holmHz2_Architecture.png)
+
+#### 3.8.1 Các thành phần kiến trúc
+
+Kiến trúc được tổ chức thành 2 lớp rõ ràng:
+
+**Lớp Global (Ngoài Region — phục vụ toàn cầu):**
+
+| Service | Vai trò |
+|---------|--------|
+| **Route 53** | Phân giải DNS — ánh xạ tên miền tùy chỉnh (`api.holmhz.xyz`) tới CloudFront |
+| **CloudFront** | CDN toàn cầu — định tuyến user đến Edge Location gần nhất (VD: TP.HCM), phục vụ cả API request lẫn ảnh heatmap tĩnh từ S3 |
+| **WAF** | Tường lửa ứng dụng web — lọc request độc hại, giới hạn kích thước file (<5MB), rate limiting (<100 req/IP/phút) |
+
+**Lớp Regional (Bên trong Region `ap-southeast-1` — Singapore):**
+
+| Service | Vai trò |
+|---------|--------|
+| **API Gateway** | HTTP Router — nhận POST `/predict`, xác thực API Key, điều hướng tới Lambda |
+| **AWS Lambda** | Compute — chạy inference EfficientNet-B0 ONNX, tạo Grad-CAM heatmap, trả kết quả |
+| **Amazon ECR** | Container Registry — lưu Docker Image chứa ONNX Runtime và model |
+| **Amazon S3** | Object Storage — lưu ảnh heatmap kết quả, CloudFront làm CDN phía trước |
+| **CloudWatch** | Monitoring — thu thập log, metric, cảnh báo khi error rate tăng |
+| **Secrets Manager** | Lưu trữ thông tin nhạy cảm (API Key) — Lambda đọc một lần khi khởi động |
+| **Systems Manager** | Lưu trữ cấu hình động (tên S3 bucket, CDN domain) — thay đổi không cần redeploy |
+
+#### 3.8.2 Luồng xử lý request
+
+Hệ thống hoạt động theo 2 luồng tách biệt:
+
+**Luồng 1 — Phân tích ảnh (POST request):**
+```
+User → Route 53 (DNS) → CloudFront Edge (HCM)
+     → WAF (filter) → API Gateway (auth)
+     → Lambda (inference + Grad-CAM)
+     → S3 (save heatmap_{uuid}.png)
+     → Trả JSON: {label, prob, heatmap_url}
+```
+
+**Luồng 2 — Lấy ảnh heatmap (GET request):**
+```
+User → CloudFront (check cache)
+     → Cache HIT: trả ảnh ngay từ Edge (0ms thêm)
+     → Cache MISS: Origin S3 → trả ảnh + cache tại Edge
+```
+
+#### 3.8.3 CI/CD Pipeline
+
+Quy trình triển khai tự động hóa hoàn toàn với **GitHub Actions** và **Terraform**:
+
+```
+Dev push code → GitHub Actions trigger
+  → pytest (kiểm thử tự động)
+  → Docker build image (ONNX Runtime + model)
+  → Push image lên ECR (tag: git SHA)
+  → Terraform apply (cập nhật hạ tầng nếu có thay đổi)
+  → Lambda update-function-code (zero downtime)
+  → Smoke test (invoke Lambda với ảnh test)
+```
+
+Terraform đảm bảo toàn bộ hạ tầng được định nghĩa dưới dạng **Infrastructure as Code (IaC)** — có thể tái tạo môi trường hoàn chỉnh trong vài phút.
+
+#### 3.8.4 Tối ưu chi phí (Cost Optimization)
+
+Kiến trúc **Serverless** được chọn vì phù hợp với workload nghiên cứu (traffic thấp, không liên tục):
+- **Lambda**: Tính tiền theo số lượng request, không tốn tiền khi idle.
+- **S3 Lifecycle Policy**: Tự động xóa heatmap sau 24 giờ — giảm chi phí lưu trữ.
+- **CloudFront Cache**: Giảm số lần Lambda được gọi cho nội dung tĩnh.
+- **Ước tính chi phí**: < $5/tháng cho traffic demo nghiên cứu (~1.000 request/ngày).
+
 ---
 
 ## CHƯƠNG 4: KẾT QUẢ THỰC NGHIỆM VÀ ĐÁNH GIÁ
@@ -920,6 +998,7 @@ Nhóm nghiên cứu xây dựng ứng dụng web demo sử dụng framework Grad
 4. **Triển khai mobile**: Export TFLite hoặc CoreML để chạy trên điện thoại di động.
 5. **Plugin trình duyệt**: Phát triển extension Chrome/Firefox để cảnh báo ảnh nghi ngờ trên mạng xã hội.
 6. **Multi-class attribution**: Không chỉ Real/Fake mà còn xác định ảnh được tạo bởi generator nào.
+7. **Triển khai cloud production**: Hiện thực hóa kiến trúc AWS đề xuất (mục 3.8) với Lambda Container + CloudFront + Terraform CI/CD để đưa hệ thống vào phục vụ người dùng thực tế.
 
 ---
 
