@@ -66,13 +66,18 @@
 
 ## DANH MỤC BẢNG BIỂU
 
-| Ký hiệu | Tên | Trang |
-|----------|-----|-------|
+### Danh mục bảng
+
+| Ký hiệu | Tên | Chương |
+|----------|-----|--------|
+| Bảng MĐ.1 | So sánh tổng hợp các nghiên cứu tiêu biểu | Mở đầu |
 | Bảng 2.1 | Các chỉ số đánh giá mô hình phân loại | Ch.2 |
 | Bảng 3.1 | Nguồn dữ liệu trong bộ dữ liệu v2 | Ch.3 |
 | Bảng 3.2 | Chia tập dữ liệu (Train/Val/Test ID/Test OOD) | Ch.3 |
 | Bảng 3.3 | Feature dimension theo backbone | Ch.3 |
 | Bảng 3.4 | Training augmentation pipeline | Ch.3 |
+| Bảng 3.5 | Các thành phần kiến trúc AWS — Lớp Global | Ch.3 |
+| Bảng 3.6 | Các thành phần kiến trúc AWS — Lớp Regional | Ch.3 |
 | Bảng 4.1 | Môi trường và tham số thực nghiệm | Ch.4 |
 | Bảng 4.2 | Thống kê bộ dữ liệu v2 theo split | Ch.4 |
 | Bảng 4.3 | Chi tiết nguồn dữ liệu trong bộ dữ liệu v2 | Ch.4 |
@@ -81,13 +86,18 @@
 | Bảng 4.6 | Độ chính xác OOD theo nguồn dữ liệu (per-source) | Ch.4 |
 | Bảng 4.7 | Đánh giá KPI đề tài | Ch.4 |
 | Bảng 4.8 | Đánh giá KPI theo từng mô hình | Ch.4 |
+
+### Danh mục hình
+
+| Ký hiệu | Tên | Chương |
+|----------|-----|--------|
+| Hình 3.1 | Kiến trúc triển khai đám mây HolmHz trên AWS | Ch.3 |
 | Hình 4.1 | Biểu đồ cột so sánh ID AUC và OOD AUC của 7 mô hình | Ch.4 |
 | Hình 4.2 | Biểu đồ radar đa chỉ số (top 4 mô hình) | Ch.4 |
 | Hình 4.3 | Heatmap độ chính xác OOD per-source | Ch.4 |
 | Hình 4.4 | Đường cong ROC — EfficientNet-B0 v9 | Ch.4 |
 | Hình 4.5 | Ma trận nhầm lẫn — EfficientNet-B0 v9 (ID test) | Ch.4 |
 | Hình 4.6 | Ma trận nhầm lẫn — EfficientNet-B0 v9 (OOD test) | Ch.4 |
-| Hình 3.1 | Kiến trúc triển khai đám mây HolmHz trên AWS | Ch.3 |
 | Hình 4.7 | Biểu đồ độ chính xác theo từng nguồn dữ liệu | Ch.4 |
 
 ---
@@ -198,7 +208,7 @@ Frank et al. (2020) [5] sử dụng biến đổi DCT, chứng minh các GAN đ�
 
 Xu hướng mới nhằm tăng độ tin cậy bằng cách tích hợp Explainable AI (XAI). Tuy nhiên, đa số nghiên cứu hiện tại vẫn hoạt động như "hộp đen" (black-box). Việc tích hợp Grad-CAM để trực quan hóa vùng giả mạo vẫn còn hạn chế và chưa được tối ưu hóa cho Diffusion Models.
 
-**Bảng so sánh tổng hợp các nghiên cứu tiêu biểu:**
+**Bảng MĐ.1: So sánh tổng hợp các nghiên cứu tiêu biểu**
 
 | Nhóm | Nghiên cứu | Dữ liệu & Kết quả | Ưu điểm | Hạn chế |
 |------|-----------|-------------------|---------|---------|
@@ -276,7 +286,19 @@ Tại Việt Nam, vấn nạn lừa đảo trực tuyến sử dụng Deepfake �
 
 ## CHƯƠNG 1: GIỚI THIỆU
 
-*(Nội dung chương này được trình bày trong phần Mở đầu ở trên, bao gồm: tổng quan nghiên cứu, khoảng trống, tính cấp thiết, mục tiêu, đối tượng và phạm vi, phương pháp nghiên cứu.)*
+Trong thời đại bùng nổ của Trí tuệ nhân tạo tạo sinh, sự phát triển vượt bậc của các mô hình như GAN (StyleGAN, ProGAN) và Diffusion (Stable Diffusion, Midjourney, DALL-E) đã cho phép tạo ra những hình ảnh tổng hợp có độ chân thực cực cao — gần như không thể phân biệt bằng mắt thường. Trong khi công nghệ này mang lại nhiều ứng dụng tích cực trong lĩnh vực sáng tạo nội dung, thiết kế và giải trí, nó cũng tạo ra mối đe dọa nghiêm trọng: tin giả (fake news), lừa đảo trực tuyến, bôi nhọ danh dự và thao túng dư luận.
+
+Tại Việt Nam, vấn nạn lừa đảo trực tuyến sử dụng hình ảnh/video giả mạo đang gia tăng đáng báo động. Các phương pháp phát hiện ảnh tổng hợp hiện có (CNNDetection, UniversalFakeDetect, DeepfakeBench) chủ yếu được thiết kế cho thế hệ GAN cũ và chưa thích ứng hiệu quả với các mô hình Diffusion hiện đại — tạo ra khoảng trống nghiên cứu cần được giải quyết.
+
+Xuất phát từ thực tiễn đó, đề tài **"Xây dựng hệ thống phát hiện ảnh tổng hợp bằng Mạng nơ-ron tích chập (CNN)"** được thực hiện với các mục tiêu:
+
+1. **Xây dựng bộ dữ liệu đa dạng** gồm ≥ 20.000 ảnh, bao phủ cả GAN và Diffusion từ 5 nguồn công khai.
+2. **Huấn luyện và so sánh 4 kiến trúc CNN hiện đại**: EfficientNet-B0, ResNet-18, ViT-Small/16, Swin-Tiny — sử dụng Transfer Learning từ ImageNet.
+3. **Benchmark công bằng với 3 nghiên cứu SOTA quốc tế** trên cùng bộ dữ liệu để đánh giá khách quan.
+4. **Tích hợp Explainable AI (Grad-CAM)** giúp người dùng hiểu lý do phân loại, tăng tính minh bạch.
+5. **Xây dựng Web Demo** cho phép upload ảnh và nhận kết quả phân loại Real/Fake kèm bản đồ nhiệt, với thời gian phản hồi ≤ 2 giây trên CPU.
+
+Báo cáo được tổ chức thành 5 chương: Chương 1 giới thiệu tổng quan (chương này); Chương 2 trình bày cơ sở lý thuyết về CNN, GAN, Diffusion, Transfer Learning và XAI; Chương 3 mô tả phương pháp xây dựng bộ dữ liệu, thiết kế kiến trúc mô hình, pipeline huấn luyện/đánh giá và web demo; Chương 4 trình bày kết quả thực nghiệm, benchmark 7 mô hình và phân tích chi tiết; Chương 5 kết luận và đề xuất hướng phát triển.
 
 ---
 
@@ -389,6 +411,8 @@ Grad-CAM (Selvaraju et al., 2017) tạo bản đồ nhiệt (heatmap) chỉ ra v
 
 ### 2.5 Các chỉ số đánh giá (Evaluation Metrics)
 
+**Bảng 2.1: Các chỉ số đánh giá mô hình phân loại**
+
 | Chỉ số | Công thức | Ý nghĩa |
 |--------|-----------|---------|
 | **Accuracy** | (TP + TN) / (TP + TN + FP + FN) | Tỷ lệ dự đoán đúng |
@@ -440,6 +464,8 @@ Mã nguồn chính nằm trong `src/holmhz/` với cấu trúc:
 
 Bộ dữ liệu v2 được tổng hợp từ **5 nguồn công khai** trên nền tảng Kaggle:
 
+**Bảng 3.1: Nguồn dữ liệu trong bộ dữ liệu v2**
+
 | # | Nguồn | Nội dung | Loại generator | Số lượng |
 |---|-------|---------|----------------|---------|
 | 1 | RVF10K | Khuôn mặt CelebA (real) + StyleGAN (fake) | StyleGAN | 8.000 |
@@ -467,6 +493,8 @@ Thay vì sử dụng ImageFolder (chỉ biết path → label), đề tài sử 
 
 Sử dụng stratified split với seed=42:
 
+**Bảng 3.2: Chia tập dữ liệu (Train/Val/Test ID/Test OOD)**
+
 | Split | Tổng | Real | Fake | Mục đích |
 |-------|------|------|------|---------|
 | Train | 28.220 | 14.554 | 13.666 | Huấn luyện mô hình |
@@ -489,7 +517,14 @@ Input [B, 3, 224, 224]
   → Linear(feature_dim, 1)             → [B, 1] (logits)
 ```
 
-Trong đó feature_dim phụ thuộc backbone: EfficientNet-B0 = 1.280, ResNet-18 = 512, ViT-Small = 384, Swin-Tiny = 768.
+**Bảng 3.3: Feature dimension theo backbone**
+
+| Backbone | Feature Dimension |
+|----------|------------------|
+| EfficientNet-B0 | 1.280 |
+| ResNet-18 | 512 |
+| ViT-Small/16 | 384 |
+| Swin-Tiny | 768 |
 
 Output là **logits** (chưa qua Sigmoid). Training dùng `BCEWithLogitsLoss` (numerical stable). Inference dùng `torch.sigmoid(logits)` → P(Fake) ∈ [0, 1].
 
@@ -528,20 +563,21 @@ class TimmDetector(BaseDetector):
 
 Sử dụng thư viện **Albumentations** (nhanh hơn torchvision 2–5×, hỗ trợ JPEG compression):
 
-**Training transforms** (augment mạnh):
+**Bảng 3.4: Training augmentation pipeline**
 
 | Bước | Kỹ thuật | Tham số | Mục đích |
 |------|---------|--------|---------|
 | 1 | RandomResizedCrop hoặc Resize | scale 0.7–1.0, 224×224 | Phá spatial artifacts |
 | 2 | HorizontalFlip | p = 0.5 | Tăng đa dạng (khuôn mặt đối xứng) |
-| 3 | OneOf: JPEG / Blur / Noise / Downscale | p = 0.5, JPEG quality 30–100 | **Chống shortcut learning** |
-| 4 | ColorJitter | brightness=0.2, contrast=0.2 | Mô phỏng điều kiện thực tế |
-| 5 | Normalize | ImageNet mean/std | Chuẩn hóa cho pretrained backbone |
-| 6 | ToTensorV2 | — | Chuyển numpy → PyTorch tensor |
+| 3 | ImageCompression (JPEG) | p = 0.7, quality 50–95 | **Chống shortcut learning** |
+| 4 | OneOf: Blur / Noise / Downscale | p = 0.5 | Mô phỏng nhiễu thực tế |
+| 5 | ColorJitter | brightness=0.2, contrast=0.2 | Mô phỏng điều kiện ánh sáng |
+| 6 | Normalize | ImageNet mean/std | Chuẩn hóa cho pretrained backbone |
+| 7 | ToTensorV2 | — | Chuyển numpy → PyTorch tensor |
 
 **Validation/Test transforms**: Chỉ Resize + Normalize + ToTensorV2 (không augment — đo sức mạnh thật).
 
-**JPEG Augmentation — Kỹ thuật then chốt**: JPEG compression ngẫu nhiên (quality 30–100) buộc mô hình học đặc trưng bền vững thay vì dựa vào compression artifacts. Kỹ thuật này được lấy cảm hứng từ CNNDetection [2] và là yếu tố quyết định cải thiện OOD AUC từ 0,440 lên 0,896.
+**JPEG Augmentation — Kỹ thuật then chốt**: JPEG compression ngẫu nhiên (quality 50–95, p=0.7) buộc mô hình học đặc trưng bền vững thay vì dựa vào compression artifacts. Dải quality 50–95 bao phủ mức nén thực tế của Facebook (80–85), Instagram (85–90) và WhatsApp (60–75). Kỹ thuật này được lấy cảm hứng từ CNNDetection [2] và là yếu tố quyết định cải thiện OOD AUC từ 0,440 lên 0,896.
 
 #### 3.4.2 WeightedRandomSampler
 
@@ -647,7 +683,7 @@ Nhằm định hướng khả năng thương mại hóa và triển khai thực 
 
 Kiến trúc được tổ chức thành 2 lớp rõ ràng:
 
-**Lớp Global (Ngoài Region — phục vụ toàn cầu):**
+**Bảng 3.5: Các thành phần kiến trúc AWS — Lớp Global (Ngoài Region — phục vụ toàn cầu)**
 
 | Service | Vai trò |
 |---------|--------|
@@ -655,7 +691,7 @@ Kiến trúc được tổ chức thành 2 lớp rõ ràng:
 | **CloudFront** | CDN toàn cầu — định tuyến user đến Edge Location gần nhất (VD: TP.HCM), phục vụ cả API request lẫn ảnh heatmap tĩnh từ S3 |
 | **WAF** | Tường lửa ứng dụng web — lọc request độc hại, giới hạn kích thước file (<5MB), rate limiting (<100 req/IP/phút) |
 
-**Lớp Regional (Bên trong Region `ap-southeast-1` — Singapore):**
+**Bảng 3.6: Các thành phần kiến trúc AWS — Lớp Regional (Bên trong Region `ap-southeast-1` — Singapore)**
 
 | Service | Vai trò |
 |---------|--------|
@@ -734,7 +770,7 @@ Toàn bộ quá trình huấn luyện được thực hiện trên nền tảng 
 | **Epochs** | 30 (Early Stopping patience = 7, monitor = val AUC) |
 | **Image Size** | 224 × 224 pixels |
 | **Sampler** | WeightedRandomSampler (cân bằng Real/Fake) |
-| **Augmentation** | JPEG compression (quality 30–95), Gaussian Blur, Random Flip, Color Jitter |
+| **Augmentation** | JPEG compression (quality 50–95, p=0.7), Gaussian Blur, Random Flip, Color Jitter |
 | **Seed** | 42 (đảm bảo reproducibility) |
 
 **Ghi chú về cấu hình theo mô hình**: EfficientNet-B0 và ResNet-18 sử dụng batch_size = 32; ViT-Small/16 và Swin-Tiny sử dụng batch_size = 16 (do giới hạn VRAM). Tất cả 4 mô hình sử dụng cùng hyperparameters để đảm bảo tính công bằng trong so sánh.
@@ -883,7 +919,7 @@ EfficientNet-B0 không phải do con người thiết kế thủ công mà đư�
 | Phiên bản | OOD AUC | Kỹ thuật JPEG |
 |-----------|---------|---------------|
 | EfficientNet-B0 v7 (không JPEG aug) | 0,440 | Không có |
-| EfficientNet-B0 v9 (+ JPEG aug v3) | **0,896** | JPEG compression ngẫu nhiên (quality 30–95) |
+| EfficientNet-B0 v9 (+ JPEG aug v3) | **0,896** | JPEG compression ngẫu nhiên (quality 50–95, p=0.7) |
 
 JPEG Augmentation mô phỏng quá trình nén ảnh thực tế (mạng xã hội, ứng dụng nhắn tin). Ảnh AI-generated thường có các artifact ở tần số cao bị mất khi JPEG nén. Bằng cách thêm JPEG compression ngẫu nhiên vào pipeline augmentation, mô hình buộc phải học **đặc trưng bền vững (robust features)** thay vì dựa vào compression artifacts — giúp tổng quát hóa tốt hơn sang dữ liệu OOD. Kết quả: OOD AUC tăng từ 0,440 lên **0,896** (+0,456).
 
