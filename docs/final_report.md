@@ -466,13 +466,17 @@ Bộ dữ liệu v2 được tổng hợp từ **5 nguồn công khai** trên n�
 
 **Bảng 3.1: Nguồn dữ liệu trong bộ dữ liệu v2**
 
-| # | Nguồn | Nội dung | Loại generator | Số lượng |
-|---|-------|---------|----------------|---------|
+| # | Nguồn | Nội dung | Loại generator | Số lượng (Train) |
+|---|-------|---------|----------------|:----------------:|
 | 1 | RVF10K | Khuôn mặt CelebA (real) + StyleGAN (fake) | StyleGAN | 8.000 |
 | 2 | DeepDetect-2025 | Ảnh đa dạng: phong cảnh, vật thể, con người | Diffusion mixed | 8.000 |
 | 3 | Diffusion Fakes | DALL-E, Midjourney, SD, DeepFaceLab, FaceShifter | 6+ generators | 4.024 |
 | 4 | CIPLab Faces | Khuôn mặt manipulation (Chung-Ang University) | Face manipulation | 3.266 |
-| 5 | Camera vs AI | Ảnh camera thật vs AI-generated | Mixed AI | 400 |
+| 5 | Camera vs AI | Ảnh camera thật vs AI-generated (Train + OOD) | Mixed AI | 218 (Train) + 182 (OOD) |
+| 6 | Deepfake Collection Real | Ảnh thật đa dạng — bổ sung cân bằng Real/Fake | — (Real only) | 4.712 |
+| | **Tổng (Train)** | | | **~28.220** |
+
+*Ghi chú: Cột "Số lượng (Train)" là số ảnh đưa vào tập huấn luyện. Tổng toàn bộ dataset gồm Train (28.220) + Validation (3.526) + Test ID (3.526) + Test OOD (182) = **35.454 ảnh**. Tập Validation và Test ID được chia tỷ lệ stratified từ cùng 5 nguồn (trừ Camera vs AI OOD).*
 
 #### 3.2.2 Tổ chức dữ liệu bằng Manifest JSON
 
