@@ -2,7 +2,7 @@
 HolmHz Web Demo — Synthetic Image Detector.
 
 Upload an image to detect if it's AI-generated (Fake) or Real.
-Primary model: ResNet-18 v2 (ID AUC 0.9953, OOD AUC 0.8646).
+Primary model: EfficientNet-B0 v9 (ID AUC 0.9984, OOD AUC 0.8963) — best overall.
 Optional CLIP ensemble for additional OOD robustness.
 
 Usage:
@@ -50,10 +50,10 @@ if Path(CLIP_CHECKPOINT).exists():
         clip_predictor = CLIPPredictor(CLIP_CHECKPOINT, threshold=THRESHOLD, device=DEVICE)
         print(f"  CLIP loaded in {time.time() - t1:.1f}s", flush=True)
     except Exception as e:
-        print(f"  ⚠️ CLIP load failed: {e}", flush=True)
+        print(f"  [WARNING] CLIP load failed: {e}", flush=True)
         print(f"  Falling back to {MODEL_NAME} only.", flush=True)
 else:
-    print(f"  ⚠️ CLIP checkpoint not found: {CLIP_CHECKPOINT}", flush=True)
+    print(f"  [WARNING] CLIP checkpoint not found: {CLIP_CHECKPOINT}", flush=True)
     print("  Running EfficientNet only mode.", flush=True)
 
 # Load EXIF analyzer
@@ -63,7 +63,7 @@ exif_analyzer = EXIFAnalyzer(
     gps_multiplier=0.85,       # + GPS → p_fake *= 0.85
     ai_software_multiplier=1.2,  # AI software → p_fake *= 1.2
 )
-print("  ✅ EXIF analyzer loaded", flush=True)
+print("  [OK] EXIF analyzer loaded", flush=True)
 
 # Ensemble predictor
 predictor = EnsemblePredictor(
@@ -76,7 +76,7 @@ predictor = EnsemblePredictor(
 )
 has_clip = clip_predictor is not None
 ensemble_mode = "Ensemble + EXIF" if has_clip else "EfficientNet + EXIF"
-print(f"\n🚀 Mode: {ensemble_mode}", flush=True)
+print(f"\n>> Mode: {ensemble_mode}", flush=True)
 
 print("Loading Grad-CAM service...", flush=True)
 t2 = time.time()
@@ -185,8 +185,6 @@ h1 { text-align: center; }
 
 with gr.Blocks(
     title="HolmHz — AI Image Detector",
-    theme=gr.themes.Soft(),
-    css=css,
 ) as demo:
     gr.Markdown(
         "# 🔍 HolmHz — Synthetic Image Detector\n"
@@ -255,11 +253,11 @@ with gr.Blocks(
     gr.Markdown(
         '<div class="footer">'
         f"<b>Mode</b>: {ensemble_mode} | "
-        "<b>EfficientNet</b>: v8 (ID AUC 0.9984) | "
-        "<b>CLIP</b>: v9 (OOD AUC 0.9419) | "
+        "<b>EfficientNet-B0 v9</b>: (ID AUC 0.9984, OOD AUC 0.8963) | "
+        f"<b>CLIP</b>: ViT-L/14 (OOD boost) | "
         f"<b>Weights</b>: {EFFNET_WEIGHT:.0%}/{CLIP_WEIGHT:.0%} | "
         f"<b>Threshold</b>: {THRESHOLD}<br>"
-        "HolmHz — AI-Generated Image Detection | Ensemble v10"
+        "HolmHz — AI-Generated Image Detection | EfficientNet-B0 v9"
         "</div>",
     )
 
@@ -270,6 +268,7 @@ with gr.Blocks(
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
-        server_port=7860,
         show_error=True,
+        theme=gr.themes.Soft(),
+        css=css,
     )
