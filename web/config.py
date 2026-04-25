@@ -21,13 +21,12 @@ MODEL_NAME = "efficientnet_b0"
 CLIP_CHECKPOINT = str(PROJECT_ROOT / "outputs" / "checkpoints" / "best_v9_clip.pt")
 
 # Inference settings
-THRESHOLD = 0.65   # Raised from 0.5 → reduce False Positive (real→fake bias)
+THRESHOLD = 0.5
 DEVICE = "cpu"
 
-# Ensemble weights — EfficientNet-B0 dominates (more balanced on camera_real: 73.4%)
-# CLIP was pulling too hard toward FAKE at 0.6 weight
-EFFNET_WEIGHT = 0.6
-CLIP_WEIGHT = 0.4
+# Ensemble weights (EfficientNet-B0 is strong on ID, CLIP helps OOD)
+EFFNET_WEIGHT = 0.4
+CLIP_WEIGHT = 0.6
 
 # ImageNet normalization
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
