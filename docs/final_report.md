@@ -166,7 +166,7 @@
 | OOD AUC ≥ 0,85 | 0,85 | **0,896** ✅ | EfficientNet-B0 v9 |
 | Web demo ≤ 2 giây/ảnh | 2s | **~1,5s** ✅ | ResNet-18 (ONNX) |
 
-5. **Phát hiện quan trọng**: EfficientNet-B0 với kỹ thuật JPEG Augmentation (v9) là mô hình tốt nhất tổng thể, đạt AUC nội miền 0,998 và AUC ngoài miền 0,896 — vượt trội tất cả 3 nghiên cứu SOTA quốc tế — trong khi chỉ có 4M tham số (nhỏ nhất trong tất cả mô hình được đánh giá).
+5. **Phát hiện quan trọng**: EfficientNet-B0 với kỹ thuật JPEG Augmentation (v9) là mô hình tốt nhất tổng thể, đạt AUC nội miền 0,998 và AUC ngoài miền 0,896 — cao hơn cả 3 nghiên cứu baseline quốc tế trong điều kiện thí nghiệm của đề tài — trong khi chỉ có 4M tham số (nhỏ nhất trong tất cả mô hình được đánh giá).
 
 6. **Web demo**: Ứng dụng Gradio cho phép người dùng upload ảnh và nhận kết quả phân loại Real/Fake kèm bản đồ nhiệt Grad-CAM, thời gian phản hồi ≤ 2 giây trên CPU.
 
@@ -196,17 +196,29 @@ Lĩnh vực phát hiện ảnh tổng hợp (Synthetic Image Detection) đã thu
 
 Đây là hướng tiếp cận nền tảng và phổ biến nhất. Rössler et al. (2019) [1] giới thiệu bộ dữ liệu chuẩn FaceForensics++ và chứng minh XceptionNet đạt độ chính xác >99% trên dữ liệu nén thấp; tuy nhiên, hiệu suất giảm mạnh khi gặp ảnh từ nguồn lạ. Wang et al. (2020) [2] sử dụng ResNet-50 huấn luyện trên ProGAN, đạt Average Precision 100% trên các GAN cũ nhưng gặp khó khăn với Diffusion Models thế hệ mới.
 
+*Nhận xét*: Cả hai nghiên cứu đều đạt kết quả cao nhưng chỉ được đánh giá trên dữ liệu **cùng phân phối** (in-domain). Wang et al. (2020) báo cáo AP giảm đáng kể khi test cross-dataset, cho thấy hiện tượng overfitting vào đặc trưng cụ thể của GAN thay vì học được đặc trưng tổng quát của ảnh tổng hợp.
+
 **Nhóm 2: Phương pháp dựa trên Transformer và Attention**
 
 Để khắc phục hạn chế về tầm nhìn cục bộ của CNN, Wodajo et al. (2021) [3] đề xuất kiến trúc Convolutional Vision Transformer, đạt 91,5% accuracy trên bộ DFDC. Cao et al. (2022) [4] sử dụng cơ chế Attention tập trung vào vùng ranh giới (blending boundary), cải thiện đáng kể khả năng phát hiện deepfake hoán đổi khuôn mặt.
+
+*Nhận xét*: Wodajo (2021) đạt 91,5% trên DFDC (bộ dữ liệu video deepfake), tuy nhiên chưa rõ hiệu quả trên ảnh tĩnh Diffusion. Ngoài ra, Transformer yêu cầu tài nguyên tính toán lớn (22–304M tham số), khó triển khai trên thiết bị phổ thông.
 
 **Nhóm 3: Phương pháp phân tích miền tần số (Frequency Analysis)**
 
 Frank et al. (2020) [5] sử dụng biến đổi DCT, chứng minh các GAN để lại lỗi phổ tần số lặp lại bất thường, đạt accuracy >90% với chi phí tính toán thấp. Durall et al. (2020) [6] chứng minh rằng các bước up-sampling trong mô hình tạo sinh làm mất đặc trưng tần số cao của ảnh thật.
 
+*Nhận xét*: Phương pháp tần số hiệu quả với GAN (vì up-sampling tạo artifact tần số rõ ràng), nhưng bỏ qua các lỗi ngữ nghĩa (semantic artifacts) mà Diffusion Models tạo ra. Diffusion không sử dụng up-sampling mà khử nhiễu lặp lại (iterative denoising) — do đó các dấu vết tần số đặc trưng của GAN không còn xuất hiện.
+
 **Nhóm 4: Phương pháp Hybrid và XAI**
 
 Xu hướng mới nhằm tăng độ tin cậy bằng cách tích hợp Explainable AI (XAI). Tuy nhiên, đa số nghiên cứu hiện tại vẫn hoạt động như "hộp đen" (black-box). Việc tích hợp Grad-CAM để trực quan hóa vùng giả mạo vẫn còn hạn chế và chưa được tối ưu hóa cho Diffusion Models.
+
+*Nhận xét*: Hầu hết các nghiên cứu chỉ dùng XAI hậu kỳ (post-hoc) để phân tích mô hình, chưa tích hợp vào giao diện người dùng cuối. Thiếu sự kết hợp giữa hiệu suất cao và khả năng giải thích trong cùng một hệ thống.
+
+**Phân tích bản chất kỹ thuật: Tại sao detector GAN không hiệu quả trên Diffusion?**
+
+Sự suy giảm hiệu năng của các phương pháp GAN detection trên Diffusion Models có nguyên nhân bản chất từ sự khác biệt trong cơ chế tạo ảnh. GAN tạo ảnh qua quá trình **adversarial generation** với các bước up-sampling (transposed convolution, nearest-neighbor upscaling), để lại các dấu vết phổ tần số lặp lại bất thường (spectral artifacts) — đây là đặc trưng mà các CNN detector như Wang et al. (2020) [2] và Frank et al. (2020) [5] khai thác để phân biệt. Ngược lại, Diffusion Models tạo ảnh qua quá trình **khử nhiễu lặp lại** (iterative denoising) với hàng trăm bước, làm mờ hoặc loại bỏ các dấu vết phổ nói trên. Kết quả là các đặc trưng đã học được từ GAN không còn khả năng phân biệt tốt trên ảnh Diffusion — giải thích tại sao các phương pháp như CNNDetection đạt AUC < 0,5 (phản-tương quan) khi gặp dữ liệu Diffusion.
 
 **Bảng MĐ.1: So sánh tổng hợp các nghiên cứu tiêu biểu**
 
@@ -224,6 +236,8 @@ Tổng quan tài liệu cho thấy 3 khoảng trống rõ rệt:
 1. **Thiếu tổng quát hóa trên Diffusion Models**: Đa số nghiên cứu kinh điển (2019–2021) tập trung vào GAN. Hiện thiếu các đánh giá chuyên sâu trên Diffusion thế hệ mới (Midjourney, Stable Diffusion, DALL-E 3).
 2. **Thiếu tính minh bạch (XAI)**: Người dùng cần hiểu "tại sao ảnh này là giả". Các mô hình hiện tại thiếu cơ chế giải thích trực quan trên giao diện.
 3. **Nhu cầu mô hình nhẹ**: Các mô hình Transformer quá nặng (22–304M tham số) để triển khai trên thiết bị cá nhân.
+
+Tổng hợp lại, **chưa có nghiên cứu nào đồng thời giải quyết cả ba vấn đề trên** — tổng quát hóa trên Diffusion, tích hợp XAI vào giao diện người dùng, và triển khai trên mô hình nhẹ — trong một khung phương pháp thống nhất. Đề tài này nhắm đến việc thu hẹp khoảng trống đó.
 
 ### 3. Tính cấp thiết
 
@@ -308,15 +322,7 @@ Báo cáo được tổ chức thành 5 chương: Chương 1 giới thiệu tổ
 
 #### 2.1.1 Mạng đối sinh (Generative Adversarial Network — GAN)
 
-GAN được giới thiệu bởi Goodfellow et al. (2014), gồm hai mạng nơ-ron cạnh tranh với nhau:
-- **Generator (G)**: Nhận đầu vào là vector nhiễu ngẫu nhiên z ~ N(0, I) và tạo ra ảnh giả G(z).
-- **Discriminator (D)**: Phân biệt ảnh thật (từ tập dữ liệu) và ảnh giả (từ Generator).
-
-Hai mạng được huấn luyện song song theo bài toán minimax:
-
-> min_G max_D V(D, G) = E[log D(x)] + E[log(1 - D(G(z)))]
-
-Các kiến trúc GAN tiêu biểu trong lĩnh vực tạo ảnh khuôn mặt:
+GAN được giới thiệu bởi Goodfellow et al. (2014), gồm hai mạng nơ-ron cạnh tranh: **Generator (G)** tạo ảnh giả từ nhiễu ngẫu nhiên, **Discriminator (D)** phân biệt ảnh thật và giả. Hai mạng được huấn luyện song song theo bài toán minimax đến khi Generator tạo được ảnh không phân biệt được với ảnh thật.
 - **ProGAN** (Karras et al., 2018): Huấn luyện từng lớp (progressive growing), tạo ảnh 1024×1024 chất lượng cao.
 - **StyleGAN/StyleGAN2** (Karras et al., 2019/2020): Sử dụng mapping network và style injection, tạo ảnh khuôn mặt cực kỳ chân thực.
 
@@ -339,15 +345,9 @@ Các mô hình Diffusion phổ biến:
 
 #### 2.2.1 Kiến trúc CNN cơ bản
 
-CNN trích xuất đặc trưng ảnh qua các lớp:
-1. **Convolutional Layer**: Áp dụng bộ lọc (kernel) trượt trên ảnh → phát hiện edges, textures, patterns.
-2. **Pooling Layer**: Giảm kích thước spatial → giữ lại đặc trưng quan trọng.
-3. **Fully Connected Layer**: Phân loại dựa trên đặc trưng đã trích xuất.
+CNN trích xuất đặc trưng ảnh qua các lớp Convolutional (phát hiện edges, textures, patterns), Pooling (giảm kích thước, giữ đặc trưng quan trọng), và Fully Connected (phân loại).
 
-**Inductive Bias của CNN**: CNN có 3 giả định phù hợp cho dữ liệu ảnh:
-- **Locality** (tính cục bộ): Pixel lân cận có mối liên hệ — kernel nhỏ (3×3) đủ để nắm bắt.
-- **Translation Invariance** (bất biến dịch chuyển): Đặc trưng có ý nghĩa ở mọi vị trí trong ảnh.
-- **Hierarchical representation** (biểu diễn phân cấp): Từ edge → texture → part → object.
+**Inductive Bias của CNN** — 3 giả định phù hợp cho dữ liệu ảnh: **Locality** (pixel lân cận có liên hệ), **Translation Invariance** (pattern có ý nghĩa ở mọi vị trí), và **Hierarchical representation** (từ edge → texture → object). Những giả định này giúp CNN học hiệu quả với dataset nhỏ-trung (< 100K ảnh), trong khi Transformer thiếu inductive bias tương tự.
 
 #### 2.2.2 EfficientNet
 
@@ -380,16 +380,9 @@ Swin Transformer (Liu et al., 2021) cải tiến ViT với:
 
 ### 2.3 Học chuyển giao (Transfer Learning)
 
-Transfer Learning là kỹ thuật **tái sử dụng** kiến thức từ bài toán đã giải (pre-training) sang bài toán mới (fine-tuning):
+Transfer Learning là kỹ thuật **tái sử dụng** kiến thức từ bài toán đã giải (pre-training trên ImageNet — 1,2 triệu ảnh, 1.000 lớp) sang bài toán mới (fine-tuning trên dữ liệu Real/Fake). Mô hình pretrained đã học các đặc trưng tổng quát (edges, textures, shapes), chỉ cần fine-tune lớp cuối cho bài toán cụ thể.
 
-1. **Pre-training**: Mô hình được huấn luyện trên ImageNet (1,2 triệu ảnh, 1.000 lớp) → học các đặc trưng tổng quát (edges, textures, shapes).
-2. **Fine-tuning**: Thay lớp classification cuối → huấn luyện lại trên dữ liệu Real/Fake.
-
-Chiến lược freeze/unfreeze backbone:
-- **Phase 1 (Freeze backbone)**: Chỉ huấn luyện head (1.281 trainable params cho EfficientNet-B0) → nhanh, ổn định.
-- **Phase 2 (Unfreeze toàn bộ)**: Fine-tune cả backbone → tối ưu hóa cho bài toán cụ thể.
-
-Trong đề tài này, nhóm sử dụng Phase 2 (unfreeze toàn bộ) vì dataset v2 đủ lớn (28.220 ảnh) để fine-tune toàn bộ mạng mà không bị overfitting nghiêm trọng.
+Trong đề tài này, nhóm sử dụng chiến lược **unfreeze toàn bộ backbone** (full fine-tuning) vì dataset v2 đủ lớn (28.220 ảnh) để fine-tune toàn bộ mạng mà không bị overfitting nghiêm trọng.
 
 ### 2.4 Explainable AI (XAI) và Grad-CAM
 
@@ -508,6 +501,12 @@ Sử dụng stratified split với seed=42:
 
 **Chiến lược OOD**: Tập Test OOD sử dụng nguồn **camera_real** và **camera_ai** — hoàn toàn không xuất hiện trong tập huấn luyện. Mục đích: kiểm tra khả năng phát hiện trên dữ liệu "chưa từng thấy" (unseen data).
 
+**Lưu ý về dữ liệu**:
+
+1. **Nguy cơ trùng lặp giữa các nguồn**: Do dữ liệu được tổng hợp từ 5 nguồn Kaggle độc lập, tồn tại nguy cơ trùng lặp giữa các nguồn (ví dụ: cùng một ảnh gốc xuất hiện trong nhiều bộ dữ liệu). Trong phạm vi đề tài, nhóm chưa thực hiện kiểm tra trùng lặp bằng perceptual hashing hoặc feature-level deduplication — đây là hạn chế cần lưu ý khi diễn giải kết quả.
+
+2. **Kích thước tập OOD**: Tập Test OOD chỉ gồm 182 ảnh. Với mức accuracy quan sát được là 78% (n=182), khoảng tin cậy 95% (Wilson score) vào khoảng ±6,0%. Do đó, các kết luận về khả năng tổng quát hóa mang tính **chỉ báo sơ bộ** hơn là khẳng định thống kê vững chắc. Cần tập OOD lớn hơn (≥ 1.000 ảnh) để xác nhận.
+
 ### 3.3 Thiết kế kiến trúc mô hình
 
 #### 3.3.1 Kiến trúc tổng quát: Backbone + Head
@@ -581,7 +580,7 @@ Sử dụng thư viện **Albumentations** (nhanh hơn torchvision 2–5×, hỗ
 
 **Validation/Test transforms**: Chỉ Resize + Normalize + ToTensorV2 (không augment — đo sức mạnh thật).
 
-**JPEG Augmentation — Kỹ thuật then chốt**: JPEG compression ngẫu nhiên (quality 50–95, p=0.7) buộc mô hình học đặc trưng bền vững thay vì dựa vào compression artifacts. Dải quality 50–95 bao phủ mức nén thực tế của Facebook (80–85), Instagram (85–90) và WhatsApp (60–75). Kỹ thuật này được lấy cảm hứng từ CNNDetection [2] và là yếu tố quyết định cải thiện OOD AUC từ 0,440 lên 0,896.
+**JPEG Augmentation — Kỹ thuật có ảnh hưởng đáng kể**: JPEG compression ngẫu nhiên (quality 50–95, p=0.7) buộc mô hình học đặc trưng bền vững thay vì dựa vào compression artifacts. Dải quality 50–95 bao phủ mức nén thực tế của Facebook (80–85), Instagram (85–90) và WhatsApp (60–75). Kỹ thuật này được lấy cảm hứng từ CNNDetection [2] và là yếu tố có ảnh hưởng đáng kể đến cải thiện OOD AUC từ 0,440 lên 0,896 trong điều kiện thí nghiệm của đề tài.
 
 #### 3.4.2 WeightedRandomSampler
 
@@ -854,13 +853,13 @@ Bộ dữ liệu được sử dụng là **Dataset v2** (`data/raw_v2/`), đư�
 | **Ours** | ViT-Small/16 | ViT-Small/16 | 22M | 0,974 | 0,921 | 0,920 | 0,833 | 0,747 |
 | **Ours** | Swin-Tiny† | Swin-T | 28M | 0,620 | 0,537 | 0,633 | 0,811 | 0,676 |
 
-*Ghi chú: Bold = kết quả tốt nhất trong cùng cột. † Swin-Tiny training bị thất bại (best epoch = 0).*
+*Ghi chú: Bold = kết quả tốt nhất trong cùng cột. † Swin-Tiny training bị thất bại (best epoch = 0). Các baseline sử dụng pre-trained weights gốc do tác giả công bố, không được retrain trên Dataset v2 — đây là so sánh zero-shot nhằm đánh giá khả năng tổng quát hóa của từng phương pháp, không phải so sánh trong cùng điều kiện huấn luyện.*
 
 **Nhận xét tổng quan:**
-- **EfficientNet-B0 v9** đạt kết quả tốt nhất tổng thể: ID AUC 0,998 và OOD AUC 0,896 — vượt xa cả 3 nghiên cứu SOTA.
+- **EfficientNet-B0 v9** đạt kết quả tốt nhất tổng thể trong điều kiện thí nghiệm: ID AUC 0,998 và OOD AUC 0,896 — cao hơn cả 3 nghiên cứu baseline.
 - **ResNet-18** đạt OOD Accuracy cao nhất (80,2%) — cân bằng nhất giữa phát hiện fake và nhận diện ảnh thật.
-- Cả 3 nghiên cứu baseline đều thất bại trên dữ liệu Diffusion hiện đại (AUC < 0,73 cho ID, < 0,54 cho OOD) — confirm khoảng trống nghiên cứu đã nêu.
-- Kết quả chứng minh: mô hình **nhỏ** (4M tham số) nhưng được huấn luyện **đúng cách** trên dữ liệu **phù hợp** có thể vượt trội các mô hình lớn hơn 75× (304M tham số).
+- Cả 3 nghiên cứu baseline đều cho kết quả thấp trên bộ dữ liệu Diffusion hiện đại (AUC < 0,73 cho ID, < 0,54 cho OOD). Điều này phù hợp với khoảng trống nghiên cứu đã nhận diện: các phương pháp được thiết kế cho GAN có thể không hoạt động hiệu quả trên Diffusion.
+- Kết quả cho thấy: mô hình nhỏ hơn (4M tham số) có thể đạt kết quả tốt hơn khi được huấn luyện trên dữ liệu phù hợp với bài toán mục tiêu — nhấn mạnh tầm quan trọng của chiến lược dữ liệu so với kích thước mô hình.
 
 ### 4.5 Phân tích biểu đồ
 
@@ -918,14 +917,16 @@ EfficientNet-B0 không phải do con người thiết kế thủ công mà đư�
 - **Squeeze-and-Excitation (SE)**: Attention trên kênh — mô hình tự chọn kênh quan trọng
 - **Compound coefficient φ**: Scale depth/width/resolution theo tỷ lệ cân bằng
 
-**3. JPEG Augmentation v3 — Yếu tố quyết định cho OOD**
+**3. JPEG Augmentation v3 — Yếu tố có ảnh hưởng đáng kể đến OOD**
 
 | Phiên bản | OOD AUC | Kỹ thuật JPEG |
 |-----------|---------|---------------|
 | EfficientNet-B0 v7 (không JPEG aug) | 0,440 | Không có |
 | EfficientNet-B0 v9 (+ JPEG aug v3) | **0,896** | JPEG compression ngẫu nhiên (quality 50–95, p=0.7) |
 
-JPEG Augmentation mô phỏng quá trình nén ảnh thực tế (mạng xã hội, ứng dụng nhắn tin). Ảnh AI-generated thường có các artifact ở tần số cao bị mất khi JPEG nén. Bằng cách thêm JPEG compression ngẫu nhiên vào pipeline augmentation, mô hình buộc phải học **đặc trưng bền vững (robust features)** thay vì dựa vào compression artifacts — giúp tổng quát hóa tốt hơn sang dữ liệu OOD. Kết quả: OOD AUC tăng từ 0,440 lên **0,896** (+0,456).
+JPEG Augmentation mô phỏng quá trình nén ảnh thực tế (mạng xã hội, ứng dụng nhắn tin). Ảnh AI-generated thường có các artifact ở tần số cao bị mất khi JPEG nén. Bằng cách thêm JPEG compression ngẫu nhiên vào pipeline augmentation, mô hình buộc phải học **đặc trưng bền vững (robust features)** thay vì dựa vào compression artifacts — giúp tổng quát hóa tốt hơn sang dữ liệu OOD. Kết quả quan sát được: OOD AUC tăng từ 0,440 lên **0,896** (+0,456).
+
+**Lưu ý về mức độ kiểm chứng**: Kết quả trên dựa trên một lần chạy duy nhất (seed=42). Để khẳng định chắc chắn hơn, cần lặp lại thí nghiệm với nhiều seed khác nhau và báo cáo giá trị trung bình cùng độ lệch chuẩn. Ngoài ra, đề tài chưa thực hiện ablation study tách biệt JPEG augmentation khỏi các augmentation khác (blur, noise, color jitter) — do đó chưa thể kết luận JPEG là yếu tố duy nhất gây ra sự cải thiện. Tuy nhiên, sự chênh lệch lớn (+0,456 AUC) cho thấy đây là yếu tố có ảnh hưởng đáng kể.
 
 ### 4.7 Phân tích sự thất bại của Swin-Tiny
 
@@ -940,7 +941,9 @@ Swin-Tiny (28M tham số) là mô hình lớn nhất nhưng hoàn toàn thất b
 
 **Nguyên nhân gốc rễ**: Learning rate 3×10⁻⁴ quá cao cho Swin Transformer. Kiến trúc Swin yêu cầu fine-tuning chuyên biệt: lr = 5×10⁻⁵, warmup 3 epochs, layer-wise LR decay = 0,65, đóng băng backbone 3–5 epochs đầu. Với cùng hyperparameters như CNN (lr = 3×10⁻⁴, không warmup), gradient quá lớn phá hủy các trọng số pretrained ngay từ epoch đầu tiên.
 
-**Bài học**: Mô hình lớn ≠ mô hình tốt. Transformer yêu cầu fine-tuning recipe riêng biệt mà không thể áp dụng chung hyperparameters của CNN.
+**Phân tích dưới góc độ kiến trúc**: Swin Transformer, dù có shifted-window attention giảm complexity, vẫn thiếu inductive bias của CNN (locality, translation invariance). Với 28.220 ảnh fine-tuning — nhỏ hơn nhiều lần so với ImageNet-21K (14M ảnh) mà Swin được pre-train — quá trình fine-tune cần learning rate rất thấp và warmup để tránh phá hủy attention patterns đã học. Điều này nhất quán với quan sát của Liu et al. (2021): Swin-T cần fine-tune recipe chuyên biệt cho downstream tasks với dataset nhỏ.
+
+**Bài học**: Mô hình lớn ≠ mô hình tốt. Transformer yêu cầu fine-tuning recipe riêng biệt mà không thể áp dụng chung hyperparameters của CNN. Đây không phải hạn chế của Swin mà là hạn chế của thiết kế thí nghiệm trong đề tài này.
 
 ### 4.8 So sánh với các nghiên cứu baseline
 
@@ -958,7 +961,7 @@ Mặc dù sử dụng CLIP ViT-L/14 (304M tham số) với tham vọng "universa
 
 EfficientNet-B4 huấn luyện trên FaceForensics++ (video deepfake) hoạt động gần random trên ảnh AI-generated. Kết quả này xác nhận rằng phát hiện hoán đổi khuôn mặt (face manipulation) là bài toán **khác biệt bản chất** với phát hiện ảnh tổng hợp toàn phần (full image synthesis).
 
-**Kết luận so sánh**: Cả 3 phương pháp SOTA đều thất bại vì được thiết kế cho thế hệ GAN/deepfake cũ. Các mô hình HolmHz, được huấn luyện trực tiếp trên dữ liệu Diffusion đa dạng (Midjourney, DALL-E, Stable Diffusion), vượt trội vì giải quyết đúng "khoảng trống nghiên cứu" đã nhận diện.
+**Kết luận so sánh**: Cả 3 phương pháp baseline đều cho kết quả thấp trên bộ dữ liệu Diffusion hiện đại, có thể do chúng được thiết kế và huấn luyện trên dữ liệu thế hệ GAN/deepfake cũ. Các mô hình HolmHz, được huấn luyện trực tiếp trên dữ liệu Diffusion đa dạng (Midjourney, DALL-E, Stable Diffusion), đạt kết quả tốt hơn — cho thấy tầm quan trọng của việc huấn luyện trên dữ liệu phù hợp với phân phối mục tiêu. Cần lưu ý rằng đây là so sánh zero-shot cho baselines (không retrain trên cùng dataset), do đó sự khác biệt phản ánh cả yếu tố dữ liệu lẫn phương pháp.
 
 ### 4.9 Đánh giá KPI đề tài
 
@@ -997,6 +1000,16 @@ Nhóm nghiên cứu xây dựng ứng dụng web demo sử dụng framework Grad
 - File chạy: `web/app.py`
 - Cấu hình: `web/config.py`
 
+### 4.11 Phân tích Grad-CAM: Từ minh họa đến giải thích
+
+Để đánh giá không chỉ **độ chính xác** mà còn **cơ sở phân loại** của mô hình, nhóm sử dụng Grad-CAM phân tích vùng ảnh mà EfficientNet-B0 v9 tập trung khi đưa ra quyết định.
+
+**Trên ảnh fake (được phát hiện đúng)**: Grad-CAM tập trung vào các vùng **da mặt, viền tóc, mắt** — nơi AI generators thường để lại dấu vết bất thường về texture (như tóc mượt quá mịn, mắt không đối xứng, viền da không tự nhiên). Điều này cho thấy mô hình đang học đặc trưng có ý nghĩa ngữ nghĩa, không chỉ dựa vào nhiễu hoặc artifacts ngẫu nhiên.
+
+**Trên ảnh real (được nhận diện đúng)**: Heatmap **phân tán đều** — không có vùng nào bị highlight mạnh, cho thấy mô hình không tìm thấy pattern bất thường rõ ràng.
+
+**Trên ảnh real bị dự đoán sai (False Positive)**: Trong 25/94 ảnh real OOD bị dự đoán sai là fake, Grad-CAM cho thấy mô hình tập trung vào các vùng có **gradient màu mịn** (smooth color gradient) hoặc **background đồng nhất** — đặc trưng giống với ảnh AI-generated. Điều này cho thấy giới hạn của mô hình: khi ảnh thật có đặc điểm thẩm mỹ tương tự ảnh AI (chất lượng cao, ánh sáng đồng đều, nền mịn), mô hình có thể nhầm lẫn.
+
 ---
 
 ## CHƯƠNG 5: KẾT LUẬN VÀ KIẾN NGHỊ
@@ -1009,26 +1022,28 @@ Nhóm nghiên cứu xây dựng ứng dụng web demo sử dụng framework Grad
 
 2. **Huấn luyện và đánh giá 4 kiến trúc mô hình**: EfficientNet-B0, ResNet-18, ViT-Small/16, Swin-Tiny. Trong đó, **EfficientNet-B0 v9** đạt kết quả tốt nhất tổng thể (ID AUC 0,998, OOD AUC 0,896) với chỉ 4M tham số — nhỏ nhất trong tất cả mô hình.
 
-3. **Benchmark công bằng với 3 SOTA quốc tế**: Tất cả 7 mô hình được đánh giá trên cùng bộ dữ liệu. Kết quả chứng minh 3 phương pháp SOTA (CNNDetection, UniversalFakeDetect, DeepfakeBench) đều thất bại trên dữ liệu Diffusion hiện đại (AUC < 0,73), trong khi HolmHz EfficientNet-B0 đạt 0,998/0,896 — xác nhận khoảng trống nghiên cứu và giá trị của đề tài.
+3. **Benchmark với 3 nghiên cứu baseline quốc tế**: Tất cả 7 mô hình được đánh giá trên cùng bộ dữ liệu. Kết quả cho thấy 3 phương pháp baseline (CNNDetection, UniversalFakeDetect, DeepfakeBench) đều cho kết quả thấp trên dữ liệu Diffusion hiện đại (AUC < 0,73), trong khi HolmHz EfficientNet-B0 đạt 0,998/0,896 trong điều kiện thí nghiệm của đề tài — phù hợp với khoảng trống nghiên cứu đã nhận diện.
 
-4. **Phát hiện kỹ thuật quan trọng**: JPEG Augmentation cải thiện OOD AUC từ 0,440 lên 0,896 (+0,456) — chứng minh augmentation strategy có ảnh hưởng quyết định đến khả năng tổng quát hóa, quan trọng hơn cả việc tăng kích thước mô hình.
+4. **Quan sát đáng chú ý về JPEG Augmentation**: JPEG Augmentation đi kèm với cải thiện OOD AUC từ 0,440 lên 0,896 (+0,456) — cho thấy chiến lược augmentation có thể có ảnh hưởng đáng kể đến khả năng tổng quát hóa. Kết quả này cần được xác nhận thêm qua nhiều lần chạy và ablation study.
 
 5. **Web demo hoạt động**: Ứng dụng Gradio với ResNet-18 ONNX, latency ~1,5s/ảnh trên CPU — đạt KPI.
 
 ### 5.2 Đóng góp của đề tài
 
 1. **Bộ dữ liệu đa dạng**: Dataset v2 bao phủ 8+ generators bao gồm cả thế hệ cũ (GAN) và mới (Diffusion) — phù hợp hơn so với các bộ dữ liệu chỉ tập trung vào GAN.
-2. **Benchmark 7 mô hình công bằng**: So sánh trên cùng điều kiện giữa 4 kiến trúc tự huấn luyện và 3 SOTA — cung cấp evidence-based comparison thay vì so sánh gián tiếp qua paper.
-3. **Phát hiện vai trò của JPEG Augmentation**: Chứng minh JPEG augmentation cải thiện OOD >2× — đóng góp thực tiễn cho cộng đồng nghiên cứu.
+2. **Benchmark 7 mô hình trên cùng bộ dữ liệu**: So sánh 4 kiến trúc tự huấn luyện và 3 baseline — cung cấp evidence-based comparison thay vì so sánh gián tiếp qua paper. Cần lưu ý baselines được đánh giá ở chế độ zero-shot.
+3. **Quan sát về vai trò của JPEG Augmentation**: Kết quả thực nghiệm cho thấy JPEG augmentation đi kèm với cải thiện OOD >2× — một quan sát có giá trị thực tiễn cần được kiểm chứng thêm.
 4. **Web demo tích hợp XAI**: Grad-CAM heatmap giúp người dùng hiểu lý do phân loại, tăng tính minh bạch.
 
 ### 5.3 Hạn chế
 
-1. **Tập Test OOD nhỏ** (182 ảnh): Kết quả OOD cần được xác nhận trên bộ dữ liệu lớn hơn để đảm bảo ý nghĩa thống kê.
-2. **Swin-Tiny thất bại**: Do hyperparameters không phù hợp cho Transformer. Cần fine-tuning recipe chuyên biệt (lower LR, warmup, layer decay) để đánh giá công bằng.
-3. **Chưa xử lý video**: Đề tài giới hạn ở ảnh tĩnh, chưa mở rộng sang phát hiện deepfake video.
-4. **Chỉ đánh giá binary classification**: Chưa phân biệt được ảnh fake từ generator nào (multi-class attribution).
-5. **Scope ứng dụng**: Đây là Proof-of-Concept, chưa tối ưu cho triển khai sản xuất quy mô lớn.
+1. **Tập Test OOD nhỏ** (182 ảnh): Kết quả OOD cần được xác nhận trên bộ dữ liệu lớn hơn để đảm bảo ý nghĩa thống kê (khoảng tin cậy hiện tại ±6%).
+2. **Swin-Tiny thất bại**: Do hyperparameters không phù hợp cho Transformer — đây là hạn chế của thiết kế thí nghiệm, không phải của kiến trúc. Cần fine-tuning recipe chuyên biệt (lower LR, warmup, layer decay) để đánh giá công bằng.
+3. **Chưa kiểm tra trùng lặp dữ liệu**: Dữ liệu từ 5 nguồn Kaggle có thể trùng lặp, chưa được deduplication bằng perceptual hashing.
+4. **Chỉ chạy một lần (single seed)**: Kết quả dựa trên seed=42 duy nhất, chưa báo cáo mean ± std qua nhiều lần chạy. Thiếu ablation study tách biệt từng loại augmentation.
+5. **Chưa xử lý video**: Đề tài giới hạn ở ảnh tĩnh, chưa mở rộng sang phát hiện deepfake video.
+6. **Chỉ đánh giá binary classification**: Chưa phân biệt được ảnh fake từ generator nào (multi-class attribution).
+7. **Scope ứng dụng**: Đây là Proof-of-Concept, chưa tối ưu cho triển khai sản xuất quy mô lớn.
 
 ### 5.4 Hướng phát triển
 
