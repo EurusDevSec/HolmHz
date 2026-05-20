@@ -268,9 +268,10 @@ Cả 3 baseline thất bại vì được thiết kế cho GAN cũ, không hoạ
 ## SLIDE 14 — WEB DEMO & KIẾN TRÚC AWS ĐỀ XUẤT
 
 **Phần A — Web Demo (Gradio):**
-- Framework: Gradio + ResNet-18 ONNX
+- Framework: Gradio + **EfficientNet-B0 ONNX** + EXIF Analyzer
+- Mode: `EfficientNet + EXIF` (fallback về EfficientNet-only nếu thiếu model phụ)
 - Latency: ~1,5 giây/ảnh trên CPU (KPI ≤ 2s ✅)
-- Tính năng: Upload ảnh → Real/Fake (%) + Grad-CAM heatmap
+- Tính năng: Upload ảnh → Real/Fake (%) + Grad-CAM heatmap + phân tích EXIF metadata
 
 **Phần B — Kiến trúc AWS đề xuất:**
 > 🖼️ **Nguồn hình**: `outputs/benchmark/final_benchmark/holmHz2_Architecture.png`
